@@ -1,0 +1,20 @@
+
+> joseph-co-cleaning-services@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.5.15
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.1.46:3000
+
+ ✓ Starting...
+ ✓ Ready in 4.9s
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ○ Compiling / ...
+ ✓ Compiled / in 13s (675 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET / 200 in 14524ms
+ GET / 200 in 842ms
+ GET / 200 in 1453ms
+ GET / 200 in 267ms
+ ✓ Compiled in 2.2s (649 modules)
+ GET / 200 in 928ms
