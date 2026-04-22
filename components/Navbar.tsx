@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <header className="fixed inset-x-0 top-0 z-10">
+    <header className="absolute inset-x-0 top-0 z-30">
       <nav className="mx-auto flex w-full max-w-[1450px] flex-wrap items-center justify-between gap-6 px-5 py-5 text-white md:px-8 lg:px-12">
         <div className="flex items-center gap-5 md:gap-8">
           <Link

@@ -1,37 +1,32 @@
 import Link from "next/link";
 
-const ctaImage = "/clean-space-living-room.jpg";
-
 export default function BottomCta() {
   return (
-    <section className="relative overflow-hidden bg-[#0f0d0a] text-white">
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url("${ctaImage}")`,
-          backgroundPosition: "center center",
-        }}
-      />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,9,7,0.76)_0%,rgba(11,9,7,0.58)_32%,rgba(11,9,7,0.8)_100%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,214,168,0.22),transparent_24%),linear-gradient(90deg,rgba(11,9,7,0.38)_0%,rgba(11,9,7,0.14)_50%,rgba(11,9,7,0.38)_100%)]" />
+    <section className="lime-plus-pattern relative overflow-hidden text-[#101814]">
 
-      <div className="relative mx-auto max-w-[1450px] px-5 py-18 text-center md:px-8 md:py-22 lg:px-12 lg:py-24">
-        <h2 className="mx-auto max-w-[920px] font-heading text-[2.4rem] font-medium tracking-[-0.08em] text-white sm:text-[3rem] md:text-[3.7rem] lg:text-[4.25rem]">
-          Ready For A Spotless Space?
+      <div className="relative mx-auto max-w-[1450px] px-5 py-12 text-center md:px-8 md:py-14 lg:px-12 lg:py-16">
+        <p className="mx-auto inline-flex bg-[#16231c] px-3.5 py-2.5 font-sans text-[0.82rem] font-semibold uppercase leading-none tracking-[-0.03em] text-[#e6ff9b]">
+          Contact
+        </p>
+
+        <h2 className="mx-auto mt-6 max-w-[760px] font-heading text-[2.15rem] font-medium leading-[0.98] tracking-[-0.07em] text-black sm:text-[2.7rem] md:text-[3.2rem] lg:text-[3.6rem]">
+          <span className="block">Ready For A Spotless Space?</span>
         </h2>
 
-        <p className="mx-auto mt-4 max-w-[700px] text-[1rem] font-medium tracking-[-0.04em] text-white/86 md:text-[1.2rem]">
+        <p className="mx-auto mt-4 max-w-[620px] font-sans text-[0.98rem] font-medium leading-[1.45] tracking-[-0.03em] text-[#38453c] md:text-[1.08rem]">
           We&apos;ll help your home or workplace feel brighter, fresher, and
           professionally cared for.
         </p>
 
-        <div className="mt-8">
+        <div className="mt-7 flex justify-center">
           <Link
             href="/contact"
-            className="inline-flex items-center rounded-full bg-white pl-7 pr-[6px] text-[1.02rem] font-semibold tracking-[-0.04em] text-[#111] transition hover:bg-white/92"
+            className="inline-flex items-center gap-[2px]"
           >
-            <span className="py-3.5">Let&apos;s Talk</span>
-            <span className="ml-4 flex h-[46px] w-[46px] items-center justify-center rounded-full bg-black text-white">
+            <span className="inline-flex h-[44px] items-center rounded-full bg-[#152225] px-5 font-sans text-[0.95rem] font-semibold tracking-[-0.04em] text-[#e6ff9b] transition-colors duration-300 hover:bg-[#101916]">
+              Get In Touch
+            </span>
+            <span className="inline-flex h-[44px] w-[44px] items-center justify-center rounded-full bg-[#152225] text-[#e6ff9b] transition-transform duration-300 hover:translate-x-[2px]">
               <svg
                 viewBox="0 0 24 24"
                 aria-hidden="true"
