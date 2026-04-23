@@ -7,6 +7,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        "wild-sand": "#f6f6f6",
+        aztec: "#112025",
+        xanadu: "#787b78",
+        "yellow-green": "#c7e993",
+        "pine-green": "#017775",
+        himalaya: "#675e17",
+      },
       fontFamily: {
         heading: ["var(--font-manrope)", "sans-serif"],
         sans: ["var(--font-inter)", "sans-serif"],

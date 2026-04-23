@@ -109,10 +109,10 @@ export default function RecentProjectsSection() {
   };
 
   return (
-    <section className="bg-white px-4 py-5 text-[#0f1112] md:px-5 md:py-6 xl:px-5 xl:py-5">
+    <section className="bg-wild-sand px-4 py-5 text-aztec md:px-5 md:py-6 xl:px-5 xl:py-5">
       <div className="mx-auto max-w-[1920px]">
         <div className="flex items-start justify-between gap-4">
-          <h2 className="font-heading text-[2.7rem] font-medium leading-[0.9] tracking-[-0.08em] text-black sm:text-[3.4rem] md:text-[4rem] xl:text-[3.95rem]">
+          <h2 className="text-aztec sm:text-[3.4rem] md:text-[4rem] xl:text-[3.95rem]">
             Recent Projects
           </h2>
 
@@ -121,7 +121,7 @@ export default function RecentProjectsSection() {
               type="button"
               aria-label="Previous project"
               onClick={previousSlide}
-              className="flex h-[48px] w-[48px] items-center justify-center rounded-[8px] bg-[#f1f1ef] text-black transition-colors duration-300 hover:bg-[#e8e8e5]"
+              className="flex h-[48px] w-[48px] items-center justify-center rounded-[8px] bg-aztec/5 text-aztec transition-colors duration-300 hover:bg-aztec/10"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -140,7 +140,7 @@ export default function RecentProjectsSection() {
               type="button"
               aria-label="Next project"
               onClick={nextSlide}
-              className="flex h-[48px] w-[48px] items-center justify-center rounded-[8px] bg-[#f1f1ef] text-black transition-colors duration-300 hover:bg-[#e8e8e5]"
+              className="flex h-[48px] w-[48px] items-center justify-center rounded-[8px] bg-aztec/5 text-aztec transition-colors duration-300 hover:bg-aztec/10"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -186,7 +186,7 @@ export default function RecentProjectsSection() {
                         </div>
                       ) : null}
 
-                      <p className="absolute bottom-4 left-4 font-sans text-[1rem] font-medium tracking-[-0.05em] text-white md:bottom-5 md:left-5 md:text-[1.08rem]">
+                      <p className="absolute bottom-4 left-4 text-[1rem] text-wild-sand md:bottom-5 md:left-5 md:text-[1.08rem]">
                         {project.title}
                       </p>
                     </article>
@@ -199,16 +199,16 @@ export default function RecentProjectsSection() {
 
         <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-[2px]">
-            <a
+             <a
               href="#"
-              className="inline-flex h-[46px] items-center rounded-full bg-[#152225] px-6 font-sans text-[0.98rem] font-semibold tracking-[-0.04em] text-[#ddff9a]"
+              className="btn-pill btn-pill-dark"
             >
               View All
             </a>
-            <a
+             <a
               href="#"
               aria-label="View all projects"
-              className="inline-flex h-[46px] w-[46px] items-center justify-center rounded-full bg-[#152225] text-[#ddff9a] transition-transform duration-300 hover:translate-x-[2px]"
+              className="inline-flex h-[48px] w-[48px] items-center justify-center rounded-full bg-aztec text-yellow-green transition-transform duration-300 hover:translate-x-[2px]"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -233,8 +233,8 @@ export default function RecentProjectsSection() {
                 type="button"
                 aria-label={`Go to project slide ${index + 1}`}
                 onClick={() => setActiveSlide(index)}
-                className={`h-[9px] w-[9px] rounded-full transition-colors duration-300 ${
-                  index === activeSlide ? "bg-[#111]" : "bg-[#c9c9c9]"
+                 className={`h-[9px] w-[9px] rounded-full transition-colors duration-300 ${
+                  index === activeSlide ? "bg-aztec" : "bg-xanadu/30"
                 }`}
               />
             ))}

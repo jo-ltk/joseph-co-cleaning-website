@@ -10,11 +10,11 @@ const features = [
 
 export default function CoachingPlans() {
   return (
-    <section className="relative z-30 -mt-10 overflow-hidden rounded-t-[34px] bg-[linear-gradient(180deg,#ece4d6_0%,#e6dccb_100%)] text-[#080808] shadow-[0_-20px_60px_rgba(18,14,10,0.08)] md:-mt-14 md:rounded-t-[42px] lg:-mt-20 lg:rounded-t-[52px]">
+    <section className="relative z-30 -mt-10 overflow-hidden rounded-t-[34px] bg-wild-sand text-aztec shadow-[0_-20px_60px_rgba(17,32,37,0.08)] md:-mt-14 md:rounded-t-[42px] lg:-mt-20 lg:rounded-t-[52px]">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.72),transparent_34%),radial-gradient(circle_at_20%_55%,rgba(255,255,255,0.18),transparent_28%)]" />
       <div className="relative mx-auto max-w-[1450px] px-5 pb-24 pt-16 md:px-8 md:pb-32 md:pt-20 lg:px-12 lg:pb-40 lg:pt-24">
         <div className="mb-10 text-center md:mb-14">
-          <h2 className="font-heading text-[3rem] font-medium tracking-[-0.08em] text-[#060606] sm:text-[4rem] lg:text-[4.7rem]">
+          <h2 className="text-aztec sm:text-[4rem] lg:text-[4.7rem]">
             Coaching plans
           </h2>
         </div>
@@ -32,18 +32,18 @@ export default function CoachingPlans() {
             </div>
 
             <div className="px-2 py-4 md:px-4 lg:px-6 lg:py-8">
-              <p className="text-[1.1rem] font-medium tracking-[-0.035em] text-black/62 md:text-[1.2rem]">
+              <p className="text-[1.1rem] font-medium tracking-[-0.035em] text-xanadu md:text-[1.2rem]">
                 $59/month
               </p>
 
-              <h3 className="mt-6 font-heading text-[3rem] font-medium tracking-[-0.08em] text-[#090909] md:text-[3.5rem]">
+               <h3 className="mt-6 text-aztec md:text-[3.5rem]">
                 Basic
               </h3>
 
-              <ul className="mt-10 space-y-6 text-[1.28rem] font-medium tracking-[-0.04em] text-[#111111] md:text-[1.45rem]">
+               <ul className="mt-10 space-y-6 text-[1.12rem] font-medium text-aztec md:text-[1.25rem]">
                 {features.map((feature) => (
                   <li key={feature} className="flex items-start gap-4">
-                    <span className="mt-[0.2em] inline-flex h-7 w-7 shrink-0 items-center justify-center text-black">
+                     <span className="mt-[0.2em] inline-flex h-7 w-7 shrink-0 items-center justify-center text-aztec">
                       <svg
                         viewBox="0 0 24 24"
                         aria-hidden="true"
@@ -63,12 +63,12 @@ export default function CoachingPlans() {
               </ul>
 
               <div className="mt-12">
-                <Link
+                 <Link
                   href="/contact"
-                  className="inline-flex items-center rounded-full border border-black/10 bg-[#f4f3f0] pl-7 pr-[6px] text-[1.1rem] font-semibold tracking-[-0.04em] text-[#111] transition hover:bg-[#eceae5]"
+                  className="inline-flex items-center rounded-full border border-aztec/10 bg-wild-sand pl-7 pr-[6px] text-[1.1rem] font-semibold text-aztec transition hover:bg-aztec/5"
                 >
                   <span className="py-4">Get in touch</span>
-                  <span className="ml-5 flex h-[50px] w-[50px] items-center justify-center rounded-full bg-black text-white">
+                  <span className="ml-5 flex h-[50px] w-[50px] items-center justify-center rounded-full bg-aztec text-yellow-green">
                     <svg
                       viewBox="0 0 24 24"
                       aria-hidden="true"

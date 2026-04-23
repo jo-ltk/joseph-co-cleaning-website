@@ -9,15 +9,15 @@ const stats = [
 
 export default function ResultsSection() {
   return (
-    <section className="relative min-h-screen bg-[#f5f3ef] text-[#090909]">
+    <section className="relative min-h-screen bg-wild-sand text-aztec">
       <div className="mx-auto max-w-[1450px] px-5 py-20 md:px-8 md:py-28 lg:px-12 lg:pb-44 lg:pt-36">
         <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(420px,512px)] lg:gap-20">
           <div className="max-w-[820px]">
-            <h2 className="font-heading text-[2.45rem] font-medium leading-[1.16] tracking-[-0.07em] sm:text-[3rem] md:text-[3.5rem] lg:text-[4.05rem]">
-              <span className="text-[#050505]">
+            <h2 className="leading-[0.95]">
+              <span className="text-aztec">
                 From beginners to seasoned pros, I create custom plans
               </span>{" "}
-              <span className="text-[#8a8a8a]">
+              <span className="text-xanadu">
                 tailored to help you unlock your full potential and succeed in
                 races.
               </span>
@@ -40,11 +40,11 @@ export default function ResultsSection() {
 
         <div className="mt-20 grid gap-10 sm:grid-cols-2 xl:mt-24 xl:grid-cols-4 xl:gap-20">
           {stats.map((stat) => (
-            <div key={stat.label} className="border-t border-black/14 pt-8">
-              <p className="font-heading text-[4rem] font-medium leading-none tracking-[-0.08em] text-[#050505] sm:text-[4.35rem]">
+            <div key={stat.label} className="border-t border-aztec/14 pt-8">
+              <p className="text-[4rem] text-aztec sm:text-[4.35rem]">
                 {stat.value}
               </p>
-              <p className="mt-4 text-[1.15rem] font-medium tracking-[-0.04em] text-[#0d0d0d]">
+                <p className="mt-4 text-[1.15rem] text-aztec">
                 {stat.label}
               </p>
             </div>

@@ -4,6 +4,12 @@
 
 :root {
   color-scheme: dark;
+  --color-wild-sand: #f6f6f6;
+  --color-aztec: #112025;
+  --color-xanadu: #787b78;
+  --color-yellow-green: #c7e993;
+  --color-pine-green: #017775;
+  --color-himalaya: #675e17;
 }
 
 html {
@@ -13,8 +19,8 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: #100d09;
-  color: #ffffff;
+  background: var(--color-wild-sand);
+  color: var(--color-aztec);
   font-family: var(--font-inter), sans-serif;
 }
 
@@ -27,8 +33,59 @@ a {
   box-sizing: border-box;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-manrope), sans-serif;
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.075em;
+  color: inherit;
+}
+
+p {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: -0.03em;
+  color: inherit;
+}
+
+.section-label {
+  display: inline-flex;
+  padding: 0.6rem 0.9rem;
+  background-color: var(--color-aztec);
+  color: var(--color-yellow-green);
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 1.25rem;
+  border-radius: 9999px;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  transition: all 0.3s ease;
+}
+
+.btn-pill-lime {
+  background-color: var(--color-yellow-green);
+  color: var(--color-aztec);
+}
+
+.btn-pill-dark {
+  background-color: var(--color-aztec);
+  color: var(--color-yellow-green);
+}
+
 .lime-plus-pattern {
-  background-color: #e6ff9b;
+  background-color: var(--color-yellow-green);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg stroke='%23badf78' stroke-width='2' stroke-linecap='square' opacity='0.58'%3E%3Cline x1='36' y1='12' x2='47' y2='60'/%3E%3Cline x1='12' y1='36' x2='60' y2='47'/%3E%3C/g%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 72px 72px;
@@ -54,5 +111,15 @@ a {
 @media (prefers-reduced-motion: reduce) {
   .testimonials-marquee-track {
     animation: none;
+  }
+}
+
+@keyframes marqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
   }
 }

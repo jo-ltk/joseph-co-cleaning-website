@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function LeadershipSpotlightSection() {
   return (
-    <section className="relative bg-[#0f0f0d]">
+    <section className="relative bg-aztec">
       <div className="relative mx-auto h-[520px] w-full overflow-hidden md:h-[640px] xl:h-[752px]">
         <Image
           src="/coach-conversation.png"
@@ -17,7 +17,7 @@ export default function LeadershipSpotlightSection() {
 
         <div className="absolute inset-0 flex items-center justify-center px-6">
           <div className="flex max-w-[980px] flex-col items-center text-center">
-            <h2 className="font-sans text-[2.45rem] font-normal leading-[0.98] tracking-[-0.08em] text-white sm:text-[3.2rem] md:text-[4.2rem] xl:text-[4.9rem]">
+            <h2 className="font-sans text-[2.45rem] font-normal leading-[0.98] tracking-[-0.08em] text-wild-sand sm:text-[3.2rem] md:text-[4.2rem] xl:text-[4.9rem]">
               <span className="block">Discover the Leaders Who Are</span>
               <span className="block">Transforming the Clean Energy</span>
               <span className="block">Landscape</span>
@@ -26,14 +26,14 @@ export default function LeadershipSpotlightSection() {
             <div className="mt-10 flex items-center gap-[2px]">
               <a
                 href="#"
-                className="inline-flex h-[48px] items-center rounded-full bg-[#e5ff8e] px-5 font-sans text-[0.98rem] font-medium tracking-[-0.04em] text-[#111]"
+                className="inline-flex h-[48px] items-center rounded-full bg-yellow-green px-5 font-sans text-[0.98rem] font-medium tracking-[-0.04em] text-aztec"
               >
                 View Leadership
               </a>
-              <a
+               <a
                 href="#"
                 aria-label="View Leadership"
-                className="inline-flex h-[48px] w-[48px] items-center justify-center rounded-full bg-[#e5ff8e] text-[#111] transition-transform duration-300 hover:translate-x-[2px]"
+                className="inline-flex h-[48px] w-[48px] items-center justify-center rounded-full bg-yellow-green text-aztec transition-transform duration-300 hover:translate-x-[2px]"
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -54,8 +54,8 @@ export default function LeadershipSpotlightSection() {
         </div>
       </div>
 
-      <div className="grid gap-[12px] bg-white px-2 pb-2 pt-2 lg:grid-cols-[1.02fr_1fr]">
-        <article className="relative min-h-[320px] overflow-hidden bg-[#ddff9a] md:min-h-[430px] xl:min-h-[758px]">
+      <div className="grid gap-[12px] bg-wild-sand px-2 pb-2 pt-2 lg:grid-cols-[1.02fr_1fr]">
+        <article className="relative min-h-[320px] overflow-hidden bg-yellow-green md:min-h-[430px] xl:min-h-[758px]">
           <div
             aria-hidden="true"
             className="absolute inset-0 opacity-95"
@@ -87,7 +87,7 @@ export default function LeadershipSpotlightSection() {
           </div>
         </article>
 
-        <article className="grid min-h-[320px] grid-cols-2 bg-[#132325] px-8 py-10 text-[#e4ff9a] md:min-h-[430px] md:px-12 md:py-14 xl:min-h-[758px] xl:px-[72px] xl:py-[86px]">
+        <article className="grid min-h-[320px] grid-cols-2 bg-aztec px-8 py-10 text-yellow-green md:min-h-[430px] md:px-12 md:py-14 xl:min-h-[758px] xl:px-[72px] xl:py-[86px]">
           {[
             { value: "45%", label: "Carbon Reduction" },
             { value: "200+", label: "Global Projects" },
@@ -102,7 +102,7 @@ export default function LeadershipSpotlightSection() {
                 <p className="font-sans text-[3rem] font-semibold leading-none tracking-[-0.085em] sm:text-[4rem] md:text-[4.6rem] xl:text-[5rem]">
                   {item.value}
                 </p>
-                <p className="mt-6 font-sans text-[1rem] font-medium tracking-[-0.05em] text-[#dced95] md:text-[1.2rem] xl:text-[1.28rem]">
+                 <p className="mt-6 font-sans text-[1rem] font-medium tracking-[-0.05em] text-yellow-green/80 md:text-[1.2rem] xl:text-[1.28rem]">
                   {item.label}
                 </p>
               </div>

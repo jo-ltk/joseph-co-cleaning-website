@@ -3,13 +3,13 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <header className="absolute inset-x-0 top-0 z-30">
-      <nav className="mx-auto flex w-full max-w-[1450px] flex-wrap items-center justify-between gap-6 px-5 py-5 text-white md:px-8 lg:px-12">
+      <nav className="mx-auto flex w-full max-w-[1450px] flex-wrap items-center justify-between gap-6 px-5 py-5 text-wild-sand md:px-8 lg:px-12">
         <div className="flex items-center gap-5 md:gap-8">
           <Link
             href="/"
             className="flex items-center gap-3 text-[1.65rem] font-bold tracking-[-0.04em]"
           >
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/8 text-white/95 backdrop-blur-sm">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-wild-sand/10 text-wild-sand/95 backdrop-blur-sm">
               <svg
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -27,38 +27,38 @@ export default function Navbar() {
                 <path d="m16.5 7.7 2 2.3" />
               </svg>
             </span>
-            <span className="font-heading text-[1.2rem] font-extrabold">Perform</span>
+            <span className="font-heading text-[1.25rem] font-medium tracking-[-0.05em]">Perform</span>
           </Link>
-          <span className="hidden h-8 w-px bg-white/35 md:block" />
-          <ul className="hidden items-center gap-10 text-[1.05rem] font-medium tracking-[-0.03em] text-white/95 md:flex">
+          <span className="hidden h-8 w-px bg-wild-sand/35 md:block" />
+           <ul className="hidden items-center gap-10 text-[1.05rem] font-medium text-wild-sand/95 md:flex">
             <li>
-              <Link href="/services" className="transition hover:text-white/75">
+              <Link href="/services" className="transition hover:text-wild-sand/75">
                 Coaching
               </Link>
             </li>
             <li>
-              <Link href="/testimonials" className="transition hover:text-white/75">
+              <Link href="/testimonials" className="transition hover:text-wild-sand/75">
                 Reviews
               </Link>
             </li>
             <li>
-              <Link href="/about" className="transition hover:text-white/75">
+              <Link href="/about" className="transition hover:text-wild-sand/75">
                 About
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="transition hover:text-white/75">
+              <Link href="/contact" className="transition hover:text-wild-sand/75">
                 Contact
               </Link>
             </li>
           </ul>
         </div>
 
-        <Link
+         <Link
           href="/contact"
-          className="rounded-full border border-white/10 bg-[rgba(153,121,80,0.45)] px-6 py-3 text-[1.05rem] font-semibold tracking-[-0.03em] text-white backdrop-blur-md transition hover:bg-[rgba(173,139,94,0.6)] md:px-8"
+          className="btn-pill bg-white/10 text-white backdrop-blur-md transition hover:bg-white/20 md:px-8"
         >
-          Get template
+          Get Started
         </Link>
 
         <ul className="flex w-full items-center gap-6 overflow-x-auto pb-1 text-[0.96rem] font-medium tracking-[-0.03em] text-white/90 md:hidden">
