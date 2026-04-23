@@ -2,8 +2,11 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
-import { CaretDown, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { CaretDown, X } from "@phosphor-icons/react/dist/ssr";
+import { ButtonLink } from "./ui/Button";
+import IconButton from "./ui/IconButton";
 
 const navigationItems = [
   { href: "/gallery", label: "Projects" },
@@ -13,6 +16,28 @@ const navigationItems = [
 ];
 
 export default function Navbar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileOpen(false);
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [mobileOpen]);
+
   return (
     <header className="pointer-events-none absolute inset-x-0 top-0 z-30">
       <nav className="mx-auto flex w-full max-w-[1920px] items-start justify-between px-5 pt-5 md:px-5">
@@ -64,38 +89,19 @@ export default function Navbar() {
                 &copy;Hydra
               </Link>
 
-              <details className="relative">
-                <summary className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full transition hover:bg-black/5">
-                  <span className="sr-only">Open navigation</span>
-                  <span className="flex flex-col gap-[5px]">
-                    <span className="block h-[2.5px] w-6 rounded-full bg-[#141914]" />
-                    <span className="block h-[2.5px] w-6 rounded-full bg-[#141914]" />
-                  </span>
-                </summary>
-
-                <div className="absolute right-0 top-full mt-3 w-[220px] rounded-[18px] bg-white/95 p-4 text-[#111713] shadow-[0_24px_65px_rgba(0,0,0,0.24)] backdrop-blur">
-                  <ul
-                    className="space-y-3 text-[0.95rem] font-medium tracking-[-0.04em]"
-                    style={{ fontFamily: "var(--font-inter), sans-serif" }}
-                  >
-                    {navigationItems.map((item) => (
-                      <li key={item.label}>
-                        <Link href={item.href} className="block transition hover:opacity-65">
-                          {item.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link
-                    href="/contact"
-                    className="mt-4 inline-flex h-11 items-center rounded-full bg-[#16231f] px-5 text-[0.95rem] font-medium tracking-[-0.05em] text-[#e8ff91] transition hover:bg-[#1c2d28]"
-                    style={{ fontFamily: "var(--font-inter), sans-serif" }}
-                  >
-                    Contact Us
-                  </Link>
-                </div>
-              </details>
+              <button
+                type="button"
+                onClick={() => setMobileOpen(true)}
+                className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-black/5"
+                aria-label="Open navigation"
+                aria-haspopup="dialog"
+                aria-expanded={mobileOpen}
+              >
+                <span className="flex flex-col gap-[5px]" aria-hidden="true">
+                  <span className="block h-[2.5px] w-6 rounded-full bg-[#141914]" />
+                  <span className="block h-[2.5px] w-6 rounded-full bg-[#141914]" />
+                </span>
+              </button>
             </div>
           </div>
         </motion.div>
@@ -107,26 +113,132 @@ export default function Navbar() {
           className="pointer-events-auto hidden items-center gap-3 md:flex"
         >
           <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
-            <Link
+            <ButtonLink
               href="/contact"
-              className="inline-flex h-[50px] items-center rounded-full bg-[#16231f] px-8 text-[0.95rem] font-medium tracking-[-0.05em] text-[#e8ff91] shadow-[0_20px_40px_rgba(0,0,0,0.16)] transition duration-300 hover:bg-[#1c2d28]"
-              style={{ fontFamily: "var(--font-inter), sans-serif" }}
+              variant="primary"
+              className="px-8"
             >
               Contact Us
-            </Link>
+            </ButtonLink>
           </motion.div>
 
           <motion.div whileHover={{ y: -2, rotate: 3 }} whileTap={{ scale: 0.96 }}>
-            <Link
+            <IconButton
               href="/contact"
               aria-label="Contact Us"
-              className="flex h-[50px] w-[50px] items-center justify-center rounded-full bg-[#16231f] text-[#e8ff91] shadow-[0_20px_40px_rgba(0,0,0,0.16)] transition duration-300 hover:bg-[#1c2d28]"
-            >
-              <ArrowUpRight size={18} weight="bold" />
-            </Link>
+              size="md"
+            />
           </motion.div>
         </motion.div>
       </nav>
+
+      {mobileOpen ? (
+        <div className="pointer-events-auto fixed inset-0 z-[60] md:hidden">
+          <button
+            type="button"
+            className="absolute inset-0 bg-black/30"
+            aria-label="Close navigation"
+            onClick={() => setMobileOpen(false)}
+          />
+
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation"
+            className="absolute inset-0 bg-[#e9e6e1] text-[#111713]"
+            style={{ fontFamily: "var(--font-inter), sans-serif" }}
+          >
+            <div className="mx-auto flex h-full max-w-[560px] flex-col px-6 pb-8 pt-7">
+              <div className="flex items-start justify-between">
+                <Link
+                  href="/"
+                  className="text-[1.1rem] font-semibold tracking-[-0.06em]"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  &copy;Hydra
+                </Link>
+
+                <button
+                  type="button"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-black/5"
+                  aria-label="Close navigation"
+                >
+                  <X size={20} weight="bold" />
+                </button>
+              </div>
+
+              <div className="mt-10">
+                <p className="text-[0.85rem] font-semibold uppercase tracking-[0.12em] text-[#111713]/75">
+                  Menu
+                </p>
+              </div>
+
+              <div className="mt-8 flex flex-1 flex-col">
+                <ul className="space-y-5">
+                  {navigationItems.map((item) => (
+                    <li key={item.label}>
+                      <Link
+                        href={item.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="block text-[2.65rem] font-medium leading-[1.02] tracking-[-0.06em] transition-opacity hover:opacity-70"
+                        style={{ fontFamily: "var(--font-manrope), sans-serif" }}
+                      >
+                        {item.label === "Company" ? "About Us" : item.label}
+                      </Link>
+                    </li>
+                  ))}
+
+                  <li>
+                    <Link
+                      href="/contact"
+                      onClick={() => setMobileOpen(false)}
+                      className="block text-[2.65rem] font-medium leading-[1.02] tracking-[-0.06em] transition-opacity hover:opacity-70"
+                      style={{ fontFamily: "var(--font-manrope), sans-serif" }}
+                    >
+                      Contact
+                    </Link>
+                  </li>
+                </ul>
+
+                <div className="mt-auto grid grid-cols-2 gap-10 pt-14">
+                  <div>
+                    <p className="text-[0.85rem] font-semibold uppercase tracking-[0.12em] text-[#111713]/75">
+                      Follow us
+                    </p>
+                    <ul className="mt-5 space-y-3 text-[1.15rem] font-medium tracking-[-0.03em] text-[#111713]/85">
+                      <li>
+                        <Link href="#" className="transition-opacity hover:opacity-70">
+                          Instagram
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href="#" className="transition-opacity hover:opacity-70">
+                          X
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href="#" className="transition-opacity hover:opacity-70">
+                          Linkedin
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <p className="text-[0.85rem] font-semibold uppercase tracking-[0.12em] text-[#111713]/75">
+                      Email us
+                    </p>
+                    <p className="mt-5 text-[1.15rem] font-medium tracking-[-0.03em] text-[#111713]/85">
+                      info@hydra.com
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </header>
   );
 }

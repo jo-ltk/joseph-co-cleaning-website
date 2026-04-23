@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { ButtonLink } from "./ui/Button";
+import IconButton from "./ui/IconButton";
 
 const pageLinks = [
   { href: "/", label: "Home" },
@@ -29,7 +30,7 @@ export default function Footer() {
     <footer className="overflow-hidden bg-aztec text-yellow-green">
       <div aria-hidden="true" className="lime-plus-pattern h-[94px]" />
 
-      <div className="mx-auto max-w-[1900px] px-5 pb-4 pt-12 md:px-8 md:pb-5 md:pt-14 lg:px-10 lg:pt-16 xl:px-7">
+      <div className="mx-auto max-w-[1900px] px-5 pb-[var(--section-spacing)] pt-[var(--section-spacing)] md:px-8 lg:px-10 xl:px-7">
         <div className="grid gap-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(420px,620px)] lg:gap-20">
           <div className="max-w-[560px]">
             <p className="text-[1.05rem] text-yellow-green/90 sm:text-[1.45rem] md:text-[1.85rem] lg:text-[2rem]">
@@ -41,14 +42,12 @@ export default function Footer() {
             </p>
 
             <div className="mt-8 flex">
-               <Link href="/contact" className="inline-flex items-center gap-[2px]">
-                 <span className="btn-pill btn-pill-lime h-[50px] !text-aztec">
+              <div className="btn-pair">
+                <ButtonLink href="/contact" variant="primary" className="text-white">
                   Start a Project
-                </span>
-                <span className="inline-flex h-[50px] w-[50px] items-center justify-center rounded-full bg-yellow-green text-aztec transition-transform duration-300 hover:translate-x-[2px]">
-                  <ArrowUpRight size={20} weight="bold" />
-                </span>
-              </Link>
+                </ButtonLink>
+                <IconButton href="/contact" aria-label="Start a Project" size="md" className="text-white" />
+              </div>
             </div>
           </div>
 

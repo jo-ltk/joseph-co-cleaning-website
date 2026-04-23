@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import SectionTag from "./ui/SectionTag";
 
 const faqItems = [
   {
@@ -34,18 +35,16 @@ export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="bg-wild-sand px-5 pb-12 pt-10 text-aztec md:px-8 md:pb-14 md:pt-12 lg:px-12 lg:pb-16 lg:pt-14">
+    <section className="landing-section bg-wild-sand px-5 text-aztec md:px-8 lg:px-12">
       <div className="mx-auto max-w-[1450px]">
-        <div className="text-center">
-          <p className="section-label rounded-full">
-            FAQ
-          </p>
+        <div className="flex flex-col items-center gap-[var(--content-gap)] text-center">
+          <SectionTag>FAQ</SectionTag>
 
-          <h2 className="mt-6 text-aztec">
+          <h2 className="text-aztec">
             Frequently asked questions
           </h2>
 
-          <p className="mx-auto mt-5 max-w-[760px] text-xanadu md:text-[1.12rem]">
+          <p className="mx-auto max-w-[760px] text-xanadu md:text-[1.12rem]">
             Here are the top questions our clients ask before getting started.
           </p>
         </div>

@@ -4,7 +4,9 @@ import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 
-import { CaretLeft, CaretRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { CaretLeft, CaretRight } from "@phosphor-icons/react/dist/ssr";
+import { ButtonLink } from "./ui/Button";
+import IconButton from "./ui/IconButton";
 
 type ProjectCard = {
   title: string;
@@ -194,7 +196,7 @@ export default function RecentProjectsSection() {
   };
 
   return (
-    <section className="bg-[#f4f1ec] px-3 pb-7 pt-5 text-[#111713] md:px-5 md:pb-9 md:pt-6">
+    <section className="landing-section landing-section--flush-top bg-[#f4f1ec] px-3 text-[#111713] md:px-5 border-t-8 border-white">
       <motion.div
         className="mx-auto max-w-[1920px]"
         initial={shouldReduceMotion ? false : { opacity: 0, y: 36 }}
@@ -333,7 +335,7 @@ export default function RecentProjectsSection() {
                           >
                             <span>View Project</span>
                             <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#d5d18d]/25 bg-black/10">
-                              <ArrowUpRight size={16} weight="bold" />
+                              <span aria-hidden="true">↗</span>
                             </span>
                           </Link>
                         </motion.div>
@@ -347,25 +349,15 @@ export default function RecentProjectsSection() {
         </div>
 
         <div className="mt-6 grid gap-5 md:mt-8 md:grid-cols-[auto_1fr_auto] md:items-center">
-          <div className="flex items-center gap-[2px]">
+          <div className="btn-pair">
             <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
-              <Link
-                href="/gallery"
-                className="inline-flex h-[50px] items-center rounded-full bg-[#16231f] px-7 text-[1rem] font-medium tracking-[-0.05em] text-[#dff18e] transition duration-300 hover:bg-[#1c2d28]"
-                style={{ fontFamily: "var(--font-inter), sans-serif" }}
-              >
+              <ButtonLink href="/gallery" variant="primary">
                 View All
-              </Link>
+              </ButtonLink>
             </motion.div>
 
             <motion.div whileHover={{ y: -2, rotate: 3 }} whileTap={{ scale: 0.96 }}>
-              <Link
-                href="/gallery"
-                aria-label="View all projects"
-                className="inline-flex h-[50px] w-[50px] items-center justify-center rounded-full bg-[#16231f] text-[#dff18e] transition duration-300 hover:bg-[#1c2d28]"
-              >
-                <ArrowUpRight size={20} weight="bold" />
-              </Link>
+              <IconButton href="/gallery" aria-label="View all projects" size="md" />
             </motion.div>
           </div>
 

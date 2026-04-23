@@ -10,6 +10,8 @@
   --color-yellow-green: #c7e993;
   --color-pine-green: #017775;
   --color-himalaya: #675e17;
+  --section-spacing: clamp(48px, 8vw, 120px);
+  --content-gap: clamp(16px, 2.2vw, 24px);
 }
 
 html {
@@ -33,6 +35,21 @@ a {
   box-sizing: border-box;
 }
 
+.landing-section {
+  padding-top: var(--section-spacing);
+  padding-bottom: var(--section-spacing);
+}
+
+.landing-section--flush-top {
+  padding-top: 0;
+}
+
+.btn-pair {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
 summary {
   list-style: none;
 }
@@ -47,6 +64,22 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 0.95;
   letter-spacing: -0.075em;
   color: inherit;
+}
+
+h1 {
+  font-size: clamp(48px, 7vw, 96px);
+}
+
+h2 {
+  font-size: clamp(36px, 5vw, 72px);
+}
+
+h3 {
+  font-size: clamp(24px, 3vw, 40px);
+}
+
+body {
+  font-size: clamp(16px, 1.5vw, 20px);
 }
 
 p {

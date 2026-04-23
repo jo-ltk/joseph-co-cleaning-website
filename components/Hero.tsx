@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
-import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import Button, { ButtonLink } from "./ui/Button";
+import IconButton from "./ui/IconButton";
 
 const heroImage =
   "https://images.pexels.com/photos/15379018/pexels-photo-15379018.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1800&w=2800";
@@ -65,13 +66,13 @@ export default function Hero() {
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.14 }}
-          className="mx-auto max-w-[1250px]"
+          className="mx-auto flex max-w-[1250px] flex-col items-center gap-[var(--content-gap)]"
         >
           <motion.h1
             initial={{ opacity: 0, y: 34 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1], delay: 0.22 }}
-            className="mx-auto max-w-[13ch] text-balance text-[clamp(3.6rem,8.2vw,8.45rem)] font-medium leading-[0.93] tracking-[-0.095em] text-white"
+            className="mx-auto max-w-[13ch] text-balance font-medium leading-[0.93] tracking-[-0.095em] text-white"
             style={{ fontFamily: "var(--font-inter), sans-serif" }}
           >
             Sustainable Solutions for a Better Future
@@ -81,7 +82,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.34 }}
-            className="mx-auto mt-7 max-w-[20ch] text-balance text-[1rem] font-medium leading-[1.26] tracking-[-0.05em] text-white/92 sm:max-w-[24ch] sm:text-[1.18rem] md:mt-8 md:max-w-[780px] md:text-[1rem] lg:text-[1.08rem]"
+            className="mx-auto max-w-[20ch] text-balance font-medium leading-[1.26] tracking-[-0.05em] text-white/92 sm:max-w-[24ch] md:max-w-[780px]"
             style={{ fontFamily: "var(--font-inter), sans-serif" }}
           >
             Empowering businesses and communities to thrive in a low-carbon
@@ -92,26 +93,21 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.46 }}
-            className="mt-10 flex items-center justify-center gap-3 md:mt-8"
+            className="btn-pair justify-center"
           >
             <motion.div whileHover={{ y: -3 }} whileTap={{ scale: 0.98 }}>
-              <Link
-                href="/contact"
-                className="inline-flex h-[3.35rem] items-center rounded-full bg-[#e7ff92] px-6 text-[1rem] font-medium tracking-[-0.055em] text-[#18221d] shadow-[0_20px_40px_rgba(16,24,16,0.18)] transition duration-300 hover:bg-[#f2ffbd] sm:h-[3.55rem] sm:px-8 sm:text-[1.08rem]"
-                style={{ fontFamily: "var(--font-inter), sans-serif" }}
-              >
+              <ButtonLink href="/contact" variant="primary" className="shadow-[0_20px_40px_rgba(16,24,16,0.18)] px-10">
                 Start a Project
-              </Link>
+              </ButtonLink>
             </motion.div>
 
             <motion.div whileHover={{ y: -3, rotate: 4 }} whileTap={{ scale: 0.96 }}>
-              <Link
+              <IconButton
                 href="/contact"
                 aria-label="Start a Project"
-                className="flex h-[3.35rem] w-[3.35rem] items-center justify-center rounded-full bg-[#e7ff92] text-[#18221d] shadow-[0_20px_40px_rgba(16,24,16,0.18)] transition duration-300 hover:bg-[#f2ffbd] sm:h-[3.55rem] sm:w-[3.55rem]"
-              >
-                <ArrowUpRight size={18} weight="bold" />
-              </Link>
+                className="shadow-[0_20px_40px_rgba(16,24,16,0.18)]"
+                size="md"
+              />
             </motion.div>
           </motion.div>
         </motion.div>

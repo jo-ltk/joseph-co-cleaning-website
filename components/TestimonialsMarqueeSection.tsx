@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Quotes } from "@phosphor-icons/react/dist/ssr";
+import SectionTag from "./ui/SectionTag";
 
 const testimonials = [
   {
@@ -29,13 +30,11 @@ const marqueeCards = [...testimonials, ...testimonials, ...testimonials, ...test
 
 export default function TestimonialsMarqueeSection() {
   return (
-    <section className="bg-wild-sand pb-16 pt-12 text-aztec md:pb-20 md:pt-16">
+    <section className="landing-section bg-wild-sand text-aztec">
       <div className="mx-auto max-w-[1600px] px-6">
-        <div className="flex flex-col items-center text-center">
-          <p className="section-label rounded-full">
-            Our Clients
-          </p>
-          <h2 className="mt-4 text-aztec">
+        <div className="flex flex-col items-center gap-[var(--content-gap)] text-center">
+          <SectionTag>Our Clients</SectionTag>
+          <h2 className="text-aztec">
             <span className="block">Relied on by Companies</span>
             <span className="block">Globally</span>
           </h2>

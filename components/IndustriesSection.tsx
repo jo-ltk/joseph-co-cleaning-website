@@ -76,8 +76,8 @@ function IndustryCard({
 
 export default function IndustriesSection() {
   return (
-    <section className="bg-wild-sand text-aztec">
-      <div className="mx-auto w-full max-w-[1920px] px-5 py-5 md:px-5 md:py-6">
+    <section className="landing-section bg-wild-sand text-aztec">
+      <div className="mx-auto w-full max-w-[1920px] px-5 md:px-5">
         <h2 className="text-aztec">
           Industries We Serve
         </h2>

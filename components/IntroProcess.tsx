@@ -20,11 +20,14 @@ const steps = [
 
 export default function IntroProcess() {
   return (
-    <section className="bg-wild-sand text-aztec">
-      <div className="mx-auto max-w-[1920px] px-[10px] py-[56px] md:py-[74px]">
+    <section className="landing-section bg-wild-sand text-aztec">
+      <div className="mx-auto max-w-[1920px] px-[10px]">
         <div className="grid gap-y-[46px] md:gap-y-[54px] lg:grid-cols-3 lg:items-start lg:gap-x-[34px]">
           {steps.map((step, index) => (
-            <div key={step.title} className="relative flex flex-col items-center">
+            <div
+              key={step.title}
+              className="relative flex flex-col items-center gap-[var(--content-gap)]"
+            >
               {index < steps.length - 1 ? (
                 <div className="pointer-events-none absolute right-[-18%] top-[12px] hidden text-xanadu lg:block">
                   <svg
@@ -43,15 +46,15 @@ export default function IntroProcess() {
                 </div>
               ) : null}
 
-               <div className="flex h-[74px] w-[156px] items-center justify-center rounded-full bg-yellow-green text-aztec">
+              <div className="flex h-[74px] w-[156px] items-center justify-center rounded-full bg-yellow-green text-aztec">
                 {step.icon}
               </div>
 
-              <h3 className="mt-[34px] text-center text-[28px] md:text-[32px]">
+              <h3 className="text-center text-[28px] md:text-[32px]">
                 {step.title}
               </h3>
 
-               <p className="mt-[18px] max-w-[352px] text-center text-[1.05rem] text-xanadu md:text-[1.12rem]">
+              <p className="max-w-[352px] text-center text-[1.05rem] text-xanadu md:text-[1.12rem]">
                 {step.description}
               </p>
             </div>
