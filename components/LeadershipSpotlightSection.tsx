@@ -1,9 +1,10 @@
 import Image from "next/image";
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 
 export default function LeadershipSpotlightSection() {
   return (
     <section className="relative bg-aztec">
-      <div className="relative mx-auto h-[520px] w-full overflow-hidden md:h-[640px] xl:h-[752px]">
+      <div className="relative mx-auto h-[400px] w-full overflow-hidden md:h-[460px] xl:h-[520px]">
         <Image
           src="/coach-conversation.png"
           alt="Two people in conversation"
@@ -18,9 +19,8 @@ export default function LeadershipSpotlightSection() {
         <div className="absolute inset-0 flex items-center justify-center px-6">
           <div className="flex max-w-[980px] flex-col items-center text-center">
             <h2 className="font-sans text-[2.45rem] font-normal leading-[0.98] tracking-[-0.08em] text-wild-sand sm:text-[3.2rem] md:text-[4.2rem] xl:text-[4.9rem]">
-              <span className="block">Discover the Leaders Who Are</span>
-              <span className="block">Transforming the Clean Energy</span>
-              <span className="block">Landscape</span>
+              <span className="block">Discover the Leaders Transforming</span>
+              <span className="block">the Clean Energy Landscape</span>
             </h2>
 
             <div className="mt-10 flex items-center gap-[2px]">
@@ -30,85 +30,69 @@ export default function LeadershipSpotlightSection() {
               >
                 View Leadership
               </a>
-               <a
+              <a
                 href="#"
                 aria-label="View Leadership"
                 className="inline-flex h-[48px] w-[48px] items-center justify-center rounded-full bg-yellow-green text-aztec transition-transform duration-300 hover:translate-x-[2px]"
               >
-                <svg
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                  className="h-5 w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M7 17 17 7" />
-                  <path d="M9 7h8v8" />
-                </svg>
+                <ArrowUpRight size={20} weight="bold" />
               </a>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="grid gap-[12px] bg-wild-sand px-2 pb-2 pt-2 lg:grid-cols-[1.02fr_1fr]">
-        <article className="relative min-h-[320px] overflow-hidden bg-yellow-green md:min-h-[430px] xl:min-h-[758px]">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 opacity-95"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 100% 0%, transparent 0 34px, rgba(238,255,181,0.95) 34px 42px, transparent 42px 108px), repeating-radial-gradient(circle at 100% 0%, rgba(192,228,132,0.92) 0 92px, rgba(192,228,132,0.92) 92px 134px, rgba(231,255,170,0.92) 134px 176px, rgba(231,255,170,0.92) 176px 218px)",
-            }}
-          />
+      <div className="bg-wild-sand px-6 py-14 md:px-12 md:py-20 xl:px-20 xl:py-24">
+        {/* Impact statement */}
+        <div className="mx-auto max-w-[1280px]">
+          <span className="mb-6 inline-block rounded-sm bg-yellow-green px-3 py-1 font-sans text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-aztec">
+            Our Impact
+          </span>
 
-          <div className="relative flex h-full items-center justify-center px-8 py-16">
-            <div className="flex items-center gap-3 text-[#17202a]">
-              <h3 className="font-sans text-[2.5rem] font-normal leading-none tracking-[-0.075em] sm:text-[3.3rem] md:text-[4.2rem] xl:text-[4.5rem]">
-                Our Numbers
-              </h3>
-              <svg
-                viewBox="0 0 80 56"
-                aria-hidden="true"
-                className="mt-2 h-[34px] w-[52px] md:h-[42px] md:w-[64px] xl:h-[52px] xl:w-[78px]"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="4.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M4 28h62" />
-                <path d="m47 10 18 18-18 18" />
-              </svg>
-            </div>
+          <h3 className="max-w-[900px] font-sans text-[1.8rem] font-bold leading-[1.15] tracking-[-0.04em] text-aztec sm:text-[2.2rem] md:text-[2.8rem] xl:text-[3.2rem]">
+            Hydra&apos;s clean energy solutions have made a lasting impact on
+            communities and industries across the Americas, Asia, Europe,
+            and beyond.
+          </h3>
+
+          <div className="mt-8 flex items-center gap-[2px]">
+            <a
+              href="#"
+              className="inline-flex h-[44px] items-center rounded-full bg-aztec px-5 font-sans text-[0.9rem] font-medium tracking-[-0.04em] text-wild-sand"
+            >
+              Learn More
+            </a>
+            <a
+              href="#"
+              aria-label="Learn More"
+              className="inline-flex h-[44px] w-[44px] items-center justify-center rounded-full bg-aztec text-wild-sand transition-transform duration-300 hover:translate-x-[2px]"
+            >
+              <ArrowUpRight size={18} weight="bold" />
+            </a>
           </div>
-        </article>
+        </div>
 
-        <article className="grid min-h-[320px] grid-cols-2 bg-aztec px-8 py-10 text-yellow-green md:min-h-[430px] md:px-12 md:py-14 xl:min-h-[758px] xl:px-[72px] xl:py-[86px]">
+        {/* Stats row */}
+        <div className="mx-auto mt-14 grid max-w-[1280px] grid-cols-2 gap-6 md:mt-20 md:grid-cols-4">
           {[
             { value: "45%", label: "Carbon Reduction" },
             { value: "200+", label: "Global Projects" },
             { value: "500M", label: "Saved in Revenue" },
-            { value: "25%", label: "Average Roi" },
+            { value: "25%", label: "Average ROI" },
           ].map((item) => (
             <div
               key={item.label}
-              className="flex items-center justify-center px-4 py-8 md:px-6 md:py-10"
+              className="border-l border-aztec/15 pl-5 md:pl-6"
             >
-              <div className="text-center">
-                <p className="font-sans text-[3rem] font-semibold leading-none tracking-[-0.085em] sm:text-[4rem] md:text-[4.6rem] xl:text-[5rem]">
-                  {item.value}
-                </p>
-                 <p className="mt-6 font-sans text-[1rem] font-medium tracking-[-0.05em] text-yellow-green/80 md:text-[1.2rem] xl:text-[1.28rem]">
-                  {item.label}
-                </p>
-              </div>
+              <p className="font-sans text-[2.4rem] font-bold leading-none tracking-[-0.06em] text-aztec sm:text-[3rem] md:text-[3.4rem] xl:text-[3.8rem]">
+                {item.value}
+              </p>
+              <p className="mt-3 font-sans text-[0.85rem] font-medium tracking-[-0.02em] text-xanadu md:text-[0.95rem]">
+                {item.label}
+              </p>
             </div>
           ))}
-        </article>
+        </div>
       </div>
     </section>
   );
