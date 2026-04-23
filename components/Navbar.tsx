@@ -1,88 +1,131 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
+
+import { CaretDown, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+
+const navigationItems = [
+  { href: "/gallery", label: "Projects" },
+  { href: "/about", label: "Company" },
+  { href: "/services", label: "Solutions" },
+  { href: "/testimonials", label: "News" },
+];
 
 export default function Navbar() {
   return (
-    <header className="absolute inset-x-0 top-0 z-30">
-      <nav className="mx-auto flex w-full max-w-[1450px] flex-wrap items-center justify-between gap-6 px-5 py-5 text-wild-sand md:px-8 lg:px-12">
-        <div className="flex items-center gap-5 md:gap-8">
-          <Link
-            href="/"
-            className="flex items-center gap-3 text-[1.65rem] font-bold tracking-[-0.04em]"
-          >
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-wild-sand/10 text-wild-sand/95 backdrop-blur-sm">
-              <svg
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                className="h-[18px] w-[18px]"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M13 5a1.75 1.75 0 1 0 0-3.5A1.75 1.75 0 0 0 13 5Z" />
-                <path d="m6 11 3.3-3.2 2.8 1 2.4 3.2 3.5.9" />
-                <path d="m8.3 17.8 2.5-4.4" />
-                <path d="m12.8 10.1-1.1 6.4" />
-                <path d="m16.5 7.7 2 2.3" />
-              </svg>
-            </span>
-            <span className="font-heading text-[1.25rem] font-medium tracking-[-0.05em]">Perform</span>
-          </Link>
-          <span className="hidden h-8 w-px bg-wild-sand/35 md:block" />
-           <ul className="hidden items-center gap-10 text-[1.05rem] font-medium text-wild-sand/95 md:flex">
-            <li>
-              <Link href="/services" className="transition hover:text-wild-sand/75">
-                Coaching
-              </Link>
-            </li>
-            <li>
-              <Link href="/testimonials" className="transition hover:text-wild-sand/75">
-                Reviews
-              </Link>
-            </li>
-            <li>
-              <Link href="/about" className="transition hover:text-wild-sand/75">
-                About
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact" className="transition hover:text-wild-sand/75">
-                Contact
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-         <Link
-          href="/contact"
-          className="btn-pill bg-white/10 text-white backdrop-blur-md transition hover:bg-white/20 md:px-8"
+    <header className="pointer-events-none absolute inset-x-0 top-0 z-30">
+      <nav className="mx-auto flex w-full max-w-[1920px] items-start justify-between px-5 pt-5 md:px-5">
+        <motion.div
+          initial={{ opacity: 0, y: -18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="pointer-events-auto w-full md:max-w-[555px]"
         >
-          Get Started
-        </Link>
+          <div className="hidden items-center rounded-[8px] bg-white px-5 py-6 text-[#111713] shadow-[0_24px_70px_rgba(0,0,0,0.18)] md:flex">
+            <Link
+              href="/"
+              className="shrink-0 text-[1.12rem] font-medium tracking-[-0.06em]"
+              style={{ fontFamily: "var(--font-inter), sans-serif" }}
+            >
+              &copy;Hydra
+            </Link>
 
-        <ul className="flex w-full items-center gap-6 overflow-x-auto pb-1 text-[0.96rem] font-medium tracking-[-0.03em] text-white/90 md:hidden">
-          <li className="shrink-0">
-            <Link href="/services" className="transition hover:text-white/75">
-              Coaching
+            <ul
+              className="ml-11 flex items-center gap-9 text-[0.95rem] font-medium tracking-[-0.05em]"
+              style={{ fontFamily: "var(--font-inter), sans-serif" }}
+            >
+              {navigationItems.map((item, index) => (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    className="group inline-flex items-center gap-1.5 transition hover:opacity-65"
+                  >
+                    <span>{item.label}</span>
+                    {index === 1 ? (
+                      <CaretDown
+                        size={12}
+                        className="transition group-hover:translate-y-[1px]"
+                      />
+                    ) : null}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="md:hidden">
+            <div className="flex items-center justify-between rounded-[8px] bg-white px-4 py-4 text-[#111713] shadow-[0_18px_50px_rgba(0,0,0,0.18)]">
+              <Link
+                href="/"
+                className="text-[1.02rem] font-medium tracking-[-0.06em]"
+                style={{ fontFamily: "var(--font-inter), sans-serif" }}
+              >
+                &copy;Hydra
+              </Link>
+
+              <details className="relative">
+                <summary className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full transition hover:bg-black/5">
+                  <span className="sr-only">Open navigation</span>
+                  <span className="flex flex-col gap-[5px]">
+                    <span className="block h-[2.5px] w-6 rounded-full bg-[#141914]" />
+                    <span className="block h-[2.5px] w-6 rounded-full bg-[#141914]" />
+                  </span>
+                </summary>
+
+                <div className="absolute right-0 top-full mt-3 w-[220px] rounded-[18px] bg-white/95 p-4 text-[#111713] shadow-[0_24px_65px_rgba(0,0,0,0.24)] backdrop-blur">
+                  <ul
+                    className="space-y-3 text-[0.95rem] font-medium tracking-[-0.04em]"
+                    style={{ fontFamily: "var(--font-inter), sans-serif" }}
+                  >
+                    {navigationItems.map((item) => (
+                      <li key={item.label}>
+                        <Link href={item.href} className="block transition hover:opacity-65">
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Link
+                    href="/contact"
+                    className="mt-4 inline-flex h-11 items-center rounded-full bg-[#16231f] px-5 text-[0.95rem] font-medium tracking-[-0.05em] text-[#e8ff91] transition hover:bg-[#1c2d28]"
+                    style={{ fontFamily: "var(--font-inter), sans-serif" }}
+                  >
+                    Contact Us
+                  </Link>
+                </div>
+              </details>
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: -18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+          className="pointer-events-auto hidden items-center gap-3 md:flex"
+        >
+          <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
+            <Link
+              href="/contact"
+              className="inline-flex h-[50px] items-center rounded-full bg-[#16231f] px-8 text-[0.95rem] font-medium tracking-[-0.05em] text-[#e8ff91] shadow-[0_20px_40px_rgba(0,0,0,0.16)] transition duration-300 hover:bg-[#1c2d28]"
+              style={{ fontFamily: "var(--font-inter), sans-serif" }}
+            >
+              Contact Us
             </Link>
-          </li>
-          <li className="shrink-0">
-            <Link href="/testimonials" className="transition hover:text-white/75">
-              Reviews
+          </motion.div>
+
+          <motion.div whileHover={{ y: -2, rotate: 3 }} whileTap={{ scale: 0.96 }}>
+            <Link
+              href="/contact"
+              aria-label="Contact Us"
+              className="flex h-[50px] w-[50px] items-center justify-center rounded-full bg-[#16231f] text-[#e8ff91] shadow-[0_20px_40px_rgba(0,0,0,0.16)] transition duration-300 hover:bg-[#1c2d28]"
+            >
+              <ArrowUpRight size={18} weight="bold" />
             </Link>
-          </li>
-          <li className="shrink-0">
-            <Link href="/about" className="transition hover:text-white/75">
-              About
-            </Link>
-          </li>
-          <li className="shrink-0">
-            <Link href="/contact" className="transition hover:text-white/75">
-              Contact
-            </Link>
-          </li>
-        </ul>
+          </motion.div>
+        </motion.div>
       </nav>
     </header>
   );

@@ -1,15 +1,19 @@
 "use client";
 
-import Image from "next/image";
+import Link from "next/link";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
+
+import { CaretLeft, CaretRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 
 type ProjectCard = {
   title: string;
   image: string;
   alt: string;
-  tone: string;
-  className: string;
-  position: string;
+  overlay: string;
+  desktopClassName: string;
+  backgroundPosition?: string;
+  showViewProject?: boolean;
   showPlus?: boolean;
 };
 
@@ -17,232 +21,382 @@ const slides: ProjectCard[][] = [
   [
     {
       title: "PurePower",
-      image: "/hero-cleaning-home.jpg",
-      alt: "Wind and clean energy landscape",
-      tone: "bg-[rgba(174,183,188,0.34)]",
-      className: "lg:basis-[43%]",
-      position: "object-cover object-center",
+      image:
+        "https://images.pexels.com/photos/15379018/pexels-photo-15379018.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1600&w=2200",
+      alt: "Wind turbines across a green landscape",
+      overlay:
+        "linear-gradient(180deg, rgba(150, 155, 148, 0.18) 0%, rgba(18, 21, 16, 0.38) 100%)",
+      desktopClassName: "md:col-span-5",
+      backgroundPosition: "center center",
+      showViewProject: true,
       showPlus: true,
     },
     {
       title: "EnergyOptix",
-      image: "/clean-space-living-room.jpg",
-      alt: "Dark infrastructure project preview",
-      tone: "bg-[rgba(4,18,20,0.6)]",
-      className: "lg:basis-[43%]",
-      position: "object-cover object-center",
+      image:
+        "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=2200&q=80",
+      alt: "Dark data center with blue lighting",
+      overlay:
+        "linear-gradient(180deg, rgba(3, 12, 13, 0.08) 0%, rgba(3, 9, 12, 0.54) 100%)",
+      desktopClassName: "md:col-span-5",
+      backgroundPosition: "center center",
     },
     {
       title: "SmartSpark",
-      image: "/equipment-vacuum-cleaning.jpg",
-      alt: "Aerial utility project preview",
-      tone: "bg-[rgba(18,38,30,0.3)]",
-      className: "lg:basis-[14%]",
-      position: "object-cover object-center",
+      image:
+        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+      alt: "Aerial river and surrounding forest",
+      overlay:
+        "linear-gradient(180deg, rgba(9, 22, 19, 0.12) 0%, rgba(8, 14, 13, 0.42) 100%)",
+      desktopClassName: "md:col-span-2",
+      backgroundPosition: "center center",
     },
   ],
   [
     {
       title: "EcoGrid",
-      image: "/plan-basic-swim.png",
-      alt: "Green planning project preview",
-      tone: "bg-[rgba(22,35,37,0.18)]",
-      className: "lg:basis-[43%]",
-      position: "object-cover object-center",
+      image:
+        "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?auto=format&fit=crop&w=2200&q=80",
+      alt: "Wind turbines at sunset",
+      overlay:
+        "linear-gradient(180deg, rgba(152, 140, 118, 0.14) 0%, rgba(19, 18, 14, 0.42) 100%)",
+      desktopClassName: "md:col-span-5",
+      backgroundPosition: "center center",
+      showViewProject: true,
       showPlus: true,
     },
     {
       title: "VoltEdge",
-      image: "/coach-conversation.png",
-      alt: "Leadership and strategy project preview",
-      tone: "bg-[rgba(26,22,18,0.44)]",
-      className: "lg:basis-[43%]",
-      position: "object-cover object-center",
+      image:
+        "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2200&q=80",
+      alt: "Macro tech surface with blue light",
+      overlay:
+        "linear-gradient(180deg, rgba(2, 10, 13, 0.1) 0%, rgba(3, 10, 12, 0.55) 100%)",
+      desktopClassName: "md:col-span-5",
+      backgroundPosition: "center center",
     },
     {
       title: "BlueCurrent",
-      image: "/clean-space-living-room.jpg",
-      alt: "Small spotlight project preview",
-      tone: "bg-[rgba(8,20,22,0.42)]",
-      className: "lg:basis-[14%]",
-      position: "object-cover object-right",
+      image:
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
+      alt: "Lake viewed from above",
+      overlay:
+        "linear-gradient(180deg, rgba(8, 22, 20, 0.1) 0%, rgba(8, 16, 15, 0.4) 100%)",
+      desktopClassName: "md:col-span-2",
+      backgroundPosition: "center center",
     },
   ],
   [
     {
       title: "NovaField",
-      image: "/equipment-vacuum-cleaning.jpg",
-      alt: "Open field operations preview",
-      tone: "bg-[rgba(28,42,24,0.26)]",
-      className: "lg:basis-[43%]",
-      position: "object-cover object-center",
+      image:
+        "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=2200&q=80",
+      alt: "Solar field across open landscape",
+      overlay:
+        "linear-gradient(180deg, rgba(118, 139, 154, 0.12) 0%, rgba(12, 18, 17, 0.42) 100%)",
+      desktopClassName: "md:col-span-5",
+      backgroundPosition: "center center",
+      showViewProject: true,
       showPlus: true,
     },
     {
       title: "CoreStack",
-      image: "/hero-cleaning-home.jpg",
-      alt: "Operations and delivery preview",
-      tone: "bg-[rgba(30,28,18,0.5)]",
-      className: "lg:basis-[43%]",
-      position: "object-cover object-center",
+      image:
+        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=2200&q=80",
+      alt: "Blue lit technology environment",
+      overlay:
+        "linear-gradient(180deg, rgba(3, 9, 12, 0.08) 0%, rgba(2, 10, 12, 0.56) 100%)",
+      desktopClassName: "md:col-span-5",
+      backgroundPosition: "center center",
     },
     {
       title: "FlowWorks",
-      image: "/plan-basic-swim.png",
-      alt: "Compact project preview",
-      tone: "bg-[rgba(18,31,25,0.26)]",
-      className: "lg:basis-[14%]",
-      position: "object-cover object-center",
+      image:
+        "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80",
+      alt: "Forest aerial view",
+      overlay:
+        "linear-gradient(180deg, rgba(9, 18, 14, 0.08) 0%, rgba(8, 13, 11, 0.44) 100%)",
+      desktopClassName: "md:col-span-2",
+      backgroundPosition: "center center",
+    },
+  ],
+  [
+    {
+      title: "TerraBloom",
+      image:
+        "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=2200&q=80",
+      alt: "Renewable energy landscape with wind turbines",
+      overlay:
+        "linear-gradient(180deg, rgba(150, 149, 132, 0.14) 0%, rgba(15, 17, 13, 0.42) 100%)",
+      desktopClassName: "md:col-span-5",
+      backgroundPosition: "center center",
+      showViewProject: true,
+      showPlus: true,
+    },
+    {
+      title: "GridSight",
+      image:
+        "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=2200&q=80",
+      alt: "Industrial infrastructure in blue light",
+      overlay:
+        "linear-gradient(180deg, rgba(4, 10, 12, 0.08) 0%, rgba(4, 10, 12, 0.58) 100%)",
+      desktopClassName: "md:col-span-5",
+      backgroundPosition: "center center",
+    },
+    {
+      title: "HydroLoop",
+      image:
+        "https://images.unsplash.com/photo-1505764706515-aa95265c5abc?auto=format&fit=crop&w=1200&q=80",
+      alt: "Water-side infrastructure from above",
+      overlay:
+        "linear-gradient(180deg, rgba(8, 22, 20, 0.08) 0%, rgba(7, 13, 12, 0.44) 100%)",
+      desktopClassName: "md:col-span-2",
+      backgroundPosition: "center center",
     },
   ],
 ];
 
+const slideVariants = {
+  enter: (direction: number) => ({
+    opacity: 0,
+    x: direction > 0 ? 84 : -84,
+  }),
+  center: {
+    opacity: 1,
+    x: 0,
+  },
+  exit: (direction: number) => ({
+    opacity: 0,
+    x: direction > 0 ? -84 : 84,
+  }),
+};
+
 export default function RecentProjectsSection() {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const shouldReduceMotion = useReducedMotion();
+
+  const navigateToSlide = (nextIndex: number) => {
+    setDirection(nextIndex > activeSlide ? 1 : -1);
+    setActiveSlide(nextIndex);
+  };
 
   const previousSlide = () => {
-    setActiveSlide((current) => (current === 0 ? slides.length - 1 : current - 1));
+    const nextIndex = activeSlide === 0 ? slides.length - 1 : activeSlide - 1;
+    setDirection(-1);
+    setActiveSlide(nextIndex);
   };
 
   const nextSlide = () => {
-    setActiveSlide((current) => (current === slides.length - 1 ? 0 : current + 1));
+    const nextIndex = activeSlide === slides.length - 1 ? 0 : activeSlide + 1;
+    setDirection(1);
+    setActiveSlide(nextIndex);
   };
 
   return (
-    <section className="bg-wild-sand px-4 py-5 text-aztec md:px-5 md:py-6 xl:px-5 xl:py-5">
-      <div className="mx-auto max-w-[1920px]">
-        <div className="flex items-start justify-between gap-4">
-          <h2 className="text-aztec sm:text-[3.4rem] md:text-[4rem] xl:text-[3.95rem]">
+    <section className="bg-[#f4f1ec] px-3 pb-7 pt-5 text-[#111713] md:px-5 md:pb-9 md:pt-6">
+      <motion.div
+        className="mx-auto max-w-[1920px]"
+        initial={shouldReduceMotion ? false : { opacity: 0, y: 36 }}
+        whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+          <h2
+            className="max-w-[10ch] text-[2.8rem] font-medium leading-[0.92] tracking-[-0.09em] text-[#090d0a] sm:text-[4rem] md:max-w-none md:text-[5.1rem] lg:text-[5.55rem]"
+            style={{ fontFamily: "var(--font-inter), sans-serif" }}
+          >
             Recent Projects
           </h2>
 
-          <div className="flex items-center gap-2">
-            <button
+          <div className="flex items-center gap-2 self-end md:pt-2">
+            <motion.button
               type="button"
               aria-label="Previous project"
               onClick={previousSlide}
-              className="flex h-[48px] w-[48px] items-center justify-center rounded-[8px] bg-aztec/5 text-aztec transition-colors duration-300 hover:bg-aztec/10"
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.96 }}
+              className="flex h-[52px] w-[52px] items-center justify-center rounded-[8px] bg-[#ebe8e2] text-[#111713] transition-colors duration-300 hover:bg-[#e2dfd8] md:h-[54px] md:w-[54px]"
             >
-              <svg
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                className="h-6 w-6"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.35"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="m14.5 5-7 7 7 7" />
-              </svg>
-            </button>
-            <button
+              <CaretLeft size={22} weight="bold" />
+            </motion.button>
+
+            <motion.button
               type="button"
               aria-label="Next project"
               onClick={nextSlide}
-              className="flex h-[48px] w-[48px] items-center justify-center rounded-[8px] bg-aztec/5 text-aztec transition-colors duration-300 hover:bg-aztec/10"
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.96 }}
+              className="flex h-[52px] w-[52px] items-center justify-center rounded-[8px] bg-[#ebe8e2] text-[#111713] transition-colors duration-300 hover:bg-[#e2dfd8] md:h-[54px] md:w-[54px]"
             >
-              <svg
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                className="h-6 w-6"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.35"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="m9.5 5 7 7-7 7" />
-              </svg>
-            </button>
+              <CaretRight size={22} weight="bold" />
+            </motion.button>
           </div>
         </div>
 
-        <div className="mt-7 overflow-hidden">
-          <div
-            className="flex transition-transform duration-500 ease-out"
-            style={{ transform: `translateX(-${activeSlide * 100}%)` }}
-          >
-            {slides.map((slide, slideIndex) => (
-              <div key={slideIndex} className="min-w-full">
-                <div className="flex flex-col gap-[10px] lg:flex-row">
-                  {slide.map((project) => (
-                    <article
-                      key={project.title}
-                      className={`group relative min-h-[220px] overflow-hidden rounded-[18px] bg-[#dbe0e2] sm:min-h-[250px] md:min-h-[300px] xl:min-h-[420px] ${project.className}`}
-                    >
-                      <Image
-                        src={project.image}
-                        alt={project.alt}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 33vw"
-                        className={`${project.position} transition-transform duration-700 ease-out group-hover:scale-[1.03]`}
-                      />
-                      <div className={`absolute inset-0 ${project.tone}`} />
+        <div className="mt-5 overflow-hidden md:mt-8">
+          <div className="relative min-h-[780px] sm:min-h-[860px] md:min-h-[544px]">
+            <AnimatePresence initial={false} custom={direction} mode="wait">
+              <motion.div
+                key={activeSlide}
+                custom={direction}
+                variants={shouldReduceMotion ? undefined : slideVariants}
+                initial={shouldReduceMotion ? undefined : "enter"}
+                animate={shouldReduceMotion ? undefined : "center"}
+                exit={shouldReduceMotion ? undefined : "exit"}
+                transition={{ duration: 0.64, ease: [0.22, 1, 0.36, 1] }}
+                className="grid grid-cols-1 gap-2.5 md:grid-cols-12"
+              >
+                {slides[activeSlide].map((project, index) => (
+                  <motion.article
+                    key={project.title}
+                    whileHover={shouldReduceMotion ? undefined : "hover"}
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 26 }}
+                    animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.6,
+                      delay: shouldReduceMotion ? 0 : 0.08 + index * 0.08,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    className={`group relative overflow-hidden bg-[#d9d9d2] ${project.desktopClassName} ${
+                      index === 2
+                        ? "min-h-[260px] md:min-h-[544px]"
+                        : "min-h-[255px] sm:min-h-[300px] md:min-h-[544px]"
+                    }`}
+                  >
+                    <motion.div
+                      variants={
+                        shouldReduceMotion
+                          ? undefined
+                          : {
+                              hover: { scale: 1.045 },
+                            }
+                      }
+                      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                      className="absolute inset-0"
+                      style={{
+                        backgroundImage: `${project.overlay}, url("${project.image}")`,
+                        backgroundPosition: project.backgroundPosition ?? "center center",
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover",
+                      }}
+                      aria-label={project.alt}
+                      role="img"
+                    />
 
-                      {project.showPlus ? (
-                        <div className="absolute left-1/2 top-[26%] -translate-x-1/2 text-[2.2rem] font-extralight leading-none text-white/70 md:text-[2.6rem]">
-                          +
-                        </div>
-                      ) : null}
+                    {project.showPlus ? (
+                      <motion.div
+                        variants={
+                          shouldReduceMotion
+                            ? undefined
+                            : {
+                                hover: { scale: 1.08, opacity: 0.94 },
+                              }
+                        }
+                        className="absolute left-1/2 top-1/2 z-10 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full text-[2.6rem] font-extralight leading-none text-white/70 md:h-14 md:w-14"
+                      >
+                        +
+                      </motion.div>
+                    ) : null}
 
-                      <p className="absolute bottom-4 left-4 text-[1rem] text-wild-sand md:bottom-5 md:left-5 md:text-[1.08rem]">
+                    <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-5 md:p-6">
+                      <motion.p
+                        variants={
+                          shouldReduceMotion
+                            ? undefined
+                            : {
+                                hover: { y: -2 },
+                              }
+                        }
+                        className="text-[1rem] font-medium tracking-[-0.05em] text-white md:text-[1.08rem]"
+                        style={{ fontFamily: "var(--font-inter), sans-serif" }}
+                      >
                         {project.title}
-                      </p>
-                    </article>
-                  ))}
-                </div>
-              </div>
-            ))}
+                      </motion.p>
+
+                      {project.showViewProject ? (
+                        <motion.div
+                          variants={
+                            shouldReduceMotion
+                              ? undefined
+                              : {
+                                  hover: { y: -3, opacity: 1 },
+                                }
+                          }
+                          className="hidden opacity-90 md:block"
+                        >
+                          <Link
+                            href="/gallery"
+                            className="inline-flex items-center gap-4 rounded-full bg-[#dbe783]/10 px-5 py-3 text-[0.95rem] font-medium tracking-[-0.055em] text-[#d5d18d] backdrop-blur-md transition duration-300 hover:bg-[#dbe783]/18 hover:text-[#eff7ae]"
+                            style={{ fontFamily: "var(--font-inter), sans-serif" }}
+                          >
+                            <span>View Project</span>
+                            <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#d5d18d]/25 bg-black/10">
+                              <ArrowUpRight size={16} weight="bold" />
+                            </span>
+                          </Link>
+                        </motion.div>
+                      ) : null}
+                    </div>
+                  </motion.article>
+                ))}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+        <div className="mt-6 grid gap-5 md:mt-8 md:grid-cols-[auto_1fr_auto] md:items-center">
           <div className="flex items-center gap-[2px]">
-             <a
-              href="#"
-              className="btn-pill btn-pill-dark"
-            >
-              View All
-            </a>
-             <a
-              href="#"
-              aria-label="View all projects"
-              className="inline-flex h-[48px] w-[48px] items-center justify-center rounded-full bg-aztec text-yellow-green transition-transform duration-300 hover:translate-x-[2px]"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                className="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+            <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                href="/gallery"
+                className="inline-flex h-[50px] items-center rounded-full bg-[#16231f] px-7 text-[1rem] font-medium tracking-[-0.05em] text-[#dff18e] transition duration-300 hover:bg-[#1c2d28]"
+                style={{ fontFamily: "var(--font-inter), sans-serif" }}
               >
-                <path d="M7 17 17 7" />
-                <path d="M9 7h8v8" />
-              </svg>
-            </a>
+                View All
+              </Link>
+            </motion.div>
+
+            <motion.div whileHover={{ y: -2, rotate: 3 }} whileTap={{ scale: 0.96 }}>
+              <Link
+                href="/gallery"
+                aria-label="View all projects"
+                className="inline-flex h-[50px] w-[50px] items-center justify-center rounded-full bg-[#16231f] text-[#dff18e] transition duration-300 hover:bg-[#1c2d28]"
+              >
+                <ArrowUpRight size={20} weight="bold" />
+              </Link>
+            </motion.div>
           </div>
 
-          <div className="flex items-center justify-center gap-[6px] md:flex-1">
+          <div className="flex items-center justify-center gap-[7px]">
             {slides.map((_, index) => (
-              <button
+              <motion.button
                 key={index}
                 type="button"
                 aria-label={`Go to project slide ${index + 1}`}
-                onClick={() => setActiveSlide(index)}
-                 className={`h-[9px] w-[9px] rounded-full transition-colors duration-300 ${
-                  index === activeSlide ? "bg-aztec" : "bg-xanadu/30"
+                onClick={() => navigateToSlide(index)}
+                whileTap={{ scale: 0.92 }}
+                className={`rounded-full transition-all duration-300 ${
+                  index === activeSlide
+                    ? "h-[10px] w-[10px] bg-[#101410]"
+                    : "h-[10px] w-[10px] bg-[#101410]/22 hover:bg-[#101410]/38"
                 }`}
               />
             ))}
           </div>
 
-          <div className="hidden md:block md:w-[140px]" />
+          <div className="flex items-center justify-end">
+            <div className="h-[46px] w-full max-w-[172px] rounded-[16px] border border-[#e5e1da] bg-[#f6f3ee] p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)]">
+              <motion.div
+                animate={{ width: `${((activeSlide + 1) / slides.length) * 100}%` }}
+                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                className="h-full rounded-[12px] bg-[#e9e5de]"
+              />
+            </div>
+          </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

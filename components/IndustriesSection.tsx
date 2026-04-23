@@ -1,107 +1,29 @@
+import { HardDrives, Cloud, Factory, Wind } from "@phosphor-icons/react/dist/ssr";
+
 const industries = [
   {
     title: "Data Centers",
     summary:
       "Custom-built, energy-efficient data centre solutions tailored to high-performance digital infrastructure.",
-    icon: (
-      <svg
-        viewBox="0 0 64 64"
-        aria-hidden="true"
-        className="h-[78px] w-[78px]"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.35"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="m16 20 16-9 16 9-16 9-16-9Z" />
-        <path d="M16 30l16 9 16-9" />
-        <path d="M16 40l16 9 16-9" />
-        <path d="M16 20v20" />
-        <path d="M48 20v20" />
-        <path d="m20 25 4 2" />
-        <path d="m20 29 4 2" />
-        <path d="m20 33 4 2" />
-        <path d="m40 25 4-2" />
-        <path d="m40 29 4-2" />
-        <path d="m40 33 4-2" />
-        <path d="m20 35 4 2" />
-        <path d="m20 39 4 2" />
-        <path d="m40 35 4-2" />
-        <path d="m40 39 4-2" />
-      </svg>
-    ),
+    icon: <HardDrives size={64} weight="light" />,
   },
   {
     title: "Cloud Infrastructure",
     summary:
       "Scalable digital backbone planning that supports resilient systems and long-term operational growth.",
-    icon: (
-      <svg
-        viewBox="0 0 64 64"
-        aria-hidden="true"
-        className="h-[78px] w-[78px]"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.35"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M23 46a12 12 0 0 1 1.9-23.84A14.25 14.25 0 0 1 51 18.75a11 11 0 0 1 1.38 21.9H23Z" />
-        <path d="M26 43c.95-3.2 3.38-5.94 7.34-8.23 2.95-1.71 5.93-2.98 7.59-5.61" />
-        <path d="m35.5 17.5-3.3 4.33" />
-        <path d="m43.5 21.5-2.25 3.12" />
-      </svg>
-    ),
+    icon: <Cloud size={64} weight="light" />,
   },
   {
     title: "Energy",
     summary:
       "Expertise in securing and managing low-cost, sustainable energy sources for high-demand industries.",
-    icon: (
-      <svg
-        viewBox="0 0 64 64"
-        aria-hidden="true"
-        className="h-[78px] w-[78px]"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.35"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="m19 25 15-9 15 9-15 9-15-9Z" />
-        <path d="m15 21 15-9 15 9" />
-        <path d="M22 29.25v9.5l12 7 12-7v-9.5" />
-        <path d="M34 16v29.75" />
-        <path d="m25 34 9 5.25 9-5.25" />
-      </svg>
-    ),
+    icon: <Factory size={64} weight="light" />,
   },
   {
     title: "Renewables",
     summary:
       "Clean-energy project support shaped around modern infrastructure, efficiency, and future-ready systems.",
-    icon: (
-      <svg
-        viewBox="0 0 64 64"
-        aria-hidden="true"
-        className="h-[78px] w-[78px]"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.35"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M33 17v26" />
-        <path d="m33 22 8 6.5-8 2.4" />
-        <path d="m33 26-8 6.6 8 2.1" />
-        <path d="m33 33 11 9" />
-        <path d="m33 35.5-9.5 8.5" />
-        <path d="M27 47.5h12" />
-        <path d="M16 49c3 1.75 5.37 1.75 8.37 0 3 1.75 5.37 1.75 8.38 0 3 1.75 5.37 1.75 8.37 0 3 1.75 5.38 1.75 8.38 0" />
-        <path d="M19 54c2.02 1.04 3.61 1.04 5.63 0 2.02 1.04 3.61 1.04 5.62 0 2.02 1.04 3.61 1.04 5.63 0 2.02 1.04 3.61 1.04 5.63 0 2.02 1.04 3.61 1.04 5.62 0" />
-      </svg>
-    ),
+    icon: <Wind size={64} weight="light" />,
   },
 ];
 

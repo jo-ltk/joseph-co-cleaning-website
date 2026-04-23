@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Check, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 
 const features = [
   "Free initial consultation",
@@ -44,18 +45,7 @@ export default function CoachingPlans() {
                 {features.map((feature) => (
                   <li key={feature} className="flex items-start gap-4">
                      <span className="mt-[0.2em] inline-flex h-7 w-7 shrink-0 items-center justify-center text-aztec">
-                      <svg
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                        className="h-5 w-5"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.3"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="m5 12 4 4L19 6" />
-                      </svg>
+                       <Check size={20} weight="bold" />
                     </span>
                     <span>{feature}</span>
                   </li>
@@ -69,19 +59,7 @@ export default function CoachingPlans() {
                 >
                   <span className="py-4">Get in touch</span>
                   <span className="ml-5 flex h-[50px] w-[50px] items-center justify-center rounded-full bg-aztec text-yellow-green">
-                    <svg
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                      className="h-5 w-5"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M7 17 17 7" />
-                      <path d="M8 7h9v9" />
-                    </svg>
+                    <ArrowUpRight size={20} weight="bold" />
                   </span>
                 </Link>
               </div>

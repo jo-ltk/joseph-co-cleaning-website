@@ -1,67 +1,20 @@
+import { Phone, MagnifyingGlass, Truck } from "@phosphor-icons/react/dist/ssr";
+
 const steps = [
   {
     title: "Call us 555-0123",
     description: "We remain available 24/7 for any plumbing emergency.",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        className="h-[68px] w-[68px]"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2 4.1 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7l.5 3.4a2 2 0 0 1-.6 1.8l-1.6 1.6a16 16 0 0 0 6.4 6.4l1.6-1.6a2 2 0 0 1 1.8-.6l3.4.5A2 2 0 0 1 22 16.9Z" />
-      </svg>
-    ),
+    icon: <Phone size={44} weight="light" />,
   },
   {
     title: "Expert evaluation",
     description: "Our experts will evaluate the situation and look for solutions.",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        className="h-[68px] w-[68px]"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <circle cx="12" cy="4.5" r="2.8" />
-        <path d="M12 7.8v4.1" />
-        <path d="m12 9.5-4.7 4.1" />
-        <path d="m12 9.5 4.7 4.1" />
-        <path d="m10.3 12.2-2 7.1" />
-        <path d="m13.7 12.2 2 7.1" />
-      </svg>
-    ),
+    icon: <MagnifyingGlass size={44} weight="light" />,
   },
   {
     title: "We arrive in 30 minutes",
     description: "Our team will arrive with all the necessary equipment.",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        className="h-[68px] w-[68px]"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M3 7h10v7H3z" />
-        <path d="M13 9h4l3 3v2h-7z" />
-        <circle cx="8" cy="18" r="2.3" />
-        <circle cx="18" cy="18" r="2.3" />
-        <path d="M13 16h2.7" />
-        <path d="M13 7V4h8v10" />
-      </svg>
-    ),
+    icon: <Truck size={44} weight="light" />,
   },
 ];
 

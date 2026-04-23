@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Quotes } from "@phosphor-icons/react/dist/ssr";
 
 const testimonials = [
   {
@@ -26,25 +27,10 @@ const testimonials = [
 
 const marqueeCards = [...testimonials, ...testimonials, ...testimonials, ...testimonials];
 
-function QuoteIcon() {
-  return (
-    <div className="mb-5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-wild-sand">
-      <svg
-        viewBox="0 0 14 11"
-        className="h-3.5 w-4 fill-[#e5ff8e]"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <path d="M0 11V6.6C0 2.95 2.1 0.7 6.3 0L7 1.4C4.9 1.85 3.7 3.15 3.5 5.25H6.3V11H0ZM7.7 11V6.6C7.7 2.95 9.8 0.7 14 0L14.7 1.4C12.6 1.85 11.4 3.15 11.2 5.25H14V11H7.7Z" />
-      </svg>
-    </div>
-  );
-}
-
 export default function TestimonialsMarqueeSection() {
   return (
-    <section className="overflow-hidden bg-wild-sand px-4 pb-10 pt-9 text-aztec md:px-6 md:pb-12 md:pt-10 xl:px-0 xl:pb-14 xl:pt-12">
-      <div className="mx-auto max-w-[1600px]">
+    <section className="bg-wild-sand pb-16 pt-12 text-aztec md:pb-20 md:pt-16">
+      <div className="mx-auto max-w-[1600px] px-6">
         <div className="flex flex-col items-center text-center">
           <p className="section-label rounded-full">
             Our Clients
@@ -56,56 +42,48 @@ export default function TestimonialsMarqueeSection() {
         </div>
       </div>
 
-      {/* Marquee track with fade edges */}
-      <div
-        className="mt-9 overflow-hidden xl:mt-10"
-        style={{
-          maskImage:
-            "linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)",
-        }}
-      >
-        <div className="flex w-max gap-5 [animation:marqueeScroll_32s_linear_infinite] hover:[animation-play-state:paused] md:gap-6">
+      {/* Marquee track - mask removed as requested */}
+      <div className="mt-12 overflow-hidden md:mt-16">
+        <div className="flex w-max gap-6 [animation:marqueeScroll_40s_linear_infinite] hover:[animation-play-state:paused]">
           {marqueeCards.map((testimonial, index) => (
             <article
               key={`${testimonial.name}-${index}`}
-              className="flex h-[300px] w-[580px] shrink-0 overflow-hidden rounded-[24px] bg-aztec md:h-[340px] md:w-[660px] xl:h-[380px] xl:w-[740px]"
+              className="group flex h-[320px] w-[600px] shrink-0 overflow-hidden rounded-[32px] border border-aztec/5 bg-aztec transition-all duration-500 hover:border-yellow-green/50 md:h-[360px] md:w-[680px] xl:h-[400px] xl:w-[760px]"
             >
               {/* Image panel */}
-              <div className="relative w-[40%] shrink-0 overflow-hidden">
+              <div className="relative w-[38%] shrink-0 overflow-hidden">
                 <Image
                   src={testimonial.image}
                   alt={testimonial.alt}
                   fill
-                  sizes="300px"
-                  className="object-cover object-center"
+                  sizes="400px"
+                  className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
+                <div className="absolute inset-0 bg-aztec/10 mix-blend-multiply transition-opacity duration-500 group-hover:opacity-0" />
               </div>
 
               {/* Text panel */}
-              <div className="flex flex-1 flex-col justify-between px-7 py-6 md:px-8 md:py-7 xl:px-9 xl:py-8">
+              <div className="flex flex-1 flex-col justify-between px-8 py-7 md:px-10 md:py-9 xl:px-12 xl:py-10">
                 <div>
-                  <QuoteIcon />
-                  <p className="text-[1.05rem] font-medium text-yellow-green md:text-[1.18rem] xl:text-[1.3rem]">
-                    {testimonial.quote}
+                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-yellow-green text-aztec shadow-lg shadow-yellow-green/10">
+                    <Quotes size={24} weight="fill" />
+                  </div>
+                  <p className="font-sans text-[1.1rem] font-medium leading-[1.35] tracking-[-0.03em] text-wild-sand md:text-[1.25rem] xl:text-[1.4rem]">
+                    &ldquo;{testimonial.quote}&rdquo;
                   </p>
                 </div>
-                <p className="mt-5 text-[0.9rem] font-medium text-wild-sand/70 md:text-[0.95rem] xl:text-[1rem]">
-                  — {testimonial.name}
-                </p>
+                
+                <div className="flex items-center gap-4">
+                  <div className="h-px w-8 bg-yellow-green/30" />
+                  <p className="text-[0.9rem] font-semibold uppercase tracking-wider text-yellow-green md:text-[0.95rem] xl:text-[1rem]">
+                    {testimonial.name}
+                  </p>
+                </div>
               </div>
             </article>
           ))}
         </div>
       </div>
-
-      {/* Add to globals.css:
-        @keyframes marqueeScroll {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
-      */}
     </section>
   );
 }

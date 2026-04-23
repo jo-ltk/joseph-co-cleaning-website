@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 
 export default function BottomCta() {
   return (
@@ -27,19 +28,7 @@ export default function BottomCta() {
               Get In Touch
             </span>
             <span className="inline-flex h-[48px] w-[48px] items-center justify-center rounded-full bg-[#152225] text-[#e6ff9b] transition-transform duration-300 hover:translate-x-[2px]">
-              <svg
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                className="h-4.5 w-4.5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M7 17 17 7" />
-                <path d="M8 7h9v9" />
-              </svg>
+              <ArrowUpRight size={18} weight="bold" />
             </span>
           </Link>
         </div>
