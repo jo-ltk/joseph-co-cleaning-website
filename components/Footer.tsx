@@ -41,7 +41,7 @@ export default function Footer() {
       {/* Decorative Top Border */}
       <div className="h-px w-full bg-yellow-green/20" />
 
-      <div className="mx-auto max-w-[1900px] px-5 py-[var(--section-spacing)] md:px-8 lg:px-12">
+      <div className="mx-auto max-w-[1900px] px-5 pt-[var(--section-spacing)] md:px-8 lg:px-12">
         <div className="grid gap-16 lg:grid-cols-[1.2fr_0.8fr]">
           {/* Brand & Mission Section */}
           <div className="flex flex-col justify-between">
@@ -153,38 +153,38 @@ export default function Footer() {
             </motion.div>
           </div>
         </div>
+      </div>
 
-        {/* Huge Brand Footer */}
-        <div className="mt-24 border-t border-yellow-green/10 pt-10 lg:mt-32">
-          <div className="relative overflow-hidden">
-            <motion.h1 
-              initial={{ y: "100%" }}
-              whileInView={{ y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="whitespace-nowrap font-heading text-[15vw] font-bold leading-[0.8] tracking-[-0.05em] text-yellow-green md:text-[18vw]"
-            >
-              Joseph.co
-            </motion.h1>
-          </div>
-          
-          <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+      {/* Huge Brand Footer - Full Width to "touch the wall" */}
+      <div className="mt-20 border-t border-yellow-green/10 px-4 pt-8 pb-4 md:px-6 md:pb-6 lg:mt-24 lg:px-8 lg:pb-8">
+        <div className="relative overflow-hidden">
+          <motion.h1 
+            initial={{ y: "100%" }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="mt-12 flex flex-col items-start justify-between gap-6 font-mono text-[0.85rem] uppercase tracking-wider text-yellow-green/50 md:flex-row md:items-end"
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="whitespace-nowrap font-heading text-[15vw] font-bold leading-[0.8] tracking-[-0.05em] text-yellow-green md:text-[18vw]"
           >
-            <div className="flex gap-8">
-              <span>London: {londonTime}</span>
-              <span>&copy; {currentYear}</span>
-            </div>
-            <div className="flex gap-8">
-              <Link href="/privacy" className="hover:text-yellow-green">Privacy Policy</Link>
-              <Link href="/terms" className="hover:text-yellow-green">Terms of Service</Link>
-            </div>
-          </motion.div>
+            Joseph.co
+          </motion.h1>
         </div>
+        
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="mt-10 flex flex-col items-start justify-between gap-6 font-mono text-[0.85rem] uppercase tracking-wider text-yellow-green/50 md:flex-row md:items-end"
+        >
+          <div className="flex gap-8">
+            <span>London: {londonTime}</span>
+            <span>&copy; {currentYear}</span>
+          </div>
+          <div className="flex gap-8">
+            <Link href="/privacy" className="hover:text-yellow-green">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-yellow-green">Terms of Service</Link>
+          </div>
+        </motion.div>
       </div>
     </footer>
   );
