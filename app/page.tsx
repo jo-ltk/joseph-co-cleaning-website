@@ -11,9 +11,11 @@ import Navbar from "../components/Navbar";
 import RecentProjectsSection from "../components/RecentProjectsSection";
 import ResultsSection from "../components/ResultsSection";
 import ResultsComparison from "../components/ResultsComparison";
-import TestimonialsMarqueeSection from "../components/TestimonialsMarqueeSection";
+import TestimonialsSection from "../components/TestimonialsSection";
+import PricingSection from "../components/PricingSection";
 import TrustStrip from "../components/TrustStrip";
 import WhyChooseUs from "../components/WhyChooseUs";
+import CtaPodSection from "../components/CtaPodSection";
 
 
 export default function HomePage() {
@@ -31,11 +33,13 @@ export default function HomePage() {
       <WhyChooseUs />
       <ProcessSection />
       <ResultsComparison />
-      <LeadershipSpotlightSection />
+      <TestimonialsSection />
+      <PricingSection />
+      {/* <LeadershipSpotlightSection /> */}
+      <CtaPodSection />
       <RecentProjectsSection />
-      <ImpactSection />
-      <TestimonialsMarqueeSection />
-      <ResultsSection />
+      {/* <ImpactSection /> */}
+      {/* <ResultsSection /> */}
       <FaqSection />
       <BottomCta />
       <Footer />

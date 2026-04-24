@@ -28,7 +28,7 @@ const slides: ProjectCard[][] = [
       alt: "Luxury penthouse living room with skyline view",
       overlay:
         "linear-gradient(180deg, rgba(150, 155, 148, 0.18) 0%, rgba(18, 21, 16, 0.38) 100%)",
-      desktopClassName: "md:col-span-5",
+      desktopClassName: "md:col-span-4",
       backgroundPosition: "center center",
       showViewProject: true,
       showPlus: true,
@@ -40,7 +40,7 @@ const slides: ProjectCard[][] = [
       alt: "Modern glass office building interior",
       overlay:
         "linear-gradient(180deg, rgba(3, 12, 13, 0.08) 0%, rgba(3, 9, 12, 0.54) 100%)",
-      desktopClassName: "md:col-span-5",
+      desktopClassName: "md:col-span-4",
       backgroundPosition: "center center",
     },
     {
@@ -50,7 +50,7 @@ const slides: ProjectCard[][] = [
       alt: "High-end shopping mall atrium",
       overlay:
         "linear-gradient(180deg, rgba(9, 22, 19, 0.12) 0%, rgba(8, 14, 13, 0.42) 100%)",
-      desktopClassName: "md:col-span-2",
+      desktopClassName: "md:col-span-4",
       backgroundPosition: "center center",
     },
   ],
@@ -62,7 +62,7 @@ const slides: ProjectCard[][] = [
       alt: "Waterfront luxury villa exterior",
       overlay:
         "linear-gradient(180deg, rgba(152, 140, 118, 0.14) 0%, rgba(19, 18, 14, 0.42) 100%)",
-      desktopClassName: "md:col-span-5",
+      desktopClassName: "md:col-span-4",
       backgroundPosition: "center center",
       showViewProject: true,
       showPlus: true,
@@ -74,7 +74,7 @@ const slides: ProjectCard[][] = [
       alt: "Minimalist tech office lobby",
       overlay:
         "linear-gradient(180deg, rgba(2, 10, 13, 0.1) 0%, rgba(3, 10, 12, 0.55) 100%)",
-      desktopClassName: "md:col-span-5",
+      desktopClassName: "md:col-span-4",
       backgroundPosition: "center center",
     },
     {
@@ -84,7 +84,7 @@ const slides: ProjectCard[][] = [
       alt: "Modern apartment balcony view",
       overlay:
         "linear-gradient(180deg, rgba(8, 22, 20, 0.1) 0%, rgba(8, 16, 15, 0.4) 100%)",
-      desktopClassName: "md:col-span-2",
+      desktopClassName: "md:col-span-4",
       backgroundPosition: "center center",
     },
   ],
@@ -96,7 +96,7 @@ const slides: ProjectCard[][] = [
       alt: "Sterile medical facility hallway",
       overlay:
         "linear-gradient(180deg, rgba(118, 139, 154, 0.12) 0%, rgba(12, 18, 17, 0.42) 100%)",
-      desktopClassName: "md:col-span-5",
+      desktopClassName: "md:col-span-4",
       backgroundPosition: "center center",
       showViewProject: true,
       showPlus: true,
@@ -108,7 +108,7 @@ const slides: ProjectCard[][] = [
       alt: "Luxury hotel lobby with marble floors",
       overlay:
         "linear-gradient(180deg, rgba(3, 9, 12, 0.08) 0%, rgba(2, 10, 12, 0.56) 100%)",
-      desktopClassName: "md:col-span-5",
+      desktopClassName: "md:col-span-4",
       backgroundPosition: "center center",
     },
     {
@@ -118,7 +118,7 @@ const slides: ProjectCard[][] = [
       alt: "Serene spa interior",
       overlay:
         "linear-gradient(180deg, rgba(9, 18, 14, 0.08) 0%, rgba(8, 13, 11, 0.44) 100%)",
-      desktopClassName: "md:col-span-2",
+      desktopClassName: "md:col-span-4",
       backgroundPosition: "center center",
     },
   ],
@@ -130,7 +130,7 @@ const slides: ProjectCard[][] = [
       alt: "High-floor executive office",
       overlay:
         "linear-gradient(180deg, rgba(150, 149, 132, 0.14) 0%, rgba(15, 17, 13, 0.42) 100%)",
-      desktopClassName: "md:col-span-5",
+      desktopClassName: "md:col-span-4",
       backgroundPosition: "center center",
       showViewProject: true,
       showPlus: true,
@@ -142,7 +142,7 @@ const slides: ProjectCard[][] = [
       alt: "High-end gym interior",
       overlay:
         "linear-gradient(180deg, rgba(4, 10, 12, 0.08) 0%, rgba(4, 10, 12, 0.58) 100%)",
-      desktopClassName: "md:col-span-5",
+      desktopClassName: "md:col-span-4",
       backgroundPosition: "center center",
     },
     {
@@ -152,7 +152,7 @@ const slides: ProjectCard[][] = [
       alt: "Polished historic library",
       overlay:
         "linear-gradient(180deg, rgba(8, 22, 20, 0.08) 0%, rgba(7, 13, 12, 0.44) 100%)",
-      desktopClassName: "md:col-span-2",
+      desktopClassName: "md:col-span-4",
       backgroundPosition: "center center",
     },
   ],
@@ -196,49 +196,74 @@ export default function RecentProjectsSection() {
   };
 
   return (
-    <section className="landing-section landing-section--flush-top bg-[#f4f1ec] px-3 text-[#111713] md:px-5 border-t-8 border-white">
+    <section className="bg-white py-20 px-3 text-[#111713] md:px-5">
       <motion.div
         className="mx-auto max-w-[1920px]"
-        initial={shouldReduceMotion ? false : { opacity: 0, y: 36 }}
+        initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
         whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-          <h2
-            className="max-w-[10ch] text-[2.8rem] font-medium leading-[0.92] tracking-[-0.09em] text-[#090d0a] sm:text-[4rem] md:max-w-none md:text-[5.1rem] lg:text-[5.55rem]"
-            style={{ fontFamily: "var(--font-inter), sans-serif" }}
-          >
-            Recent Projects
-          </h2>
-
-          <div className="flex items-center gap-2 self-end md:pt-2">
-            <motion.button
-              type="button"
-              aria-label="Previous project"
-              onClick={previousSlide}
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.96 }}
-              className="flex h-[52px] w-[52px] items-center justify-center rounded-[8px] bg-[#ebe8e2] text-[#111713] transition-colors duration-300 hover:bg-[#e2dfd8] md:h-[54px] md:w-[54px]"
+        <div className="flex flex-col lg:flex-row items-end justify-between gap-12 mb-16">
+          <div className="max-w-2xl text-left">
+            <motion.span 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-pine-green font-semibold uppercase tracking-widest text-sm mb-4 block"
             >
-              <CaretLeft size={22} weight="bold" />
-            </motion.button>
-
-            <motion.button
-              type="button"
-              aria-label="Next project"
-              onClick={nextSlide}
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.96 }}
-              className="flex h-[52px] w-[52px] items-center justify-center rounded-[8px] bg-[#ebe8e2] text-[#111713] transition-colors duration-300 hover:bg-[#e2dfd8] md:h-[54px] md:w-[54px]"
+              Portfolio Highlights
+            </motion.span>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-aztec leading-[1.1] text-3xl md:text-5xl font-bold"
             >
-              <CaretRight size={22} weight="bold" />
-            </motion.button>
+              Signature Results, <br />Global Standards
+            </motion.h2>
+          </div>
+          
+          <div className="flex flex-col items-end gap-8 w-full lg:w-auto">
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-xanadu text-base md:text-lg max-w-sm text-right lg:text-left"
+            >
+              Explore our portfolio of high-end penthouses, corporate headquarters, and luxury estates maintained to the Joseph.co standard.
+            </motion.p>
+            
+            <div className="flex items-center gap-2 self-end">
+              <motion.button
+                type="button"
+                aria-label="Previous project"
+                onClick={previousSlide}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.96 }}
+                className="flex h-[48px] w-[48px] items-center justify-center rounded-full bg-white text-aztec shadow-sm transition-colors duration-300 hover:bg-aztec hover:text-white border border-aztec/5"
+              >
+                <CaretLeft size={20} weight="bold" />
+              </motion.button>
+
+              <motion.button
+                type="button"
+                aria-label="Next project"
+                onClick={nextSlide}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.96 }}
+                className="flex h-[48px] w-[48px] items-center justify-center rounded-full bg-white text-aztec shadow-sm transition-colors duration-300 hover:bg-aztec hover:text-white border border-aztec/5"
+              >
+                <CaretRight size={20} weight="bold" />
+              </motion.button>
+            </div>
           </div>
         </div>
 
         <div className="mt-5 overflow-hidden md:mt-8">
-          <div className="relative min-h-[780px] sm:min-h-[860px] md:min-h-[544px]">
+          <div className="relative min-h-[500px] sm:min-h-[550px] md:min-h-[380px]">
             <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.div
                 key={activeSlide}
@@ -263,8 +288,8 @@ export default function RecentProjectsSection() {
                     }}
                     className={`group relative overflow-hidden bg-[#d9d9d2] ${project.desktopClassName} ${
                       index === 2
-                        ? "min-h-[260px] md:min-h-[544px]"
-                        : "min-h-[255px] sm:min-h-[300px] md:min-h-[544px]"
+                        ? "min-h-[260px] md:min-h-[380px]"
+                        : "min-h-[255px] sm:min-h-[300px] md:min-h-[380px]"
                     }`}
                   >
                     <motion.div
