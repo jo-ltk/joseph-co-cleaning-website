@@ -23,9 +23,7 @@ export default function PricingSection() {
             </motion.span>
             <ScrollReveal
               as="h2"
-              baseOpacity={0}
               enableBlur={true}
-              baseRotation={3}
               blurStrength={8}
               containerClassName="text-2xl md:text-4xl leading-[1.1] text-aztec"
             >

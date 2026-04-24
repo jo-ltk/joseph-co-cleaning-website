@@ -37,9 +37,7 @@ export default function Hero() {
         <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.14 }} className="mx-auto flex max-w-[1250px] flex-col items-center gap-3 md:gap-4">
           <ScrollReveal
             as="h1"
-            baseOpacity={0}
             enableBlur={true}
-            baseRotation={5}
             blurStrength={10}
             containerClassName="mx-auto max-w-7xl text-balance text-5xl md:text-6xl lg:text-8xl leading-[1.05] tracking-tight font-medium text-white"
             style={{ fontFamily: "var(--font-inter), sans-serif" }}

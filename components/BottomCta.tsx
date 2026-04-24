@@ -12,9 +12,7 @@ export default function BottomCta() {
         <motion.div initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.1 }} className="z-30 mt-8">
           <ScrollReveal
             as="h2"
-            baseOpacity={0}
             enableBlur={true}
-            baseRotation={5}
             blurStrength={10}
             containerClassName="mx-auto max-w-[1100px] text-balance text-5xl md:text-6xl lg:text-8xl leading-[1.05] font-bold tracking-tight text-aztec"
           >

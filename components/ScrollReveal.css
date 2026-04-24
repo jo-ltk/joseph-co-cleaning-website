@@ -1,13 +1,18 @@
 .scroll-reveal {
   margin: 0;
   display: block;
+  overflow: hidden;
+  letter-spacing: -0.02em;
 }
 
 .word {
   display: inline-block;
   white-space: pre;
+  will-change: transform, opacity, filter;
 }
+
 /* Ensure the text is visible if JS fails or before GSAP kicks in */
 .scroll-reveal .word {
   opacity: 1;
 }
+

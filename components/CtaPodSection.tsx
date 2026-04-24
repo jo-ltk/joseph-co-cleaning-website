@@ -37,9 +37,7 @@ export default function CtaPodSection() {
           <div className="relative z-10 max-w-3xl md:mx-auto">
             <ScrollReveal
               as="h2"
-              baseOpacity={0}
               enableBlur={true}
-              baseRotation={3}
               blurStrength={8}
               containerClassName="text-2xl md:text-4xl leading-[1.1] text-aztec mb-3 md:mb-4"
             >
