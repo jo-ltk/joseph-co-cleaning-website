@@ -17,7 +17,7 @@ export default function Hero() {
   const contentY = useTransform(scrollYProgress, [0, 1], [0, -88]);
 
   return (
-    <section className="relative flex h-screen min-h-[780px] items-stretch overflow-hidden bg-[#7b8078] text-white">
+    <section className="relative flex h-[100dvh] min-h-[600px] items-stretch overflow-hidden bg-[#7b8078] text-white md:min-h-[780px]">
       <motion.div className="absolute inset-0" style={shouldReduceMotion ? undefined : { y: backgroundY, scale: backgroundScale }}>
         <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url("${heroImage}")` }} />
       </motion.div>
@@ -31,8 +31,8 @@ export default function Hero() {
         {desktopGridLines.map((line) => (<div key={line} className="absolute top-0 h-full w-px -translate-x-1/2 bg-white/18" style={{ left: line }} />))}
       </div>
 
-      <motion.div className="relative z-10 mx-auto flex h-full w-full max-w-[1950px] flex-col items-center justify-center px-5 pb-24 pt-40 text-center md:px-10 lg:px-20" style={shouldReduceMotion ? undefined : { y: contentY }}>
-        <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.14 }} className="mx-auto flex max-w-[1250px] flex-col items-center gap-4">
+      <motion.div className="relative z-10 mx-auto flex h-full w-full max-w-[1950px] flex-col items-center justify-center px-5 pb-12 pt-32 text-center md:px-10 md:pb-24 md:pt-40 lg:px-20" style={shouldReduceMotion ? undefined : { y: contentY }}>
+        <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.14 }} className="mx-auto flex max-w-[1250px] flex-col items-center gap-3 md:gap-4">
           <motion.h1 initial={{ opacity: 0, y: 34 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1], delay: 0.22 }}
             className="mx-auto max-w-7xl text-balance text-5xl md:text-6xl lg:text-8xl leading-[1.05] tracking-tight font-medium text-white" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
             Impeccable Standards for Premium Spaces

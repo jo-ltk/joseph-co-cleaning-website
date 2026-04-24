@@ -4,17 +4,17 @@ import { motion } from "framer-motion";
 import { CalendarCheck, HouseLine, Sparkle, CheckCircle } from "@phosphor-icons/react/dist/ssr";
 
 const steps = [
-  { number: "01", title: "Book", description: "Select your service and preferred time through our seamless booking interface.", icon: <CalendarCheck size={40} weight="light" /> },
-  { number: "02", title: "We Arrive", description: "Our vetted specialists arrive promptly, fully equipped with premium cleaning supplies.", icon: <HouseLine size={40} weight="light" /> },
-  { number: "03", title: "Clean", description: "We execute our signature multi-point protocol with obsessive attention to detail.", icon: <Sparkle size={40} weight="light" /> },
-  { number: "04", title: "Done", description: "Your space is transformed. We conduct a final quality check for your peace of mind.", icon: <CheckCircle size={40} weight="light" /> },
+  { number: "01", title: "Book", description: "Select your service and preferred time through our seamless booking interface.", icon: <CalendarCheck size={28} weight="light" /> },
+  { number: "02", title: "We Arrive", description: "Our vetted specialists arrive promptly, fully equipped with premium cleaning supplies.", icon: <HouseLine size={28} weight="light" /> },
+  { number: "03", title: "Clean", description: "We execute our signature multi-point protocol with obsessive attention to detail.", icon: <Sparkle size={28} weight="light" /> },
+  { number: "04", title: "Done", description: "Your space is transformed. We conduct a final quality check for your peace of mind.", icon: <CheckCircle size={28} weight="light" /> },
 ];
 
 export default function ProcessSection() {
   return (
-    <section className="bg-wild-sand py-24 px-5 md:px-10 lg:px-20 overflow-hidden">
+    <section className="bg-wild-sand py-16 md:py-24 px-5 md:px-10 lg:px-20 overflow-hidden">
       <div className="mx-auto max-w-[1450px]">
-        <div className="flex flex-col lg:flex-row items-end justify-between gap-12 mb-16">
+        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6 lg:gap-12 mb-10 md:mb-16">
           <div className="max-w-2xl">
             <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-pine-green font-semibold uppercase tracking-widest text-sm mb-4 block">
               Our Methodology
@@ -23,7 +23,7 @@ export default function ProcessSection() {
               A Seamless Experience <br />From Start to Finish
             </motion.h2>
           </div>
-          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="text-xanadu text-lg max-w-sm">
+          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="text-xanadu text-base md:text-lg max-w-sm">
             Four simple steps from booking to completion. Our proven methodology ensures consistent, premium results every time.
           </motion.p>
         </div>
@@ -39,17 +39,18 @@ export default function ProcessSection() {
                   </svg>
                 </div>
               )}
-              <motion.div whileHover={{ y: -5, scale: 1.02 }} transition={{ type: "spring", stiffness: 400, damping: 10 }} className="flex h-[74px] w-[156px] items-center justify-center rounded-full bg-yellow-green text-aztec mb-4 shadow-sm relative z-10">
+              <motion.div whileHover={{ y: -5, scale: 1.02 }} transition={{ type: "spring", stiffness: 400, damping: 10 }} className="flex h-[74px] w-[156px] items-center justify-center rounded-full bg-yellow-green text-aztec mb-6 shadow-sm relative z-10">
                 <motion.div animate={{ rotate: [0, 5, -5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: index * 0.5 }}>
                   {step.icon}
                 </motion.div>
                 <div className="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-aztec text-yellow-green text-sm font-bold flex items-center justify-center">{step.number}</div>
               </motion.div>
-              <h3 className="text-xl md:text-2xl leading-[1.1] text-center font-medium mb-4 text-aztec">{step.title}</h3>
+              <h3 className="text-xl md:text-2xl leading-[1.1] text-center font-medium mb-3 text-aztec">{step.title}</h3>
               <p className="max-w-[280px] text-center text-base text-xanadu leading-relaxed">{step.description}</p>
             </motion.div>
           ))}
         </div>
+
       </div>
     </section>
   );

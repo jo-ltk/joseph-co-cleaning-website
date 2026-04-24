@@ -23,7 +23,7 @@ export default function HomePage() {
     <main className="relative bg-[#120f0c]">
       <Navbar />
       <section className="relative">
-        <div className="sticky top-0 h-screen overflow-hidden">
+        <div className="sticky top-0 h-[100dvh] min-h-[600px] overflow-hidden md:min-h-[780px]">
           <Hero />
         </div>
       </section>

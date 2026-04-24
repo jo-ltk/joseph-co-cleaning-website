@@ -86,7 +86,7 @@ export default function Navbar() {
                 className="text-[1.02rem] font-medium tracking-[-0.06em]"
                 style={{ fontFamily: "var(--font-inter), sans-serif" }}
               >
-                &copy;Hydra
+                &copy;Joseph.co
               </Link>
 
               <button
@@ -145,17 +145,17 @@ export default function Navbar() {
             role="dialog"
             aria-modal="true"
             aria-label="Mobile navigation"
-            className="absolute inset-0 bg-[#e9e6e1] text-[#111713]"
+            className="absolute inset-0 overflow-y-auto bg-[#e9e6e1] text-[#111713]"
             style={{ fontFamily: "var(--font-inter), sans-serif" }}
           >
-            <div className="mx-auto flex h-full max-w-[560px] flex-col px-6 pb-8 pt-7">
+            <div className="mx-auto flex min-h-full max-w-[560px] flex-col px-6 pb-8 pt-7">
               <div className="flex items-start justify-between">
                 <Link
                   href="/"
                   className="text-[1.1rem] font-semibold tracking-[-0.06em]"
                   onClick={() => setMobileOpen(false)}
                 >
-                  &copy;Hydra
+                  &copy;Joseph.co
                 </Link>
 
                 <button
@@ -168,14 +168,14 @@ export default function Navbar() {
                 </button>
               </div>
 
-              <div className="mt-10">
+              <div className="mt-10 text-center">
                 <p className="text-[0.85rem] font-semibold uppercase tracking-[0.12em] text-[#111713]/75">
                   Menu
                 </p>
               </div>
 
               <div className="mt-8 flex flex-1 flex-col">
-                <ul className="space-y-5">
+                <ul className="space-y-5 text-center">
                   {navigationItems.map((item) => (
                     <li key={item.label}>
                       <Link
@@ -201,8 +201,8 @@ export default function Navbar() {
                   </li>
                 </ul>
 
-                <div className="mt-auto grid grid-cols-2 gap-10 pt-14">
-                  <div>
+                <div className="mt-auto grid grid-cols-1 gap-8 pt-14 text-center sm:grid-cols-2 sm:gap-10 sm:text-left">
+                  <div className="flex flex-col items-center sm:items-start">
                     <p className="text-[0.85rem] font-semibold uppercase tracking-[0.12em] text-[#111713]/75">
                       Follow us
                     </p>
@@ -225,7 +225,7 @@ export default function Navbar() {
                     </ul>
                   </div>
 
-                  <div>
+                  <div className="flex flex-col items-center sm:items-start">
                     <p className="text-[0.85rem] font-semibold uppercase tracking-[0.12em] text-[#111713]/75">
                       Email us
                     </p>

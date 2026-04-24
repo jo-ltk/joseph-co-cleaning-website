@@ -15,10 +15,15 @@ const floatingAvatars = [
 
 export default function CtaPodSection() {
   return (
-    <section className="bg-wild-sand py-24 px-5 md:px-10 lg:px-20 overflow-hidden">
+    <section className="bg-wild-sand pb-16 md:pb-24 pt-0 px-5 md:px-10 lg:px-20 overflow-hidden">
       <div className="mx-auto max-w-[1450px]">
-        <motion.div initial={{ opacity: 0, scale: 0.98 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="relative bg-white rounded-[40px] md:rounded-[64px] py-16 md:py-20 px-10 text-center overflow-hidden border border-aztec/5 shadow-[0_32px_100px_rgba(0,0,0,0.04)]">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="relative bg-white rounded-[32px] md:rounded-[64px] py-12 md:py-20 px-6 md:px-10 text-left md:text-center overflow-hidden border border-aztec/5 shadow-[0_32px_100px_rgba(0,0,0,0.04)]"
+        >
           {floatingAvatars.map((img, i) => (
             <motion.div key={i} animate={{ y: [0, -12, 0], x: [0, 4, 0] }} transition={{ duration: 5 + Math.random() * 2, repeat: Infinity, ease: "easeInOut", delay: img.delay }}
               className="absolute hidden xl:block rounded-full overflow-hidden border-4 border-white shadow-lg pointer-events-none"
@@ -26,22 +31,42 @@ export default function CtaPodSection() {
               <Image src={img.src} alt="Client" fill className="object-cover" unoptimized />
             </motion.div>
           ))}
-          <div className="relative z-10 max-w-3xl mx-auto">
-            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-2xl md:text-4xl leading-[1.1] text-aztec mb-4">
+
+          <div className="relative z-10 max-w-3xl md:mx-auto">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-2xl md:text-4xl leading-[1.1] text-aztec mb-3 md:mb-4"
+            >
               Ready for a spotless space?
             </motion.h2>
-            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="text-xanadu text-lg mb-8 max-w-lg mx-auto">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-xanadu text-base md:text-lg mb-6 md:mb-8 max-w-lg md:mx-auto"
+            >
               Join the elite homeowners and estates who trust Joseph.co for uncompromising standards.
             </motion.p>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }} className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button variant="primary" className="w-full sm:w-auto h-12 px-10 rounded-full text-base font-bold">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-col sm:flex-row items-start md:items-center md:justify-center gap-3 md:gap-4"
+            >
+              <Button variant="primary" className="w-full sm:w-auto h-11 md:h-12 px-8 md:px-10 rounded-full text-base font-bold">
                 Get Started &rarr;
               </Button>
-              <Button variant="secondary" className="w-full sm:w-auto h-12 px-10 border-2 border-aztec/10 text-aztec hover:bg-aztec/5 rounded-full text-base font-bold">
+              <Button variant="secondary" className="w-full sm:w-auto h-11 md:h-12 px-8 md:px-10 border-2 border-aztec/10 text-aztec hover:bg-aztec/5 rounded-full text-base font-bold">
                 Talk to Sales
               </Button>
             </motion.div>
           </div>
+
           <div className="absolute inset-0 bg-gradient-to-br from-yellow-green/5 via-transparent to-pine-green/5 pointer-events-none" />
         </motion.div>
       </div>

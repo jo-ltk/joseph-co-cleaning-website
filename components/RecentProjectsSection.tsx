@@ -48,9 +48,10 @@ export default function RecentProjectsSection() {
   const nextSlide = () => { const n = activeSlide === slides.length - 1 ? 0 : activeSlide + 1; setDirection(1); setActiveSlide(n); };
 
   return (
-    <section className="bg-white py-24 px-5 md:px-10 lg:px-20 text-aztec">
+    <section className="bg-white py-16 md:py-24 px-5 md:px-10 lg:px-20 text-aztec">
       <motion.div className="mx-auto max-w-[1450px]" initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }} whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
-        <div className="flex flex-col lg:flex-row items-end justify-between gap-12 mb-16">
+
+        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6 lg:gap-12 mb-10 md:mb-16">
           <div className="max-w-2xl">
             <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-pine-green font-semibold uppercase tracking-widest text-sm mb-4 block">
               Portfolio Highlights
@@ -59,15 +60,15 @@ export default function RecentProjectsSection() {
               Signature Results, <br />Global Standards
             </motion.h2>
           </div>
-          <div className="flex flex-col items-end gap-8 w-full lg:w-auto">
-            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="text-xanadu text-lg max-w-sm text-right lg:text-left">
+          <div className="flex flex-col items-start lg:items-end gap-6 lg:gap-8 w-full lg:w-auto">
+            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="text-xanadu text-base md:text-lg max-w-sm text-left lg:text-right">
               Explore our portfolio of high-end penthouses, corporate headquarters, and luxury estates maintained to the Joseph.co standard.
             </motion.p>
-            <div className="flex items-center gap-4 self-end">
-              <motion.button type="button" aria-label="Previous project" onClick={previousSlide} whileHover={{ y: -2 }} whileTap={{ scale: 0.96 }} className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-aztec shadow-sm transition-colors duration-300 hover:bg-aztec hover:text-white border border-aztec/5">
+            <div className="flex items-center gap-4 self-start lg:self-end">
+              <motion.button type="button" aria-label="Previous project" onClick={previousSlide} whileHover={{ y: -2 }} whileTap={{ scale: 0.96 }} className="flex h-11 w-11 md:h-12 md:w-12 items-center justify-center rounded-full bg-white text-aztec shadow-sm transition-colors duration-300 hover:bg-aztec hover:text-white border border-aztec/5">
                 <CaretLeft size={20} weight="bold" />
               </motion.button>
-              <motion.button type="button" aria-label="Next project" onClick={nextSlide} whileHover={{ y: -2 }} whileTap={{ scale: 0.96 }} className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-aztec shadow-sm transition-colors duration-300 hover:bg-aztec hover:text-white border border-aztec/5">
+              <motion.button type="button" aria-label="Next project" onClick={nextSlide} whileHover={{ y: -2 }} whileTap={{ scale: 0.96 }} className="flex h-11 w-11 md:h-12 md:w-12 items-center justify-center rounded-full bg-white text-aztec shadow-sm transition-colors duration-300 hover:bg-aztec hover:text-white border border-aztec/5">
                 <CaretRight size={20} weight="bold" />
               </motion.button>
             </div>
@@ -75,19 +76,19 @@ export default function RecentProjectsSection() {
         </div>
 
         <div className="overflow-hidden">
-          <div className="relative min-h-[500px] sm:min-h-[550px] md:min-h-[380px]">
+          <div className="relative min-h-[420px] sm:min-h-[480px] md:min-h-[380px]">
             <AnimatePresence initial={false} custom={direction} mode="wait">
-              <motion.div key={activeSlide} custom={direction} variants={shouldReduceMotion ? undefined : slideVariants} initial={shouldReduceMotion ? undefined : "enter"} animate={shouldReduceMotion ? undefined : "center"} exit={shouldReduceMotion ? undefined : "exit"} transition={{ duration: 0.64, ease: [0.22, 1, 0.36, 1] }} className="grid grid-cols-1 gap-4 md:grid-cols-12">
+              <motion.div key={activeSlide} custom={direction} variants={shouldReduceMotion ? undefined : slideVariants} initial={shouldReduceMotion ? undefined : "enter"} animate={shouldReduceMotion ? undefined : "center"} exit={shouldReduceMotion ? undefined : "exit"} transition={{ duration: 0.64, ease: [0.22, 1, 0.36, 1] }} className="grid grid-cols-1 gap-3 md:gap-4 md:grid-cols-12">
                 {slides[activeSlide].map((project, index) => (
                   <motion.article key={project.title} whileHover={shouldReduceMotion ? undefined : "hover"} initial={shouldReduceMotion ? false : { opacity: 0, y: 26 }} animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: shouldReduceMotion ? 0 : 0.08 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                    className={`group relative overflow-hidden bg-[#d9d9d2] ${project.desktopClassName} ${index === 2 ? "min-h-[260px] md:min-h-[380px]" : "min-h-[255px] sm:min-h-[300px] md:min-h-[380px]"}`}>
+                    className={`group relative overflow-hidden bg-[#d9d9d2] ${project.desktopClassName} ${index === 2 ? "min-h-[200px] md:min-h-[380px]" : "min-h-[200px] sm:min-h-[240px] md:min-h-[380px]"}`}>
                     <motion.div variants={shouldReduceMotion ? undefined : { hover: { scale: 1.045 } }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="absolute inset-0"
                       style={{ backgroundImage: `${project.overlay}, url("${project.image}")`, backgroundPosition: project.backgroundPosition ?? "center center", backgroundRepeat: "no-repeat", backgroundSize: "cover" }} aria-label={project.alt} role="img" />
                     {project.showPlus && (
                       <motion.div variants={shouldReduceMotion ? undefined : { hover: { scale: 1.08, opacity: 0.94 } }} className="absolute left-1/2 top-1/2 z-10 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full text-2xl font-extralight leading-none text-white/70 md:h-16 md:w-16">+</motion.div>
                     )}
                     <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-4 md:p-8">
-                      <motion.p variants={shouldReduceMotion ? undefined : { hover: { y: -2 } }} className="text-base font-medium tracking-tight text-white" style={{ fontFamily: "var(--font-inter), sans-serif" }}>{project.title}</motion.p>
+                      <motion.p variants={shouldReduceMotion ? undefined : { hover: { y: -2 } }} className="text-sm md:text-base font-medium tracking-tight text-white" style={{ fontFamily: "var(--font-inter), sans-serif" }}>{project.title}</motion.p>
                       {project.showViewProject && (
                         <motion.div variants={shouldReduceMotion ? undefined : { hover: { y: -3, opacity: 1 } }} className="hidden opacity-90 md:block">
                           <Link href="/gallery" className="inline-flex items-center gap-4 rounded-full bg-[#dbe783]/10 px-4 py-2 text-sm font-medium tracking-tight text-[#d5d18d] backdrop-blur-md transition duration-300 hover:bg-[#dbe783]/18 hover:text-[#eff7ae]" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
@@ -104,7 +105,7 @@ export default function RecentProjectsSection() {
           </div>
         </div>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-[auto_1fr_auto] md:items-center">
+        <div className="mt-6 md:mt-8 grid gap-4 md:grid-cols-[auto_1fr_auto] md:items-center">
           <div className="btn-pair">
             <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}><ButtonLink href="/gallery" variant="primary">View All</ButtonLink></motion.div>
             <motion.div whileHover={{ y: -2, rotate: 3 }} whileTap={{ scale: 0.96 }}><IconButton href="/gallery" aria-label="View all projects" size="md" /></motion.div>
@@ -115,12 +116,8 @@ export default function RecentProjectsSection() {
                 className={`rounded-full transition-all duration-300 ${index === activeSlide ? "h-[10px] w-[10px] bg-aztec" : "h-[10px] w-[10px] bg-aztec/20 hover:bg-aztec/40"}`} />
             ))}
           </div>
-          <div className="flex items-center justify-end">
-            <div className="h-12 w-full max-w-[172px] rounded-2xl border border-[#e5e1da] bg-[#f6f3ee] p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)]">
-              <motion.div animate={{ width: `${((activeSlide + 1) / slides.length) * 100}%` }} transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }} className="h-full rounded-xl bg-[#e9e5de]" />
-            </div>
-          </div>
         </div>
+
       </motion.div>
     </section>
   );
