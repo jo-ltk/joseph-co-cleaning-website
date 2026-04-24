@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
+import ScrollReveal from "./ScrollReveal";
+
 const faqItems = [
   { question: "Do I need to be present during the cleaning?", answer: "Not necessarily. Many of our clients provide us with a key or access code. Our teams are fully vetted and insured for your peace of mind." },
   { question: "What industries do you specialize in?", answer: "We specialize in luxury residential properties, corporate offices, high-end retail, and specialized medical facilities." },
@@ -22,13 +24,26 @@ export default function FaqSection() {
             <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-pine-green font-semibold uppercase tracking-widest text-sm mb-4 block">
               FAQ
             </motion.span>
-            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-2xl md:text-4xl leading-[1.1] text-aztec">
+            <ScrollReveal
+              as="h2"
+              baseOpacity={0}
+              enableBlur={true}
+              baseRotation={3}
+              blurStrength={8}
+              containerClassName="text-2xl md:text-4xl leading-[1.1] text-aztec"
+            >
               Frequently Asked Questions
-            </motion.h2>
+            </ScrollReveal>
           </div>
-          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="text-xanadu text-base md:text-lg max-w-sm">
-            Here are the top questions our clients ask before getting started.
-          </motion.p>
+        <motion.p
+  initial={{ opacity: 0, y: 24 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, margin: "-50px" }}
+  transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+  className="text-xanadu text-base md:text-lg max-w-sm leading-relaxed"
+>
+  Here are the top questions our clients ask before getting started.
+</motion.p>
         </div>
 
         <div className="mx-auto max-w-[1120px]">

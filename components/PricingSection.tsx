@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { Check } from "@phosphor-icons/react/dist/ssr";
 import Button from "./ui/Button";
 
+import ScrollReveal from "./ScrollReveal";
+
 const plans = [
   { name: "Basic Plan", price: "1,499", description: "Ideal for small businesses", features: ["Unified dashboard", "Finance management module", "Inventory control", "Basic reporting and analytics", "10 user accounts"] },
   { name: "Business Plan", price: "2,999", description: "For growing businesses", features: ["Everything in basic plan", "HR & payroll module", "Sales & CRM module", "Workflow automation", "Advanced analytics & reporting"], popular: true },
@@ -19,13 +21,26 @@ export default function PricingSection() {
             <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-pine-green font-semibold uppercase tracking-widest text-sm mb-4 block">
               Investment in Excellence
             </motion.span>
-            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-2xl md:text-4xl leading-[1.1] text-aztec">
-              Simple Packages, <br />Pristine Standards
-            </motion.h2>
+            <ScrollReveal
+              as="h2"
+              baseOpacity={0}
+              enableBlur={true}
+              baseRotation={3}
+              blurStrength={8}
+              containerClassName="text-2xl md:text-4xl leading-[1.1] text-aztec"
+            >
+              Simple Packages, Pristine Standards
+            </ScrollReveal>
           </div>
-          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="text-xanadu text-base md:text-lg max-w-sm">
-            Transparent pricing designed to fit your lifestyle. Each tier guarantees the signature Joseph.co quality.
-          </motion.p>
+          <motion.p
+  initial={{ opacity: 0, y: 24 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+  className="text-xanadu text-base md:text-lg max-w-sm leading-relaxed"
+>
+  Transparent pricing designed to fit your lifestyle. Each tier guarantees the signature Joseph.co quality.
+</motion.p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 md:items-center">

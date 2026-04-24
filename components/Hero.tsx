@@ -5,6 +5,8 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import Button, { ButtonLink } from "./ui/Button";
 import IconButton from "./ui/IconButton";
 
+import ScrollReveal from "./ScrollReveal";
+
 const heroImage = "/images/hero-bg-new.png";
 const mobileGridLines = ["50%"];
 const desktopGridLines = ["0%", "25%", "50%", "75%", "100%"];
@@ -33,10 +35,17 @@ export default function Hero() {
 
       <motion.div className="relative z-10 mx-auto flex h-full w-full max-w-[1950px] flex-col items-center justify-center px-5 pb-12 pt-32 text-center md:px-10 md:pb-24 md:pt-40 lg:px-20" style={shouldReduceMotion ? undefined : { y: contentY }}>
         <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.14 }} className="mx-auto flex max-w-[1250px] flex-col items-center gap-3 md:gap-4">
-          <motion.h1 initial={{ opacity: 0, y: 34 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1], delay: 0.22 }}
-            className="mx-auto max-w-7xl text-balance text-5xl md:text-6xl lg:text-8xl leading-[1.05] tracking-tight font-medium text-white" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
+          <ScrollReveal
+            as="h1"
+            baseOpacity={0}
+            enableBlur={true}
+            baseRotation={5}
+            blurStrength={10}
+            containerClassName="mx-auto max-w-7xl text-balance text-5xl md:text-6xl lg:text-8xl leading-[1.05] tracking-tight font-medium text-white"
+            style={{ fontFamily: "var(--font-inter), sans-serif" }}
+          >
             Impeccable Standards for Premium Spaces
-          </motion.h1>
+          </ScrollReveal>
           <motion.p initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.34 }}
             className="mx-auto max-w-[780px] text-balance text-lg md:text-xl font-medium leading-relaxed text-white/90" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
             Delivering outstanding cleaning services tailored for high-end residential and commercial environments.

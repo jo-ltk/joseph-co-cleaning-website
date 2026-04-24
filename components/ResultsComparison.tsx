@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import BeforeAfterSlider from "./BeforeAfterSlider";
 
+import ScrollReveal from "./ScrollReveal";
+
 export default function ResultsComparison() {
   return (
     <section className="bg-white py-16 md:py-24 px-5 md:px-10 lg:px-20 overflow-hidden">
@@ -12,13 +14,26 @@ export default function ResultsComparison() {
             <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-pine-green font-semibold uppercase tracking-widest text-sm mb-4 block">
               The Transformation
             </motion.span>
-            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-2xl md:text-4xl leading-[1.1] text-aztec">
-              Immaculate Standards, <br />Visible Results
-            </motion.h2>
+            <ScrollReveal
+              as="h2"
+              baseOpacity={0}
+              enableBlur={true}
+              baseRotation={3}
+              blurStrength={8}
+              containerClassName="text-2xl md:text-4xl leading-[1.1] text-aztec"
+            >
+              Immaculate Standards, Visible Results
+            </ScrollReveal>
           </div>
-          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="text-xanadu text-base md:text-lg max-w-sm">
-            Experience the dramatic difference our specialized cleaning protocols make in restoring and maintaining premium environments.
-          </motion.p>
+          <motion.p
+  initial={{ opacity: 0, y: 24 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+  className="text-xanadu text-base md:text-lg max-w-sm leading-relaxed"
+>
+  Experience the dramatic difference our specialized cleaning protocols make in restoring and maintaining premium environments.
+</motion.p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">

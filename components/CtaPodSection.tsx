@@ -4,6 +4,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Button from "./ui/Button";
 
+import ScrollReveal from "./ScrollReveal";
+
 const floatingAvatars = [
   { src: "https://i.pravatar.cc/150?u=1", size: 72, top: "15%", left: "10%", delay: 0 },
   { src: "https://i.pravatar.cc/150?u=2", size: 56, top: "60%", left: "8%", delay: 0.5 },
@@ -33,24 +35,25 @@ export default function CtaPodSection() {
           ))}
 
           <div className="relative z-10 max-w-3xl md:mx-auto">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-2xl md:text-4xl leading-[1.1] text-aztec mb-3 md:mb-4"
+            <ScrollReveal
+              as="h2"
+              baseOpacity={0}
+              enableBlur={true}
+              baseRotation={3}
+              blurStrength={8}
+              containerClassName="text-2xl md:text-4xl leading-[1.1] text-aztec mb-3 md:mb-4"
             >
               Ready for a spotless space?
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="text-xanadu text-base md:text-lg mb-6 md:mb-8 max-w-lg md:mx-auto"
-            >
-              Join the elite homeowners and estates who trust Joseph.co for uncompromising standards.
-            </motion.p>
+            </ScrollReveal>
+           <motion.p
+  initial={{ opacity: 0, y: 24 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, margin: "-50px" }}
+  transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+  className="text-xanadu text-base md:text-lg mb-6 md:mb-8 max-w-lg md:mx-auto leading-relaxed pt-2 md:pt-3"
+>
+  Join the elite homeowners and estates who trust Joseph.co for uncompromising standards.
+</motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}

@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { CalendarCheck, HouseLine, Sparkle, CheckCircle } from "@phosphor-icons/react/dist/ssr";
 
+import ScrollReveal from "./ScrollReveal";
+
 const steps = [
   { number: "01", title: "Book", description: "Select your service and preferred time through our seamless booking interface.", icon: <CalendarCheck size={28} weight="light" /> },
   { number: "02", title: "We Arrive", description: "Our vetted specialists arrive promptly, fully equipped with premium cleaning supplies.", icon: <HouseLine size={28} weight="light" /> },
@@ -19,13 +21,26 @@ export default function ProcessSection() {
             <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-pine-green font-semibold uppercase tracking-widest text-sm mb-4 block">
               Our Methodology
             </motion.span>
-            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-2xl md:text-4xl leading-[1.1] text-aztec">
-              A Seamless Experience <br />From Start to Finish
-            </motion.h2>
+            <ScrollReveal
+              as="h2"
+              baseOpacity={0}
+              enableBlur={true}
+              baseRotation={3}
+              blurStrength={8}
+              containerClassName="text-2xl md:text-4xl leading-[1.1] text-aztec"
+            >
+              A Seamless Experience From Start to Finish
+            </ScrollReveal>
           </div>
-          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="text-xanadu text-base md:text-lg max-w-sm">
-            Four simple steps from booking to completion. Our proven methodology ensures consistent, premium results every time.
-          </motion.p>
+         <motion.p
+  initial={{ opacity: 0, y: 24 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+  className="text-xanadu text-base md:text-lg max-w-sm leading-relaxed"
+>
+  Four simple steps from booking to completion. Our proven methodology ensures consistent, premium results every time.
+</motion.p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-16 lg:gap-x-8 relative">

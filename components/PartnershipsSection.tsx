@@ -3,6 +3,8 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRef, type MouseEvent as ReactMouseEvent } from "react";
 
+import ScrollReveal from "./ScrollReveal";
+
 const brands = [
   { name: "Apple", slug: "apple" },
   { name: "Stripe", slug: "stripe" },
@@ -64,13 +66,26 @@ export default function PartnershipsSection() {
             <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-pine-green font-semibold uppercase tracking-widest text-sm mb-4 block">
               Our Partners
             </motion.span>
-            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="p-heading text-2xl md:text-4xl leading-[1.1] text-aztec">
+            <ScrollReveal
+              as="h2"
+              baseOpacity={0}
+              enableBlur={true}
+              baseRotation={3}
+              blurStrength={8}
+              containerClassName="p-heading text-2xl md:text-4xl leading-[1.1] text-aztec"
+            >
               Trusted by Industry Leaders
-            </motion.h2>
+            </ScrollReveal>
           </div>
-          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="text-xanadu text-lg max-w-sm">
-            We are proud to serve leading brands and organizations who demand nothing less than excellence.
-          </motion.p>
+          <motion.p
+  initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
+  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+  viewport={{ once: true, margin: "-50px" }}
+  transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+  className="text-xanadu text-lg max-w-sm leading-relaxed"
+>
+  We are proud to serve leading brands and organizations who demand nothing less than excellence.
+</motion.p>
         </div>
       </div>
 

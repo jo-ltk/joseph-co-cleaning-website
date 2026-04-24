@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { Timer, Users, Leaf, Tag } from "@phosphor-icons/react/dist/ssr";
 
+import ScrollReveal from "./ScrollReveal";
+
 const points = [
   {
     title: "Fast Service",
@@ -35,13 +37,26 @@ export default function WhyChooseUs() {
             <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-yellow-green font-semibold uppercase tracking-widest text-sm mb-4 block">
               The Joseph.co Advantage
             </motion.span>
-            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-2xl md:text-4xl leading-[1.1] text-white">
-              Why Discerning Clients <br />Choose Our Services
-            </motion.h2>
+            <ScrollReveal
+              as="h2"
+              baseOpacity={0}
+              enableBlur={true}
+              baseRotation={3}
+              blurStrength={8}
+              containerClassName="text-2xl md:text-4xl leading-[1.1] text-white"
+            >
+              Why Discerning Clients Choose Our Services
+            </ScrollReveal>
           </div>
-          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="text-xanadu text-base md:text-lg max-w-sm">
-            Setting the benchmark for excellence in professional cleaning through a relentless commitment to quality and integrity.
-          </motion.p>
+         <motion.p
+  initial={{ opacity: 0, y: 24 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+  className="text-xanadu text-base md:text-lg max-w-sm leading-relaxed"
+>
+  Setting the benchmark for excellence in professional cleaning through a relentless commitment to quality and integrity.
+</motion.p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10">

@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { Quotes } from "@phosphor-icons/react/dist/ssr";
 
+import ScrollReveal from "./ScrollReveal";
+
 const testimonials = [
   { name: "Jonathan Reeves", location: "London, UK", quote: "Joseph.co has transformed our estate maintenance. Their attention to detail is unparalleled and consistently perfect.", image: "/coach-conversation.png", alt: "Client portrait one" },
   { name: "Marcus Thorne", location: "New York, USA", quote: "The most professional cleaning team we've ever engaged. Immaculate results that our staff noticed instantly.", image: "/hero-cleaning-home.jpg", alt: "Client portrait two" },
@@ -20,13 +22,26 @@ export default function TestimonialsSection() {
             <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-pine-green font-semibold uppercase tracking-widest text-sm mb-4 block">
               Our Clients
             </motion.span>
-            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-2xl md:text-4xl leading-[1.1] text-aztec">
-              Relied on by Companies <br />&amp; Estates Globally
-            </motion.h2>
+            <ScrollReveal
+              as="h2"
+              baseOpacity={0}
+              enableBlur={true}
+              baseRotation={3}
+              blurStrength={8}
+              containerClassName="text-2xl md:text-4xl leading-[1.1] text-aztec"
+            >
+              Relied on by Companies &amp; Estates Globally
+            </ScrollReveal>
           </div>
-          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="text-xanadu text-base md:text-lg max-w-sm">
-            Join a distinguished network of global clients who trust Joseph.co to maintain their most valuable environments.
-          </motion.p>
+          <motion.p
+  initial={{ opacity: 0, y: 24 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+  className="text-xanadu text-base md:text-lg max-w-sm leading-relaxed"
+>
+  Join a distinguished network of global clients who trust Joseph.co to maintain their most valuable environments.
+</motion.p>
         </div>
 
         {/* MARQUEE — same on both mobile and desktop, just smaller cards on mobile */}

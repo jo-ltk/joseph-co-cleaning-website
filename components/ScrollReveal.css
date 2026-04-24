@@ -1,0 +1,13 @@
+.scroll-reveal {
+  margin: 0;
+  display: block;
+}
+
+.word {
+  display: inline-block;
+  white-space: pre;
+}
+/* Ensure the text is visible if JS fails or before GSAP kicks in */
+.scroll-reveal .word {
+  opacity: 1;
+}

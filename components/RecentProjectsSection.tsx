@@ -7,6 +7,8 @@ import { CaretLeft, CaretRight } from "@phosphor-icons/react/dist/ssr";
 import { ButtonLink } from "./ui/Button";
 import IconButton from "./ui/IconButton";
 
+import ScrollReveal from "./ScrollReveal";
+
 type ProjectCard = { title: string; image: string; alt: string; overlay: string; desktopClassName: string; backgroundPosition?: string; showViewProject?: boolean; showPlus?: boolean; };
 
 const slides: ProjectCard[][] = [
@@ -56,14 +58,27 @@ export default function RecentProjectsSection() {
             <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-pine-green font-semibold uppercase tracking-widest text-sm mb-4 block">
               Portfolio Highlights
             </motion.span>
-            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-2xl md:text-4xl leading-[1.1] text-aztec">
-              Signature Results, <br />Global Standards
-            </motion.h2>
+            <ScrollReveal
+              as="h2"
+              baseOpacity={0}
+              enableBlur={true}
+              baseRotation={3}
+              blurStrength={8}
+              containerClassName="text-2xl md:text-4xl leading-[1.1] text-aztec"
+            >
+              Signature Results, Global Standards
+            </ScrollReveal>
           </div>
           <div className="flex flex-col items-start lg:items-end gap-6 lg:gap-8 w-full lg:w-auto">
-            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="text-xanadu text-base md:text-lg max-w-sm text-left lg:text-right">
-              Explore our portfolio of high-end penthouses, corporate headquarters, and luxury estates maintained to the Joseph.co standard.
-            </motion.p>
+           <motion.p
+  initial={{ opacity: 0, y: 24 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, margin: "-50px" }}
+  transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+  className="text-xanadu text-base md:text-lg max-w-sm text-left lg:text-right leading-relaxed"
+>
+  Explore our portfolio of high-end penthouses, corporate headquarters, and luxury estates maintained to the Joseph.co standard.
+</motion.p>
             <div className="flex items-center gap-4 self-start lg:self-end">
               <motion.button type="button" aria-label="Previous project" onClick={previousSlide} whileHover={{ y: -2 }} whileTap={{ scale: 0.96 }} className="flex h-11 w-11 md:h-12 md:w-12 items-center justify-center rounded-full bg-white text-aztec shadow-sm transition-colors duration-300 hover:bg-aztec hover:text-white border border-aztec/5">
                 <CaretLeft size={20} weight="bold" />
