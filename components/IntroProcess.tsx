@@ -2,18 +2,18 @@ import { Phone, MagnifyingGlass, Truck } from "@phosphor-icons/react/dist/ssr";
 
 const steps = [
   {
-    title: "Call us 555-0123",
-    description: "We remain available 24/7 for any plumbing emergency.",
+    title: "Book Your Service",
+    description: "Easy online booking or a quick call to schedule your premium cleaning.",
     icon: <Phone size={44} weight="light" />,
   },
   {
-    title: "Expert evaluation",
-    description: "Our experts will evaluate the situation and look for solutions.",
+    title: "Tailored Plan",
+    description: "We assess your space to create a customized cleaning checklist that meets your exact needs.",
     icon: <MagnifyingGlass size={44} weight="light" />,
   },
   {
-    title: "We arrive in 30 minutes",
-    description: "Our team will arrive with all the necessary equipment.",
+    title: "Pristine Results",
+    description: "Our professional cleaners arrive on time and transform your space into a sanctuary.",
     icon: <Truck size={44} weight="light" />,
   },
 ];

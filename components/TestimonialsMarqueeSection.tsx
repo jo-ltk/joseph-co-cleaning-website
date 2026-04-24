@@ -4,23 +4,23 @@ import SectionTag from "./ui/SectionTag";
 
 const testimonials = [
   {
-    name: "John M., Tech Lead",
+    name: "Sarah J., Estate Manager",
     quote:
-      "The team's expertise turned our vague ideas into a comprehensive strategy. The project exceeded expectations, showcasing their commitment to excellence and innovation.",
+      "Joseph.co has completely transformed how we maintain our properties. Their attention to detail is unparalleled, and their team is professional, punctual, and highly efficient.",
     image: "/coach-conversation.png",
     alt: "Client portrait one",
   },
   {
-    name: "Sophia L., Agency Owner",
+    name: "David K., Operations Manager",
     quote:
-      "Working with them was a game-changer for our agency. They delivered innovative solutions tailored to our needs, resulting in noticeable growth and a stronger online presence.",
+      "We've tried many cleaning services, but none match the standards of Joseph.co. Our office has never looked better, and our staff noticed the difference immediately.",
     image: "/hero-cleaning-home.jpg",
     alt: "Client portrait two",
   },
   {
-    name: "Emma R., Operations Director",
+    name: "Elena M., Boutique Owner",
     quote:
-      "Their attention to detail and steady communication gave our team confidence from kickoff to launch. The final result felt sharp, thoughtful, and incredibly well executed.",
+      "Pristine results every single time. Joseph.co understands the importance of presentation for our showroom, and they deliver perfection without fail.",
     image: "/equipment-vacuum-cleaning.jpg",
     alt: "Client portrait three",
   },

@@ -1,3 +1,3 @@
 export default function AreasWeServePage() {
-  return <div>Areas We Serve Page</div>;
+  return <div>Service Areas - Where We Clean</div>;
 }

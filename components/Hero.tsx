@@ -75,7 +75,7 @@ export default function Hero() {
             className="mx-auto max-w-[13ch] text-balance font-medium leading-[0.93] tracking-[-0.095em] text-white"
             style={{ fontFamily: "var(--font-inter), sans-serif" }}
           >
-            Sustainable Solutions for a Better Future
+            Immaculate Standards for Premium Spaces
           </motion.h1>
 
           <motion.p
@@ -85,8 +85,7 @@ export default function Hero() {
             className="mx-auto max-w-[20ch] text-balance font-medium leading-[1.26] tracking-[-0.05em] text-white/92 sm:max-w-[24ch] md:max-w-[780px]"
             style={{ fontFamily: "var(--font-inter), sans-serif" }}
           >
-            Empowering businesses and communities to thrive in a low-carbon
-            world through tailored clean energy solutions.
+            Delivering exceptional cleaning services tailored for high-end residential and commercial environments.
           </motion.p>
 
           <motion.div
@@ -97,14 +96,14 @@ export default function Hero() {
           >
             <motion.div whileHover={{ y: -3 }} whileTap={{ scale: 0.98 }}>
               <ButtonLink href="/contact" variant="primary" className="shadow-[0_20px_40px_rgba(16,24,16,0.18)] px-10">
-                Start a Project
+                Book a Cleaning
               </ButtonLink>
             </motion.div>
 
             <motion.div whileHover={{ y: -3, rotate: 4 }} whileTap={{ scale: 0.96 }}>
               <IconButton
                 href="/contact"
-                aria-label="Start a Project"
+                aria-label="Book a Cleaning"
                 className="shadow-[0_20px_40px_rgba(16,24,16,0.18)]"
                 size="md"
               />

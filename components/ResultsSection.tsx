@@ -1,10 +1,10 @@
 import Image from "next/image";
 
 const stats = [
-  { value: "15+", label: "Years of experience" },
-  { value: "200+", label: "Athletes coached" },
-  { value: "500+", label: "Race strategies" },
-  { value: "10,000+", label: "Training hours" },
+  { value: "10+", label: "Years of excellence" },
+  { value: "500+", label: "Properties cleaned" },
+  { value: "100%", label: "Satisfaction rate" },
+  { value: "15,000+", label: "Service hours" },
 ];
 
 export default function ResultsSection() {
@@ -15,11 +15,12 @@ export default function ResultsSection() {
           <div className="max-w-[820px]">
             <h2 className="leading-[0.95]">
               <span className="text-aztec">
-                From beginners to seasoned pros, I create custom plans
+                From private residences to corporate headquarters, we create 
+                bespoke cleaning schedules
               </span>{" "}
               <span className="text-xanadu">
-                tailored to help you unlock your full potential and succeed in
-                races.
+                tailored to maintain your space at the highest standard of 
+                hygiene and presentation.
               </span>
             </h2>
           </div>

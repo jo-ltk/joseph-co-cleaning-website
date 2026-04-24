@@ -40,9 +40,9 @@ export default function ImpactSection() {
               className="max-w-[16ch] text-balance font-medium leading-[1.08] tracking-[-0.08em] text-[#090d0a] md:max-w-[15ch]"
               style={{ fontFamily: "var(--font-inter), sans-serif" }}
             >
-              Hydra&apos;s clean energy solutions have made a lasting impact on
-              communities and industries across the Americas, Asia, Europe, and
-              beyond.
+              Joseph.co has redefined the cleaning experience for premium 
+              residences and commercial spaces, delivering excellence across 
+              every square foot.
             </motion.h2>
 
             <motion.div

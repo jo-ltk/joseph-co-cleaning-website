@@ -9,10 +9,10 @@ import { ButtonLink } from "./ui/Button";
 import IconButton from "./ui/IconButton";
 
 const navigationItems = [
-  { href: "/gallery", label: "Projects" },
-  { href: "/about", label: "Company" },
-  { href: "/services", label: "Solutions" },
-  { href: "/testimonials", label: "News" },
+  { href: "/gallery", label: "Portfolio" },
+  { href: "/about", label: "About" },
+  { href: "/services", label: "Services" },
+  { href: "/testimonials", label: "Reviews" },
 ];
 
 export default function Navbar() {
@@ -53,7 +53,7 @@ export default function Navbar() {
               className="shrink-0 text-[1.12rem] font-medium tracking-[-0.06em]"
               style={{ fontFamily: "var(--font-inter), sans-serif" }}
             >
-              &copy;Hydra
+              &copy;Joseph.co
             </Link>
 
             <ul
@@ -230,7 +230,7 @@ export default function Navbar() {
                       Email us
                     </p>
                     <p className="mt-5 text-[1.15rem] font-medium tracking-[-0.03em] text-[#111713]/85">
-                      info@hydra.com
+                      contact@joseph.co
                     </p>
                   </div>
                 </div>

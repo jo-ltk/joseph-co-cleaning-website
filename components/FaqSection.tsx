@@ -5,29 +5,29 @@ import SectionTag from "./ui/SectionTag";
 
 const faqItems = [
   {
-    question: "How long does a typical carbon footprint assessment take?",
+    question: "Do I need to be present during the cleaning?",
     answer:
-      "Nope. All the templates are built in Framer, which is a no-code tool. You can edit text, swap images, and update colors without touching a single line of code.",
+      "Not necessarily. Many of our clients provide us with a key or access code. Our teams are fully vetted and insured for your peace of mind.",
   },
   {
-    question: "What industries do you work with?",
+    question: "What industries do you specialize in?",
     answer:
-      "We typically support infrastructure, clean energy, industrial, and operations-focused teams that need clear execution and measurable outcomes.",
+      "We specialize in luxury residential properties, corporate offices, high-end retail, and specialized medical facilities.",
   },
   {
-    question: "What if we already have some data or reports?",
+    question: "Do you provide your own cleaning supplies?",
     answer:
-      "That works well. We can review existing materials first, identify gaps quickly, and build from what your team already has in place.",
+      "Yes, we bring our own premium, eco-friendly cleaning products and professional-grade equipment to every job.",
   },
   {
-    question: "Do we even have the internal capability to pull this off?",
+    question: "Can I schedule recurring cleaning services?",
     answer:
-      "Most teams do with the right structure. We help simplify the process so responsibilities, timing, and delivery feel much more manageable.",
+      "Absolutely. We offer daily, weekly, and bi-weekly schedules tailored to your specific needs and property requirements.",
   },
   {
-    question: "What if the rules change or targets become impossible to meet?",
+    question: "What if I'm not satisfied with the results?",
     answer:
-      "We plan for that reality up front by building adaptable approaches that can respond to shifting requirements without losing momentum.",
+      "Client satisfaction is our top priority. If any area is missed or not cleaned to our standard, let us know within 24 hours and we will return to make it right.",
   },
 ];
 

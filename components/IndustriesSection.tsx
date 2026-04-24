@@ -2,27 +2,27 @@ import { HardDrives, Cloud, Factory, Wind } from "@phosphor-icons/react/dist/ssr
 
 const industries = [
   {
-    title: "Data Centers",
+    title: "Corporate Offices",
     summary:
-      "Custom-built, energy-efficient data centre solutions tailored to high-performance digital infrastructure.",
+      "Maintain a professional and healthy workspace with our comprehensive commercial cleaning solutions.",
     icon: <HardDrives size={64} weight="light" />,
   },
   {
-    title: "Cloud Infrastructure",
+    title: "Luxury Residential",
     summary:
-      "Scalable digital backbone planning that supports resilient systems and long-term operational growth.",
+      "Detailed care for high-end homes, ensuring every corner reflects the elegance of your living space.",
     icon: <Cloud size={64} weight="light" />,
   },
   {
-    title: "Energy",
+    title: "Retail & Showrooms",
     summary:
-      "Expertise in securing and managing low-cost, sustainable energy sources for high-demand industries.",
+      "Create an inviting atmosphere for your customers with pristine floors and spotless displays.",
     icon: <Factory size={64} weight="light" />,
   },
   {
-    title: "Renewables",
+    title: "Post-Construction",
     summary:
-      "Clean-energy project support shaped around modern infrastructure, efficiency, and future-ready systems.",
+      "Final touch cleaning that transforms construction sites into move-in ready, immaculate properties.",
     icon: <Wind size={64} weight="light" />,
   },
 ];

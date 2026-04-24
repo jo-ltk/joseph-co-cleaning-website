@@ -13,8 +13,8 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Perform",
-  description: "Triathlon coach landing page",
+  title: "Joseph.co | Premium Cleaning Services",
+  description: "Immaculate Standards for Discerning Spaces. Professional cleaning services for luxury residential and commercial environments.",
 };
 
 export default function RootLayout({

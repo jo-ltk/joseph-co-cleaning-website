@@ -22,10 +22,10 @@ type ProjectCard = {
 const slides: ProjectCard[][] = [
   [
     {
-      title: "PurePower",
+      title: "The Heights Penthouse",
       image:
         "https://images.pexels.com/photos/15379018/pexels-photo-15379018.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1600&w=2200",
-      alt: "Wind turbines across a green landscape",
+      alt: "Luxury penthouse living room with skyline view",
       overlay:
         "linear-gradient(180deg, rgba(150, 155, 148, 0.18) 0%, rgba(18, 21, 16, 0.38) 100%)",
       desktopClassName: "md:col-span-5",
@@ -34,20 +34,20 @@ const slides: ProjectCard[][] = [
       showPlus: true,
     },
     {
-      title: "EnergyOptix",
+      title: "Regency Corporate Hub",
       image:
         "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=2200&q=80",
-      alt: "Dark data center with blue lighting",
+      alt: "Modern glass office building interior",
       overlay:
         "linear-gradient(180deg, rgba(3, 12, 13, 0.08) 0%, rgba(3, 9, 12, 0.54) 100%)",
       desktopClassName: "md:col-span-5",
       backgroundPosition: "center center",
     },
     {
-      title: "SmartSpark",
+      title: "Luxe Retail Plaza",
       image:
         "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
-      alt: "Aerial river and surrounding forest",
+      alt: "High-end shopping mall atrium",
       overlay:
         "linear-gradient(180deg, rgba(9, 22, 19, 0.12) 0%, rgba(8, 14, 13, 0.42) 100%)",
       desktopClassName: "md:col-span-2",
@@ -56,10 +56,10 @@ const slides: ProjectCard[][] = [
   ],
   [
     {
-      title: "EcoGrid",
+      title: "Azure Marina Villas",
       image:
         "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?auto=format&fit=crop&w=2200&q=80",
-      alt: "Wind turbines at sunset",
+      alt: "Waterfront luxury villa exterior",
       overlay:
         "linear-gradient(180deg, rgba(152, 140, 118, 0.14) 0%, rgba(19, 18, 14, 0.42) 100%)",
       desktopClassName: "md:col-span-5",
@@ -68,20 +68,20 @@ const slides: ProjectCard[][] = [
       showPlus: true,
     },
     {
-      title: "VoltEdge",
+      title: "Global Tech Campus",
       image:
         "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2200&q=80",
-      alt: "Macro tech surface with blue light",
+      alt: "Minimalist tech office lobby",
       overlay:
         "linear-gradient(180deg, rgba(2, 10, 13, 0.1) 0%, rgba(3, 10, 12, 0.55) 100%)",
       desktopClassName: "md:col-span-5",
       backgroundPosition: "center center",
     },
     {
-      title: "BlueCurrent",
+      title: "Skyview Residences",
       image:
         "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
-      alt: "Lake viewed from above",
+      alt: "Modern apartment balcony view",
       overlay:
         "linear-gradient(180deg, rgba(8, 22, 20, 0.1) 0%, rgba(8, 16, 15, 0.4) 100%)",
       desktopClassName: "md:col-span-2",
@@ -90,10 +90,10 @@ const slides: ProjectCard[][] = [
   ],
   [
     {
-      title: "NovaField",
+      title: "Beacon Health Center",
       image:
         "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=2200&q=80",
-      alt: "Solar field across open landscape",
+      alt: "Sterile medical facility hallway",
       overlay:
         "linear-gradient(180deg, rgba(118, 139, 154, 0.12) 0%, rgba(12, 18, 17, 0.42) 100%)",
       desktopClassName: "md:col-span-5",
@@ -102,20 +102,20 @@ const slides: ProjectCard[][] = [
       showPlus: true,
     },
     {
-      title: "CoreStack",
+      title: "Grand Horizon Hotel",
       image:
         "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=2200&q=80",
-      alt: "Blue lit technology environment",
+      alt: "Luxury hotel lobby with marble floors",
       overlay:
         "linear-gradient(180deg, rgba(3, 9, 12, 0.08) 0%, rgba(2, 10, 12, 0.56) 100%)",
       desktopClassName: "md:col-span-5",
       backgroundPosition: "center center",
     },
     {
-      title: "FlowWorks",
+      title: "Nature Retreat Spa",
       image:
         "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80",
-      alt: "Forest aerial view",
+      alt: "Serene spa interior",
       overlay:
         "linear-gradient(180deg, rgba(9, 18, 14, 0.08) 0%, rgba(8, 13, 11, 0.44) 100%)",
       desktopClassName: "md:col-span-2",
@@ -124,10 +124,10 @@ const slides: ProjectCard[][] = [
   ],
   [
     {
-      title: "TerraBloom",
+      title: "Summit Executive Suites",
       image:
         "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=2200&q=80",
-      alt: "Renewable energy landscape with wind turbines",
+      alt: "High-floor executive office",
       overlay:
         "linear-gradient(180deg, rgba(150, 149, 132, 0.14) 0%, rgba(15, 17, 13, 0.42) 100%)",
       desktopClassName: "md:col-span-5",
@@ -136,20 +136,20 @@ const slides: ProjectCard[][] = [
       showPlus: true,
     },
     {
-      title: "GridSight",
+      title: "Elite Fitness Club",
       image:
         "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=2200&q=80",
-      alt: "Industrial infrastructure in blue light",
+      alt: "High-end gym interior",
       overlay:
         "linear-gradient(180deg, rgba(4, 10, 12, 0.08) 0%, rgba(4, 10, 12, 0.58) 100%)",
       desktopClassName: "md:col-span-5",
       backgroundPosition: "center center",
     },
     {
-      title: "HydroLoop",
+      title: "Legacy Library Hall",
       image:
         "https://images.unsplash.com/photo-1505764706515-aa95265c5abc?auto=format&fit=crop&w=1200&q=80",
-      alt: "Water-side infrastructure from above",
+      alt: "Polished historic library",
       overlay:
         "linear-gradient(180deg, rgba(8, 22, 20, 0.08) 0%, rgba(7, 13, 12, 0.44) 100%)",
       desktopClassName: "md:col-span-2",

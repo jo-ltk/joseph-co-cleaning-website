@@ -4,9 +4,9 @@ import IconButton from "./ui/IconButton";
 
 const pageLinks = [
   { href: "/", label: "Home" },
-  { href: "/gallery", label: "Projects" },
+  { href: "/gallery", label: "Portfolio" },
   { href: "/about", label: "About Us" },
-  { href: "/services", label: "Solutions" },
+  { href: "/services", label: "Services" },
   { href: "/areas-we-serve", label: "Areas We Serve" },
   { href: "/contact", label: "Contact" },
 ];
@@ -34,19 +34,19 @@ export default function Footer() {
         <div className="grid gap-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(420px,620px)] lg:gap-20">
           <div className="max-w-[560px]">
             <p className="text-[1.05rem] text-yellow-green/90 sm:text-[1.45rem] md:text-[1.85rem] lg:text-[2rem]">
-              Start your project today! Contact us to
+              Transform your space today! Contact us to
               <br />
-              learn more and let&apos;s work together to
+              learn more about our bespoke cleaning
               <br />
-              achieve your goals.
+              solutions tailored for you.
             </p>
 
             <div className="mt-8 flex">
               <div className="btn-pair">
                 <ButtonLink href="/contact" variant="primary" className="text-white">
-                  Start a Project
+                  Book a Cleaning
                 </ButtonLink>
-                <IconButton href="/contact" aria-label="Start a Project" size="md" className="text-white" />
+                <IconButton href="/contact" aria-label="Book a Cleaning" size="md" className="text-white" />
               </div>
             </div>
           </div>

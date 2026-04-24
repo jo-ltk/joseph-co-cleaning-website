@@ -1,3 +1,3 @@
 export default function GalleryPage() {
-  return <div>Gallery Page</div>;
+  return <div>Our Cleaning Portfolio</div>;
 }
