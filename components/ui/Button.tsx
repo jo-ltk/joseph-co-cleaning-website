@@ -24,7 +24,7 @@ const variantClasses: Record<ButtonVariant, string> = {
   primary:
     "h-[48px] bg-yellow-green px-5 text-[0.98rem] font-medium tracking-[-0.04em] text-aztec transition-colors duration-300 hover:bg-[#b9f53a]",
   secondary:
-    "h-[48px] bg-yellow-green px-5 text-[0.98rem] font-medium tracking-[-0.04em] text-aztec transition-colors duration-300 hover:bg-[#b9f53a]",
+    "h-[48px] bg-transparent px-5 text-[0.98rem] font-medium tracking-[-0.04em] text-aztec transition-colors duration-300",
 };
 
 export default function Button<T extends React.ElementType = "button">({
