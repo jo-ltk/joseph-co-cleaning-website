@@ -4,14 +4,16 @@ import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import ImpactSection from "../components/ImpactSection";
 import IndustriesSection from "../components/IndustriesSection";
-import IntroProcess from "../components/IntroProcess";
+import ProcessSection from "../components/ProcessSection";
 import PartnershipsSection from "../components/PartnershipsSection";
 import LeadershipSpotlightSection from "../components/LeadershipSpotlightSection";
 import Navbar from "../components/Navbar";
 import RecentProjectsSection from "../components/RecentProjectsSection";
 import ResultsSection from "../components/ResultsSection";
+import ResultsComparison from "../components/ResultsComparison";
 import TestimonialsMarqueeSection from "../components/TestimonialsMarqueeSection";
 import TrustStrip from "../components/TrustStrip";
+import WhyChooseUs from "../components/WhyChooseUs";
 
 
 export default function HomePage() {
@@ -24,9 +26,11 @@ export default function HomePage() {
         </div>
       </section>
       <TrustStrip />
-      <IntroProcess />
       <PartnershipsSection />
       <IndustriesSection />
+      <WhyChooseUs />
+      <ProcessSection />
+      <ResultsComparison />
       <LeadershipSpotlightSection />
       <RecentProjectsSection />
       <ImpactSection />
