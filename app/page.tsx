@@ -5,11 +5,14 @@ import Hero from "../components/Hero";
 import ImpactSection from "../components/ImpactSection";
 import IndustriesSection from "../components/IndustriesSection";
 import IntroProcess from "../components/IntroProcess";
+import PartnershipsSection from "../components/PartnershipsSection";
 import LeadershipSpotlightSection from "../components/LeadershipSpotlightSection";
 import Navbar from "../components/Navbar";
 import RecentProjectsSection from "../components/RecentProjectsSection";
 import ResultsSection from "../components/ResultsSection";
 import TestimonialsMarqueeSection from "../components/TestimonialsMarqueeSection";
+import TrustStrip from "../components/TrustStrip";
+
 
 export default function HomePage() {
   return (
@@ -20,7 +23,9 @@ export default function HomePage() {
           <Hero />
         </div>
       </section>
+      <TrustStrip />
       <IntroProcess />
+      <PartnershipsSection />
       <IndustriesSection />
       <LeadershipSpotlightSection />
       <RecentProjectsSection />
