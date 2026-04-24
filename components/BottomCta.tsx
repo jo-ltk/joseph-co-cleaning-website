@@ -1,36 +1,44 @@
-import Link from "next/link";
-import { ButtonLink } from "./ui/Button";
-import IconButton from "./ui/IconButton";
-import SectionTag from "./ui/SectionTag";
+"use client";
+
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function BottomCta() {
   return (
-    <section className="landing-section lime-plus-pattern relative overflow-hidden text-[#101814]">
+    <section className="landing-section lime-plus-pattern relative overflow-hidden !pb-0 !pt-0 text-[#101814]">
+      <div className="relative mx-auto flex max-w-[1450px] flex-col items-center px-5 text-center">
+        {/* Heading - Minimal Top Margin */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="z-30 mt-6"
+        >
+          <h2 className="mx-auto max-w-[1100px] text-[clamp(46px,9.7vw,116px)] font-bold leading-[0.8] tracking-[-0.07em] text-aztec">
+            Ready For A <br /> Spotless Space?
+          </h2>
+        </motion.div>
 
-      <div className="relative mx-auto flex max-w-[1450px] flex-col items-center gap-[var(--content-gap)] px-5 text-center md:px-8 lg:px-12">
-        <SectionTag className="bg-yellow-green text-aztec">Contact</SectionTag>
-
-        <h2 className="mx-auto max-w-[760px] text-aztec">
-          <span className="block">Ready For A Spotless Space?</span>
-        </h2>
-
-        <p className="mx-auto max-w-[620px] text-aztec">
-          We&apos;ll help your home or workplace feel brighter, fresher, and
-          professionally cared for.
-        </p>
-
-        <div className="flex justify-center">
-          <div className="btn-pair">
-            <ButtonLink href="/contact" variant="primary" className="text-white">
-              Get In Touch
-            </ButtonLink>
-            <IconButton
-              href="/contact"
-              aria-label="Get In Touch"
-              size="md"
-              className="text-white"
+        {/* Image - Tighter Overlap for Minimal Section Height */}
+        <div className="relative z-10 mt-[-160px] w-full max-w-[1235px] md:mt-[-260px] lg:mt-[-340px]">
+          <motion.div
+            initial={{ opacity: 0, y: 80, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <Image
+              src="/images/cta-overlap.png"
+              alt="Cleaning Supplies"
+              width={1400}
+              height={800}
+              className="h-auto w-full object-contain"
+              priority
             />
-          </div>
+          </motion.div>
+          
+          <div className="absolute bottom-0 left-1/2 h-[30%] w-[80%] -translate-x-1/2 translate-y-1/2 rounded-full bg-aztec/10 blur-[120px] opacity-20" />
         </div>
       </div>
     </section>
