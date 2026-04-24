@@ -59,7 +59,7 @@ export default function PartnershipsSection() {
   return (
     <section className="p-section">
       <div className="mx-auto max-w-[1450px] px-5 md:px-10 lg:px-20">
-        <div className="flex flex-col lg:flex-row items-end justify-between gap-12 mb-16">
+        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6 lg:gap-12 mb-16">
           <div className="max-w-2xl">
             <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-pine-green font-semibold uppercase tracking-widest text-sm mb-4 block">
               Our Partners
