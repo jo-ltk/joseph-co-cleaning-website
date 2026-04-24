@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function BottomCta() {
   return (
-    <section className="landing-section lime-plus-pattern relative overflow-hidden !pb-0 !pt-0 text-[#101814]">
+    <section className="landing-section lime-plus-pattern relative overflow-hidden !pb-0 pt-12 sm:!pt-0 text-[#101814]">
       <div className="relative mx-auto flex max-w-[1450px] flex-col items-center px-5 text-center">
         {/* Heading - Minimal Top Margin */}
         <motion.div
@@ -13,7 +13,7 @@ export default function BottomCta() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="z-30 mt-6"
+          className="z-30 mt-6 sm:mt-10"
         >
           <h2 className="mx-auto max-w-[1100px] text-[clamp(46px,9.7vw,116px)] font-bold leading-[0.8] tracking-[-0.07em] text-aztec">
             Ready For A <br /> Spotless Space?
@@ -21,7 +21,7 @@ export default function BottomCta() {
         </motion.div>
 
         {/* Image - Tighter Overlap for Minimal Section Height */}
-        <div className="relative z-10 mt-[-160px] w-full max-w-[1235px] md:mt-[-260px] lg:mt-[-340px]">
+        <div className="relative z-10 mt-[-60px] sm:mt-[-160px] md:mt-[-260px] lg:mt-[-340px] w-full max-w-[1235px]">
           <motion.div
             initial={{ opacity: 0, y: 80, scale: 0.95 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
