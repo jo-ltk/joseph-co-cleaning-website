@@ -32,7 +32,7 @@ const ScrollReveal = ({
   const containerRef = useRef<HTMLElement>(null);
 
   const splitText = useMemo(() => {
-    const text = typeof children === 'string' ? children : '';
+    const text = typeof children === 'string' ? children.trim() : '';
     return text.split(/(\s+)/).map((word, index) => {
       if (word.match(/^\s+$/)) return word;
       return (

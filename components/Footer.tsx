@@ -7,10 +7,10 @@ import IconButton from "./ui/IconButton";
 
 const pageLinks = [
   { href: "/", label: "Home" },
-  { href: "/gallery", label: "Portfolio" },
-  { href: "/about", label: "About Us" },
   { href: "/services", label: "Services" },
-  { href: "/areas-we-serve", label: "Areas We Serve" },
+  { href: "/about", label: "About" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/areas-we-cover", label: "Areas We Cover" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -47,8 +47,8 @@ export default function Footer() {
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }} className="mt-8 md:mt-16 flex items-center gap-4">
               <div className="btn-pair">
-                <ButtonLink href="/contact" variant="primary">Start Your Project</ButtonLink>
-                <IconButton href="/contact" aria-label="Start Your Project" size="md" />
+                <ButtonLink href="/contact" variant="primary">Book Quote</ButtonLink>
+                <IconButton href="/contact" aria-label="Book Quote" size="md" />
               </div>
             </motion.div>
           </div>

@@ -9,10 +9,12 @@ import { ButtonLink } from "./ui/Button";
 import IconButton from "./ui/IconButton";
 
 const navigationItems = [
-  { href: "/gallery", label: "Portfolio" },
-  { href: "/about", label: "About" },
+  { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
-  { href: "/testimonials", label: "Reviews" },
+  { href: "/about", label: "About" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/areas-we-cover", label: "Areas We Cover" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -45,7 +47,7 @@ export default function Navbar() {
           initial={{ opacity: 0, y: -18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="pointer-events-auto w-full md:max-w-[555px]"
+          className="pointer-events-auto w-full md:w-max"
         >
           <div className="hidden items-center rounded-[8px] bg-white px-5 py-6 text-[#111713] shadow-[0_24px_70px_rgba(0,0,0,0.18)] md:flex">
             <Link
@@ -57,14 +59,14 @@ export default function Navbar() {
             </Link>
 
             <ul
-              className="ml-11 flex items-center gap-9 text-[0.95rem] font-medium tracking-[-0.05em]"
+              className="ml-11 flex items-center gap-7 text-[0.95rem] font-medium tracking-[-0.05em]"
               style={{ fontFamily: "var(--font-inter), sans-serif" }}
             >
               {navigationItems.map((item, index) => (
                 <li key={item.label}>
                   <Link
                     href={item.href}
-                    className="group inline-flex items-center gap-1.5 transition hover:opacity-65"
+                    className="group inline-flex items-center gap-1.5 transition hover:opacity-65 whitespace-nowrap"
                   >
                     <span>{item.label}</span>
                     {index === 1 ? (
@@ -118,14 +120,14 @@ export default function Navbar() {
               variant="primary"
               className="px-8"
             >
-              Contact Us
+              Book Quote
             </ButtonLink>
           </motion.div>
 
           <motion.div whileHover={{ y: -2, rotate: 3 }} whileTap={{ scale: 0.96 }}>
             <IconButton
               href="/contact"
-              aria-label="Contact Us"
+              aria-label="Book Quote"
               size="md"
             />
           </motion.div>
@@ -196,7 +198,7 @@ export default function Navbar() {
                       className="block text-[2.65rem] font-medium leading-[1.02] tracking-[-0.06em] transition-opacity hover:opacity-70"
                       style={{ fontFamily: "var(--font-manrope), sans-serif" }}
                     >
-                      Contact
+                      Book Quote
                     </Link>
                   </li>
                 </ul>

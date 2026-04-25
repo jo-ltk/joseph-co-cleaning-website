@@ -1,6 +1,7 @@
 .scroll-reveal {
-  margin: 0;
   display: block;
+  width: 100%;
+  text-align: inherit;
   overflow: hidden;
   letter-spacing: -0.02em;
 }
