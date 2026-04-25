@@ -153,79 +153,87 @@ function RegionSpotlight({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: index * 0.06 }}
-      className="grid items-center gap-6 lg:grid-cols-12 lg:gap-12"
+      className={`flex flex-col gap-10 lg:gap-16 ${reverse ? "lg:flex-row-reverse" : "lg:flex-row"} lg:items-center`}
     >
-      <div className={`${reverse ? "lg:order-2 lg:col-span-5" : "lg:col-span-5"}`}>
-        <div className="relative overflow-hidden rounded-[28px]">
-          <div className={`absolute inset-0 ${region.accent}`} />
+      <div className="w-full shrink-0 lg:w-[48%]">
+        <div className={`group relative overflow-hidden bg-[#eef1ea] shadow-[0_20px_60px_rgba(17,32,37,0.08)] ${reverse ? "rounded-[40px] rounded-tl-[120px]" : "rounded-[40px] rounded-tr-[120px]"}`}>
           <Image
             src={region.image}
             alt={region.alt}
             width={1200}
-            height={900}
-            className="relative h-[320px] w-full object-cover md:h-[420px]"
+            height={1200}
+            quality={100}
+            className="relative h-[400px] w-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105 md:h-[580px]"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,32,37,0.04)_0%,rgba(17,32,37,0.26)_100%)]" />
-          <div className="absolute bottom-5 left-5 rounded-full bg-white/88 px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-aztec backdrop-blur-md">
-            {region.name}
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,32,37,0.0)_0%,rgba(17,32,37,0.3)_100%)] pointer-events-none transition-opacity duration-700 group-hover:opacity-70" />
+          <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between md:bottom-8 md:left-8 md:right-8">
+            <div className="inline-flex items-center justify-center rounded-full bg-white/95 px-6 py-3 text-xs font-bold uppercase tracking-[0.2em] text-pine-green shadow-lg backdrop-blur-md transition-transform duration-500 group-hover:-translate-y-1">
+              {region.name}
+            </div>
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 text-white shadow-lg backdrop-blur-md transition-all duration-500 group-hover:-translate-y-1 group-hover:bg-white group-hover:text-pine-green">
+              <ArrowUpRight size={20} weight="bold" />
+            </div>
           </div>
         </div>
       </div>
 
-      <div className={`${reverse ? "lg:order-1 lg:col-span-7" : "lg:col-span-7"}`}>
-        <div className="max-w-[760px]">
+      <div className="w-full lg:w-[52%]">
+        <div className={`max-w-[680px] ${reverse ? "lg:ml-auto lg:pr-12" : "lg:pl-12"}`}>
           <motion.div
-            initial={{ opacity: 0, x: reverse ? -24 : 24 }}
+            initial={{ opacity: 0, x: reverse ? -20 : 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.08 }}
-            className="mb-5 inline-flex items-center gap-2 rounded-full border border-aztec/10 bg-white px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-xanadu"
+            className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-pine-green/15 bg-white px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] text-pine-green shadow-sm"
           >
-            <MapPin size={16} weight="fill" className="text-pine-green" />
-            {region.name}
+            <MapPin size={16} weight="fill" />
+            {region.name} Coverage
           </motion.div>
 
           <ScrollReveal
             as="h2"
             enableBlur={true}
             blurStrength={8}
-            containerClassName="max-w-[760px] text-2xl leading-[1.1] tracking-tight text-aztec md:text-4xl"
+            containerClassName="mb-6 text-3xl font-medium leading-[1.12] tracking-tight text-aztec md:text-5xl"
           >
             {region.strap}
           </ScrollReveal>
 
           <motion.p
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, delay: 0.15 }}
-            className="mt-5 max-w-[690px] text-base leading-relaxed text-xanadu md:text-lg"
+            className="mb-8 text-lg leading-relaxed text-xanadu md:text-xl"
           >
             {region.description}
           </motion.p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 24 }}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, delay: 0.22 }}
-            className="mt-4 max-w-[650px] text-lg font-medium leading-relaxed text-aztec md:text-xl"
+            className="relative mb-10 overflow-hidden rounded-[28px] border border-aztec/5 bg-white p-6 shadow-[0_10px_40px_rgba(17,32,37,0.04)] md:p-8"
           >
-            {region.highlight}
-          </motion.p>
+            <div className="absolute left-0 top-0 h-full w-1.5 bg-yellow-green" />
+            <p className="text-xl font-medium leading-relaxed text-pine-green">
+              {region.highlight}
+            </p>
+          </motion.div>
 
-          <div className="mt-8 grid gap-3 md:grid-cols-3">
+          <div className="flex flex-wrap gap-3">
             {region.bullets.map((bullet, bulletIndex) => (
               <motion.div
                 key={bullet}
-                initial={{ opacity: 0, y: 18 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.22 + bulletIndex * 0.08 }}
-                className="rounded-[22px] border border-aztec/10 bg-white p-5"
+                className="flex items-center gap-2.5 rounded-full border border-aztec/10 bg-white px-5 py-3 shadow-[0_4px_15px_rgba(17,32,37,0.03)] transition-colors hover:border-pine-green/30"
               >
-                <CheckCircle size={20} weight="fill" className="mb-3 text-pine-green" />
-                <p className="text-sm leading-relaxed text-aztec md:text-base">{bullet}</p>
+                <CheckCircle size={18} weight="fill" className="text-pine-green" />
+                <p className="text-sm font-medium text-aztec">{bullet}</p>
               </motion.div>
             ))}
           </div>
@@ -288,16 +296,8 @@ export default function AreasWeCoverPage() {
                 containerClassName="text-balance text-4xl md:text-6xl lg:text-[80px] leading-[1.0] tracking-tight font-medium text-white max-w-[800px]"
                 style={{ fontFamily: "var(--font-inter), sans-serif" }}
               >
-                Premium cleaning coverage shaped around how the South West actually lives.
+                Premium Coverage Across the South West
               </ScrollReveal>
-              <motion.p
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-6 max-w-[720px] text-lg font-medium leading-relaxed text-white/88 md:text-xl"
-              >
-                Joseph & Co supports homes, apartments, offices and high-expectation properties across Somerset, Devon, Gloucestershire and Bristol with service that feels precise, calm and deeply considered.
-              </motion.p>
               
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -344,67 +344,136 @@ export default function AreasWeCoverPage() {
         </motion.div>
       </section>
 
-      <section className="bg-wild-sand px-5 py-20 text-aztec md:px-10 md:py-32 lg:px-20">
-        <div className="mx-auto grid max-w-[1450px] gap-10 lg:grid-cols-12 lg:items-center">
-          <div className="lg:col-span-5">
-            <SectionEyebrow>Local Reach</SectionEyebrow>
-            <ScrollReveal
-              as="h2"
-              enableBlur={true}
-              blurStrength={8}
-              containerClassName="max-w-[640px] text-2xl leading-[1.1] text-aztec md:text-4xl"
-            >
-              Coverage designed for properties that expect more than a basic service radius.
-            </ScrollReveal>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.16 }}
-            className="lg:col-span-7"
-          >
-            <p className="max-w-[760px] text-lg font-medium leading-relaxed text-xanadu md:text-xl">
-              This page is not a list of postcodes. It is a clearer picture of where Joseph & Co already works well: regions where reliability, route planning, presentation standards and responsive communication all matter to the client experience.
-            </p>
-            <div className="mt-8 grid gap-4 md:grid-cols-[1.1fr_0.9fr]">
-              <div className="relative overflow-hidden rounded-[28px] bg-[#dfe4da] p-4 md:p-5">
-                <Image
-                  src="/images/team-stats.png"
-                  alt="Joseph & Co team image representing trusted regional service coverage"
-                  width={900}
-                  height={900}
-                  className="h-[360px] w-full rounded-[22px] object-cover md:h-[430px]"
-                />
-                <div className="absolute bottom-9 left-9 max-w-[220px] rounded-[20px] bg-white/92 p-5 shadow-[0_24px_70px_rgba(17,32,37,0.12)] backdrop-blur-md">
-                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-pine-green">
-                    Fast Response
-                  </p>
-                  <p className="mt-3 text-base leading-relaxed text-aztec">
-                    Cleaners routed around active service areas for smoother booking and dependable follow-through.
-                  </p>
-                </div>
+      <section className="bg-wild-sand px-5 py-20 md:px-10 md:py-32 lg:px-20 overflow-hidden">
+        <div className="mx-auto max-w-[1450px]">
+          <div className="flex flex-col gap-4">
+            
+            {/* Top Row */}
+            <div className="flex flex-col lg:flex-row gap-4 lg:items-stretch">
+              {/* Text Card */}
+              <div className="lg:w-[60%] rounded-[32px] bg-white p-8 md:p-12 lg:p-14 flex flex-col justify-center shadow-[0_20px_60px_rgba(17,32,37,0.05)]">
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                >
+                  <span className="inline-block bg-[#eef1ea] text-pine-green px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-[0.15em] mb-8">
+                    Local Reach
+                  </span>
+                </motion.div>
+                <ScrollReveal
+                  as="h2"
+                  enableBlur={true}
+                  blurStrength={8}
+                  containerClassName="text-3xl md:text-5xl lg:text-6xl font-medium leading-[1.05] tracking-tight text-aztec mb-6 max-w-2xl"
+                >
+                  Coverage designed for properties that expect more.
+                </ScrollReveal>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="text-lg md:text-xl text-xanadu leading-relaxed max-w-2xl mb-10"
+                >
+                  This is not a list of postcodes. It is a clearer picture of where Joseph & Co works best: regions where reliability, presentation standards, and responsive communication matter.
+                </motion.p>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  <ButtonLink href="/contact" variant="primary" className="px-8 w-fit">
+                    Discover coverage
+                  </ButtonLink>
+                </motion.div>
               </div>
 
-              <div className="grid gap-4">
-                <div className="rounded-[28px] bg-white p-6 shadow-[0_28px_80px_rgba(17,32,37,0.08)] md:p-8">
-                  <Clock size={22} weight="fill" className="text-pine-green" />
-                  <h3 className="mt-5 text-xl leading-[1.1] text-aztec md:text-2xl">Responsive scheduling</h3>
-                  <p className="mt-3 text-base leading-relaxed text-xanadu">
-                    Quote requests from covered regions move more smoothly into site visits, one-off bookings and recurring plans.
-                  </p>
-                </div>
-                <div className="rounded-[28px] bg-[#112025] p-6 text-white md:p-8">
-                  <ShieldCheck size={22} weight="fill" className="text-yellow-green" />
-                  <h3 className="mt-5 text-xl leading-[1.1] md:text-2xl">Trusted local continuity</h3>
-                  <p className="mt-3 text-base leading-relaxed text-white/68">
-                    The same premium service language carries from county to county, so clients get reassurance without a generic chain-service feel.
-                  </p>
-                </div>
-              </div>
+              {/* Image 1 */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+                className="lg:w-[20%] rounded-[32px] overflow-hidden relative min-h-[350px] shadow-[0_20px_60px_rgba(17,32,37,0.05)]"
+              >
+                <Image src="/hero-cleaning-home.jpg" fill className="object-cover transition-transform duration-1000 hover:scale-105" alt="Premium cleaning service" />
+              </motion.div>
+
+              {/* Image 2 */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.3 }}
+                className="lg:w-[20%] rounded-[32px] overflow-hidden relative min-h-[350px] shadow-[0_20px_60px_rgba(17,32,37,0.05)]"
+              >
+                <Image src="/clean-space-living-room.jpg" fill className="object-cover transition-transform duration-1000 hover:scale-105" alt="Immaculate living space" />
+              </motion.div>
             </div>
-          </motion.div>
+
+            {/* Bottom Row */}
+            <div className="flex flex-col lg:flex-row gap-4 lg:items-stretch">
+              
+              {/* Dark Image Card with Pills */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.1 }}
+                className="lg:w-[40%] rounded-[32px] bg-[#112025] p-8 md:p-10 text-white flex flex-col justify-between relative overflow-hidden min-h-[350px] shadow-[0_20px_60px_rgba(17,32,37,0.08)]"
+              >
+                <Image src="/images/team-stats.png" fill className="object-cover opacity-50 transition-transform duration-1000 hover:scale-105" alt="Joseph & Co team" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                
+                <div className="relative z-10 flex flex-col justify-end h-full mt-24">
+                  <h3 className="text-2xl md:text-3xl font-medium leading-[1.1] mb-6">
+                    Fast response times & trusted continuity.
+                  </h3>
+                  <div className="flex flex-wrap gap-3">
+                    <span className="bg-white/90 backdrop-blur-sm text-aztec px-5 py-2.5 rounded-full text-sm font-semibold shadow-sm">Somerset</span>
+                    <span className="bg-white/90 backdrop-blur-sm text-aztec px-5 py-2.5 rounded-full text-sm font-semibold shadow-sm">Devon</span>
+                    <span className="bg-white/90 backdrop-blur-sm text-aztec px-5 py-2.5 rounded-full text-sm font-semibold shadow-sm">Bristol</span>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Stats & Info Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+                className="lg:w-[60%] rounded-[32px] bg-[#eef1ea] p-8 md:p-12 flex flex-col justify-between shadow-[0_20px_60px_rgba(17,32,37,0.03)]"
+              >
+                <div>
+                  <h3 className="text-3xl md:text-5xl font-medium text-aztec mb-5 tracking-tight leading-[1.05] max-w-[800px]">
+                    Responsive scheduling across our core regions.
+                  </h3>
+                  <p className="text-xanadu text-lg md:text-xl max-w-2xl leading-relaxed">
+                    The same premium service language carries from county to county, ensuring clients get reassurance without a generic chain-service feel.
+                  </p>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-6 mt-10 pt-8 border-t border-pine-green/10">
+                  <div>
+                    <div className="text-3xl md:text-4xl font-medium text-pine-green mb-2 tracking-tight">4</div>
+                    <div className="text-xs md:text-sm font-medium uppercase tracking-[0.1em] text-xanadu">Core Regions</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl md:text-4xl font-medium text-pine-green mb-2 tracking-tight">Fast</div>
+                    <div className="text-xs md:text-sm font-medium uppercase tracking-[0.1em] text-xanadu">Response Time</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl md:text-4xl font-medium text-pine-green mb-2 tracking-tight">100%</div>
+                    <div className="text-xs md:text-sm font-medium uppercase tracking-[0.1em] text-xanadu">Continuity</div>
+                  </div>
+                </div>
+              </motion.div>
+              
+            </div>
+          </div>
         </div>
       </section>
 
@@ -474,64 +543,116 @@ export default function AreasWeCoverPage() {
                   preserveAspectRatio="none"
                   aria-hidden="true"
                 >
+                  {/* Devon to Somerset */}
                   <path
-                    d="M27 20 C38 25, 54 28, 62 48 S72 72, 82 78"
+                    d="M26 60 Q 28 45, 35 30"
                     fill="none"
-                    stroke="rgba(199,233,147,0.75)"
-                    strokeWidth="0.55"
-                    strokeDasharray="2.4 2.4"
+                    stroke="#017775"
+                    strokeWidth="0.5"
+                    strokeDasharray="1.5 1.5"
                   />
+                  {/* Somerset to Local Reliability */}
                   <path
-                    d="M28 20 C22 30, 18 40, 17 63"
+                    d="M35 30 Q 46 42, 58 55"
                     fill="none"
-                    stroke="rgba(1,119,117,0.8)"
-                    strokeWidth="0.55"
-                    strokeDasharray="2.4 2.4"
+                    stroke="#c7e993"
+                    strokeWidth="0.5"
+                    strokeDasharray="1.5 1.5"
                   />
+                  {/* Local Reliability to Gloucestershire */}
                   <path
-                    d="M17 63 C28 62, 44 60, 62 56"
+                    d="M58 55 Q 61 44, 65 34"
                     fill="none"
-                    stroke="rgba(255,255,255,0.24)"
-                    strokeWidth="0.4"
-                    strokeDasharray="2.2 2.2"
+                    stroke="#c7e993"
+                    strokeWidth="0.5"
+                    strokeDasharray="1.5 1.5"
+                  />
+                  {/* Devon to Local Reliability (faint dashed) */}
+                  <path
+                    d="M26 60 Q 42 57, 58 55"
+                    fill="none"
+                    stroke="rgba(255,255,255,0.2)"
+                    strokeWidth="0.3"
+                    strokeDasharray="2 2"
                   />
                 </svg>
 
-                {routePoints.map((point, index) => (
+                {[
+                  {
+                    name: "Somerset",
+                    note: "Country homes and design-\nled residences",
+                    top: "30%",
+                    left: "35%",
+                    boxClass: "top-4 left-4 w-[240px]",
+                  },
+                  {
+                    name: "Gloucestershire",
+                    note: "Cotswold homes and\nrefined commercial spaces",
+                    top: "34%",
+                    left: "65%",
+                    boxClass: "top-4 left-4 w-[240px]",
+                  },
+                  {
+                    name: "Devon",
+                    note: "Coastal homes, retreats\nand family properties",
+                    top: "60%",
+                    left: "26%",
+                    boxClass: "top-4 left-4 w-[240px]",
+                  },
+                  {
+                    name: "Local Reliability",
+                    note: "Regional coverage means cleaner\nroutes, steadier communication and\na better chance of continuity for\nrepeat clients.",
+                    top: "55%",
+                    left: "58%",
+                    boxClass: "top-4 left-4 w-[280px]",
+                  }
+                ].map((point, index) => (
                   <motion.div
                     key={point.name}
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.55, delay: 0.12 + index * 0.08 }}
-                    className="absolute"
+                    className="absolute z-10"
                     style={{ top: point.top, left: point.left }}
                   >
-                    <div className="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-yellow-green/10 blur-2xl" />
+                    {/* Glowing Dot */}
+                    <div className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full bg-yellow-green/10 blur-2xl pointer-events-none" />
                     <motion.div
-                      animate={shouldReduceMotion ? undefined : { scale: [1, 1.16, 1] }}
-                      transition={shouldReduceMotion ? undefined : { duration: 2.6, repeat: Infinity, ease: "easeInOut", delay: index * 0.22 }}
-                      className="relative flex h-4 w-4 items-center justify-center rounded-full border border-yellow-green/60 bg-yellow-green"
+                      animate={shouldReduceMotion ? undefined : { scale: [1, 1.15, 1] }}
+                      transition={shouldReduceMotion ? undefined : { duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }}
+                      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex h-4 w-4 items-center justify-center rounded-full bg-[#c7e993]"
                     >
-                      <span className="h-1.5 w-1.5 rounded-full bg-aztec" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-black" />
                     </motion.div>
-                    <div className="mt-4 w-[220px] rounded-[22px] border border-white/10 bg-white/8 p-4 backdrop-blur-md">
-                      <p className="text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-yellow-green">
+
+                    {/* Floating Info Box */}
+                    <motion.div
+                      animate={shouldReduceMotion ? undefined : { y: [0, -6, 0] }}
+                      transition={shouldReduceMotion ? undefined : { duration: 4 + index * 0.5, repeat: Infinity, ease: "easeInOut" }}
+                      className={`absolute ${point.boxClass} rounded-[20px] border border-white/10 bg-[#424441]/95 p-5 shadow-xl backdrop-blur-md hidden sm:block`}
+                    >
+                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#c7e993] mb-3">
                         {point.name}
                       </p>
-                      <p className="mt-2 text-sm leading-relaxed text-white/72">{point.note}</p>
-                    </div>
+                      <p className="text-[0.95rem] leading-[1.6] text-white/95 whitespace-pre-line font-medium tracking-tight">
+                        {point.note}
+                      </p>
+                    </motion.div>
+                    
+                    {/* Mobile Fallback Box (No specific width, no pre-line) */}
+                    <motion.div
+                      className={`absolute top-4 left-[-100px] w-[200px] rounded-[16px] border border-white/10 bg-[#424441]/95 p-4 shadow-xl backdrop-blur-md sm:hidden`}
+                    >
+                      <p className="text-[0.6rem] font-bold uppercase tracking-[0.16em] text-[#c7e993] mb-2">
+                        {point.name}
+                      </p>
+                      <p className="text-xs leading-relaxed text-white/90">
+                        {point.note.replace(/\n/g, ' ')}
+                      </p>
+                    </motion.div>
                   </motion.div>
                 ))}
-
-                <div className="absolute bottom-6 right-6 max-w-[240px] rounded-[22px] border border-white/10 bg-black/20 p-5 backdrop-blur-md">
-                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-yellow-green">
-                    Local Reliability
-                  </p>
-                  <p className="mt-3 text-sm leading-relaxed text-white/72">
-                    Regional coverage means cleaner routes, steadier communication and a better chance of continuity for repeat clients.
-                  </p>
-                </div>
               </div>
             </div>
           </motion.div>
@@ -540,19 +661,19 @@ export default function AreasWeCoverPage() {
 
       <section className="bg-wild-sand px-5 py-20 text-aztec md:px-10 md:py-32 lg:px-20">
         <div className="mx-auto max-w-[1450px]">
-          <div className="mb-10 max-w-[780px] md:mb-16">
+          <div className="mb-16 max-w-[860px] md:mb-24">
             <SectionEyebrow>Regional Spotlights</SectionEyebrow>
             <ScrollReveal
               as="h2"
               enableBlur={true}
               blurStrength={8}
-              containerClassName="text-2xl leading-[1.1] text-aztec md:text-4xl"
+              containerClassName="text-3xl leading-[1.05] tracking-tight text-aztec md:text-5xl lg:text-[56px] font-medium mt-4"
             >
               Each area feels distinct, but the service language stays unmistakably Joseph & Co.
             </ScrollReveal>
           </div>
 
-          <div className="space-y-16 md:space-y-24">
+          <div className="space-y-24 md:space-y-32">
             {regions.map((region, index) => (
               <RegionSpotlight key={region.name} region={region} index={index} />
             ))}
@@ -560,15 +681,15 @@ export default function AreasWeCoverPage() {
         </div>
       </section>
 
-      <section className="bg-white px-5 py-20 text-aztec md:px-10 md:py-24 lg:px-20">
-        <div className="mx-auto grid max-w-[1450px] gap-10 lg:grid-cols-12 lg:items-start">
-          <div className="lg:col-span-5">
+      <section className="bg-white px-5 py-12 text-aztec md:px-10 md:py-16 lg:px-20">
+        <div className="mx-auto grid max-w-[1450px] gap-8 lg:grid-cols-12 lg:items-stretch">
+          <div className="flex h-full flex-col lg:col-span-5">
             <SectionEyebrow>Why Clients Trust Us</SectionEyebrow>
             <ScrollReveal
               as="h2"
               enableBlur={true}
               blurStrength={8}
-              containerClassName="max-w-[560px] text-2xl leading-[1.1] text-aztec md:text-4xl"
+              containerClassName="max-w-[560px] text-2xl leading-[1.1] text-aztec md:text-[2rem]"
             >
               Trusted across these regions because the experience feels considered from first contact to final detail.
             </ScrollReveal>
@@ -577,24 +698,24 @@ export default function AreasWeCoverPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.16 }}
-              className="mt-8 overflow-hidden rounded-[30px] bg-[#eef1ea] p-5 md:p-6"
+              className="mt-6 flex flex-1 flex-col overflow-hidden rounded-[24px] bg-[#eef1ea] p-4 md:p-5"
             >
-              <div className="relative overflow-hidden rounded-[24px]">
+              <div className="relative flex-1 overflow-hidden rounded-[20px]">
                 <Image
                   src="/images/about-hero.png"
                   alt="Joseph & Co premium service delivery"
                   width={1200}
                   height={900}
-                  className="h-[320px] w-full object-cover md:h-[380px]"
+                  className="h-full min-h-[180px] w-full object-cover"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,32,37,0.02)_0%,rgba(17,32,37,0.34)_100%)]" />
               </div>
-              <div className="mt-5 rounded-[22px] bg-white p-5 shadow-[0_18px_50px_rgba(17,32,37,0.08)]">
+              <div className="mt-4 rounded-[18px] bg-white p-4 shadow-[0_18px_50px_rgba(17,32,37,0.08)]">
                 <div className="flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-yellow-green text-aztec">
-                    <Quotes size={18} weight="fill" />
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-yellow-green text-aztec">
+                    <Quotes size={16} weight="fill" />
                   </div>
-                  <p className="text-base leading-relaxed text-aztec md:text-lg">
+                  <p className="text-sm leading-relaxed text-aztec md:text-base">
                     Clients are not just looking for someone who can clean the property. They want someone they can trust with the rhythm, presentation and reliability around it.
                   </p>
                 </div>
@@ -602,7 +723,7 @@ export default function AreasWeCoverPage() {
             </motion.div>
           </div>
 
-          <div className="grid gap-4 lg:col-span-7">
+          <div className="flex h-full flex-col gap-3 lg:col-span-7">
             {trustReasons.map((reason, index) => (
               <motion.div
                 key={reason.title}
@@ -610,18 +731,18 @@ export default function AreasWeCoverPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.65, delay: index * 0.08 }}
-                className="grid gap-5 rounded-[28px] border border-aztec/8 bg-[#f7f7f4] p-6 md:grid-cols-[auto_1fr_auto] md:items-center md:gap-6 md:p-8"
+                className="grid shrink-0 gap-4 rounded-[24px] border border-aztec/8 bg-[#f7f7f4] p-5 md:grid-cols-[auto_1fr_auto] md:items-center md:gap-5 md:px-7 md:py-6"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-aztec text-yellow-green">
-                  <CheckCircle size={20} weight="fill" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-aztec text-yellow-green">
+                  <CheckCircle size={18} weight="fill" />
                 </div>
                 <div>
-                  <h3 className="text-xl leading-[1.1] text-aztec md:text-2xl">{reason.title}</h3>
-                  <p className="mt-3 max-w-[640px] text-base leading-relaxed text-xanadu">
+                  <h3 className="text-lg leading-[1.1] text-aztec md:text-xl">{reason.title}</h3>
+                  <p className="mt-2 max-w-[640px] text-sm leading-relaxed text-xanadu">
                     {reason.description}
                   </p>
                 </div>
-                <ArrowUpRight size={22} className="hidden text-aztec/28 md:block" />
+                <ArrowUpRight size={20} className="hidden text-aztec/28 md:block" />
               </motion.div>
             ))}
 
@@ -630,25 +751,25 @@ export default function AreasWeCoverPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="mt-2 rounded-[30px] bg-[#112025] p-6 text-white md:p-8"
+              className="mt-1 flex flex-1 flex-col justify-center rounded-[24px] bg-[#112025] p-5 text-white md:px-7 md:py-6"
             >
-              <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
+              <div className="grid w-full gap-5 md:grid-cols-[1fr_auto] md:items-center">
                 <div>
-                  <p className="text-sm font-semibold uppercase tracking-[0.16em] text-yellow-green">
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-yellow-green">
                     Request Quote
                   </p>
-                  <p className="mt-3 max-w-[640px] text-lg leading-relaxed text-white/78">
+                  <p className="mt-2 max-w-[640px] text-base leading-relaxed text-white/78">
                     Tell us where the property is, what kind of support you need and how often you want the space cared for. We will shape the next step around your area and your expectations.
                   </p>
                 </div>
                 <div className="btn-pair">
                   <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
-                    <ButtonLink href="/contact" variant="primary">
+                    <ButtonLink href="/contact" variant="primary" className="py-2.5 px-6 text-sm">
                       Start Request
                     </ButtonLink>
                   </motion.div>
                   <motion.div whileHover={{ y: -2, rotate: 3 }} whileTap={{ scale: 0.96 }}>
-                    <IconButton href="/contact" aria-label="Start your quote request" size="md" />
+                    <IconButton href="/contact" aria-label="Start your quote request" size="md" className="h-[42px] w-[42px]" />
                   </motion.div>
                 </div>
               </div>
