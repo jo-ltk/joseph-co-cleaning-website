@@ -3,9 +3,9 @@
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import ScrollReveal from "./ScrollReveal";
 
-const heroImage = "/images/about-hero.png";
+const heroImage = "/images/hero-bg-new.png";
 
-export default function AboutHero() {
+export default function ServicesHero() {
   const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
@@ -54,7 +54,7 @@ export default function AboutHero() {
               containerClassName="text-balance text-4xl md:text-6xl lg:text-[80px] leading-[1.0] tracking-tight font-medium text-white max-w-[800px]"
               style={{ fontFamily: "var(--font-inter), sans-serif" }}
             >
-              Redefining Professional Cleaning Standards
+              Our Professional Cleaning Services
             </ScrollReveal>
           </motion.div>
 
@@ -68,7 +68,7 @@ export default function AboutHero() {
               className="text-[0.75rem] font-bold uppercase tracking-[0.2em] text-white/90 transition-colors hover:text-white cursor-default"
               style={{ fontFamily: "var(--font-inter), sans-serif" }}
             >
-              Our Story
+              Explore Services
             </div>
           </motion.div>
         </div>
