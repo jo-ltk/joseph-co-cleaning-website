@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ButtonLink } from "./ui/Button";
@@ -26,9 +27,27 @@ const contactInfo = {
   address: "Mayfair, London, UK",
 };
 
+function getLondonTime() {
+  return new Intl.DateTimeFormat("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+    timeZone: "Europe/London",
+  }).format(new Date());
+}
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const londonTime = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Europe/London" }).format(new Date());
+  const [londonTime, setLondonTime] = useState("--:--");
+
+  useEffect(() => {
+    setLondonTime(getLondonTime());
+    const interval = window.setInterval(() => {
+      setLondonTime(getLondonTime());
+    }, 30000);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   return (
     <footer className="bg-aztec text-yellow-green selection:bg-yellow-green selection:text-aztec">

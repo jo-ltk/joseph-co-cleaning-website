@@ -298,33 +298,6 @@ export default function AreasWeCoverPage() {
               >
                 Premium Coverage Across the South West
               </ScrollReveal>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center"
-              >
-                <div className="btn-pair">
-                  <motion.div whileHover={{ y: -3 }} whileTap={{ scale: 0.98 }}>
-                    <ButtonLink href="/contact" variant="primary" className="px-8">
-                      Request A Quote
-                    </ButtonLink>
-                  </motion.div>
-                  <motion.div whileHover={{ y: -3, rotate: 3 }} whileTap={{ scale: 0.96 }}>
-                    <IconButton href="/contact" aria-label="Request a quote" size="md" />
-                  </motion.div>
-                </div>
-                <motion.div whileHover={{ y: -3 }} whileTap={{ scale: 0.98 }}>
-                  <ButtonLink
-                    href="/services"
-                    variant="secondary"
-                    className="border border-white/12 bg-white/12 px-8 !text-white backdrop-blur-md hover:bg-white/18"
-                  >
-                    Explore Services
-                  </ButtonLink>
-                </motion.div>
-              </motion.div>
             </motion.div>
 
             <motion.div
@@ -480,8 +453,8 @@ export default function AreasWeCoverPage() {
       <section className="relative overflow-hidden bg-[#120f0c] px-5 py-20 text-white md:px-10 md:py-32 lg:px-20">
         <div className="absolute right-0 top-0 h-[420px] w-[420px] rounded-full bg-yellow-green/10 blur-[140px]" />
         <div className="absolute bottom-0 left-0 h-[420px] w-[420px] rounded-full bg-pine-green/10 blur-[140px]" />
-        <div className="relative mx-auto grid max-w-[1450px] gap-10 lg:grid-cols-12 lg:items-center">
-          <div className="lg:col-span-5">
+        <div className="relative mx-auto grid max-w-[1450px] gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center xl:gap-12">
+          <div>
             <SectionEyebrow light={true}>Coverage Story</SectionEyebrow>
             <ScrollReveal
               as="h2"
@@ -504,8 +477,31 @@ export default function AreasWeCoverPage() {
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.22 }}
-              className="mt-8 flex items-center gap-4"
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mt-8 grid max-w-[560px] grid-cols-2 gap-3"
+            >
+              {[
+                ["4", "Core regions"],
+                ["Fast", "response guidance"],
+                ["Local", "route planning"],
+                ["Premium", "service continuity"],
+              ].map(([value, label]) => (
+                <div key={label} className="border border-white/10 bg-white/[0.04] p-4">
+                  <p className="text-2xl font-medium leading-[1.1] tracking-tight text-yellow-green md:text-3xl">
+                    {value}
+                  </p>
+                  <p className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/48">
+                    {label}
+                  </p>
+                </div>
+              ))}
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.26 }}
+              className="mt-8 flex flex-wrap items-center gap-4"
             >
               <ButtonLink href="/contact" variant="primary" className="px-8">
                 Request Visit
@@ -525,9 +521,9 @@ export default function AreasWeCoverPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:col-span-7"
+            className="min-w-0"
           >
-            <div className="relative overflow-hidden rounded-[34px] border border-white/10 bg-[radial-gradient(circle_at_top,#243239_0%,#161513_58%,#0f0d0b_100%)] p-6 md:p-8">
+            <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-[radial-gradient(circle_at_top,#243239_0%,#161513_58%,#0f0d0b_100%)] p-4 md:p-5">
               <div className="absolute inset-0 opacity-30">
                 <Image
                   src="/images/topo-bg.png"
@@ -536,123 +532,85 @@ export default function AreasWeCoverPage() {
                   className="object-cover"
                 />
               </div>
-              <div className="relative h-[460px] rounded-[28px] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.04)_0%,rgba(255,255,255,0.01)_100%)]">
-                <svg
-                  className="absolute inset-0 h-full w-full"
-                  viewBox="0 0 100 100"
-                  preserveAspectRatio="none"
-                  aria-hidden="true"
-                >
-                  {/* Devon to Somerset */}
-                  <path
-                    d="M26 60 Q 28 45, 35 30"
-                    fill="none"
-                    stroke="#017775"
-                    strokeWidth="0.5"
-                    strokeDasharray="1.5 1.5"
-                  />
-                  {/* Somerset to Local Reliability */}
-                  <path
-                    d="M35 30 Q 46 42, 58 55"
-                    fill="none"
-                    stroke="#c7e993"
-                    strokeWidth="0.5"
-                    strokeDasharray="1.5 1.5"
-                  />
-                  {/* Local Reliability to Gloucestershire */}
-                  <path
-                    d="M58 55 Q 61 44, 65 34"
-                    fill="none"
-                    stroke="#c7e993"
-                    strokeWidth="0.5"
-                    strokeDasharray="1.5 1.5"
-                  />
-                  {/* Devon to Local Reliability (faint dashed) */}
-                  <path
-                    d="M26 60 Q 42 57, 58 55"
-                    fill="none"
-                    stroke="rgba(255,255,255,0.2)"
-                    strokeWidth="0.3"
-                    strokeDasharray="2 2"
-                  />
-                </svg>
+              <div className="relative overflow-hidden rounded-[24px] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.045)_0%,rgba(255,255,255,0.015)_100%)] p-4 md:p-6">
+                <div className="absolute left-7 top-7 hidden h-[calc(100%-3.5rem)] w-px bg-gradient-to-b from-yellow-green/0 via-yellow-green/30 to-yellow-green/0 md:block" />
+                <div className="absolute left-7 top-7 hidden h-[32%] w-px bg-pine-green md:block" />
+                <div className="absolute bottom-0 right-0 h-56 w-56 translate-x-1/4 translate-y-1/4 rounded-full bg-yellow-green/8 blur-[90px]" />
 
-                {[
+                <div className="relative z-10 mb-5 flex flex-col gap-3 border-b border-white/10 pb-5 md:flex-row md:items-end md:justify-between">
+                  <div>
+                    <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[#c7e993]">
+                      Route Ledger
+                    </p>
+                    <h3 className="mt-2 max-w-[460px] text-xl font-medium leading-[1.1] tracking-tight text-white md:text-2xl">
+                      Four service regions connected by one Joseph & Co standard.
+                    </h3>
+                  </div>
+                  <p className="max-w-[220px] text-sm font-medium leading-relaxed text-white/55 md:text-right">
+                    Planned routes, steadier communication, cleaner continuity.
+                  </p>
+                </div>
+
+                <div className="relative z-10 grid gap-3">
+                  {[
                   {
                     name: "Somerset",
-                    note: "Country homes and design-\nled residences",
-                    top: "30%",
-                    left: "35%",
-                    boxClass: "top-4 left-4 w-[240px]",
+                    note: "Country homes and design-led residences",
+                    meta: "01",
+                    className: "",
                   },
                   {
                     name: "Gloucestershire",
-                    note: "Cotswold homes and\nrefined commercial spaces",
-                    top: "34%",
-                    left: "65%",
-                    boxClass: "top-4 left-4 w-[240px]",
+                    note: "Cotswold homes and refined commercial spaces",
+                    meta: "02",
+                    className: "md:ml-8",
                   },
                   {
                     name: "Devon",
-                    note: "Coastal homes, retreats\nand family properties",
-                    top: "60%",
-                    left: "26%",
-                    boxClass: "top-4 left-4 w-[240px]",
+                    note: "Coastal homes, retreats and family properties",
+                    meta: "03",
+                    className: "",
                   },
                   {
                     name: "Local Reliability",
-                    note: "Regional coverage means cleaner\nroutes, steadier communication and\na better chance of continuity for\nrepeat clients.",
-                    top: "55%",
-                    left: "58%",
-                    boxClass: "top-4 left-4 w-[280px]",
+                    note: "Cleaner routes, steadier communication and better continuity for repeat clients.",
+                    meta: "04",
+                    className: "md:ml-8",
                   }
                 ].map((point, index) => (
                   <motion.div
                     key={point.name}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
+                    initial={{ opacity: 0, y: 22 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.55, delay: 0.12 + index * 0.08 }}
-                    className="absolute z-10"
-                    style={{ top: point.top, left: point.left }}
+                    transition={{ duration: 0.58, delay: 0.12 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                    className={`group relative grid gap-4 rounded-[18px] border border-white/10 bg-[#3d403d]/88 p-4 shadow-[0_18px_44px_rgba(0,0,0,0.18)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-yellow-green/22 hover:bg-[#444742]/92 md:grid-cols-[auto_1fr_auto] md:items-center md:p-5 ${point.className}`}
                   >
-                    {/* Glowing Dot */}
-                    <div className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full bg-yellow-green/10 blur-2xl pointer-events-none" />
                     <motion.div
                       animate={shouldReduceMotion ? undefined : { scale: [1, 1.15, 1] }}
                       transition={shouldReduceMotion ? undefined : { duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }}
-                      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex h-4 w-4 items-center justify-center rounded-full bg-[#c7e993]"
+                      className="flex h-11 w-11 items-center justify-center rounded-full border border-yellow-green/20 bg-[#c7e993] text-[0.7rem] font-bold tracking-[0.12em] text-aztec shadow-[0_0_28px_rgba(199,233,147,0.22)]"
                     >
-                      <span className="h-1.5 w-1.5 rounded-full bg-black" />
+                      {point.meta}
                     </motion.div>
-
-                    {/* Floating Info Box */}
                     <motion.div
-                      animate={shouldReduceMotion ? undefined : { y: [0, -6, 0] }}
-                      transition={shouldReduceMotion ? undefined : { duration: 4 + index * 0.5, repeat: Infinity, ease: "easeInOut" }}
-                      className={`absolute ${point.boxClass} rounded-[20px] border border-white/10 bg-[#424441]/95 p-5 shadow-xl backdrop-blur-md hidden sm:block`}
+                      animate={shouldReduceMotion ? undefined : { x: [0, 4, 0] }}
+                      transition={shouldReduceMotion ? undefined : { duration: 5 + index * 0.3, repeat: Infinity, ease: "easeInOut" }}
+                      className="relative"
                     >
-                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#c7e993] mb-3">
+                      <p className="mb-2 text-[0.66rem] font-bold uppercase tracking-[0.16em] text-[#c7e993]">
                         {point.name}
                       </p>
-                      <p className="text-[0.95rem] leading-[1.6] text-white/95 whitespace-pre-line font-medium tracking-tight">
+                      <p className="max-w-[520px] text-[0.95rem] font-medium leading-relaxed tracking-tight text-white/88 md:text-[0.98rem]">
                         {point.note}
                       </p>
                     </motion.div>
-                    
-                    {/* Mobile Fallback Box (No specific width, no pre-line) */}
-                    <motion.div
-                      className={`absolute top-4 left-[-100px] w-[200px] rounded-[16px] border border-white/10 bg-[#424441]/95 p-4 shadow-xl backdrop-blur-md sm:hidden`}
-                    >
-                      <p className="text-[0.6rem] font-bold uppercase tracking-[0.16em] text-[#c7e993] mb-2">
-                        {point.name}
-                      </p>
-                      <p className="text-xs leading-relaxed text-white/90">
-                        {point.note.replace(/\n/g, ' ')}
-                      </p>
-                    </motion.div>
+                    <div className="hidden h-9 w-9 items-center justify-center rounded-full bg-white/6 text-yellow-green transition duration-300 group-hover:bg-yellow-green group-hover:text-aztec md:flex">
+                      <ArrowUpRight size={17} weight="bold" />
+                    </div>
                   </motion.div>
                 ))}
+                </div>
               </div>
             </div>
           </motion.div>
