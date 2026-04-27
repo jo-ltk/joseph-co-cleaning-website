@@ -22,9 +22,9 @@ const socialLinks = [
 ];
 
 const contactInfo = {
-  email: "hello@joseph.co",
-  phone: "+44 (0) 20 1234 5678",
-  address: "Mayfair, London, UK",
+  email: "JosephandCol.t.d@outlook.com",
+  phone: "+44 7787857305",
+  address: "TA6 4HW, 32 Willow Man Road, UK",
 };
 
 function getLondonTime() {
@@ -61,7 +61,7 @@ export default function Footer() {
                 Elevating the standards of clean.
               </h2>
               <p className="text-base md:text-lg leading-relaxed text-yellow-green/70">
-                Joseph.co provides bespoke cleaning services for the most discerning residential and commercial spaces in London. We combine traditional care with modern precision.
+                Joseph & Co provides bespoke cleaning services for the most discerning residential and commercial spaces across the South West. We combine traditional care with modern precision.
               </p>
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }} className="mt-8 md:mt-16 flex items-center gap-4">
@@ -92,7 +92,7 @@ export default function Footer() {
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.5 }} className="col-span-2 space-y-3 md:space-y-4 md:col-span-1">
               <span className="block font-mono text-sm uppercase tracking-widest text-yellow-green/40">Contact</span>
               <div className="space-y-3 md:space-y-4 text-sm md:text-base">
-                <a href={`mailto:${contactInfo.email}`} className="block transition-colors hover:text-white">{contactInfo.email}</a>
+                <a href={`mailto:${contactInfo.email}`} className="block transition-colors hover:text-white truncate">{contactInfo.email}</a>
                 <a href={`tel:${contactInfo.phone.replace(/\s/g, "")}`} className="block transition-colors hover:text-white">{contactInfo.phone}</a>
                 <p className="text-yellow-green/60">{contactInfo.address}</p>
               </div>
@@ -116,8 +116,8 @@ export default function Footer() {
             <span>&copy; {currentYear}</span>
           </div>
           <div className="flex gap-6 md:gap-8">
-            <Link href="/privacy" className="hover:text-yellow-green">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-yellow-green">Terms of Service</Link>
+            <Link href="/privacy-policy" className="hover:text-yellow-green">Privacy Policy</Link>
+            <Link href="/terms-of-service" className="hover:text-yellow-green">Terms of Service</Link>
           </div>
         </motion.div>
       </div>
