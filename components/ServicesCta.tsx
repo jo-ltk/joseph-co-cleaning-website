@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ButtonLink } from "./ui/Button";
+import { Calculator } from "@phosphor-icons/react";
 import ScrollReveal from "./ScrollReveal";
 
 export default function ServicesCta() {
@@ -42,7 +43,13 @@ export default function ServicesCta() {
             <ButtonLink href="/contact?source=Services CTA Block" variant="primary" className="px-12">Book Quote</ButtonLink>
           </motion.div>
           <motion.div whileHover={{ y: -3 }} whileTap={{ scale: 0.98 }}>
-            <ButtonLink href="tel:+0123456789" variant="secondary" className="px-12 bg-white !text-aztec hover:bg-gray-100">Call Now</ButtonLink>
+            <button 
+              onClick={() => window.dispatchEvent(new CustomEvent("open-estimate"))}
+              className="flex items-center gap-2 rounded-full bg-white px-12 py-4 text-sm font-bold text-aztec transition-all hover:bg-gray-50 border border-white/10"
+            >
+              <Calculator size={18} weight="bold" />
+              Instant Estimate
+            </button>
           </motion.div>
         </motion.div>
       </div>

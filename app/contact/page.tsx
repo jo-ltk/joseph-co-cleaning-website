@@ -131,19 +131,36 @@ export default function ContactPage() {
   const backgroundScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
   const contentY = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
-  // Read initial service from URL
+  // Form states for pre-filling
+  const [prefilledData, setPrefilledData] = useState({
+    name: "",
+    email: "",
+    location: "",
+    message: "",
+  });
+
+  // Read initial data from URL
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const serviceQuery = searchParams.get("service");
+    const nameQuery = searchParams.get("name");
+    const emailQuery = searchParams.get("email");
+    const locationQuery = searchParams.get("location");
+    
     if (serviceQuery) {
-      // Find matching service option to handle case differences
-      const matched = serviceOptions.find(s => s.toLowerCase() === serviceQuery.toLowerCase());
-      if (matched) {
-        setSelectedService(matched);
-      } else {
-        setSelectedService(serviceQuery); // Fallback
-      }
+      const matched = serviceOptions.find(s => s.toLowerCase().includes(serviceQuery.toLowerCase()));
+      if (matched) setSelectedService(matched);
+      else setSelectedService(serviceQuery);
     }
+
+    setPrefilledData({
+      name: nameQuery || "",
+      email: emailQuery || "",
+      location: locationQuery || "",
+      message: searchParams.get("source") === "Instant Estimate" 
+        ? `Hi, I just used your Instant Estimate tool and got a range for my ${serviceQuery || "cleaning"} project. Looking forward to a formal quote.`
+        : "",
+    });
   }, []);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -318,13 +335,13 @@ export default function ContactPage() {
               ) : (
                 <>
                   <ContactField label="Name">
-                    <input className={inputClassName} name="name" placeholder="Your name" type="text" required />
+                    <input className={inputClassName} name="name" placeholder="Your name" type="text" defaultValue={prefilledData.name} required />
                   </ContactField>
                   <ContactField label="Phone">
                     <input className={inputClassName} name="phone" placeholder="+44..." type="tel" required />
                   </ContactField>
                   <ContactField label="Email">
-                    <input className={inputClassName} name="email" placeholder="you@example.com" type="email" required />
+                    <input className={inputClassName} name="email" placeholder="you@example.com" type="email" defaultValue={prefilledData.email} required />
                   </ContactField>
                   <ContactField label="Service Needed">
                     <div className="relative">
@@ -384,13 +401,14 @@ export default function ContactPage() {
                     </div>
                   </ContactField>
                   <ContactField label="Location" className="md:col-span-2">
-                    <input className={inputClassName} name="location" placeholder="Town, postcode, or property area" type="text" />
+                    <input className={inputClassName} name="location" placeholder="Town, postcode, or property area" type="text" defaultValue={prefilledData.location} />
                   </ContactField>
                   <ContactField label="Message" className="md:col-span-2">
                     <textarea
                       className="min-h-[150px] w-full resize-y border-0 border-b border-aztec/15 bg-transparent px-0 py-4 text-base font-medium tracking-tight text-aztec outline-none transition duration-300 placeholder:text-xanadu/70 focus:border-pine-green"
                       name="message"
                       placeholder="Tell us about the property, timing, access, and anything you would like us to pay special attention to."
+                      defaultValue={prefilledData.message}
                     />
                   </ContactField>
 
