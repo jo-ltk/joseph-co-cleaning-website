@@ -216,7 +216,7 @@ export default function ContactPage() {
         >
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: 'url("/images/hero-bg-new.png")' }}
+            style={{ backgroundImage: 'url("/images/contact-hero.png")' }}
           />
           <div className="absolute inset-0 bg-black/25 md:bg-transparent md:bg-gradient-to-t md:from-black/50 md:via-transparent md:to-black/20" />
         </motion.div>

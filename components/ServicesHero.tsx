@@ -3,7 +3,7 @@
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import ScrollReveal from "./ScrollReveal";
 
-const heroImage = "/images/hero-bg-new.png";
+const heroImage = "/images/services-hero.png";
 
 export default function ServicesHero() {
   const shouldReduceMotion = useReducedMotion();

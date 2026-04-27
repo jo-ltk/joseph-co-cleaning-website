@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useEffect, useState } from "react";
 
-import { CaretDown, X, Calculator } from "@phosphor-icons/react/dist/ssr";
+import { X, Calculator } from "@phosphor-icons/react/dist/ssr";
 import { ButtonLink } from "./ui/Button";
 import IconButton from "./ui/IconButton";
 import InstantEstimateModal from "./estimate/InstantEstimateModal";
@@ -116,12 +116,6 @@ export default function Navbar() {
                       className="group inline-flex items-center gap-1.5 transition hover:opacity-65 whitespace-nowrap"
                     >
                       <span>{item.label}</span>
-                      {index === 1 ? (
-                        <CaretDown
-                          size={12}
-                          className="transition group-hover:translate-y-[1px]"
-                        />
-                      ) : null}
                     </Link>
                   </li>
                 ))}
