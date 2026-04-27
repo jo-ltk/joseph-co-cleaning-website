@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import {
   ArrowUpRight,
   CaretDown,
+  CalendarBlank,
   ChatCircleText,
   Clock,
   EnvelopeSimple,
@@ -20,6 +21,10 @@ import Navbar from "../../components/Navbar";
 import ScrollReveal from "../../components/ScrollReveal";
 import Button, { ButtonLink } from "../../components/ui/Button";
 import IconButton from "../../components/ui/IconButton";
+import { toast } from "sonner";
+import { format } from "date-fns";
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/style.css";
 
 const directContacts = [
   {
@@ -126,6 +131,8 @@ export default function ContactPage() {
   const shouldReduceMotion = useReducedMotion();
   const [selectedService, setSelectedService] = useState("");
   const [serviceOpen, setServiceOpen] = useState(false);
+  const [date, setDate] = useState<Date | undefined>();
+  const [dateOpen, setDateOpen] = useState(false);
   const { scrollYProgress } = useScroll();
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
   const backgroundScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
@@ -191,15 +198,24 @@ export default function ContactPage() {
       const result = await submitBooking(data);
 
       if (result.success) {
-        setSuccess(true);
+        toast.success("Inquiry Received!", {
+          description: "Redirecting to WhatsApp...",
+        });
         if (result.whatsappUrl) {
-          setWhatsappUrl(result.whatsappUrl);
+          window.location.href = result.whatsappUrl;
         }
       } else {
-        setError(result.error || "Failed to submit request.");
+        const errorMsg = result.error || "Failed to submit request.";
+        setError(errorMsg);
+        toast.error("Submission Failed", {
+          description: errorMsg,
+        });
       }
     } catch (err) {
       setError("An unexpected error occurred.");
+      toast.error("Error", {
+        description: "An unexpected error occurred.",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -317,48 +333,7 @@ export default function ContactPage() {
             </div>
 
             <form className="grid gap-8 md:grid-cols-2" onSubmit={handleSubmit}>
-              {success ? (
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="md:col-span-2 flex flex-col items-center justify-center bg-yellow-green/5 border border-yellow-green/20 p-8 md:p-12 text-center rounded-2xl"
-                >
-                  <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-yellow-green text-aztec shadow-xl shadow-yellow-green/20">
-                    <SealCheck size={40} weight="fill" />
-                  </div>
-                  
-                  <h3 className="text-2xl md:text-3xl font-medium text-aztec mb-3">
-                    Inquiry Received
-                  </h3>
-                  <p className="text-xanadu text-lg max-w-md mb-10 leading-relaxed">
-                    Thank you, {prefilledData.name || "there"}. We've received your details and are preparing your quote.
-                  </p>
-                  
-                  {whatsappUrl && (
-                    <div className="w-full max-w-sm">
-                      <p className="text-xs font-bold uppercase tracking-[0.15em] text-xanadu mb-4">
-                        Want a response in minutes?
-                      </p>
-                      <motion.a
-                        href={whatsappUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ y: -2, scale: 1.01 }}
-                        whileTap={{ scale: 0.99 }}
-                        className="flex items-center justify-center gap-3 bg-[#25D366] text-white px-8 py-5 font-bold rounded-full shadow-md transition-all hover:bg-[#20bd5a] hover:shadow-lg"
-                      >
-                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                        <span>Fast-Track via WhatsApp</span>
-                      </motion.a>
-                      <p className="mt-4 text-xs text-xanadu/60 italic">
-                        Highly recommended for urgent service requests
-                      </p>
-                    </div>
-                  )}
-                </motion.div>
-              ) : (
-                <>
-                  <ContactField label="Name">
+              <ContactField label="Name">
                     <input className={inputClassName} name="name" placeholder="Your name" type="text" defaultValue={prefilledData.name} required />
                   </ContactField>
                   <ContactField label="Phone">
@@ -428,7 +403,54 @@ export default function ContactPage() {
                     <input className={inputClassName} name="location" placeholder="Town, postcode, or area" type="text" defaultValue={prefilledData.location} />
                   </ContactField>
                   <ContactField label="Preferred Date">
-                    <input className={inputClassName} name="preferredDate" placeholder="e.g. Next Monday" type="text" />
+                    <div className="relative">
+                      <input type="hidden" name="preferredDate" value={date ? format(date, "PPP") : ""} />
+                      <button
+                        type="button"
+                        onClick={() => setDateOpen((open) => !open)}
+                        className={`flex h-[56px] w-full items-center justify-between border-0 border-b bg-transparent px-0 text-left text-base font-medium tracking-tight outline-none transition duration-300 ${
+                          dateOpen ? "border-pine-green text-aztec" : "border-aztec/15 text-aztec"
+                        }`}
+                        aria-haspopup="dialog"
+                        aria-expanded={dateOpen}
+                      >
+                        <span className={date ? "text-aztec" : "text-xanadu/70"}>
+                          {date ? format(date, "PPP") : "Select a date"}
+                        </span>
+                        <CalendarBlank
+                          size={18}
+                          className={`transition duration-300 ${dateOpen ? "text-pine-green" : "text-aztec/40"}`}
+                          weight="bold"
+                        />
+                      </button>
+
+                      <AnimatePresence>
+                        {dateOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 10, scale: 0.98 }}
+                            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                            className="absolute left-0 right-0 top-[64px] z-20 overflow-hidden rounded-xl bg-white p-4 shadow-[0_24px_70px_rgba(0,0,0,0.14)] ring-1 ring-aztec/10 flex justify-center"
+                          >
+                            <DayPicker
+                              mode="single"
+                              selected={date}
+                              onSelect={(d) => {
+                                setDate(d);
+                                setDateOpen(false);
+                              }}
+                              className="font-inter"
+                              classNames={{
+                                today: `font-bold text-pine-green`, 
+                                selected: `bg-yellow-green text-aztec rounded-md font-bold`,
+                                chevron: `fill-pine-green`
+                              }}
+                            />
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   </ContactField>
                   <ContactField label="Message" className="md:col-span-2">
                     <textarea
@@ -451,12 +473,10 @@ export default function ContactPage() {
                     </p>
                     <motion.div whileHover={isSubmitting ? {} : { y: -2 }} whileTap={isSubmitting ? {} : { scale: 0.98 }}>
                       <Button type="submit" variant="primary" className="w-full px-10 md:w-auto disabled:opacity-70 disabled:cursor-not-allowed" disabled={isSubmitting}>
-                        {isSubmitting ? "Sending..." : "Send Enquiry"}
+                        {isSubmitting ? "Submitting request & opening WhatsApp..." : "Send Enquiry"}
                       </Button>
                     </motion.div>
                   </div>
-                </>
-              )}
             </form>
           </motion.div>
 
