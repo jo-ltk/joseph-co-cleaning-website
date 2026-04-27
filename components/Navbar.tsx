@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useEffect, useState } from "react";
 
 import { CaretDown, X } from "@phosphor-icons/react/dist/ssr";
@@ -19,6 +19,30 @@ const navigationItems = [
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { scrollY } = useScroll();
+  const [isHidden, setIsHidden] = useState(false);
+
+  // Smart scroll logic for premium hide/show behavior
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (mobileOpen) return; // Don't hide while menu is open
+
+    const previous = scrollY.getPrevious() ?? 0;
+    const diff = latest - previous;
+    
+    // Professionals threshold: ignore tiny movements
+    const threshold = 15;
+    
+    if (latest < 80) {
+      // Always show at the top of the page
+      setIsHidden(false);
+    } else if (diff > threshold) {
+      // Scrolling down significantly: hide
+      setIsHidden(true);
+    } else if (diff < -threshold) {
+      // Scrolling up significantly: show
+      setIsHidden(false);
+    }
+  });
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -41,7 +65,19 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   return (
-    <header className="pointer-events-none absolute inset-x-0 top-0 z-30">
+    <motion.header 
+      variants={{
+        visible: { y: 0, opacity: 1 },
+        hidden: { y: -110, opacity: 0 }
+      }}
+      animate={isHidden ? "hidden" : "visible"}
+      transition={{ 
+        duration: 0.45, 
+        ease: [0.22, 1, 0.36, 1], // Premium expo-out ease
+        opacity: { duration: 0.3 }
+      }}
+      className="pointer-events-none fixed inset-x-0 top-0 z-30"
+    >
       <nav className="mx-auto flex w-full max-w-[1920px] items-start justify-between px-5 pt-5 md:px-5">
         <motion.div
           initial={{ opacity: 0, y: -18 }}
@@ -241,6 +277,6 @@ export default function Navbar() {
           </div>
         </div>
       ) : null}
-    </header>
+    </motion.header>
   );
 }
