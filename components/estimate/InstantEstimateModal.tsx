@@ -21,6 +21,7 @@ import {
   Spinner
 } from "@phosphor-icons/react";
 import Button from "../ui/Button";
+import { toast } from "sonner";
 
 const services = [
   { id: "domestic", label: "Domestic Cleaning", icon: <House size={24} />, description: "Regular home maintenance" },
@@ -55,6 +56,7 @@ export default function InstantEstimateModal({ isOpen, onClose }: { isOpen: bool
     location: "",
     name: "",
     email: "",
+    phone: "",
   });
 
   const totalSteps = 5;
@@ -145,6 +147,51 @@ export default function InstantEstimateModal({ isOpen, onClose }: { isOpen: bool
     const max = Math.round(min * 1.25);
 
     return { min, max };
+  };
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const [whatsappUrl, setWhatsappUrl] = useState("");
+
+  const handleBooking = async () => {
+    setIsSubmitting(true);
+    setError("");
+    try {
+      const { submitBooking } = await import("../../app/actions/booking");
+      
+      const result = await submitBooking({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        service: formData.service,
+        location: formData.location,
+        leadSource: "Instant Estimate",
+        message: `Generated Estimate: £${calculateEstimate().min} - £${calculateEstimate().max}\nProperty Size: ${propertySizes.find(p => p.id === formData.propertySize)?.label || formData.propertySize}\nFrequency: ${frequencies.find(f => f.id === formData.frequency)?.label || formData.frequency}`
+      });
+
+      if (result.success) {
+        toast.success("Quote Confirmed!", {
+          description: "Redirecting to WhatsApp...",
+        });
+        if (result.whatsappUrl) {
+          window.location.href = result.whatsappUrl;
+        }
+        setTimeout(onClose, 500);
+      } else {
+        const errorMsg = result.error || "Failed to book quote. Please try again.";
+        setError(errorMsg);
+        toast.error("Booking Failed", {
+          description: errorMsg,
+        });
+      }
+    } catch (err) {
+      setError("An unexpected error occurred.");
+      toast.error("Error", {
+        description: "An unexpected error occurred.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -366,6 +413,13 @@ export default function InstantEstimateModal({ isOpen, onClose }: { isOpen: bool
                           value={formData.email}
                           onChange={(e) => updateData({ email: e.target.value })}
                         />
+                        <input 
+                          type="tel" 
+                          placeholder="Phone Number"
+                          className="w-full rounded-2xl border-2 border-gray-100 bg-gray-50 py-4 px-4 text-aztec outline-none transition-all placeholder:text-xanadu/60 focus:border-yellow-green focus:bg-white text-sm sm:text-base"
+                          value={formData.phone}
+                          onChange={(e) => updateData({ phone: e.target.value })}
+                        />
                       </div>
                     </div>
                     <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-4">
@@ -373,7 +427,7 @@ export default function InstantEstimateModal({ isOpen, onClose }: { isOpen: bool
                         <CaretLeft size={16} weight="bold" /> Back
                       </button>
                       <button 
-                        disabled={!formData.location || !formData.name || !formData.email}
+                        disabled={!formData.location || !formData.name || !formData.email || !formData.phone}
                         onClick={nextStep}
                         className="flex items-center justify-center gap-2 rounded-full bg-aztec px-8 py-4 font-bold text-white transition-all hover:bg-aztec/90 disabled:opacity-50 text-sm sm:text-base"
                       >
@@ -405,14 +459,16 @@ export default function InstantEstimateModal({ isOpen, onClose }: { isOpen: bool
                     
                     <div className="mt-8 sm:mt-10 flex flex-col w-full gap-3 px-4 sm:px-0">
                       <Button 
-                        as={Link}
-                        href={`/contact?source=Instant Estimate&service=${formData.service}&location=${formData.location}&name=${formData.name}&email=${formData.email}`}
                         variant="primary" 
                         className="w-full py-4 text-base sm:text-lg shadow-xl"
-                        onClick={onClose}
+                        disabled={isSubmitting}
+                        onClick={handleBooking}
                       >
-                        Confirm & Book Quote
+                        {isSubmitting ? "Submitting request & opening WhatsApp..." : "Confirm & Book Quote"}
                       </Button>
+                      {error && (
+                        <p className="text-red-500 text-sm font-medium mt-2 text-center">{error}</p>
+                      )}
                       <button 
                         onClick={onClose}
                         className="py-3 text-sm font-bold text-xanadu hover:text-aztec transition-colors"
