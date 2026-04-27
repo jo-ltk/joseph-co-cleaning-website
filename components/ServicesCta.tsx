@@ -39,7 +39,7 @@ export default function ServicesCta() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <motion.div whileHover={{ y: -3 }} whileTap={{ scale: 0.98 }}>
-            <ButtonLink href="/contact" variant="primary" className="px-12">Book Quote</ButtonLink>
+            <ButtonLink href="/contact?source=Services CTA Block" variant="primary" className="px-12">Book Quote</ButtonLink>
           </motion.div>
           <motion.div whileHover={{ y: -3 }} whileTap={{ scale: 0.98 }}>
             <ButtonLink href="tel:+0123456789" variant="secondary" className="px-12 bg-white !text-aztec hover:bg-gray-100">Call Now</ButtonLink>

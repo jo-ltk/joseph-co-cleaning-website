@@ -54,7 +54,7 @@ export default function CoachingPlans() {
 
               <div className="mt-12">
                  <Link
-                  href="/contact"
+                  href="/contact?source=Pricing Plans"
                   className="inline-flex items-center rounded-full border border-aztec/10 bg-wild-sand pl-7 pr-[6px] text-[1.1rem] font-semibold text-aztec transition hover:bg-aztec/5"
                 >
                   <span className="py-4">Get in touch</span>

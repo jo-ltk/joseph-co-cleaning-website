@@ -66,8 +66,8 @@ export default function Footer() {
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }} className="mt-8 md:mt-16 flex items-center gap-4">
               <div className="btn-pair">
-                <ButtonLink href="/contact" variant="primary">Book Quote</ButtonLink>
-                <IconButton href="/contact" aria-label="Book Quote" size="md" />
+                <ButtonLink href="/contact?source=Footer" variant="primary">Book Quote</ButtonLink>
+                <IconButton href="/contact?source=Footer" aria-label="Book Quote" size="md" />
               </div>
             </motion.div>
           </div>

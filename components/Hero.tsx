@@ -50,7 +50,7 @@ export default function Hero() {
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.46 }} className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-2">
             <motion.div whileHover={{ y: -3 }} whileTap={{ scale: 0.98 }}>
-              <ButtonLink href="/contact" variant="primary" className="shadow-[0_20px_40px_rgba(16,24,16,0.18)] px-10">Get Quote / Book Now</ButtonLink>
+              <ButtonLink href="/contact?source=Homepage Hero" variant="primary" className="shadow-[0_20px_40px_rgba(16,24,16,0.18)] px-10">Get Quote / Book Now</ButtonLink>
             </motion.div>
             <motion.div whileHover={{ y: -3 }} whileTap={{ scale: 0.98 }}>
               <ButtonLink href="tel:+1234567890" variant="secondary" className="shadow-[0_20px_40px_rgba(16,24,16,0.18)] px-10 bg-white !text-aztec hover:bg-gray-100 border border-white/10">Call / WhatsApp</ButtonLink>

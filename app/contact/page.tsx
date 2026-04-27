@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowUpRight,
@@ -131,6 +131,62 @@ export default function ContactPage() {
   const backgroundScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
   const contentY = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
+  // Read initial service from URL
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const serviceQuery = searchParams.get("service");
+    if (serviceQuery) {
+      // Find matching service option to handle case differences
+      const matched = serviceOptions.find(s => s.toLowerCase() === serviceQuery.toLowerCase());
+      if (matched) {
+        setSelectedService(matched);
+      } else {
+        setSelectedService(serviceQuery); // Fallback
+      }
+    }
+  }, []);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+  const [whatsappUrl, setWhatsappUrl] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError("");
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get("name") as string,
+      phone: formData.get("phone") as string,
+      email: formData.get("email") as string,
+      service: formData.get("service") as string,
+      location: formData.get("location") as string,
+      message: formData.get("message") as string,
+      leadSource: window.location.search ? new URLSearchParams(window.location.search).get("source") || "Contact Page" : "Contact Page",
+    };
+
+    try {
+      // Import dynamically to avoid top-level issues if any
+      const { submitBooking } = await import("../actions/booking");
+      const result = await submitBooking(data);
+
+      if (result.success) {
+        setSuccess(true);
+        if (result.whatsappUrl) {
+          setWhatsappUrl(result.whatsappUrl);
+        }
+      } else {
+        setError(result.error || "Failed to submit request.");
+      }
+    } catch (err) {
+      setError("An unexpected error occurred.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <main className="relative bg-[#120f0c] text-aztec">
       <Navbar />
@@ -242,93 +298,120 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <form className="grid gap-8 md:grid-cols-2">
-              <ContactField label="Name">
-                <input className={inputClassName} name="name" placeholder="Your name" type="text" />
-              </ContactField>
-              <ContactField label="Phone">
-                <input className={inputClassName} name="phone" placeholder="+44..." type="tel" />
-              </ContactField>
-              <ContactField label="Email">
-                <input className={inputClassName} name="email" placeholder="you@example.com" type="email" />
-              </ContactField>
-              <ContactField label="Service Needed">
-                <div className="relative">
-                  <input type="hidden" name="service" value={selectedService} />
-                  <button
-                    type="button"
-                    onClick={() => setServiceOpen((open) => !open)}
-                    className={`flex h-[56px] w-full items-center justify-between border-0 border-b bg-transparent px-0 text-left text-base font-medium tracking-tight outline-none transition duration-300 ${
-                      serviceOpen ? "border-pine-green text-aztec" : "border-aztec/15 text-aztec"
-                    }`}
-                    aria-haspopup="listbox"
-                    aria-expanded={serviceOpen}
-                  >
-                    <span className={selectedService ? "text-aztec" : "text-xanadu/70"}>
-                      {selectedService || "Select a service"}
-                    </span>
-                    <CaretDown
-                      size={18}
-                      className={`text-pine-green transition duration-300 ${serviceOpen ? "rotate-180" : ""}`}
-                      weight="bold"
-                    />
-                  </button>
-
-                  {serviceOpen ? (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 10, scale: 0.98 }}
-                      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                      className="absolute left-0 right-0 top-[64px] z-20 overflow-hidden bg-white shadow-[0_24px_70px_rgba(0,0,0,0.14)] ring-1 ring-aztec/10"
-                      role="listbox"
+            <form className="grid gap-8 md:grid-cols-2" onSubmit={handleSubmit}>
+              {success ? (
+                <div className="md:col-span-2 bg-yellow-green/10 border border-yellow-green p-6 text-center">
+                  <h3 className="text-xl font-medium text-pine-green mb-2">Request Received Successfully</h3>
+                  <p className="text-xanadu mb-6">Thank you for your inquiry. Our team will review your details and contact you shortly.</p>
+                  {whatsappUrl && (
+                    <a
+                      href={whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-[#25D366] text-white px-6 py-3 font-medium rounded-sm hover:bg-[#20bd5a] transition-colors"
                     >
-                      {serviceOptions.map((service) => (
-                        <button
-                          key={service}
-                          type="button"
-                          onClick={() => {
-                            setSelectedService(service);
-                            setServiceOpen(false);
-                          }}
-                          className={`flex w-full items-center justify-between px-5 py-4 text-left text-base font-medium tracking-tight transition duration-300 ${
-                            selectedService === service
-                              ? "bg-yellow-green text-aztec"
-                              : "text-aztec hover:bg-[#f5f5f3]"
-                          }`}
-                          role="option"
-                          aria-selected={selectedService === service}
-                        >
-                          <span>{service}</span>
-                          {selectedService === service ? (
-                            <Sparkle size={16} className="text-pine-green" weight="fill" />
-                          ) : null}
-                        </button>
-                      ))}
-                    </motion.div>
-                  ) : null}
+                      <Phone size={20} weight="fill" />
+                      Fast-Track via WhatsApp
+                    </a>
+                  )}
                 </div>
-              </ContactField>
-              <ContactField label="Location" className="md:col-span-2">
-                <input className={inputClassName} name="location" placeholder="Town, postcode, or property area" type="text" />
-              </ContactField>
-              <ContactField label="Message" className="md:col-span-2">
-                <textarea
-                  className="min-h-[150px] w-full resize-y border-0 border-b border-aztec/15 bg-transparent px-0 py-4 text-base font-medium tracking-tight text-aztec outline-none transition duration-300 placeholder:text-xanadu/70 focus:border-pine-green"
-                  name="message"
-                  placeholder="Tell us about the property, timing, access, and anything you would like us to pay special attention to."
-                />
-              </ContactField>
-              <div className="flex flex-col gap-4 md:col-span-2 md:flex-row md:items-center md:justify-between">
-                <p className="max-w-md text-base leading-relaxed text-xanadu">
-                  For the fastest quote, include your location, preferred date, and any access notes.
-                </p>
-                <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
-                  <Button type="submit" variant="primary" className="w-full px-10 md:w-auto">
-                    Send Enquiry
-                  </Button>
-                </motion.div>
-              </div>
+              ) : (
+                <>
+                  <ContactField label="Name">
+                    <input className={inputClassName} name="name" placeholder="Your name" type="text" required />
+                  </ContactField>
+                  <ContactField label="Phone">
+                    <input className={inputClassName} name="phone" placeholder="+44..." type="tel" required />
+                  </ContactField>
+                  <ContactField label="Email">
+                    <input className={inputClassName} name="email" placeholder="you@example.com" type="email" required />
+                  </ContactField>
+                  <ContactField label="Service Needed">
+                    <div className="relative">
+                      <input type="hidden" name="service" value={selectedService} />
+                      <button
+                        type="button"
+                        onClick={() => setServiceOpen((open) => !open)}
+                        className={`flex h-[56px] w-full items-center justify-between border-0 border-b bg-transparent px-0 text-left text-base font-medium tracking-tight outline-none transition duration-300 ${
+                          serviceOpen ? "border-pine-green text-aztec" : "border-aztec/15 text-aztec"
+                        }`}
+                        aria-haspopup="listbox"
+                        aria-expanded={serviceOpen}
+                      >
+                        <span className={selectedService ? "text-aztec" : "text-xanadu/70"}>
+                          {selectedService || "Select a service"}
+                        </span>
+                        <CaretDown
+                          size={18}
+                          className={`text-pine-green transition duration-300 ${serviceOpen ? "rotate-180" : ""}`}
+                          weight="bold"
+                        />
+                      </button>
+
+                      {serviceOpen ? (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 10, scale: 0.98 }}
+                          transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                          className="absolute left-0 right-0 top-[64px] z-20 overflow-hidden bg-white shadow-[0_24px_70px_rgba(0,0,0,0.14)] ring-1 ring-aztec/10"
+                          role="listbox"
+                        >
+                          {serviceOptions.map((service) => (
+                            <button
+                              key={service}
+                              type="button"
+                              onClick={() => {
+                                setSelectedService(service);
+                                setServiceOpen(false);
+                              }}
+                              className={`flex w-full items-center justify-between px-5 py-4 text-left text-base font-medium tracking-tight transition duration-300 ${
+                                selectedService === service
+                                  ? "bg-yellow-green text-aztec"
+                                  : "text-aztec hover:bg-[#f5f5f3]"
+                              }`}
+                              role="option"
+                              aria-selected={selectedService === service}
+                            >
+                              <span>{service}</span>
+                              {selectedService === service ? (
+                                <Sparkle size={16} className="text-pine-green" weight="fill" />
+                              ) : null}
+                            </button>
+                          ))}
+                        </motion.div>
+                      ) : null}
+                    </div>
+                  </ContactField>
+                  <ContactField label="Location" className="md:col-span-2">
+                    <input className={inputClassName} name="location" placeholder="Town, postcode, or property area" type="text" />
+                  </ContactField>
+                  <ContactField label="Message" className="md:col-span-2">
+                    <textarea
+                      className="min-h-[150px] w-full resize-y border-0 border-b border-aztec/15 bg-transparent px-0 py-4 text-base font-medium tracking-tight text-aztec outline-none transition duration-300 placeholder:text-xanadu/70 focus:border-pine-green"
+                      name="message"
+                      placeholder="Tell us about the property, timing, access, and anything you would like us to pay special attention to."
+                    />
+                  </ContactField>
+
+                  {error && (
+                    <div className="md:col-span-2 text-red-600 text-sm font-medium">
+                      {error}
+                    </div>
+                  )}
+
+                  <div className="flex flex-col gap-4 md:col-span-2 md:flex-row md:items-center md:justify-between">
+                    <p className="max-w-md text-base leading-relaxed text-xanadu">
+                      For the fastest quote, include your location, preferred date, and any access notes.
+                    </p>
+                    <motion.div whileHover={isSubmitting ? {} : { y: -2 }} whileTap={isSubmitting ? {} : { scale: 0.98 }}>
+                      <Button type="submit" variant="primary" className="w-full px-10 md:w-auto disabled:opacity-70 disabled:cursor-not-allowed" disabled={isSubmitting}>
+                        {isSubmitting ? "Sending..." : "Send Enquiry"}
+                      </Button>
+                    </motion.div>
+                  </div>
+                </>
+              )}
             </form>
           </motion.div>
 

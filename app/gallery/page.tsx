@@ -92,12 +92,12 @@ function CtaPair({ label = "Request A Quote" }: { label?: string }) {
   return (
     <div className="btn-pair">
       <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
-        <ButtonLink href="/contact" variant="primary" className="px-8">
+        <ButtonLink href="/contact?source=Gallery" variant="primary" className="px-8">
           {label}
         </ButtonLink>
       </motion.div>
       <motion.div whileHover={{ y: -2, rotate: 3 }} whileTap={{ scale: 0.96 }}>
-        <IconButton href="/contact" aria-label={label} size="md" />
+        <IconButton href="/contact?source=Gallery" aria-label={label} size="md" />
       </motion.div>
     </div>
   );

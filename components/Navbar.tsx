@@ -116,7 +116,7 @@ export default function Navbar() {
         >
           <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
             <ButtonLink
-              href="/contact"
+              href="/contact?source=Navbar"
               variant="primary"
               className="px-8"
             >
@@ -126,7 +126,7 @@ export default function Navbar() {
 
           <motion.div whileHover={{ y: -2, rotate: 3 }} whileTap={{ scale: 0.96 }}>
             <IconButton
-              href="/contact"
+              href="/contact?source=Navbar"
               aria-label="Book Quote"
               size="md"
             />
@@ -193,7 +193,7 @@ export default function Navbar() {
 
                   <li>
                     <Link
-                      href="/contact"
+                      href="/contact?source=Navbar"
                       onClick={() => setMobileOpen(false)}
                       className="block text-[2.65rem] font-medium leading-[1.02] tracking-[-0.06em] transition-opacity hover:opacity-70"
                       style={{ fontFamily: "var(--font-manrope), sans-serif" }}

@@ -87,3 +87,50 @@ Use the `ScrollReveal` component for text and elements that should animate into 
 - **Neutral Background**: `bg-[#f5f5f3]`
 - **Text (Secondary)**: `text-xanadu`
 - **Text (Primary Dark)**: `text-[#1a1a1a]`
+
+## 5. Booking & Automation Architecture
+
+Joseph.co utilizes a centralized lead-generation engine to track sources and automatically notify both the team and the customer.
+
+### Global CTA Strategy
+Do not create isolated forms or mailto links for booking requests. Instead, every CTA across the site should point to the centralized `/contact` page and intelligently pass the context via URL parameters.
+
+**Format**: `href="/contact?source=[Page_Name]&service=[Optional_Service]"`
+
+**Examples**:
+- Homepage CTA: `<ButtonLink href="/contact?source=Homepage Hero">Book Quote</ButtonLink>`
+- Service CTA: `<ButtonLink href="/contact?source=Detailed Services&service=Industrial Cleaning">Request Visit</ButtonLink>`
+
+### Form Submission & Flow
+1. **Pre-filling**: The `/contact` page reads `?service=` and automatically selects the appropriate dropdown option.
+2. **Server Action**: Form submissions are sent to the `submitBooking` Server Action in `app/actions/booking.ts`.
+3. **Resend Email Engine**: 
+   - Generates a beautifully formatted "Service Request" summary email for the Admin (`JosephandCol.t.d@outlook.com`).
+   - Sends a premium branded confirmation to the Customer.
+4. **WhatsApp Handoff**: On success, the UI gracefully transforms into a confirmation state and presents a "Fast-Track via WhatsApp" button. This contains a pre-filled `wa.me` link carrying the exact payload (Name, Service, Location, Source) straight into the company's WhatsApp inbox.
+
+### Email Templates (React + Resend)
+When sending emails via Resend, use React templates from `components/email-template.tsx` instead of raw HTML strings for maintainable, type-safe email designs.
+
+**Example Usage**:
+```tsx
+import { EmailTemplate } from '@/components/email-template';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+export async function POST() {
+  const { data, error } = await resend.emails.send({
+    from: 'onboarding@resend.dev',
+    to: 'delivered@resend.dev',
+    subject: 'Hello world',
+    react: <EmailTemplate firstName="John" />,
+  });
+
+  if (error) {
+    return Response.json({ error });
+  }
+
+  return Response.json(data);
+}
+```
