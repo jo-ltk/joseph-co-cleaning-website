@@ -1,11 +1,7 @@
 "use server";
 
-import { Resend } from "resend";
-
+import { resend } from "@/lib/resend";
 import { AdminBookingEmail, CustomerConfirmationEmail } from "@/components/email-template";
-
-const resendApiKey = process.env.RESEND_API_KEY;
-const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
 export type BookingFormData = {
   name: string;
