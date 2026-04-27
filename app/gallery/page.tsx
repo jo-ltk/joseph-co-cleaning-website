@@ -121,7 +121,7 @@ export default function GalleryPage() {
         >
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: 'url("/images/about-hero.png")' }}
+            style={{ backgroundImage: 'url("/images/gallery-hero.png")' }}
           />
           <div className="absolute inset-0 bg-black/25 md:bg-transparent md:bg-gradient-to-t md:from-black/50 md:via-transparent md:to-black/20" />
         </motion.div>
@@ -292,7 +292,7 @@ export default function GalleryPage() {
             className="relative min-h-[480px] overflow-hidden bg-[#d9d9d2] lg:col-span-6"
           >
             <Image
-              src="/images/team-stats.png"
+              src="/images/trust-finish.png"
               alt="Joseph and Co quality assurance team"
               fill
               className="object-cover"

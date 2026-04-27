@@ -263,7 +263,7 @@ export default function AreasWeCoverPage() {
         >
           <div 
             className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
-            style={{ backgroundImage: 'url("/hero-cleaning-home.jpg")' }} 
+            style={{ backgroundImage: 'url("/images/areas-hero.png")' }} 
           />
           <div className="absolute inset-0 bg-black/25 md:bg-transparent md:bg-gradient-to-t md:from-black/50 md:via-transparent md:to-black/20" />
         </motion.div>
@@ -786,19 +786,31 @@ export default function AreasWeCoverPage() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-aztec px-5 py-24 text-white md:px-10 lg:px-20">
+      <section className="relative overflow-hidden bg-aztec py-12 text-white">
         <div className="absolute right-0 top-0 h-[420px] w-[420px] rounded-full bg-yellow-green/10 blur-[150px]" />
         <div className="absolute bottom-0 left-0 h-[420px] w-[420px] rounded-full bg-pine-green/10 blur-[150px]" />
 
-        <div className="relative mx-auto max-w-[1450px]">
-          <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-            <div>
+        <div className="relative w-full">
+          <div className="relative w-full overflow-hidden">
+            {/* Background Image with Blur */}
+            <div className="absolute inset-0 z-0">
+              <Image
+                src="/images/areas-closing.png"
+                alt=""
+                fill
+                className="object-cover blur-[2px] scale-105 opacity-40"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-aztec/60 via-aztec/40 to-aztec/60" />
+            </div>
+
+            {/* Content Layered on Top */}
+            <div className="relative z-10 flex flex-col items-center px-6 py-8 md:py-14 text-center">
               <SectionEyebrow light={true}>Closing CTA</SectionEyebrow>
               <ScrollReveal
                 as="h2"
                 enableBlur={true}
                 blurStrength={10}
-                containerClassName="max-w-[780px] text-balance text-4xl leading-[1.05] text-white md:text-6xl lg:text-7xl"
+                containerClassName="max-w-[950px] text-balance text-4xl leading-[1.05] text-white md:text-6xl lg:text-7xl mx-auto"
               >
                 If your property sits within our reach, the finish should feel exceptional from day one.
               </ScrollReveal>
@@ -807,7 +819,7 @@ export default function AreasWeCoverPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.75, delay: 0.16 }}
-                className="mt-6 max-w-[620px] text-lg leading-relaxed text-white/72"
+                className="mt-8 max-w-[680px] text-lg leading-relaxed text-white/85 mx-auto font-medium"
               >
                 Request a quote for Somerset, Devon, Gloucestershire or Bristol and we will shape the right service around your property, your timing and the level of care you expect.
               </motion.p>
@@ -817,11 +829,11 @@ export default function AreasWeCoverPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: 0.22 }}
-                className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center"
+                className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center justify-center"
               >
                 <div className="btn-pair">
                   <motion.div whileHover={{ y: -3 }} whileTap={{ scale: 0.98 }}>
-                    <ButtonLink href="/contact?source=Areas We Cover" variant="primary" className="px-8">
+                    <ButtonLink href="/contact?source=Areas We Cover" variant="primary" className="px-12">
                       Book Quote
                     </ButtonLink>
                   </motion.div>
@@ -833,31 +845,13 @@ export default function AreasWeCoverPage() {
                   <ButtonLink
                     href="/services"
                     variant="secondary"
-                    className="border border-white/10 bg-white/10 px-8 !text-white hover:bg-white/16"
+                    className="border border-white/20 bg-white/10 px-12 !text-white backdrop-blur-md hover:bg-white/20"
                   >
                     View Services
                   </ButtonLink>
                 </motion.div>
               </motion.div>
             </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 26 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="relative"
-            >
-              <div className="relative overflow-hidden rounded-[34px] border border-white/10 bg-white/6 p-4 backdrop-blur-md md:p-5">
-                <Image
-                  src="/images/cta-overlap.png"
-                  alt="Joseph & Co closing call to action visual"
-                  width={1400}
-                  height={900}
-                  className="h-auto w-full object-contain"
-                />
-              </div>
-            </motion.div>
           </div>
         </div>
       </section>
