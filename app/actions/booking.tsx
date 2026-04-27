@@ -11,11 +11,12 @@ export type BookingFormData = {
   location: string;
   message: string;
   leadSource: string;
+  preferredDate?: string;
 };
 
 export async function submitBooking(data: BookingFormData) {
   try {
-    const { name, phone, email, service, location, message, leadSource } = data;
+    const { name, phone, email, service, location, message, leadSource, preferredDate } = data;
 
     // Validate minimum required fields
     if (!name || !email || !phone) {
@@ -28,16 +29,19 @@ export async function submitBooking(data: BookingFormData) {
       timeStyle: "short",
     });
 
+    const adminEmail = process.env.ADMIN_EMAIL || "josephandcocleaningservicesltd@gmail.com";
+    const fromEmail = process.env.CUSTOMER_FROM_EMAIL || "bookings@mail.josephcleaning.co.uk";
+    const whatsappPrimary = process.env.WHATSAPP_PRIMARY || "447787857305";
+
     // WhatsApp Message Generation
-    const waText = `*New Service Request - Joseph & Co*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Email:* ${email}%0A*Service:* ${service || "Not specified"}%0A*Location:* ${location || "Not specified"}%0A*Lead Source:* ${leadSource}%0A%0A*Message:*%0A${message || "N/A"}`;
-    // Using Julia's number as primary
-    const waUrl = `https://wa.me/447787857305?text=${waText}`;
+    const waText = `*New Service Request - Joseph & Co*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Email:* ${email}%0A*Service:* ${service || "Not specified"}%0A*Location:* ${location || "Not specified"}%0A*Preferred Date:* ${preferredDate || "Not specified"}%0A*Lead Source:* ${leadSource}%0A%0A*Message:*%0A${message || "N/A"}%0A%0A*Submitted:* ${timestamp}`;
+    const waUrl = `https://wa.me/${whatsappPrimary}?text=${waText}`;
 
     if (resend) {
-      // Send Admin Notification
-      await resend.emails.send({
-        from: "Joseph & Co Booking <bookings@josephandco.com>",
-        to: process.env.COMPANY_EMAIL || "JosephandCol.t.d@outlook.com",
+      // Send Admin Notification using native React support
+      const adminTask = resend.emails.send({
+        from: `Joseph & Co Leads <${fromEmail}>`,
+        to: adminEmail,
         subject: `New Lead: ${service || "General Inquiry"} - ${name}`,
         react: (
           <AdminBookingEmail
@@ -49,13 +53,14 @@ export async function submitBooking(data: BookingFormData) {
             message={message}
             leadSource={leadSource}
             timestamp={timestamp}
+            preferredDate={preferredDate}
           />
         ),
-      }).catch(e => console.error("Admin email error:", e));
+      });
 
-      // Send Customer Confirmation
-      await resend.emails.send({
-        from: "Joseph & Co <bookings@josephandco.com>",
+      // Send Customer Confirmation using native React support
+      const customerTask = resend.emails.send({
+        from: `Joseph & Co <${fromEmail}>`,
         to: email,
         subject: "We've received your service request - Joseph & Co",
         react: (
@@ -65,7 +70,17 @@ export async function submitBooking(data: BookingFormData) {
             location={location}
           />
         ),
-      }).catch(e => console.error("Customer email error:", e));
+      });
+
+      // Execute both
+      await Promise.allSettled([adminTask, customerTask]).then((results) => {
+        results.forEach((result, index) => {
+          if (result.status === "rejected") {
+            console.error(`${index === 0 ? "Admin" : "Customer"} email failed:`, result.reason);
+          }
+        });
+      });
+
     } else {
       console.warn("RESEND_API_KEY is not set. Emails were not sent.");
     }

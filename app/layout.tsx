@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
 
 import "../app/globals.css";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -26,6 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${manrope.variable} antialiased`}>
         {children}
+        <WhatsAppFloat />
       </body>
     </html>
   );

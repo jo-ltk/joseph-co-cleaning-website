@@ -180,6 +180,7 @@ export default function ContactPage() {
       email: formData.get("email") as string,
       service: formData.get("service") as string,
       location: formData.get("location") as string,
+      preferredDate: formData.get("preferredDate") as string,
       message: formData.get("message") as string,
       leadSource: window.location.search ? new URLSearchParams(window.location.search).get("source") || "Contact Page" : "Contact Page",
     };
@@ -317,21 +318,44 @@ export default function ContactPage() {
 
             <form className="grid gap-8 md:grid-cols-2" onSubmit={handleSubmit}>
               {success ? (
-                <div className="md:col-span-2 bg-yellow-green/10 border border-yellow-green p-6 text-center">
-                  <h3 className="text-xl font-medium text-pine-green mb-2">Request Received Successfully</h3>
-                  <p className="text-xanadu mb-6">Thank you for your inquiry. Our team will review your details and contact you shortly.</p>
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="md:col-span-2 flex flex-col items-center justify-center bg-yellow-green/5 border border-yellow-green/20 p-8 md:p-12 text-center rounded-2xl"
+                >
+                  <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-yellow-green text-aztec shadow-xl shadow-yellow-green/20">
+                    <SealCheck size={40} weight="fill" />
+                  </div>
+                  
+                  <h3 className="text-2xl md:text-3xl font-medium text-aztec mb-3">
+                    Inquiry Received
+                  </h3>
+                  <p className="text-xanadu text-lg max-w-md mb-10 leading-relaxed">
+                    Thank you, {prefilledData.name || "there"}. We've received your details and are preparing your quote.
+                  </p>
+                  
                   {whatsappUrl && (
-                    <a
-                      href={whatsappUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 bg-[#25D366] text-white px-6 py-3 font-medium rounded-sm hover:bg-[#20bd5a] transition-colors"
-                    >
-                      <Phone size={20} weight="fill" />
-                      Fast-Track via WhatsApp
-                    </a>
+                    <div className="w-full max-w-sm">
+                      <p className="text-xs font-bold uppercase tracking-[0.15em] text-xanadu mb-4">
+                        Want a response in minutes?
+                      </p>
+                      <motion.a
+                        href={whatsappUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ y: -2, scale: 1.01 }}
+                        whileTap={{ scale: 0.99 }}
+                        className="flex items-center justify-center gap-3 bg-[#25D366] text-white px-8 py-5 font-bold rounded-full shadow-md transition-all hover:bg-[#20bd5a] hover:shadow-lg"
+                      >
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        <span>Fast-Track via WhatsApp</span>
+                      </motion.a>
+                      <p className="mt-4 text-xs text-xanadu/60 italic">
+                        Highly recommended for urgent service requests
+                      </p>
+                    </div>
                   )}
-                </div>
+                </motion.div>
               ) : (
                 <>
                   <ContactField label="Name">
@@ -400,8 +424,11 @@ export default function ContactPage() {
                       ) : null}
                     </div>
                   </ContactField>
-                  <ContactField label="Location" className="md:col-span-2">
-                    <input className={inputClassName} name="location" placeholder="Town, postcode, or property area" type="text" defaultValue={prefilledData.location} />
+                  <ContactField label="Location">
+                    <input className={inputClassName} name="location" placeholder="Town, postcode, or area" type="text" defaultValue={prefilledData.location} />
+                  </ContactField>
+                  <ContactField label="Preferred Date">
+                    <input className={inputClassName} name="preferredDate" placeholder="e.g. Next Monday" type="text" />
                   </ContactField>
                   <ContactField label="Message" className="md:col-span-2">
                     <textarea
