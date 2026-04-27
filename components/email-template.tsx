@@ -9,6 +9,7 @@ interface AdminEmailProps {
   message: string;
   leadSource: string;
   timestamp: string;
+  preferredDate?: string;
 }
 
 export const AdminBookingEmail: React.FC<Readonly<AdminEmailProps>> = ({
@@ -20,6 +21,7 @@ export const AdminBookingEmail: React.FC<Readonly<AdminEmailProps>> = ({
   message,
   leadSource,
   timestamp,
+  preferredDate,
 }) => (
   <div style={{ fontFamily: "Arial, sans-serif", maxWidth: "600px", margin: "0 auto", color: "#120f0c" }}>
     <h2 style={{ color: "#2b454e", borderBottom: "2px solid #b5c235", paddingBottom: "10px" }}>New Service Request</h2>
@@ -44,6 +46,10 @@ export const AdminBookingEmail: React.FC<Readonly<AdminEmailProps>> = ({
         <tr>
           <td style={{ padding: "10px", border: "1px solid #e0e0e0", fontWeight: "bold" }}>Location</td>
           <td style={{ padding: "10px", border: "1px solid #e0e0e0" }}>{location || "Not specified"}</td>
+        </tr>
+        <tr>
+          <td style={{ padding: "10px", border: "1px solid #e0e0e0", fontWeight: "bold" }}>Preferred Date</td>
+          <td style={{ padding: "10px", border: "1px solid #e0e0e0" }}>{preferredDate || "Not specified"}</td>
         </tr>
         <tr>
           <td style={{ padding: "10px", border: "1px solid #e0e0e0", fontWeight: "bold" }}>Message/Details</td>
