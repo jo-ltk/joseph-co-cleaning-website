@@ -5,10 +5,10 @@ import { motion } from "framer-motion";
 import ScrollReveal from "./ScrollReveal";
 
 const stats = [
-  { value: "13", label: "OFFICES" },
-  { value: "200+", label: "TALENTED PROFESSIONALS" },
-  { value: "6", label: "CONTINENTS" },
-  { value: "47%", label: "WOMEN" },
+  { value: "15+", label: "SERVICE SPECIALISTS" },
+  { value: "450+", label: "ESTATES & HOMES MANAGED" },
+  { value: "4", label: "COUNTIES COVERED" },
+  { value: "100%", label: "DBS CLEARANCE" },
 ];
 
 export default function StatsSection() {

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { HardDrives, Cloud, Factory, Wind } from "@phosphor-icons/react/dist/ssr";
+import { HardDrives, Cloud, Factory, Wind, Tree } from "@phosphor-icons/react/dist/ssr";
 import ScrollReveal from "./ScrollReveal";
 
 const industries = [
@@ -33,6 +33,13 @@ const industries = [
     icon: <Wind size={64} weight="light" />,
     image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
     tag: "Specialized",
+  },
+  {
+    title: "Private Estates",
+    summary: "Comprehensive exterior care for distinguished properties, from manicured gardens to pristine driveways.",
+    icon: <Tree size={64} weight="light" />,
+    image: "https://images.unsplash.com/photo-1558905612-27141ad1f144?w=800&q=80",
+    tag: "Outdoor",
   },
 ];
 
@@ -110,7 +117,7 @@ export default function IndustriesSection() {
             From luxury residences to corporate headquarters, our specialized teams deliver tailored cleaning solutions for every environment.
           </motion.p>
         </div>
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
           {industries.map((industry) => (
             <IndustryCard key={industry.title} {...industry} />
           ))}

@@ -18,7 +18,8 @@ import {
   CheckCircle,
   Calculator,
   NavigationArrow,
-  Spinner
+  Spinner,
+  Leaf
 } from "@phosphor-icons/react";
 import Button from "../ui/Button";
 import { toast } from "sonner";
@@ -28,14 +29,41 @@ const services = [
   { id: "commercial", label: "Commercial Cleaning", icon: <Buildings size={24} />, description: "Office & retail spaces" },
   { id: "deep", label: "Deep Cleaning", icon: <Sparkle size={24} />, description: "Intensive seasonal refresh" },
   { id: "tenancy", label: "End of Tenancy", icon: <Door size={24} />, description: "Moving in or out" },
+  { id: "garden", label: "Garden & Exterior Care", icon: <Leaf size={24} />, description: "Patios, driveways & tidy-ups" },
 ];
 
-const propertySizes = [
-  { id: "studio", label: "Studio / 1 Bed", rooms: 1 },
-  { id: "small", label: "2-3 Bedrooms", rooms: 3 },
-  { id: "medium", label: "4 Bedrooms", rooms: 4 },
-  { id: "large", label: "5+ Bedrooms", rooms: 6 },
-];
+const serviceOptionsMap: Record<string, { id: string; label: string; multiplier: number }[]> = {
+  domestic: [
+    { id: "studio", label: "Studio / Compact Flat", multiplier: 1 },
+    { id: "apartment", label: "Standard Apartment", multiplier: 1.5 },
+    { id: "house", label: "Family House", multiplier: 2.2 },
+    { id: "detached", label: "Large Detached Home", multiplier: 3.5 },
+  ],
+  commercial: [
+    { id: "office", label: "Small Office / Clinic", multiplier: 1 },
+    { id: "retail", label: "Retail Unit / Salon", multiplier: 1.8 },
+    { id: "multi", label: "Multi-Room Office", multiplier: 3 },
+    { id: "large-comm", label: "Large Commercial Premises", multiplier: 5 },
+  ],
+  deep: [
+    { id: "compact-deep", label: "Compact Property Refresh", multiplier: 1 },
+    { id: "standard-deep", label: "Standard Full Property Deep Clean", multiplier: 1.6 },
+    { id: "large-deep", label: "Large Residential Deep Reset", multiplier: 2.5 },
+    { id: "multi-deep", label: "Extensive Multi-Zone Deep Clean", multiplier: 4 },
+  ],
+  tenancy: [
+    { id: "studio-let", label: "Studio Let", multiplier: 1 },
+    { id: "flat-let", label: "Standard Rental Flat", multiplier: 1.4 },
+    { id: "house-let", label: "Family Tenancy House", multiplier: 2.2 },
+    { id: "hmo-let", label: "Multi-Room Let / HMO", multiplier: 3.5 },
+  ],
+  garden: [
+    { id: "garden-tidy", label: "Front Garden Tidy", multiplier: 1 },
+    { id: "patio-clean", label: "Garden + Patio Clean", multiplier: 1.6 },
+    { id: "driveway-wash", label: "Driveway + Path Wash", multiplier: 2.2 },
+    { id: "exterior-refresh", label: "Full Home Exterior Refresh", multiplier: 3.8 },
+  ],
+};
 
 const frequencies = [
   { id: "one-off", label: "One-off", description: "Single visit" },
@@ -133,15 +161,11 @@ export default function InstantEstimateModal({ isOpen, onClose }: { isOpen: bool
     if (formData.service === "commercial") base = 120;
     if (formData.service === "deep") base = 150;
     if (formData.service === "tenancy") base = 180;
+    if (formData.service === "garden") base = 60;
 
-    const multipliers = {
-      studio: 1,
-      small: 1.5,
-      medium: 2.2,
-      large: 3.5,
-    };
-
-    const multiplier = multipliers[formData.propertySize as keyof typeof multipliers] || 1;
+    const options = serviceOptionsMap[formData.service] || [];
+    const selectedOption = options.find(o => o.id === formData.propertySize);
+    const multiplier = selectedOption ? selectedOption.multiplier : 1;
 
     const min = Math.round(base * multiplier);
     const max = Math.round(min * 1.25);
@@ -166,7 +190,7 @@ export default function InstantEstimateModal({ isOpen, onClose }: { isOpen: bool
         service: formData.service,
         location: formData.location,
         leadSource: "Instant Estimate",
-        message: `Generated Estimate: £${calculateEstimate().min} - £${calculateEstimate().max}\nProperty Size: ${propertySizes.find(p => p.id === formData.propertySize)?.label || formData.propertySize}\nFrequency: ${frequencies.find(f => f.id === formData.frequency)?.label || formData.frequency}`
+        message: `Generated Estimate: £${calculateEstimate().min} - £${calculateEstimate().max}\nProperty Option: ${serviceOptionsMap[formData.service]?.find(p => p.id === formData.propertySize)?.label || formData.propertySize}\nFrequency: ${frequencies.find(f => f.id === formData.frequency)?.label || formData.frequency}`
       });
 
       if (result.success) {
@@ -285,7 +309,7 @@ export default function InstantEstimateModal({ isOpen, onClose }: { isOpen: bool
                       <p className="text-sm sm:text-base text-xanadu">This helps us estimate the time required.</p>
                     </div>
                     <div className="grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-2">
-                      {propertySizes.map((s) => (
+                      {(serviceOptionsMap[formData.service] || []).map((s) => (
                         <button
                           key={s.id}
                           onClick={() => { updateData({ propertySize: s.id }); nextStep(); }}
