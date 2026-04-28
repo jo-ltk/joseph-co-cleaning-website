@@ -1,33 +1,77 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { HardDrives, Cloud, Factory, Wind } from "@phosphor-icons/react/dist/ssr";
-
 import ScrollReveal from "./ScrollReveal";
 
 const industries = [
-  { title: "Corporate Offices", summary: "Maintain a professional and healthy workspace with our comprehensive commercial cleaning solutions.", icon: <HardDrives size={64} weight="light" /> },
-  { title: "Luxury Residential", summary: "Detailed care for high-end homes, ensuring every corner reflects the elegance of your living space.", icon: <Cloud size={64} weight="light" /> },
-  { title: "Retail & Showrooms", summary: "Create an inviting atmosphere for your customers with pristine floors and spotless displays.", icon: <Factory size={64} weight="light" /> },
-  { title: "Post-Construction", summary: "Final touch cleaning that transforms construction sites into move-in ready, immaculate properties.", icon: <Wind size={64} weight="light" /> },
+  {
+    title: "Corporate Offices",
+    summary: "Maintain a professional and healthy workspace with our comprehensive commercial cleaning solutions.",
+    icon: <HardDrives size={64} weight="light" />,
+    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
+    tag: "Commercial",
+  },
+  {
+    title: "Luxury Residential",
+    summary: "Detailed care for high-end homes, ensuring every corner reflects the elegance of your living space.",
+    icon: <Cloud size={64} weight="light" />,
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+    tag: "Residential",
+  },
+  {
+    title: "Retail & Showrooms",
+    summary: "Create an inviting atmosphere for your customers with pristine floors and spotless displays.",
+    icon: <Factory size={64} weight="light" />,
+    image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80",
+    tag: "Retail",
+  },
+  {
+    title: "Post-Construction",
+    summary: "Final touch cleaning that transforms construction sites into move-in ready, immaculate properties.",
+    icon: <Wind size={64} weight="light" />,
+    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    tag: "Specialized",
+  },
 ];
 
-function IndustryCard({ title, summary, icon }: { title: string; summary: string; icon: React.ReactNode }) {
+function IndustryCard({
+  title, summary, icon, image, tag,
+}: {
+  title: string; summary: string; icon: React.ReactNode; image: string; tag: string;
+}) {
   return (
-    <article className="group relative min-h-[260px] md:min-h-[360px] overflow-hidden bg-aztec/5 transition-colors duration-300 ease-out hover:bg-yellow-green">
-      <button type="button" aria-label={`Expand ${title}`} className="absolute right-4 top-4 z-20 flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-aztec/10 text-2xl font-light leading-none text-aztec transition-colors duration-300 group-hover:bg-aztec/20">
-        <span className="-mt-1 transition-transform duration-300 ease-out group-hover:rotate-45">+</span>
-      </button>
-      <div className="absolute inset-x-0 top-1/2 z-10 flex -translate-y-[40%] flex-col items-start md:items-center px-6 md:px-8 text-left md:text-center text-aztec transition-all duration-300 ease-out group-hover:translate-y-[-2rem] group-hover:opacity-0">
-        <div className="flex h-[72px] md:h-[92px] items-center justify-start md:justify-center text-xanadu">{icon}</div>
-        <h3 className="mt-4 md:mt-6 max-w-[260px] text-xl md:text-2xl leading-[1.1] font-medium tracking-tight text-aztec">{title}</h3>
-        <p className="mt-2 md:mt-3 text-sm text-aztec/70 max-w-[280px] line-clamp-2">{summary}</p>
+    <article className="group bg-white border border-aztec/8 overflow-hidden transition-shadow duration-300 hover:shadow-xl">
+
+      {/* Top: image with category tag */}
+      <div className="relative h-48 md:h-56 overflow-hidden">
+        <Image
+          src={image}
+          alt={title}
+          fill
+          className="object-cover grayscale-[20%] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]
+                     group-hover:scale-105 group-hover:grayscale-0"
+        />
+        <span className="absolute bottom-3 left-3 bg-aztec text-yellow-green text-[10px] font-bold uppercase tracking-[.18em] px-3 py-1.5 font-sans">
+          {tag}
+        </span>
       </div>
-      <div className="absolute inset-0 z-10 flex items-center px-6 md:px-10 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100">
-        <div className="max-w-[330px] text-aztec">
-          <p className="inline-block bg-aztec px-4 py-2 font-sans text-sm font-semibold uppercase tracking-widest text-yellow-green">Overview:</p>
-          <p className="mt-6 md:mt-8 font-sans text-base leading-relaxed text-aztec/80">{summary}</p>
-        </div>
+
+      {/* Bottom: text content */}
+      <div className="p-5 md:p-6">
+        <h3 className="text-lg md:text-xl font-medium text-aztec tracking-tight leading-[1.15] mb-2.5">
+          {title}
+        </h3>
+
+        {/* Animated underline accent */}
+        <div className="h-[1.5px] bg-yellow-green w-7 mb-3 transition-all duration-400 group-hover:w-12" />
+
+        <p className="font-sans text-[13px] leading-[1.7] text-aztec/65">{summary}</p>
+
+        <button className="mt-4 flex items-center gap-1.5 font-sans text-[11px] font-bold uppercase tracking-[.14em] text-pine-green bg-transparent border-none cursor-pointer p-0 transition-all duration-300 group-hover:gap-2.5">
+          Learn more <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+        </button>
       </div>
     </article>
   );
@@ -39,7 +83,12 @@ export default function IndustriesSection() {
       <div className="mx-auto max-w-[1450px]">
         <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6 lg:gap-12 mb-10 md:mb-16">
           <div className="max-w-2xl">
-            <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-pine-green font-semibold uppercase tracking-widest text-sm mb-4 block">
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-pine-green font-semibold uppercase tracking-widest text-sm mb-4 block"
+            >
               Expertise
             </motion.span>
             <ScrollReveal
@@ -52,18 +101,18 @@ export default function IndustriesSection() {
             </ScrollReveal>
           </div>
           <motion.p
-  initial={{ opacity: 0, y: 24 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true }}
-  transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-  className="text-xanadu text-base md:text-lg max-w-sm leading-relaxed"
->
-  From luxury residences to corporate headquarters, our specialized teams deliver tailored cleaning solutions for every environment.
-</motion.p>
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            className="text-xanadu text-base md:text-lg max-w-sm leading-relaxed"
+          >
+            From luxury residences to corporate headquarters, our specialized teams deliver tailored cleaning solutions for every environment.
+          </motion.p>
         </div>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {industries.map((industry) => (
-            <IndustryCard key={industry.title} title={industry.title} summary={industry.summary} icon={industry.icon} />
+            <IndustryCard key={industry.title} {...industry} />
           ))}
         </div>
       </div>
