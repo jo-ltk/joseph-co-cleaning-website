@@ -20,54 +20,54 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   { 
     name: "Jonathan Reeves", 
-    location: "London, UK", 
-    tag: "Estate",
+    location: "Taunton, Somerset", 
+    tag: "Private Estate",
     quote: "Joseph.co has transformed our estate maintenance. Their attention to detail is unparalleled and consistently perfect.",
     image: "/coach-conversation.png", 
     alt: "Client portrait one",
     variant: "b"
   },
   { 
-    name: "Marcus Thorne", 
-    location: "New York, USA", 
-    tag: "Corporate",
-    quote: "The most professional cleaning team we've ever engaged. Immaculate results that our staff noticed instantly.",
+    name: "Alastair Vance", 
+    location: "Bristol, UK", 
+    tag: "Commercial",
+    quote: "The most professional cleaning team we've ever engaged in Bristol. Immaculate results that our staff noticed instantly.",
     image: "/hero-cleaning-home.jpg", 
     alt: "Client portrait two",
     variant: "a"
   },
   { 
-    name: "Sofia Moretti", 
-    location: "Milan, Italy", 
+    name: "Sarah Higgins", 
+    location: "Bath, UK", 
     tag: "Retail",
-    quote: "Pristine standards for our boutique showroom. They understand the luxury market better than any other service.",
+    quote: "Pristine standards for our boutique showroom. They understand the premium market better than any other service.",
     image: "/equipment-vacuum-cleaning.jpg", 
     alt: "Client portrait three",
     variant: "c"
   },
   { 
-    name: "Isabella Chen", 
-    location: "Singapore", 
-    tag: "Commercial",
+    name: "Eleanor Thorne", 
+    location: "Manchester, UK", 
+    tag: "Corporate",
     quote: "Efficiency paired with absolute quality. Their multi-point protocol ensures every corner reflects our brand's excellence.",
     image: "/clean-space-living-room.jpg", 
     alt: "Client portrait four",
     variant: "d"
   },
   { 
-    name: "Arthur Sterling", 
-    location: "Geneva, CH", 
-    tag: "Private Estate",
+    name: "Julian Rhodes", 
+    location: "Bridgwater, Somerset", 
+    tag: "Manor House",
     quote: "Discretion and excellence are the hallmarks of their service. Our residence has never looked more pristine.",
     image: "/hero-cleaning-home.jpg", 
     alt: "Client portrait five",
     variant: "b"
   },
   { 
-    name: "Elena Vance", 
-    location: "San Francisco, USA", 
-    tag: "Tech HQ",
-    quote: "The reliability of their team is unmatched. They've become an essential partner in our daily operations.",
+    name: "Victoria Penhaligon", 
+    location: "London, UK", 
+    tag: "Office HQ",
+    quote: "The reliability of their team is unmatched. They've become an essential partner in our daily operations across London.",
     image: "/coach-conversation.png", 
     alt: "Client portrait six",
     variant: "a"

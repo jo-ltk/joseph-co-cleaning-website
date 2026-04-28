@@ -54,6 +54,14 @@ const services = [
     benefits: ["Fine Dust Removal", "Paint & Plaster Spot Cleaning", "Internal Window Cleaning", "Quick & Efficient Team"],
     image: "/images/hero-bg-new.png",
     cta: "/contact?source=Detailed Services&service=End Of Tenancy Cleaning"
+  },
+  {
+    label: "Outdoor",
+    title: "Garden & Exterior Care",
+    description: "Premium maintenance for your home's exterior. From patio pressure washing to garden seasonal tidying, we ensure your outdoor spaces match the standard of your interiors.",
+    benefits: ["Patio & Driveway Pressure Washing", "Garden Leaf & Debris Cleanup", "Seasonal Lawn & Border Tidy", "Small Exterior Surface Cleaning"],
+    image: "/hero-cleaning-home.jpg",
+    cta: "/contact?source=Detailed Services&service=Garden & Exterior Care"
   }
 ];
 

@@ -57,6 +57,7 @@ const serviceOptions = [
   "Deep Cleaning",
   "After Builders Cleaning",
   "End Of Tenancy Cleaning",
+  "Garden & Exterior Care",
 ];
 
 const reassuranceItems = [
