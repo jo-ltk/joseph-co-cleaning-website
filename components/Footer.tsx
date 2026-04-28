@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ButtonLink } from "./ui/Button";
 import IconButton from "./ui/IconButton";
+import { FacebookLogo, InstagramLogo } from "@phosphor-icons/react";
 
 const pageLinks = [
   { href: "/", label: "Home" },
@@ -17,9 +18,8 @@ const pageLinks = [
 ];
 
 const socialLinks = [
-  { href: "#", label: "Instagram" },
-  { href: "#", label: "X" },
-  { href: "#", label: "LinkedIn" },
+  { href: "https://www.facebook.com/people/JosephCo-Ltd/61572054301932/", label: "Facebook", Icon: FacebookLogo },
+  { href: "https://www.instagram.com/joseph_and_co_l.t.d?utm_source=qr", label: "Instagram", Icon: InstagramLogo },
 ];
 
 const contactInfo = {
@@ -86,7 +86,17 @@ export default function Footer() {
               <span className="block font-mono text-sm uppercase tracking-widest text-yellow-green/40">Social</span>
               <ul className="space-y-3 md:space-y-4">
                 {socialLinks.map((link) => (
-                  <li key={link.label}><Link href={link.href} className="text-sm md:text-base transition-colors duration-300 hover:text-white">{link.label}</Link></li>
+                  <li key={link.label}>
+                    <a 
+                      href={link.href} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="group flex items-center gap-2 text-sm md:text-base transition-colors duration-300 hover:text-white"
+                    >
+                      <link.Icon size={20} weight="fill" className="text-yellow-green/60 transition-colors duration-300 group-hover:text-yellow-green" />
+                      <span>{link.label}</span>
+                    </a>
+                  </li>
                 ))}
               </ul>
             </motion.div>
