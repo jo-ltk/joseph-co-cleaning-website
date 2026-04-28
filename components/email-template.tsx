@@ -107,3 +107,30 @@ export const EmailTemplate: React.FC<Readonly<{ firstName: string }>> = ({ first
     <p><strong>The Joseph & Co Team</strong></p>
   </div>
 );
+
+interface RecoveryEmailProps {
+  recoveryUrl: string;
+}
+
+export const RecoveryEmail: React.FC<Readonly<RecoveryEmailProps>> = ({ recoveryUrl }) => (
+  <div style={{ fontFamily: "Arial, sans-serif", maxWidth: "600px", margin: "0 auto", padding: "20px", color: "#120f0c" }}>
+    <div style={{ textAlign: "center", marginBottom: "30px" }}>
+      <h1 style={{ color: "#017775", margin: "0", fontSize: "24px", letterSpacing: "1px" }}>JOSEPH & CO</h1>
+      <p style={{ margin: "5px 0", fontSize: "10px", fontWeight: "bold", color: "#787b78", letterSpacing: "2px" }}>ADMINISTRATIVE ACCESS</p>
+    </div>
+    <div style={{ backgroundColor: "#f9f9f9", padding: "30px", borderRadius: "12px", border: "1px solid #eee" }}>
+      <h2 style={{ color: "#120f0c", fontSize: "18px", marginTop: "0" }}>Access Recovery Request</h2>
+      <p style={{ lineHeight: "1.6", color: "#444" }}>A secure login link was requested for your Joseph & Co administrative account. Use the button below to sign in automatically.</p>
+      <div style={{ margin: "35px 0", textAlign: "center" }}>
+        <a href={recoveryUrl} style={{ backgroundColor: "#017775", color: "#ffffff", padding: "14px 28px", textDecoration: "none", borderRadius: "6px", fontWeight: "bold", fontSize: "13px", display: "inline-block", letterSpacing: "1px" }}>
+          SIGN IN TO CMS
+        </a>
+      </div>
+      <p style={{ fontSize: "12px", color: "#888", textAlign: "center" }}>This secure link will expire in 15 minutes.</p>
+    </div>
+    <p style={{ color: "#999", fontSize: "11px", marginTop: "30px", textAlign: "center" }}>
+      If you did not request this access, please secure your credentials immediately.<br />
+      &copy; 2026 Joseph & Co Cleaning Services Ltd
+    </p>
+  </div>
+);
