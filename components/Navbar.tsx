@@ -13,12 +13,19 @@ const navigationItems = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
   { href: "/about", label: "About" },
+  { href: "/portfolio", label: "Portfolio" },
   { href: "/gallery", label: "Gallery" },
   { href: "/areas-we-cover", label: "Areas We Cover" },
   { href: "/contact", label: "Contact" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ 
+  isAdmin = false, 
+  onLogout 
+}: { 
+  isAdmin?: boolean; 
+  onLogout?: () => void; 
+}) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [estimateOpen, setEstimateOpen] = useState(false);
   const { scrollY } = useScroll();
@@ -133,13 +140,24 @@ export default function Navbar() {
                 </Link>
 
                 <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setEstimateOpen(true)}
-                    className="pointer-events-auto flex h-10 items-center gap-2 rounded-full bg-aztec/5 px-4 text-xs font-bold text-aztec transition hover:bg-aztec/10"
-                  >
-                    <Calculator size={16} weight="bold" />
-                    Estimate
-                  </button>
+                  {!isAdmin ? (
+                    <button
+                      onClick={() => setEstimateOpen(true)}
+                      className="pointer-events-auto flex h-10 items-center gap-2 rounded-full bg-aztec/5 px-4 text-xs font-bold text-aztec transition hover:bg-aztec/10"
+                    >
+                      <Calculator size={16} weight="bold" />
+                      Estimate
+                    </button>
+                  ) : (
+                    <form action={onLogout as any}>
+                      <button
+                        type="submit"
+                        className="pointer-events-auto flex h-10 items-center gap-2 rounded-full bg-red-500/10 px-4 text-xs font-bold text-red-600 transition hover:bg-red-500/20"
+                      >
+                        Sign Out
+                      </button>
+                    </form>
+                  )}
                   <button
                     type="button"
                     onClick={() => setMobileOpen(true)}
@@ -158,40 +176,60 @@ export default function Navbar() {
             </div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: -18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="pointer-events-auto hidden items-center gap-3 md:flex"
-          >
-            <motion.button 
-              whileHover={{ y: -2 }} 
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setEstimateOpen(true)}
-              className="flex items-center gap-2 rounded-full border border-aztec/10 bg-white px-6 py-3 text-sm font-bold text-aztec transition-all hover:bg-gray-50"
+          {!isAdmin ? (
+            <motion.div
+              initial={{ opacity: 0, y: -18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+              className="pointer-events-auto hidden items-center gap-3 md:flex"
             >
-              <Calculator size={18} weight="bold" />
-              Instant Estimate
-            </motion.button>
-
-            <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
-              <ButtonLink
-                href="/contact?source=Navbar"
-                variant="primary"
-                className="px-8"
+              <motion.button 
+                whileHover={{ y: -2 }} 
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setEstimateOpen(true)}
+                className="flex items-center gap-2 rounded-full border border-aztec/10 bg-white px-6 py-3 text-sm font-bold text-aztec transition-all hover:bg-gray-50"
               >
-                Book Quote
-              </ButtonLink>
-            </motion.div>
+                <Calculator size={18} weight="bold" />
+                Instant Estimate
+              </motion.button>
 
-            <motion.div whileHover={{ y: -2, rotate: 3 }} whileTap={{ scale: 0.96 }}>
-              <IconButton
-                href="/contact?source=Navbar"
-                aria-label="Book Quote"
-                size="md"
-              />
+              <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
+                <ButtonLink
+                  href="/contact?source=Navbar"
+                  variant="primary"
+                  className="px-8"
+                >
+                  Book Quote
+                </ButtonLink>
+              </motion.div>
+
+              <motion.div whileHover={{ y: -2, rotate: 3 }} whileTap={{ scale: 0.96 }}>
+                <IconButton
+                  href="/contact?source=Navbar"
+                  aria-label="Book Quote"
+                  size="md"
+                />
+              </motion.div>
             </motion.div>
-          </motion.div>
+          ) : (
+            <motion.div
+              initial={{ opacity: 0, y: -18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+              className="pointer-events-auto hidden items-center gap-3 md:flex"
+            >
+              <form action={onLogout as any}>
+                <motion.button
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  type="submit"
+                  className="flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/5 px-8 py-3 text-sm font-bold text-red-600 transition-all hover:bg-red-500/10"
+                >
+                  Logout
+                </motion.button>
+              </form>
+            </motion.div>
+          )}
         </nav>
 
         {mobileOpen ? (

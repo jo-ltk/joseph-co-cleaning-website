@@ -10,6 +10,7 @@ const pageLinks = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
   { href: "/about", label: "About" },
+  { href: "/portfolio", label: "Portfolio" },
   { href: "/gallery", label: "Gallery" },
   { href: "/areas-we-cover", label: "Areas We Cover" },
   { href: "/contact", label: "Contact" },
@@ -113,7 +114,15 @@ export default function Footer() {
           className="mt-6 md:mt-8 flex flex-col items-start justify-between gap-3 md:gap-4 font-mono text-sm uppercase tracking-wider text-yellow-green/50 md:flex-row md:items-end">
           <div className="flex gap-6 md:gap-8">
             <span>London: {londonTime}</span>
-            <span>&copy; {currentYear}</span>
+            <div className="flex items-center gap-6 md:gap-8">
+              <span>&copy; {currentYear}</span>
+              <Link 
+                href="/admin/login" 
+                className="opacity-20 transition-opacity hover:opacity-100 hover:text-white"
+              >
+                Admin Access
+              </Link>
+            </div>
           </div>
           <div className="flex gap-6 md:gap-8">
             <Link href="/privacy-policy" className="hover:text-yellow-green">Privacy Policy</Link>
