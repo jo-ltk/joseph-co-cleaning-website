@@ -23,8 +23,8 @@ const socialLinks = [
 ];
 
 const contactInfo = {
-  email: "JosephandCol.t.d@outlook.com",
-  phone: "+44 7787857305",
+  email: "josephandcocleaningservicesltd@gmail.com",
+  phone: "+44 7787 857305",
   address: "TA6 4HW, 32 Willow Man Road, UK",
 };
 
@@ -115,10 +115,10 @@ export default function Footer() {
 
       <div className="border-t border-yellow-green/10 px-5 md:px-10 lg:px-20 pt-6 md:pt-8 pb-6 md:pb-8">
         <div className="relative overflow-hidden">
-          <motion.h1 initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          <motion.p initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="whitespace-nowrap font-heading text-[15vw] font-bold leading-[0.8] tracking-[-0.05em] text-yellow-green md:text-[18vw]">
             Joseph.co
-          </motion.h1>
+          </motion.p>
         </div>
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1, delay: 0.5 }}
           className="mt-6 md:mt-8 flex flex-col items-start justify-between gap-3 md:gap-4 font-mono text-sm uppercase tracking-wider text-yellow-green/50 md:flex-row md:items-end">

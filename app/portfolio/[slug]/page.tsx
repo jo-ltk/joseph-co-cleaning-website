@@ -8,6 +8,13 @@ import {
   getApprovedReviewsByPortfolio,
   getPortfolioBySlug,
 } from "@/lib/portfolio-queries";
+import { buildMetadata, portfolioMetaDescription } from "@/lib/seo";
+import {
+  breadcrumbSchema,
+  cleaningServiceSchema,
+  jsonLdScript,
+  portfolioCaseStudySchema,
+} from "@/lib/schema";
 
 export const dynamic = "force-dynamic";
 
@@ -23,14 +30,29 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!portfolio) {
     return {
-      title: "Portfolio | Joseph.co",
+      title: "Cleaning Portfolio",
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
 
-  return {
-    title: `${portfolio.title} | Joseph.co`,
-    description: portfolio.resultSummary,
-  };
+  const description = portfolioMetaDescription(portfolio);
+
+  return buildMetadata({
+    title: `${portfolio.title} Cleaning Case Study`,
+    description,
+    path: `/portfolio/${portfolio.slug}`,
+    keywords: [
+      `${portfolio.serviceType} case study`,
+      `${portfolio.serviceType} ${portfolio.location}`,
+      `cleaning services ${portfolio.location}`,
+      "landlord cleaning case study",
+      "before and after cleaning",
+    ],
+    image: portfolio.coverImage.url,
+  });
 }
 
 export default async function PortfolioDetailPage({ params }: PageProps) {
@@ -42,9 +64,22 @@ export default async function PortfolioDetailPage({ params }: PageProps) {
   }
 
   const reviews = await getApprovedReviewsByPortfolio(portfolio.id);
+  const schemas = [
+    breadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Portfolio", path: "/portfolio" },
+      { name: portfolio.title, path: `/portfolio/${portfolio.slug}` },
+    ]),
+    cleaningServiceSchema(`/portfolio/${portfolio.slug}`),
+    portfolioCaseStudySchema(portfolio, reviews),
+  ];
 
   return (
     <main className="relative bg-[#120f0c]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(schemas)}
+      />
       <Navbar />
       <PortfolioDetailView portfolio={portfolio} reviews={reviews} />
       <Footer />

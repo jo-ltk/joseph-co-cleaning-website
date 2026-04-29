@@ -8,6 +8,8 @@ import { CaretLeft, CaretRight } from "@phosphor-icons/react/dist/ssr";
 interface BeforeAfterSliderProps {
   beforeImage: string;
   afterImage: string;
+  beforeAlt?: string;
+  afterAlt?: string;
   beforeLabel?: string;
   afterLabel?: string;
 }
@@ -15,6 +17,8 @@ interface BeforeAfterSliderProps {
 export default function BeforeAfterSlider({
   beforeImage,
   afterImage,
+  beforeAlt = "Before professional cleaning",
+  afterAlt = "After professional cleaning",
   beforeLabel = "Before",
   afterLabel = "After",
 }: BeforeAfterSliderProps) {
@@ -75,7 +79,7 @@ export default function BeforeAfterSlider({
       <div className="absolute inset-0">
         <Image
           src={afterImage}
-          alt="After"
+          alt={afterAlt}
           fill
           className="object-cover"
           draggable={false}
@@ -94,7 +98,7 @@ export default function BeforeAfterSlider({
       >
         <Image
           src={beforeImage}
-          alt="Before"
+          alt={beforeAlt}
           fill
           className="object-cover"
           draggable={false}
