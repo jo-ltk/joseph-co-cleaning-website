@@ -43,8 +43,8 @@ const directContacts = [
   },
   {
     label: "Email The Team",
-    value: "JosephandCol.t.d@outlook.com",
-    href: "mailto:JosephandCol.t.d@outlook.com",
+    value: "josephandcocleaningservicesltd@gmail.com",
+    href: "mailto:josephandcocleaningservicesltd@gmail.com",
     note: "Share photos, access notes, or a full brief",
     icon: EnvelopeSimple,
   },
@@ -555,11 +555,11 @@ export default function ContactPage() {
               className="mb-10 grid gap-4"
             >
               <a
-                href="mailto:JosephandCol.t.d@outlook.com"
+                href="mailto:josephandcocleaningservicesltd@gmail.com"
                 className="flex items-center gap-4 border-b border-aztec/10 pb-5 text-lg font-medium tracking-tight text-aztec transition hover:text-pine-green"
               >
                 <EnvelopeSimple size={22} className="text-pine-green" weight="duotone" />
-                <span>JosephandCol.t.d@outlook.com</span>
+                <span>josephandcocleaningservicesltd@gmail.com</span>
               </a>
               <div className="flex items-start gap-4 border-b border-aztec/10 pb-5 text-lg font-medium tracking-tight text-aztec">
                 <MapPin size={22} className="mt-1 shrink-0 text-pine-green" weight="duotone" />
@@ -574,7 +574,7 @@ export default function ContactPage() {
               <ButtonLink href="tel:+447787857305" variant="primary" className="px-8">
                 Call Now
               </ButtonLink>
-              <IconButton href="mailto:JosephandCol.t.d@outlook.com" aria-label="Email Joseph and Co" size="md" />
+              <IconButton href="mailto:josephandcocleaningservicesltd@gmail.com" aria-label="Email Joseph and Co" size="md" />
             </div>
           </div>
         </div>

@@ -58,7 +58,7 @@ function PortfolioCard({
     >
       <Image
         src={portfolio.coverImage.url}
-        alt={portfolio.coverImage.alt}
+        alt={`${portfolio.coverImage.alt} - ${portfolio.serviceType} case study in ${portfolio.location}`}
         fill
         className="object-cover transition-transform duration-1000 group-hover:scale-105"
       />
@@ -135,7 +135,7 @@ export default function PortfolioPageView({
           <>
             <Image
               src={heroPortfolio.coverImage.url}
-              alt={heroPortfolio.coverImage.alt}
+              alt={`${heroPortfolio.coverImage.alt} - Joseph and Co cleaning portfolio case study`}
               fill
               priority
               className="object-cover"

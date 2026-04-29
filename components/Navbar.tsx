@@ -340,7 +340,7 @@ export default function Navbar({
                         Email us
                       </p>
                       <p className="mt-5 text-[1.15rem] font-medium tracking-[-0.03em] text-[#111713]/85">
-                        contact@joseph.co
+                        josephandcocleaningservicesltd@gmail.com
                       </p>
                     </div>
                   </div>

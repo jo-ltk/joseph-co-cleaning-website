@@ -13,7 +13,7 @@ const services = [
     description: "Exceptional cleaning for your private sanctuary. We provide a bespoke service that respects your home and your time, ensuring a pristine environment for you and your family.",
     benefits: ["Regular Weekly/Bi-weekly Visits", "Vetted & Trusted Professionals", "Customized Cleaning Checklists", "Eco-Friendly Products Used"],
     image: "/hero-cleaning-home.jpg",
-    cta: "/contact?source=Detailed Services&service=Domestic Cleaning"
+    cta: "/services/domestic-cleaning"
   },
   {
     label: "Commercial",
@@ -21,7 +21,7 @@ const services = [
     description: "Project a professional image with a spotless workspace. Our commercial teams handle offices, retail spaces, and corporate environments with unmatched efficiency.",
     benefits: ["Flexible After-Hours Service", "High-Traffic Area Sanitation", "Professional-Grade Equipment", "Consistent Quality Standards"],
     image: "/images/about-hero.png",
-    cta: "/contact?source=Detailed Services&service=Commercial Cleaning"
+    cta: "/services/commercial-cleaning"
   },
   {
     label: "Industrial",
@@ -29,7 +29,7 @@ const services = [
     description: "Specialized cleaning solutions for demanding environments. From warehouses to manufacturing facilities, we ensure safety and compliance through rigorous cleaning protocols.",
     benefits: ["Heavy-Duty Equipment", "Safety & Compliance Focused", "Warehouse & Factory Expertise", "Debris & Grease Removal"],
     image: "/equipment-vacuum-cleaning.jpg",
-    cta: "/contact?source=Detailed Services&service=Industrial Cleaning"
+    cta: "/services/industrial-cleaning"
   },
   {
     label: "Tenancy",
@@ -37,7 +37,7 @@ const services = [
     description: "Secure your deposit with our comprehensive move-out cleaning. We follow strict agency-approved checklists to ensure every corner meets professional standards.",
     benefits: ["Deposit-Back Guarantee", "Full Interior Deep Clean", "Appliance & Window Cleaning", "Fast 24-Hour Turnaround"],
     image: "/clean-space-living-room.jpg",
-    cta: "/contact?source=Detailed Services&service=Deep Cleaning"
+    cta: "/services/end-of-tenancy-cleaning"
   },
   {
     label: "Deep Clean",
@@ -45,7 +45,7 @@ const services = [
     description: "For when your property needs more than just a surface clean. Our deep cleaning service targets hidden dirt and grime in often-overlooked areas.",
     benefits: ["Intensive Scrubbing & Sanitize", "Nook & Cranny Focus", "Upholstery & Carpet Care", "One-Off Restoration Clean"],
     image: "/images/about-story.png",
-    cta: "/contact?source=Detailed Services&service=After Builders Cleaning"
+    cta: "/services/deep-cleaning"
   },
   {
     label: "Construction",
@@ -53,7 +53,7 @@ const services = [
     description: "Removing the post-construction dust and debris to reveal your new space. We provide a detailed finish that makes your property ready for immediate occupancy.",
     benefits: ["Fine Dust Removal", "Paint & Plaster Spot Cleaning", "Internal Window Cleaning", "Quick & Efficient Team"],
     image: "/images/hero-bg-new.png",
-    cta: "/contact?source=Detailed Services&service=End Of Tenancy Cleaning"
+    cta: "/services/after-builders-cleaning"
   },
   {
     label: "Outdoor",
@@ -86,7 +86,7 @@ export default function DetailedServices() {
                 <div className="relative aspect-[4/5] md:aspect-[1.2/1] overflow-hidden rounded-sm shadow-2xl">
                   <Image 
                     src={service.image}
-                    alt={service.title}
+                    alt={`${service.title} by Joseph and Co professional cleaners`}
                     fill
                     className="object-cover transition-transform duration-1000 hover:scale-110"
                   />
@@ -143,7 +143,7 @@ export default function DetailedServices() {
                   transition={{ duration: 0.6, delay: 0.4 }}
                 >
                   <ButtonLink href={service.cta} variant="primary" className="px-8">
-                    Book This Service
+                    View Service
                   </ButtonLink>
                 </motion.div>
               </div>

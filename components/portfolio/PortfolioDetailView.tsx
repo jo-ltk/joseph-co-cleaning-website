@@ -71,6 +71,7 @@ export default function PortfolioDetailView({
   const beforeImage = getPortfolioBeforeImage(portfolio);
   const afterImage = getPortfolioAfterImage(portfolio);
   const detailImages = getPortfolioDetailImages(portfolio);
+  const locationServicePhrase = `${portfolio.serviceType.toLowerCase()} in ${portfolio.location}`;
 
   return (
     <>
@@ -172,6 +173,9 @@ export default function PortfolioDetailView({
             >
               {portfolio.description}
             </motion.p>
+            <p className="mt-6 max-w-3xl text-base leading-relaxed text-xanadu">
+              This {locationServicePhrase} case study was prepared for people comparing trusted cleaners for landlord handovers, managed property presentation, tenant moves and professional inspection standards. Joseph & Co uses insured teams, vetted staff, careful product choices and fast response planning to make each property easier to trust at the point of handover.
+            </p>
           </div>
 
           <div className="grid gap-4 lg:col-span-5">
@@ -231,6 +235,8 @@ export default function PortfolioDetailView({
             <BeforeAfterSlider
               beforeImage={beforeImage.url}
               afterImage={afterImage.url}
+              beforeAlt={`${portfolio.title} before ${portfolio.serviceType.toLowerCase()} by Joseph and Co in ${portfolio.location}`}
+              afterAlt={`${portfolio.title} after ${portfolio.serviceType.toLowerCase()} by Joseph and Co in ${portfolio.location}`}
               beforeLabel="Before"
               afterLabel="After"
             />
@@ -249,7 +255,12 @@ export default function PortfolioDetailView({
                     index === 0 ? "md:col-span-2 md:min-h-[440px]" : "min-h-[300px]"
                   }`}
                 >
-                  <Image src={image.url} alt={image.alt} fill className="object-cover" />
+                  <Image
+                    src={image.url}
+                    alt={`${image.alt} for ${portfolio.serviceType.toLowerCase()} in ${portfolio.location}`}
+                    fill
+                    className="object-cover"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#120f0c]/72 via-transparent to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                     <p className="text-sm font-semibold uppercase tracking-widest text-yellow-green">
@@ -312,6 +323,11 @@ export default function PortfolioDetailView({
                 icon: Star,
                 title: "Handover Use Case",
                 body: "Photographs, tenant transitions, landlord inspections, and snag-free revisits were all considered in the finishing sequence.",
+              },
+              {
+                icon: SealCheck,
+                title: "Trust Signals",
+                body: "Insured cleaners, vetted staff, eco-friendly product choices where suitable, and same-day response planning support a safer, more dependable cleaning service.",
               },
             ].map((item, index) => {
               const Icon = item.icon;
