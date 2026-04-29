@@ -34,11 +34,11 @@ const industries = [
     image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
     tag: "Specialized",
   },
-  {
+{
     title: "Private Estates",
     summary: "Comprehensive exterior care for distinguished properties, from manicured gardens to pristine driveways.",
     icon: <Tree size={64} weight="light" />,
-    image: "https://images.unsplash.com/photo-1558905612-27141ad1f144?auto=format&fit=crop&q=80&w=800",
+    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800",
     tag: "Outdoor",
   },
 ];
