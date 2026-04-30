@@ -37,22 +37,19 @@ export default function HomePage() {
         dangerouslySetInnerHTML={jsonLdScript(cleaningServiceSchema("/"))}
       />
       <Navbar />
-      <Hero />
-      <TrustStrip />
-      <PartnershipsSection />
-      <IndustriesSection />
-      <WhyChooseUs />
-      <ProcessSection />
-      <ResultsComparison />
-      <TestimonialsSection />
-      <PricingSection />
-      {/* <LeadershipSpotlightSection /> */}
-      <CtaPodSection />
-      <RecentProjectsSection />
-      {/* <ImpactSection /> */}
-      {/* <ResultsSection /> */}
-      <FaqSection />
-      <BottomCta />
+      <div data-stack><Hero /></div>
+      <div data-stack data-reveal><TrustStrip /></div>
+      <div data-stack data-reveal><PartnershipsSection /></div>
+      <div data-stack data-reveal><IndustriesSection /></div>
+      <div data-stack data-reveal><WhyChooseUs /></div>
+      <div data-stack data-reveal><ProcessSection /></div>
+      <div data-stack data-reveal><ResultsComparison /></div>
+      <div data-stack><TestimonialsSection /></div>
+      <div data-stack><PricingSection /></div>
+      <div data-stack><CtaPodSection /></div>
+      <div data-stack><RecentProjectsSection /></div>
+      <div data-stack><FaqSection /></div>
+      <div data-stack><BottomCta /></div>
       <Footer />
     </main>
   );

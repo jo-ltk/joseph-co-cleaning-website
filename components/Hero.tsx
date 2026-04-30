@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Calculator } from "@phosphor-icons/react";
 import Button, { ButtonLink } from "./ui/Button";
 import IconButton from "./ui/IconButton";
@@ -11,12 +11,6 @@ const heroImage = "/images/hero-wall.png";
 const desktopGridLines = ["0%", "25%", "50%", "75%", "100%"];
 
 export default function Hero() {
-  const shouldReduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll();
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
-  const backgroundScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, -180]);
-
   return (
     <>
       {/* ═══════════════════════════════════════════════
@@ -30,7 +24,6 @@ export default function Hero() {
         <div className="relative w-full shrink-0" style={{ height: "72dvh" }}>
           <motion.div
             className="absolute inset-0"
-            style={shouldReduceMotion ? undefined : { scale: backgroundScale }}
           >
             <img
               src={heroImage}
@@ -126,16 +119,18 @@ export default function Hero() {
       {/* ═══════════════════════════════════════════════
           DESKTOP HERO — original design, untouched
       ═══════════════════════════════════════════════ */}
-      <section className="relative hidden md:flex h-[100dvh] items-stretch overflow-hidden bg-xanadu text-white">
-        <motion.div
+      <section 
+        className="relative hidden md:flex h-[100dvh] items-stretch overflow-hidden bg-xanadu text-white"
+      >
+        <div
+          data-parallax="0.15"
           className="absolute inset-0"
-          style={shouldReduceMotion ? undefined : { y: backgroundY, scale: backgroundScale }}
         >
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat brightness-[1.05] contrast-[1.02]"
             style={{ backgroundImage: `url("${heroImage}")` }}
           />
-        </motion.div>
+        </div>
 
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.3)_0%,rgba(0,0,0,0.1)_30%,transparent_100%)]" />
         <div className="absolute inset-0 bg-black/5" />
@@ -150,9 +145,9 @@ export default function Hero() {
           ))}
         </div>
 
-        <motion.div
+        <div
+          data-parallax="-0.1"
           className="relative z-10 mx-auto flex h-full w-full max-w-[1950px] flex-col items-start justify-center px-6 pb-10 pt-40 md:pl-8 lg:pl-12 text-left"
-          style={shouldReduceMotion ? undefined : { y: contentY }}
         >
           <motion.div
             initial={{ opacity: 0, y: 28 }}
@@ -212,7 +207,7 @@ export default function Hero() {
               </motion.div>
             </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
       </section>
     </>
   );

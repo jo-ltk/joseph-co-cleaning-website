@@ -3,6 +3,7 @@ import { Inter, Manrope } from "next/font/google";
 
 import "../app/globals.css";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import SmoothScroll from "@/components/SmoothScroll";
 import { Toaster } from "sonner";
 import { defaultDescription, defaultTitle, seoKeywords, siteName, siteUrl } from "@/lib/seo";
 import {
@@ -85,9 +86,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={jsonLdScript(globalSchemas)}
         />
-        {children}
-        <WhatsAppFloat />
-        <Toaster position="bottom-right" richColors />
+        <SmoothScroll>
+          {children}
+          <WhatsAppFloat />
+          <Toaster position="bottom-right" richColors />
+        </SmoothScroll>
       </body>
     </html>
   );

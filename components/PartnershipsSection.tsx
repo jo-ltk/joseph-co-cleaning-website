@@ -88,7 +88,7 @@ export default function PartnershipsSection() {
       </div>
 
       <div className="p-scroll p-desktop-only">
-        <div className="p-row">
+        <div data-parallax="0.1" className="p-row">
           {brands.map((b, i) => (<TiltCard key={b.slug} brand={b} index={i} />))}
         </div>
       </div>
@@ -109,7 +109,7 @@ export default function PartnershipsSection() {
       <style jsx>{`
         .p-section { background: var(--color-wild-sand); padding: 96px 0; overflow: hidden; }
         .p-heading { margin: 0; }
-        .p-scroll { width: 100%; overflow-x: auto; overflow-y: visible; padding: 30px 0 40px; -ms-overflow-style: none; scrollbar-width: none; }
+        .p-scroll { width: 100%; overflow: visible; padding: 30px 0 40px; -ms-overflow-style: none; scrollbar-width: none; }
         .p-scroll::-webkit-scrollbar { display: none; }
         .p-row { display: flex; align-items: center; justify-content: center; gap: clamp(14px, 2vw, 24px); padding: 0 clamp(20px, 4vw, 60px); min-width: max-content; }
         :global(.p-float-wrap) { flex-shrink: 0; }
