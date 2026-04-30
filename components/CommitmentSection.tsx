@@ -9,17 +9,17 @@ const pillars = [
   {
     title: "Uncompromising Detail",
     description: "Every corner, every surface, and every delicate finish is handled with surgical precision. We don't just clean; we restore the original luster of your space.",
-    image: "https://images.unsplash.com/photo-1516962215378-7fa2e137ae93?q=80&w=1000&auto=format&fit=crop",
+    image: "/images/unsplash/photo-1516962215378-7fa2e137ae93.jpg",
   },
   {
     title: "Vetted Excellence",
     description: "Our specialists undergo rigorous vetting and background checks. Trust is the foundation of our service, ensuring your peace of mind at all times.",
-    image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=1000&auto=format&fit=crop",
+    image: "/images/unsplash/photo-1584622650111-993a426fbf0a.jpg",
   },
   {
     title: "Bespoke Management",
     description: "We understand that every property has unique requirements. Our management team tailors a specific protocol for your environment, ensuring consistent perfection.",
-    image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=1000&auto=format&fit=crop",
+    image: "/images/unsplash/photo-1613490493576-7fde63acd811.jpg",
   },
 ];
 

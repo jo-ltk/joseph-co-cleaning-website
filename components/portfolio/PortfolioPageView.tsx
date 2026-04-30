@@ -374,14 +374,14 @@ export default function PortfolioPageView({ portfolios, source }: PortfolioIndex
                   
                   <div className="btn-pair">
                     <ButtonLink
-                      href="/contact?source=Portfolio Grid Placeholder"
+                      href="/contact?source=Portfolio Fallback"
                       variant="primary"
                       className="px-8"
                     >
                       Request a Custom Quote
                     </ButtonLink>
                     <IconButton
-                      href="/contact?source=Portfolio Grid Placeholder"
+                      href="/contact?source=Portfolio Fallback"
                       aria-label="Request custom quote"
                       size="md"
                     />

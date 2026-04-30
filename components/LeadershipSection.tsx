@@ -8,17 +8,17 @@ const leaders = [
   {
     name: "David Beres",
     role: "CHIEF OPERATING OFFICER",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop",
+    image: "/images/unsplash/photo-1507003211169-0a1dd7228f2d.jpg",
   },
   {
     name: "Alex Chen",
     role: "CHIEF FINANCIAL OFFICER",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop",
+    image: "/images/unsplash/photo-1573496359142-b8d87734a5a2.jpg",
   },
   {
     name: "Ryan Jones",
     role: "HEAD OF OPERATIONS",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1000&auto=format&fit=crop",
+    image: "/images/unsplash/photo-1500648767791-00dcc994a43e.jpg",
   },
 ];
 

@@ -12,7 +12,7 @@ const services = [
     title: "Domestic Cleaning",
     description: "Exceptional cleaning for your private sanctuary. We provide a bespoke service that respects your home and your time, ensuring a pristine environment for you and your family.",
     benefits: ["Regular Weekly/Bi-weekly Visits", "Vetted & Trusted Professionals", "Customized Cleaning Checklists", "Eco-Friendly Products Used"],
-    image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=1200&auto=format&fit=crop",
+    image: "/images/unsplash/photo-1584622650111-993a426fbf0a.jpg",
     cta: "/services/domestic-cleaning"
   },
   {
@@ -20,14 +20,14 @@ const services = [
     title: "Commercial Cleaning",
     description: "Project a professional image with a spotless workspace. Our commercial teams handle offices, retail spaces, and corporate environments with unmatched efficiency.",
     benefits: ["Flexible After-Hours Service", "High-Traffic Area Sanitation", "Professional-Grade Equipment", "Consistent Quality Standards"],
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop",
+    image: "/images/unsplash/photo-1497366216548-37526070297c.jpg",
     cta: "/services/commercial-cleaning"
   },
   {
     label: "Industrial",
     title: "Industrial Cleaning",
     description: "Specialized cleaning solutions for demanding environments. From warehouses to manufacturing facilities, we ensure safety and compliance through rigorous cleaning protocols.",
-    image: "https://images.unsplash.com/photo-1513828583688-c52646db42da?q=80&w=1200&auto=format&fit=crop",
+    image: "/images/unsplash/photo-1513828583688-c52646db42da.jpg",
     benefits: ["Heavy-Duty Equipment", "Safety & Compliance Focused", "Warehouse & Factory Expertise", "Debris & Grease Removal"],
     cta: "/services/industrial-cleaning"
   },
@@ -37,7 +37,7 @@ const services = [
     description: "Secure your deposit with our comprehensive move-out cleaning. We follow strict agency-approved checklists to ensure every corner meets professional standards.",
     benefits: ["Deposit-Back Guarantee", "Full Interior Deep Clean", "Appliance & Window Cleaning", "Fast 24-Hour Turnaround"],
     // UPDATED: Reliable high-resolution image of a sparkling clean modern interior.
-    image: "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/unsplash/photo-1527515637462-cff94eecc1ac.jpg",
     cta: "/services/end-of-tenancy-cleaning"
 },
   {
@@ -45,7 +45,7 @@ const services = [
     title: "Deep Cleaning",
     description: "For when your property needs more than just a surface clean. Our deep cleaning service targets hidden dirt and grime in often-overlooked areas.",
     benefits: ["Intensive Scrubbing & Sanitize", "Nook & Cranny Focus", "Upholstery & Carpet Care", "One-Off Restoration Clean"],
-    image: "https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?q=80&w=1200&auto=format&fit=crop",
+    image: "/images/unsplash/photo-1528740561666-dc2479dc08ab.jpg",
     cta: "/services/deep-cleaning"
   },
   {
@@ -53,14 +53,14 @@ const services = [
     title: "After Builders Cleaning",
     description: "Removing the post-construction dust and debris to reveal your new space. We provide a detailed finish that makes your property ready for immediate occupancy.",
     benefits: ["Fine Dust Removal", "Paint & Plaster Spot Cleaning", "Internal Window Cleaning", "Quick & Efficient Team"],
-    image: "https://images.unsplash.com/photo-1505798577917-a65157d3320a?q=80&w=1200&auto=format&fit=crop",
+    image: "/images/unsplash/photo-1505798577917-a65157d3320a.jpg",
     cta: "/services/after-builders-cleaning"
   },
   {
     label: "Outdoor",
     title: "Garden & Exterior Care",
     description: "Premium maintenance for your home's exterior. From patio pressure washing to garden seasonal tidying, we ensure your outdoor spaces match the standard of your interiors.",
-    image: "https://images.unsplash.com/photo-1557429287-b2e26467fc2b?q=80&w=1200&auto=format&fit=crop",
+    image: "/images/unsplash/photo-1557429287-b2e26467fc2b.jpg",
     benefits: ["Patio & Driveway Pressure Washing", "Garden Leaf & Debris Cleanup", "Seasonal Lawn & Border Tidy", "Small Exterior Surface Cleaning"],
     cta: "/contact?source=Detailed Services&service=Garden & Exterior Care"
   }
