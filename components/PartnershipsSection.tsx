@@ -88,7 +88,7 @@ export default function PartnershipsSection() {
       </div>
 
       <div className="p-scroll p-desktop-only">
-        <div data-parallax="0.1" className="p-row">
+        <div className="p-row">
           {brands.map((b, i) => (<TiltCard key={b.slug} brand={b} index={i} />))}
         </div>
       </div>

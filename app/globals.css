@@ -14,6 +14,7 @@
 
 html {
   scroll-behavior: initial;
+  overflow-x: hidden;
 }
 
 /* Lenis recommended CSS */
@@ -44,6 +45,7 @@ body {
   color: var(--color-aztec);
   font-family: var(--font-inter), sans-serif;
   font-size: 1rem;
+  overflow-x: hidden;
 }
 
 a {

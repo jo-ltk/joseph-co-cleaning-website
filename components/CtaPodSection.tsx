@@ -17,7 +17,7 @@ const floatingAvatars = [
 
 export default function CtaPodSection() {
   return (
-    <section className="bg-wild-sand pb-16 md:pb-24 pt-0 px-5 md:px-10 lg:px-20 overflow-hidden">
+    <section className="bg-wild-sand py-16 md:py-24 px-5 md:px-10 lg:px-20 overflow-hidden">
       <div className="mx-auto max-w-[1450px]">
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}

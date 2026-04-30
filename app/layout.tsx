@@ -4,6 +4,7 @@ import { Inter, Manrope } from "next/font/google";
 import "../app/globals.css";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import SmoothScroll from "@/components/SmoothScroll";
+import MobileExperienceNotice from "@/components/MobileExperienceNotice";
 import { Toaster } from "sonner";
 import { defaultDescription, defaultTitle, seoKeywords, siteName, siteUrl } from "@/lib/seo";
 import {
@@ -87,8 +88,11 @@ export default function RootLayout({
           dangerouslySetInnerHTML={jsonLdScript(globalSchemas)}
         />
         <SmoothScroll>
-          {children}
+          <main className="relative w-full overflow-x-hidden">
+            {children}
+          </main>
           <WhatsAppFloat />
+          <MobileExperienceNotice />
           <Toaster position="bottom-right" richColors />
         </SmoothScroll>
       </body>

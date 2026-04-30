@@ -146,7 +146,6 @@ export default function Hero() {
         </div>
 
         <div
-          data-parallax="-0.1"
           className="relative z-10 mx-auto flex h-full w-full max-w-[1950px] flex-col items-start justify-center px-6 pb-10 pt-40 md:pl-8 lg:pl-12 text-left"
         >
           <motion.div
