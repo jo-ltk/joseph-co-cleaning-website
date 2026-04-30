@@ -5,6 +5,7 @@ import "../app/globals.css";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import SmoothScroll from "@/components/SmoothScroll";
 import MobileExperienceNotice from "@/components/MobileExperienceNotice";
+import PremiumSupportAssistant from "@/components/PremiumSupportAssistant";
 import { Toaster } from "sonner";
 import { defaultDescription, defaultTitle, seoKeywords, siteName, siteUrl } from "@/lib/seo";
 import {
@@ -92,6 +93,7 @@ export default function RootLayout({
             {children}
           </main>
           <WhatsAppFloat />
+          <PremiumSupportAssistant />
           <MobileExperienceNotice />
           <Toaster position="bottom-right" richColors />
         </SmoothScroll>
