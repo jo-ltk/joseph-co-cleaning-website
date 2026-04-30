@@ -23,8 +23,8 @@ const testimonials: Testimonial[] = [
     location: "Taunton, Somerset", 
     tag: "Private Estate",
     quote: "Joseph.co has transformed our estate maintenance. Their attention to detail is unparalleled and consistently perfect.",
-    image: "/coach-conversation.png", 
-    alt: "Client portrait one",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80", 
+    alt: "Jonathan Reeves portrait",
     variant: "b"
   },
   { 
@@ -32,8 +32,8 @@ const testimonials: Testimonial[] = [
     location: "Bristol, UK", 
     tag: "Commercial",
     quote: "The most professional cleaning team we've ever engaged in Bristol. Immaculate results that our staff noticed instantly.",
-    image: "/hero-cleaning-home.jpg", 
-    alt: "Client portrait two",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&q=80", 
+    alt: "Alastair Vance portrait",
     variant: "a"
   },
   { 
@@ -41,8 +41,8 @@ const testimonials: Testimonial[] = [
     location: "Bath, UK", 
     tag: "Retail",
     quote: "Pristine standards for our boutique showroom. They understand the premium market better than any other service.",
-    image: "/equipment-vacuum-cleaning.jpg", 
-    alt: "Client portrait three",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&q=80", 
+    alt: "Sarah Higgins portrait",
     variant: "c"
   },
   { 
@@ -50,8 +50,8 @@ const testimonials: Testimonial[] = [
     location: "Manchester, UK", 
     tag: "Corporate",
     quote: "Efficiency paired with absolute quality. Their multi-point protocol ensures every corner reflects our brand's excellence.",
-    image: "/clean-space-living-room.jpg", 
-    alt: "Client portrait four",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=80", 
+    alt: "Eleanor Thorne portrait",
     variant: "d"
   },
   { 
@@ -59,8 +59,8 @@ const testimonials: Testimonial[] = [
     location: "Bridgwater, Somerset", 
     tag: "Manor House",
     quote: "Discretion and excellence are the hallmarks of their service. Our residence has never looked more pristine.",
-    image: "/hero-cleaning-home.jpg", 
-    alt: "Client portrait five",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=800&q=80", 
+    alt: "Julian Rhodes portrait",
     variant: "b"
   },
   { 
@@ -68,8 +68,8 @@ const testimonials: Testimonial[] = [
     location: "London, UK", 
     tag: "Office HQ",
     quote: "The reliability of their team is unmatched. They've become an essential partner in our daily operations across London.",
-    image: "/coach-conversation.png", 
-    alt: "Client portrait six",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&q=80", 
+    alt: "Victoria Penhaligon portrait",
     variant: "a"
   },
 ];

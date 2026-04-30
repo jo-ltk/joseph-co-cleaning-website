@@ -318,19 +318,14 @@ export default function Navbar({
                       </p>
                       <ul className="mt-5 space-y-3 text-[1.15rem] font-medium tracking-[-0.03em] text-[#111713]/85">
                         <li>
-                          <Link href="#" className="transition-opacity hover:opacity-70">
+                          <a href="https://www.instagram.com/joseph_and_co_l.t.d?utm_source=qr" target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-70">
                             Instagram
-                          </Link>
+                          </a>
                         </li>
                         <li>
-                          <Link href="#" className="transition-opacity hover:opacity-70">
-                            X
-                          </Link>
-                        </li>
-                        <li>
-                          <Link href="#" className="transition-opacity hover:opacity-70">
-                            Linkedin
-                          </Link>
+                          <a href="https://www.facebook.com/people/JosephCo-Ltd/61572054301932/" target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-70">
+                            Facebook
+                          </a>
                         </li>
                       </ul>
                     </div>

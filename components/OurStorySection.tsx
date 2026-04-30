@@ -37,7 +37,7 @@ export default function OurStorySection() {
             className="relative aspect-square w-full overflow-hidden rounded-sm shadow-2xl"
           >
             <Image
-              src="/images/story-transformation.png"
+              src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=1200&q=80"
               alt="Our Story"
               fill
               className="object-cover"

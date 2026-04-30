@@ -28,14 +28,14 @@ import "react-day-picker/style.css";
 
 const directContacts = [
   {
-    label: "Call Julia Joseph",
+    label: "Call Operations Team",
     value: "+44 7787 857305",
     href: "tel:+447787857305",
     note: "Booking support and first response",
     icon: Phone,
   },
   {
-    label: "Call Dickson Joseph",
+    label: "Site Guidance Support",
     value: "+44 7570 421556",
     href: "tel:+447570421556",
     note: "Site details and service guidance",
@@ -85,7 +85,7 @@ const helpSnippets = [
   },
   {
     question: "Need urgent support?",
-    answer: "Call Julia or Dickson directly for the quickest route to availability, timing, and booking guidance.",
+    answer: "Call our team directly for the quickest route to availability, timing, and booking guidance.",
   },
   {
     question: "Can you cover larger properties?",
@@ -675,9 +675,9 @@ export default function ContactPage() {
               </p>
               <div className="btn-pair">
                 <ButtonLink href="tel:+447787857305" variant="primary" className="px-8">
-                  Call Julia
+                  Call Team
                 </ButtonLink>
-                <IconButton href="tel:+447570421556" aria-label="Call Dickson Joseph" size="md" />
+                <IconButton href="tel:+447570421556" aria-label="Call Team" size="md" />
               </div>
             </motion.div>
           </div>

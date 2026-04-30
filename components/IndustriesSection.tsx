@@ -75,10 +75,6 @@ function IndustryCard({
         <div className="h-[1.5px] bg-yellow-green w-7 mb-3 transition-all duration-400 group-hover:w-12" />
 
         <p className="font-sans text-[13px] leading-[1.7] text-aztec/65">{summary}</p>
-
-        <button className="mt-4 flex items-center gap-1.5 font-sans text-[11px] font-bold uppercase tracking-[.14em] text-pine-green bg-transparent border-none cursor-pointer p-0 transition-all duration-300 group-hover:gap-2.5">
-          Learn more <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-        </button>
       </div>
     </article>
   );

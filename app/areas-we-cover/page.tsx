@@ -40,7 +40,7 @@ const regions = [
     description:
       "Across Bath approaches, market towns and village addresses, Joseph & Co brings a calm, detail-led standard that suits homes where presentation matters every single week.",
     highlight: "Reliable recurring visits with tailored arrival windows and the same premium finish every time.",
-    image: "/hero-cleaning-home.jpg",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
     alt: "Bright premium home interior prepared to a high standard",
     accent: "bg-[#dfe7d5]",
     align: "left" as const,
@@ -52,7 +52,7 @@ const regions = [
     description:
       "From waterfront homes to countryside properties, we adapt our cleaning flow to travel windows, guest turnovers and high-expectation private clients who need consistency without chasing providers.",
     highlight: "Smart scheduling for holiday lets, move-ins, family homes and large-format cleans.",
-    image: "/clean-space-living-room.jpg",
+    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80",
     alt: "Curated living room with clean surfaces and natural light",
     accent: "bg-[#ece8de]",
     align: "right" as const,
@@ -64,7 +64,7 @@ const regions = [
     description:
       "Clients across Gloucestershire choose Joseph & Co for teams that understand finish quality, fabric care and the quiet professionalism needed in homes and workplaces where standards are noticed instantly.",
     highlight: "Detail-focused cleaning that respects materials, routines and presentation-sensitive spaces.",
-    image: "/equipment-vacuum-cleaning.jpg",
+    image: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=1200&q=80",
     alt: "Professional cleaning equipment in use inside a refined interior",
     accent: "bg-[#d7e3de]",
     align: "left" as const,
@@ -76,7 +76,7 @@ const regions = [
     description:
       "In Bristol, responsiveness matters as much as polish. Our teams support apartments, shared buildings and busy work environments with dependable communication and a finish that still feels elevated, never rushed.",
     highlight: "Urban responsiveness paired with the same handcrafted Joseph & Co standard.",
-    image: "/images/about-story.png",
+    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80",
     alt: "Joseph & Co team member delivering careful premium cleaning service",
     accent: "bg-[#e7eadf]",
     align: "right" as const,
@@ -371,19 +371,25 @@ export default function AreasWeCoverPage() {
                 transition={{ duration: 0.7, delay: 0.2 }}
                 className="lg:w-[20%] rounded-[32px] overflow-hidden relative min-h-[350px] shadow-[0_20px_60px_rgba(17,32,37,0.05)]"
               >
-                <Image src="/hero-cleaning-home.jpg" fill className="object-cover transition-transform duration-1000 hover:scale-105" alt="Premium cleaning service" />
+                <Image src="https://images.unsplash.com/photo-1584622781564-1d987f7333c1?w=1200&q=80" fill className="object-cover transition-transform duration-1000 hover:scale-105" alt="Premium cleaning service" />
               </motion.div>
 
               {/* Image 2 */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.3 }}
-                className="lg:w-[20%] rounded-[32px] overflow-hidden relative min-h-[350px] shadow-[0_20px_60px_rgba(17,32,37,0.05)]"
-              >
-                <Image src="/clean-space-living-room.jpg" fill className="object-cover transition-transform duration-1000 hover:scale-105" alt="Immaculate living space" />
-              </motion.div>
+  initial={{ opacity: 0, scale: 0.95 }}
+  whileInView={{ opacity: 1, scale: 1 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.7, delay: 0.3 }}
+  className="lg:w-[20%] rounded-[32px] overflow-hidden relative min-h-[350px] shadow-[0_20px_60px_rgba(17,32,37,0.05)]"
+>
+  <Image 
+    // UPDATED: High-quality, reliable link for an immaculate living space
+    src="https://images.unsplash.com/photo-1613977257363-707ba9348227?q=80&w=1200&auto=format&fit=crop" 
+    fill 
+    className="object-cover transition-transform duration-1000 hover:scale-105" 
+    alt="Immaculate living space" 
+  />
+</motion.div>
             </div>
 
             {/* Bottom Row */}
@@ -397,7 +403,7 @@ export default function AreasWeCoverPage() {
                 transition={{ duration: 0.7, delay: 0.1 }}
                 className="lg:w-[40%] rounded-[32px] bg-[#112025] p-8 md:p-10 text-white flex flex-col justify-between relative overflow-hidden min-h-[350px] shadow-[0_20px_60px_rgba(17,32,37,0.08)]"
               >
-                <Image src="/images/team-stats.png" fill className="object-cover opacity-50 transition-transform duration-1000 hover:scale-105" alt="Joseph & Co team" />
+                <Image src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1200&q=80" fill className="object-cover opacity-50 transition-transform duration-1000 hover:scale-105" alt="Joseph & Co team" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 
                 <div className="relative z-10 flex flex-col justify-end h-full mt-24">
@@ -660,7 +666,7 @@ export default function AreasWeCoverPage() {
             >
               <div className="relative flex-1 overflow-hidden rounded-[20px]">
                 <Image
-                  src="/images/about-hero.png"
+                  src="https://images.unsplash.com/photo-1627634777217-c864268db30c?w=1200&q=80"
                   alt="Joseph & Co premium service delivery"
                   width={1200}
                   height={900}

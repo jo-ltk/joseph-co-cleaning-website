@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import Button from "./ui/Button";
+import Button, { ButtonLink } from "./ui/Button";
 
 import ScrollReveal from "./ScrollReveal";
 
@@ -59,12 +59,20 @@ export default function CtaPodSection() {
               transition={{ delay: 0.3 }}
               className="flex flex-col sm:flex-row items-start md:items-center md:justify-center gap-3 md:gap-4"
             >
-              <Button variant="primary" className="w-full sm:w-auto h-11 md:h-12 px-8 md:px-10 rounded-full text-base font-bold">
+              <Button 
+                variant="primary" 
+                className="w-full sm:w-auto h-11 md:h-12 px-8 md:px-10 rounded-full text-base font-bold"
+                onClick={() => window.dispatchEvent(new CustomEvent("open-estimate"))}
+              >
                 Get Started &rarr;
               </Button>
-              <Button variant="secondary" className="w-full sm:w-auto h-11 md:h-12 px-8 md:px-10 border-2 border-aztec/10 text-aztec hover:bg-aztec/5 rounded-full text-base font-bold">
+              <ButtonLink 
+                href="/contact?source=CtaPod"
+                variant="secondary" 
+                className="w-full sm:w-auto h-11 md:h-12 px-8 md:px-10 border-2 border-aztec/10 text-aztec hover:bg-aztec/5 rounded-full text-base font-bold"
+              >
                 Talk to Sales
-              </Button>
+              </ButtonLink>
             </motion.div>
           </div>
 

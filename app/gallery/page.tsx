@@ -15,6 +15,10 @@ import ScrollReveal from "../../components/ScrollReveal";
 import { ButtonLink } from "../../components/ui/Button";
 import IconButton from "../../components/ui/IconButton";
 
+function cn(...parts: Array<string | undefined | null | false>) {
+  return parts.filter(Boolean).join(" ");
+}
+
 const featuredStories = [
   {
     label: "Domestic Reset",
@@ -88,16 +92,25 @@ function MotionEyebrow({ children, light = false }: { children: string; light?: 
   );
 }
 
-function CtaPair({ label = "Request A Quote" }: { label?: string }) {
+function CtaPair({ label = "Request A Quote", dark = false }: { label?: string; dark?: boolean }) {
   return (
     <div className="btn-pair">
       <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
-        <ButtonLink href="/contact?source=Gallery" variant="primary" className="px-8">
+        <ButtonLink 
+          href="/contact?source=Gallery" 
+          variant="primary" 
+          className={cn("px-8", dark ? "bg-aztec text-white hover:bg-aztec/90" : "")}
+        >
           {label}
         </ButtonLink>
       </motion.div>
       <motion.div whileHover={{ y: -2, rotate: 3 }} whileTap={{ scale: 0.96 }}>
-        <IconButton href="/contact?source=Gallery" aria-label={label} size="md" />
+        <IconButton 
+          href="/contact?source=Gallery" 
+          aria-label={label} 
+          size="md" 
+          className={dark ? "bg-aztec text-white hover:bg-aztec/90" : ""}
+        />
       </motion.div>
     </div>
   );
@@ -368,7 +381,7 @@ export default function GalleryPage() {
             <p className="mb-8 text-lg font-medium leading-relaxed text-aztec/75 md:text-xl">
               Tell us what needs to change. We will shape the clean around your property, schedule, and desired finish.
             </p>
-            <CtaPair label="Request Quote" />
+            <CtaPair label="Request Quote" dark={true} />
           </motion.div>
         </div>
       </section>

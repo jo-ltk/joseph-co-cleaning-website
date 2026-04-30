@@ -71,7 +71,7 @@ export default function StatsSection() {
 
       <div className="relative h-[400px] md:h-[600px] w-full overflow-hidden mt-10 md:mt-16">
         <Image
-          src="/images/foundation-success.webp"
+          src="https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=1200&q=80"
           alt="Our Team"
           fill
           className="object-cover"

@@ -4,7 +4,6 @@ import BottomCta from "../components/BottomCta";
 import FaqSection from "../components/FaqSection";
 import Footer from "../components/Footer";
 import Hero from "../components/Hero";
-import ImpactSection from "../components/ImpactSection";
 import IndustriesSection from "../components/IndustriesSection";
 import ProcessSection from "../components/ProcessSection";
 import PartnershipsSection from "../components/PartnershipsSection";
