@@ -8,7 +8,6 @@ import ImpactSection from "../components/ImpactSection";
 import IndustriesSection from "../components/IndustriesSection";
 import ProcessSection from "../components/ProcessSection";
 import PartnershipsSection from "../components/PartnershipsSection";
-import LeadershipSpotlightSection from "../components/LeadershipSpotlightSection";
 import Navbar from "../components/Navbar";
 import RecentProjectsSection from "../components/RecentProjectsSection";
 import ResultsSection from "../components/ResultsSection";

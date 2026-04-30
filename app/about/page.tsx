@@ -4,7 +4,8 @@ import Navbar from "../../components/Navbar";
 import AboutHero from "../../components/AboutHero";
 import OurStorySection from "../../components/OurStorySection";
 import StatsSection from "../../components/StatsSection";
-import LeadershipSection from "../../components/LeadershipSection";
+import CommitmentSection from "../../components/CommitmentSection";
+// import LeadershipSection from "../../components/LeadershipSection";
 import JoinOurTeamSection from "../../components/JoinOurTeamSection";
 import Footer from "../../components/Footer";
 import { buildMetadata } from "@/lib/seo";
@@ -29,7 +30,8 @@ export default function AboutPage() {
       
       <OurStorySection />
       <StatsSection />
-      <LeadershipSection />
+      <CommitmentSection />
+      {/* <LeadershipSection /> */}
       <JoinOurTeamSection />
 
       <Footer />
