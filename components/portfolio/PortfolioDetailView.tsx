@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { format } from "date-fns";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import type { ComponentType } from "react";
 import {
   Buildings,
@@ -68,6 +68,11 @@ export default function PortfolioDetailView({
   reviews: ReviewRecord[];
 }) {
   const shouldReduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll();
+  const heroImageScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  const heroImageY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -100]);
+
   const beforeImage = getPortfolioBeforeImage(portfolio);
   const afterImage = getPortfolioAfterImage(portfolio);
   const detailImages = getPortfolioDetailImages(portfolio);
@@ -75,75 +80,134 @@ export default function PortfolioDetailView({
 
   return (
     <>
-      <section className="relative flex min-h-[620px] items-end overflow-hidden bg-[#5f655f] text-white md:min-h-[760px]">
-        <Image
-          src={portfolio.coverImage.url}
-          alt={portfolio.coverImage.alt}
-          fill
-          priority
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#120f0c]/90 via-[#120f0c]/34 to-[#120f0c]/18" />
+      <section className="relative flex h-[70vh] min-h-[500px] items-end overflow-hidden bg-[#5f655f] text-white md:min-h-[600px]">
+        {/* Parallax Background */}
+        <motion.div
+          className="absolute inset-0"
+          style={shouldReduceMotion ? undefined : { scale: heroImageScale, y: heroImageY }}
+        >
+          <Image
+            src={portfolio.coverImage.url}
+            alt={portfolio.coverImage.alt}
+            fill
+            priority
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-black/25 md:bg-transparent md:bg-gradient-to-t md:from-black/50 md:via-transparent md:to-black/20" />
+        </motion.div>
+
+        {/* Grid Overlay */}
+        <div className="pointer-events-none absolute inset-0 md:hidden">
+          <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-white/20" />
+        </div>
         <div className="pointer-events-none absolute inset-0 hidden md:block">
           {["0%", "25%", "50%", "75%", "100%"].map((line) => (
             <div
               key={line}
-              className="absolute top-0 h-full w-px -translate-x-1/2 bg-white/10"
+              className="absolute top-0 h-full w-px -translate-x-1/2 bg-white/18"
               style={{ left: line }}
             />
           ))}
         </div>
 
-        <div className="relative z-10 mx-auto w-full max-w-[1920px] px-5 pb-10 pt-24 md:px-10 md:pb-12 md:pt-32 lg:px-20">
-          <div className="grid gap-8 lg:grid-cols-[1fr_360px] lg:items-end">
-            <div className="max-w-[880px]">
-              <MotionEyebrow light>{portfolio.serviceType}</MotionEyebrow>
+        <motion.div 
+          className="relative z-10 mx-auto w-full max-w-[1920px] px-6 pb-4 md:px-10 md:pb-5 lg:px-20"
+          style={shouldReduceMotion ? undefined : { y: contentY }}
+        >
+          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+              className="max-w-[880px]"
+            >
               <ScrollReveal
                 as="h1"
                 enableBlur
                 blurStrength={10}
-                containerClassName="max-w-[820px] text-balance text-3xl leading-[1.0] text-white md:text-6xl lg:text-[78px]"
+                containerClassName="max-w-[820px] text-balance text-4xl leading-[1.0] text-white md:text-6xl lg:text-[80px]"
                 style={{ fontFamily: "var(--font-inter), sans-serif" }}
               >
                 {portfolio.title}
               </ScrollReveal>
-              <motion.p
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-6 max-w-2xl text-lg font-medium leading-relaxed text-white/72 md:text-xl"
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
+              className="hidden pb-2 md:block"
+            >
+              <div 
+                className="cursor-default text-[0.75rem] font-bold uppercase tracking-[0.2em] text-white/90 transition-colors hover:text-white"
+                style={{ fontFamily: "var(--font-inter), sans-serif" }}
+              >
+                {portfolio.serviceType}
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Project Overview Section - Moved from Hero */}
+      <section className="bg-wild-sand px-5 py-16 md:px-10 md:py-24 lg:px-20">
+        <div className="mx-auto max-w-[1450px]">
+          <div className="grid gap-12 lg:grid-cols-[1fr_360px] lg:items-start">
+            <div className="max-w-3xl">
+              <MotionEyebrow>Project Result</MotionEyebrow>
+              <ScrollReveal
+                as="h2"
+                enableBlur
+                blurStrength={8}
+                containerClassName="mb-8 text-2xl font-medium leading-[1.15] tracking-tight text-aztec md:text-4xl"
               >
                 {portfolio.resultSummary}
-              </motion.p>
+              </ScrollReveal>
+              
+              <div className="btn-pair">
+                <ButtonLink
+                  href={`/contact?source=Portfolio Overview&service=${encodeURIComponent(portfolio.serviceType)}`}
+                  variant="primary"
+                  className="px-8"
+                >
+                  Request Similar Work
+                </ButtonLink>
+                <IconButton
+                  href={`/contact?source=Portfolio Overview&service=${encodeURIComponent(portfolio.serviceType)}`}
+                  aria-label="Request similar work"
+                  size="md"
+                />
+              </div>
             </div>
 
             <motion.div
-              initial={shouldReduceMotion ? false : { opacity: 0, x: 20 }}
-              animate={shouldReduceMotion ? undefined : { opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.28 }}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.1 }}
               className="grid gap-3"
             >
-              <div className="border border-white/10 bg-black/15 p-5 backdrop-blur-sm md:p-6">
-                <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-yellow-green">
+              <div className="border border-aztec/10 bg-white p-5 md:p-6 shadow-sm">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-pine-green/60">
                   Location
                 </p>
-                <p className="text-lg font-medium leading-[1.1] tracking-tight text-white md:text-2xl">
+                <p className="text-lg font-medium leading-[1.1] tracking-tight text-aztec md:text-2xl">
                   {portfolio.location}
                 </p>
               </div>
-              <div className="border border-white/10 bg-black/15 p-5 backdrop-blur-sm md:p-6">
-                <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-yellow-green">
+              <div className="border border-aztec/10 bg-white p-5 md:p-6 shadow-sm">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-pine-green/60">
                   Completion
                 </p>
-                <p className="text-lg font-medium leading-[1.1] tracking-tight text-white md:text-2xl">
+                <p className="text-lg font-medium leading-[1.1] tracking-tight text-aztec md:text-2xl">
                   {format(new Date(portfolio.completionDate), "dd MMMM yyyy")}
                 </p>
               </div>
-              <div className="border border-white/10 bg-black/15 p-5 backdrop-blur-sm md:p-6">
-                <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-yellow-green">
+              <div className="border border-aztec/10 bg-white p-5 md:p-6 shadow-sm">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-pine-green/60">
                   Turnaround
                 </p>
-                <p className="text-lg font-medium leading-[1.1] tracking-tight text-white md:text-2xl">
+                <p className="text-lg font-medium leading-[1.1] tracking-tight text-aztec md:text-2xl">
                   {portfolio.turnaroundTime}
                 </p>
               </div>
@@ -178,11 +242,6 @@ export default function PortfolioDetailView({
             </p>
           </div>
 
-          <div className="grid gap-4 lg:col-span-5">
-            <MetaItem icon={Buildings} label="Service Type" value={portfolio.serviceType} />
-            <MetaItem icon={MapPin} label="Location" value={portfolio.location} />
-            <MetaItem icon={ClockCountdown} label="Turnaround" value={portfolio.turnaroundTime} />
-          </div>
         </div>
 
         <div className="mx-auto mt-12 grid max-w-[1450px] gap-4 md:grid-cols-3">

@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
-import { motion, useReducedMotion } from "framer-motion";
+import { useState } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowUpRight,
   Buildings,
@@ -115,116 +116,168 @@ function PortfolioCard({
   );
 }
 
-export default function PortfolioPageView({
-  portfolios,
-  source,
-}: {
-  portfolios: PortfolioCollectionResult["items"];
-  source: PortfolioCollectionResult["source"];
-}) {
+interface PortfolioIndexProps {
+  portfolios: PortfolioRecord[];
+  source: string;
+}
+
+export default function PortfolioPageView({ portfolios, source }: PortfolioIndexProps) {
   const shouldReduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll();
+  const heroImageScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  const heroImageY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -100]);
+
+  const [activeCategory, setActiveCategory] = useState<string>("All");
   const heroPortfolio = portfolios[0];
   const projectCount = portfolios.length;
   const locationCount = new Set(portfolios.map((portfolio) => portfolio.location)).size;
   const featuredCount = portfolios.filter((portfolio) => portfolio.featured).length;
 
+  const categories = ["All", ...Array.from(new Set(portfolios.map((p) => p.serviceType)))];
+
+  const filteredPortfolios = activeCategory === "All"
+    ? portfolios
+    : portfolios.filter((p) => p.serviceType === activeCategory);
+
   return (
     <>
-      <section className="relative flex min-h-[560px] items-end overflow-hidden bg-[#5f655f] text-white md:min-h-[680px]">
-        {heroPortfolio ? (
-          <>
-            <Image
-              src={heroPortfolio.coverImage.url}
-              alt={`${heroPortfolio.coverImage.alt} - Joseph and Co cleaning portfolio case study`}
-              fill
-              priority
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#120f0c]/88 via-[#120f0c]/36 to-[#120f0c]/18" />
-          </>
-        ) : (
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(199,233,147,0.18),_transparent_42%),linear-gradient(135deg,#1b1815_0%,#0f1619_100%)]" />
-        )}
+      <section className="relative flex h-[70vh] min-h-[500px] items-end overflow-hidden bg-[#5f655f] text-white md:min-h-[600px]">
+        {/* Parallax Background */}
+        <motion.div
+          className="absolute inset-0"
+          style={shouldReduceMotion ? undefined : { scale: heroImageScale, y: heroImageY }}
+        >
+          <Image
+            src={heroPortfolio?.coverImage?.url || "/images/gallery-hero.png"}
+            alt={heroPortfolio?.coverImage?.alt || "Joseph and Co portfolio of cleaning projects"}
+            fill
+            priority
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-black/25 md:bg-transparent md:bg-gradient-to-t md:from-black/50 md:via-transparent md:to-black/20" />
+        </motion.div>
 
+        {/* Grid Overlay */}
+        <div className="pointer-events-none absolute inset-0 md:hidden">
+          <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-white/20" />
+        </div>
         <div className="pointer-events-none absolute inset-0 hidden md:block">
           {["0%", "25%", "50%", "75%", "100%"].map((line) => (
             <div
               key={line}
-              className="absolute top-0 h-full w-px -translate-x-1/2 bg-white/10"
+              className="absolute top-0 h-full w-px -translate-x-1/2 bg-white/18"
               style={{ left: line }}
             />
           ))}
         </div>
 
-        <div className="relative z-10 mx-auto w-full max-w-[1920px] px-5 pb-10 pt-24 md:px-10 md:pb-12 md:pt-32 lg:px-20">
-          <div className="grid gap-8 lg:grid-cols-[1fr_360px] lg:items-end">
-            <div className="max-w-[900px]">
-              <MotionEyebrow light>
-                {source === "sample" ? "Portfolio Preview" : "Portfolio Archive"}
-              </MotionEyebrow>
+        <motion.div
+          className="relative z-10 mx-auto w-full max-w-[1920px] px-6 pb-4 md:px-10 md:pb-5 lg:px-20"
+          style={shouldReduceMotion ? undefined : { y: contentY }}
+        >
+          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+              className="max-w-[850px]"
+            >
               <ScrollReveal
                 as="h1"
                 enableBlur
                 blurStrength={10}
-                containerClassName="max-w-[860px] text-balance text-3xl leading-[1.0] text-white md:text-6xl lg:text-[78px]"
+                containerClassName="text-balance text-4xl leading-[1.0] font-medium tracking-tight text-white md:text-6xl lg:text-[80px]"
                 style={{ fontFamily: "var(--font-inter), sans-serif" }}
               >
-                Case studies shaped around trust, finish, and handover confidence.
+                Portfolio of Works
               </ScrollReveal>
-              <motion.p
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-6 max-w-2xl text-lg font-medium leading-relaxed text-white/72 md:text-xl"
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
+              className="hidden pb-2 md:block"
+            >
+              <div
+                className="cursor-default text-[0.75rem] font-bold uppercase tracking-[0.2em] text-white/90 transition-colors hover:text-white"
+                style={{ fontFamily: "var(--font-inter), sans-serif" }}
               >
-                Explore proof-of-work stories across landlord handovers, communal management, builders cleans, and premium resets delivered to the Joseph & Co standard.
-              </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 22 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75, delay: 0.3 }}
-                className="mt-10 btn-pair"
+                {source === "sample" ? "Preview Mode" : "Official Archive"}
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Archive Overview Section - Moved from Hero */}
+      <section className="bg-wild-sand px-5 py-16 md:px-10 md:py-24 lg:px-20">
+        <div className="mx-auto max-w-[1450px]">
+          <div className="grid gap-12 lg:grid-cols-[1fr_420px] lg:items-start">
+            <div className="max-w-3xl">
+              <MotionEyebrow>Archive Overview</MotionEyebrow>
+              <ScrollReveal
+                as="h2"
+                enableBlur
+                blurStrength={8}
+                containerClassName="mb-8 text-2xl font-medium leading-[1.15] tracking-tight text-aztec md:text-4xl"
               >
-                <ButtonLink href="/contact?source=Portfolio Hero" variant="primary" className="px-8">
-                  Discuss Your Property
+                Explore proof-of-work stories across landlord handovers, communal management, builders cleans, and premium resets.
+              </ScrollReveal>
+              
+              <div className="btn-pair">
+                <ButtonLink href="/contact?source=Portfolio Index" variant="primary" className="px-8">
+                  Discuss Your Project
                 </ButtonLink>
-                <IconButton
-                  href="/contact?source=Portfolio Hero"
-                  aria-label="Discuss your property"
-                  size="md"
-                />
-              </motion.div>
+                <IconButton href="/contact?source=Portfolio Index" aria-label="Discuss your project" size="md" />
+              </div>
             </div>
 
             <motion.div
-              initial={shouldReduceMotion ? false : { opacity: 0, x: 24 }}
-              animate={shouldReduceMotion ? undefined : { opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="grid gap-3"
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="grid grid-cols-2 gap-3"
             >
-              {[
-                { label: "Projects", value: String(projectCount).padStart(2, "0"), icon: Buildings },
-                { label: "Locations", value: String(locationCount).padStart(2, "0"), icon: MapPin },
-                { label: "Featured", value: String(featuredCount).padStart(2, "0"), icon: SealCheck },
-              ].map((item) => {
-                const Icon = item.icon;
-
-                return (
-                  <div key={item.label} className="border border-white/10 bg-black/15 p-5 backdrop-blur-sm md:p-6">
-                    <Icon size={20} className="mb-6 text-yellow-green" weight="duotone" />
-                    <p className="mb-2 text-3xl font-medium leading-[1.05] tracking-tight text-white md:text-4xl">
-                      {item.value}
-                    </p>
-                    <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/56">
-                      {item.label}
-                    </p>
-                  </div>
-                );
-              })}
+              <div className="border border-aztec/10 bg-white p-5 md:p-8 shadow-sm">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-pine-green/60">
+                  Projects
+                </p>
+                <p className="text-2xl font-medium leading-[1.1] tracking-tight text-aztec md:text-4xl">
+                  {projectCount}
+                </p>
+              </div>
+              <div className="border border-aztec/10 bg-white p-5 md:p-8 shadow-sm">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-pine-green/60">
+                  Locations
+                </p>
+                <p className="text-2xl font-medium leading-[1.1] tracking-tight text-aztec md:text-4xl">
+                  {locationCount}
+                </p>
+              </div>
+              <div className="border border-aztec/10 bg-white p-5 md:p-8 shadow-sm">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-pine-green/60">
+                  Featured
+                </p>
+                <p className="text-2xl font-medium leading-[1.1] tracking-tight text-aztec md:text-4xl">
+                  {featuredCount}
+                </p>
+              </div>
+              <div className="border border-aztec/10 bg-white p-5 md:p-8 shadow-sm">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-pine-green/60">
+                  Satisfaction
+                </p>
+                <p className="text-2xl font-medium leading-[1.1] tracking-tight text-aztec md:text-4xl">
+                  100%
+                </p>
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
+
 
       <section className="bg-white px-5 py-16 text-aztec md:px-10 md:py-24 lg:px-20">
         <div className="mx-auto max-w-[1450px]">
@@ -240,22 +293,106 @@ export default function PortfolioPageView({
                 Each project is presented as a result, not just a photo set.
               </ScrollReveal>
             </div>
-            <motion.p
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.15 }}
-              className="max-w-md text-base leading-relaxed text-xanadu md:text-lg"
-            >
-              Handover timing, service type, finish quality, and landlord confidence are all carried through each case study so the work reads like evidence.
-            </motion.p>
+            <div className="flex flex-col gap-8 lg:items-end">
+              <motion.p
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+                className="max-w-md text-base leading-relaxed text-xanadu md:text-lg lg:text-right"
+              >
+                Handover timing, service type, finish quality, and landlord confidence are all carried through each case study so the work reads like evidence.
+              </motion.p>
+              <div className="btn-pair">
+                <ButtonLink
+                  href="/contact?source=Portfolio Grid"
+                  variant="primary"
+                  className="px-8"
+                >
+                  Book a Site Audit
+                </ButtonLink>
+                <IconButton
+                  href="/contact?source=Portfolio Grid"
+                  aria-label="Book a site audit"
+                  size="md"
+                />
+              </div>
+            </div>
           </div>
 
-          {portfolios.length ? (
+          {/* Category Filters */}
+          <div className="mb-12 flex flex-wrap items-center gap-3">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                className={`rounded-full px-6 py-2.5 text-sm font-semibold tracking-tight transition-all duration-300 ${
+                  activeCategory === category
+                    ? "bg-aztec text-white"
+                    : "bg-[#f5f5f3] text-aztec hover:bg-aztec/5"
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+
+          {filteredPortfolios.length ? (
             <div className="grid gap-4 lg:grid-cols-12">
-              {portfolios.map((portfolio, index) => (
+              {filteredPortfolios.map((portfolio, index) => (
                 <PortfolioCard key={portfolio.id} portfolio={portfolio} index={index} />
               ))}
+
+              {/* Inquiry Card to fill empty space */}
+              <motion.div
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.75, delay: filteredPortfolios.length * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                className={`group relative flex flex-col justify-between overflow-hidden border border-aztec/10 bg-[#f5f5f3] p-8 md:p-12 ${
+                  cardSpans[filteredPortfolios.length % cardSpans.length]
+                }`}
+              >
+                <div>
+                  <MotionEyebrow>Next Steps</MotionEyebrow>
+                  <h3 className="mb-6 max-w-md text-2xl font-medium leading-[1.1] tracking-tight text-aztec md:text-4xl">
+                    Don't see your specific project type?
+                  </h3>
+                  <p className="max-w-sm text-base leading-relaxed text-xanadu md:text-lg">
+                    We specialize in tailored resets for complex environments, from clinical spaces to heritage properties.
+                  </p>
+                </div>
+
+                <div className="mt-12 flex flex-col gap-6">
+                  <div className="flex flex-wrap gap-2">
+                    {["Post-Tenancy", "Commercial Resets", "Builders Cleans", "Deep Resets"].map((tag) => (
+                      <span key={tag} className="border border-aztec/10 bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-aztec/60">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  <div className="btn-pair">
+                    <ButtonLink
+                      href="/contact?source=Portfolio Grid Placeholder"
+                      variant="primary"
+                      className="px-8"
+                    >
+                      Request a Custom Quote
+                    </ButtonLink>
+                    <IconButton
+                      href="/contact?source=Portfolio Grid Placeholder"
+                      aria-label="Request custom quote"
+                      size="md"
+                    />
+                  </div>
+                </div>
+
+                {/* Decorative Pattern */}
+                <div className="absolute -bottom-12 -right-12 h-64 w-64 opacity-[0.03] pointer-events-none">
+                  <Buildings size={256} weight="duotone" />
+                </div>
+              </motion.div>
             </div>
           ) : (
             <div className="border border-aztec/10 bg-[#f5f5f3] p-8 md:p-12">
