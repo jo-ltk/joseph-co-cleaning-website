@@ -17,6 +17,16 @@ export type PortfolioDocument = {
   featured: boolean;
   createdAt: Date;
   updatedAt: Date;
+  // New detailed case study fields
+  propertyType?: string;
+  propertySize?: string;
+  clientIssue?: string;
+  challenge?: string;
+  teamSize?: string;
+  tasksCompleted?: string[];
+  handoverNotes?: string;
+  trustBadges?: string[];
+  resultBadge?: string;
 };
 
 const PortfolioAssetSchema = new Schema<PortfolioAsset>(
@@ -122,6 +132,43 @@ const PortfolioSchema = new Schema<PortfolioDocument>(
       type: Boolean,
       default: false,
       index: true,
+    },
+    // New detailed case study fields
+    propertyType: {
+      type: String,
+      trim: true,
+    },
+    propertySize: {
+      type: String,
+      trim: true,
+    },
+    clientIssue: {
+      type: String,
+      trim: true,
+    },
+    challenge: {
+      type: String,
+      trim: true,
+    },
+    teamSize: {
+      type: String,
+      trim: true,
+    },
+    tasksCompleted: {
+      type: [String],
+      default: [],
+    },
+    handoverNotes: {
+      type: String,
+      trim: true,
+    },
+    trustBadges: {
+      type: [String],
+      default: [],
+    },
+    resultBadge: {
+      type: String,
+      trim: true,
     },
   },
   {

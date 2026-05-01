@@ -7,7 +7,7 @@ type Props = {
   href?: string;
   "aria-label": string;
   className?: string;
-  size?: "sm" | "md";
+  size?: "sm" | "md" | "lg";
 };
 
 function cn(...parts: Array<string | undefined | null | false>) {
@@ -20,6 +20,7 @@ const base =
 const sizes = {
   sm: "h-[48px] w-[48px]",
   md: "h-[48px] w-[48px]",
+  lg: "h-[56px] w-[56px]",
 };
 
 export default function IconButton({
@@ -30,17 +31,19 @@ export default function IconButton({
 }: Props) {
   const classes = cn(base, sizes[size], className);
 
+  const iconSize = size === "lg" ? 22 : 18;
+
   if (href) {
     return (
       <Link href={href} className={classes} {...props}>
-        <ArrowUpRight size={18} weight="bold" />
+        <ArrowUpRight size={iconSize} weight="bold" />
       </Link>
     );
   }
 
   return (
     <button type="button" className={classes} {...props}>
-      <ArrowUpRight size={18} weight="bold" />
+      <ArrowUpRight size={iconSize} weight="bold" />
     </button>
   );
 }

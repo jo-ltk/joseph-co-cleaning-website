@@ -9,6 +9,8 @@ import {
   type ReactNode,
   useEffect,
   useMemo,
+  useCallback,
+  useRef,
   useState,
   useTransition,
 } from "react";
@@ -67,7 +69,7 @@ type AdminPortfolioShellProps = {
 };
 
 const inputClassName =
-  "h-[56px] w-full border-0 border-b border-aztec/14 bg-transparent px-0 text-base font-medium tracking-tight text-aztec outline-none transition duration-300 placeholder:text-xanadu/65 focus:border-pine-green";
+  "h-[52px] w-full border border-aztec/10 bg-white px-4 text-base font-medium tracking-tight text-aztec outline-none transition duration-300 placeholder:text-xanadu/50 focus:border-pine-green focus:ring-1 focus:ring-pine-green/20";
 
 function emptyMetric(): PortfolioMetric {
   return {
@@ -91,6 +93,13 @@ function buildBlankForm(): PortfolioFormValues {
     beforeImage: null,
     afterImage: null,
     detailGallery: [],
+    propertyType: "",
+    propertySize: "",
+    clientIssue: "",
+    challenge: "",
+    teamSize: "",
+    handoverNotes: "",
+    resultBadge: "",
   };
 }
 
@@ -105,15 +114,22 @@ function toFormValues(portfolio: PortfolioRecord | null): PortfolioFormValues {
     description: portfolio.description,
     serviceType: portfolio.serviceType,
     location: portfolio.location,
-    completionDate: portfolio.completionDate.slice(0, 10),
+    completionDate: portfolio.completionDate ? portfolio.completionDate.slice(0, 10) : "",
     turnaroundTime: portfolio.turnaroundTime,
     resultSummary: portfolio.resultSummary,
-    metrics: portfolio.metrics.length ? portfolio.metrics : [emptyMetric()],
+    metrics: portfolio.metrics && portfolio.metrics.length ? portfolio.metrics : [emptyMetric()],
     featured: portfolio.featured,
-    coverImage: portfolio.coverImage,
+    coverImage: portfolio.coverImage || null,
     beforeImage: getPortfolioBeforeImage(portfolio),
     afterImage: getPortfolioAfterImage(portfolio),
     detailGallery: getPortfolioDetailImages(portfolio),
+    propertyType: portfolio.propertyType || "",
+    propertySize: portfolio.propertySize || "",
+    clientIssue: portfolio.clientIssue || "",
+    challenge: portfolio.challenge || "",
+    teamSize: portfolio.teamSize || "",
+    handoverNotes: portfolio.handoverNotes || "",
+    resultBadge: portfolio.resultBadge || "",
   };
 }
 
@@ -140,13 +156,13 @@ function AdminField({
   hint?: string;
 }) {
   return (
-    <label className="block">
-      <span className="mb-3 block text-sm font-semibold uppercase tracking-widest text-pine-green">
+    <div className="flex flex-col gap-2.5">
+      <span className="text-[11px] font-bold uppercase tracking-widest text-pine-green">
         {label}
       </span>
       {children}
-      {hint ? <p className="mt-3 text-sm leading-relaxed text-xanadu">{hint}</p> : null}
-    </label>
+      {hint ? <p className="text-xs leading-relaxed text-xanadu">{hint}</p> : null}
+    </div>
   );
 }
 
@@ -174,26 +190,26 @@ function UploadSurface({
   const inputId = `portfolio-upload-${kind}`;
 
   return (
-    <div className="border border-aztec/10 bg-[#f5f5f3] p-5 md:p-6">
-      <div className="mb-5 flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+    <div className="flex flex-col border border-aztec/10 bg-white p-5 shadow-sm">
+      <div className="mb-5 flex flex-col justify-between gap-4 min-h-[90px]">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-widest text-pine-green">
+          <p className="text-[11px] font-bold uppercase tracking-widest text-pine-green">
             {title}
           </p>
-          <p className="mt-3 max-w-xl text-sm leading-relaxed text-xanadu">
+          <p className="mt-2 text-sm text-xanadu">
             {description}
           </p>
         </div>
         <label
           htmlFor={inputId}
-          className={`inline-flex h-12 items-center justify-center gap-2 border px-5 text-sm font-semibold uppercase tracking-widest transition ${
+          className={`inline-flex h-11 items-center justify-center gap-2 border px-5 text-xs font-bold uppercase tracking-widest transition ${
             disabled
-              ? "cursor-not-allowed border-aztec/10 bg-white/50 text-xanadu/55"
-              : "cursor-pointer border-aztec/10 bg-white text-aztec hover:border-pine-green hover:text-pine-green"
+              ? "cursor-not-allowed border-aztec/5 bg-wild-sand/50 text-xanadu/40"
+              : "cursor-pointer border-aztec/10 bg-wild-sand text-aztec hover:border-pine-green hover:bg-white"
           }`}
         >
           <CloudArrowUp size={16} weight="bold" />
-          <span>{uploading ? "Uploading..." : multiple ? "Add Images" : "Upload Image"}</span>
+          <span>{uploading ? "..." : multiple ? "Add Images" : "Upload Image"}</span>
         </label>
         <input
           id={inputId}
@@ -206,48 +222,56 @@ function UploadSurface({
         />
       </div>
 
-      {assets.length ? (
-        <div className={`grid gap-3 ${multiple ? "sm:grid-cols-2" : ""}`}>
-          {assets.map((asset, index) => (
-            <div key={`${asset.url}-${index}`} className="overflow-hidden border border-aztec/10 bg-white">
-              <div className="relative aspect-[16/10]">
-                <Image src={asset.url} alt={asset.alt} fill className="object-cover" />
-              </div>
-              <div className="flex items-center justify-between gap-4 p-4">
-                <div>
-                  <p className="text-sm font-semibold uppercase tracking-widest text-pine-green">
-                    {asset.kind}
-                  </p>
-                  <p className="mt-2 text-sm leading-relaxed text-xanadu">{asset.alt}</p>
+      <div className="max-h-[400px] overflow-y-auto pr-2 custom-scrollbar" data-lenis-prevent>
+        {assets.length ? (
+          <div className="grid grid-cols-1 gap-4">
+            {assets.map((asset, index) => {
+              const aspectRatio = asset.width && asset.height ? asset.width / asset.height : 16 / 10;
+              return (
+                <div key={`${asset.url}-${index}`} className="group relative overflow-hidden border border-aztec/5 bg-wild-sand">
+                  <div 
+                    className="relative"
+                    style={{ aspectRatio: `${aspectRatio}` }}
+                  >
+                    <Image 
+                      src={asset.url} 
+                      alt={asset.alt} 
+                      fill 
+                      unoptimized
+                      priority={index < 2}
+                      sizes="(max-width: 768px) 100vw, 25vw"
+                      className="object-cover" 
+                    />
+                    <div className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/20" />
+                    <button
+                      type="button"
+                      onClick={() => onRemove(index)}
+                      disabled={disabled}
+                      className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#8c4536] opacity-0 shadow-lg transition-all hover:bg-[#c76754] hover:text-white group-hover:opacity-100 disabled:hidden"
+                      aria-label="Remove image"
+                    >
+                      <Trash size={18} weight="bold" />
+                    </button>
+                  </div>
+                  {asset.alt && (
+                    <div className="p-4">
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-pine-green">{asset.kind}</p>
+                      <p className="mt-1 text-sm leading-relaxed text-xanadu line-clamp-2">{asset.alt}</p>
+                    </div>
+                  )}
                 </div>
-                <button
-                  type="button"
-                  onClick={() => onRemove(index)}
-                  disabled={disabled}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-aztec/10 text-aztec transition hover:border-[#c76754] hover:text-[#c76754] disabled:cursor-not-allowed disabled:opacity-40"
-                  aria-label={`Remove ${title.toLowerCase()}`}
-                >
-                  <Trash size={16} weight="bold" />
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="flex min-h-[160px] items-center justify-center border border-dashed border-aztec/12 bg-white/50 p-6 text-center">
-          <div>
-            <ImageSquare size={28} className="mx-auto mb-4 text-pine-green" weight="duotone" />
-            <p className="text-sm font-semibold uppercase tracking-widest text-aztec">
-              No image uploaded yet
-            </p>
-            <p className="mt-3 text-sm leading-relaxed text-xanadu">
-              {multiple
-                ? "Upload one or more supporting visuals for the story sequence."
-                : "Upload a single image to anchor this part of the case study."}
+              );
+            })}
+          </div>
+        ) : (
+          <div className="flex h-full min-h-[160px] flex-col items-center justify-center border border-dashed border-aztec/10 bg-wild-sand/30 p-5 text-center">
+            <ImageSquare size={36} className="mb-3 text-pine-green/20" weight="duotone" />
+            <p className="text-[11px] font-bold uppercase tracking-widest text-xanadu">
+              No imagery yet
             </p>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
@@ -318,7 +342,9 @@ export default function AdminPortfolioShell({
     initialPortfolios[0]?.id ?? null,
   );
   const [uploadingKind, setUploadingKind] = useState<UploadKind | null>(null);
-  const [isSaving, startSaveTransition] = useTransition();
+  const [isSaving, setIsSaving] = useState(false);
+  const [autoSaveStatus, setAutoSaveStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const [lastSavedHash, setLastSavedHash] = useState<string>("");
   const [isDeleting, startDeleteTransition] = useTransition();
   const [isModerating, startModerationTransition] = useTransition();
   const [isLibraryOpen, setIsLibraryOpen] = useState(false);
@@ -338,10 +364,12 @@ export default function AdminPortfolioShell({
     setValue,
     getValues,
     watch,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<PortfolioFormValues>({
     defaultValues: toFormValues(selectedPortfolio),
   });
+
+  const formValues = watch();
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -359,11 +387,42 @@ export default function AdminPortfolioShell({
 
   useEffect(() => {
     reset(toFormValues(selectedPortfolio));
+    setLastSavedHash(JSON.stringify(toFormValues(selectedPortfolio)));
+    setAutoSaveStatus("idle");
   }, [selectedPortfolio, reset]);
+
+  // Auto-save logic
+  useEffect(() => {
+    if (!selectedPortfolioId || !isValid) return;
+
+    const currentHash = JSON.stringify(formValues);
+    if (currentHash === lastSavedHash) return;
+
+    const timer = setTimeout(async () => {
+      setAutoSaveStatus("saving");
+      try {
+        const result = await savePortfolioAction(formValues);
+        if (result.success && result.data) {
+          setLastSavedHash(JSON.stringify(toFormValues(result.data)));
+          setAutoSaveStatus("saved");
+          // Silently refresh data in background
+          router.refresh();
+        } else {
+          setAutoSaveStatus("error");
+        }
+      } catch (err) {
+        setAutoSaveStatus("error");
+      }
+    }, 1500); // 1.5s debounce
+
+    return () => clearTimeout(timer);
+  }, [formValues, selectedPortfolioId, lastSavedHash, isValid, router]);
 
   const clearForm = () => {
     setSelectedPortfolioId(null);
     reset(buildBlankForm());
+    setLastSavedHash("");
+    setAutoSaveStatus("idle");
   };
 
   const handleUpload = async (kind: UploadKind, event: ChangeEvent<HTMLInputElement>) => {
@@ -401,17 +460,21 @@ export default function AdminPortfolioShell({
 
       const uploadedAssets = payload.assets as PortfolioAsset[];
 
-      if (kind === "cover") {
-        setValue("coverImage", uploadedAssets[0], { shouldDirty: true });
-      } else if (kind === "before") {
-        setValue("beforeImage", uploadedAssets[0], { shouldDirty: true });
-      } else if (kind === "after") {
-        setValue("afterImage", uploadedAssets[0], { shouldDirty: true });
-      } else {
-        setValue("detailGallery", [...getValues("detailGallery"), ...uploadedAssets], {
-          shouldDirty: true,
-        });
-      }
+        const updateOptions = { 
+          shouldDirty: true, 
+          shouldValidate: true,
+          shouldTouch: true 
+        };
+
+        if (kind === "cover") {
+          setValue("coverImage", uploadedAssets[0], updateOptions);
+        } else if (kind === "before") {
+          setValue("beforeImage", uploadedAssets[0], updateOptions);
+        } else if (kind === "after") {
+          setValue("afterImage", uploadedAssets[0], updateOptions);
+        } else {
+          setValue("detailGallery", [...getValues("detailGallery"), ...uploadedAssets], updateOptions);
+        }
 
       toast.success("Image uploaded", {
         description: "The asset is ready to be saved into the case study.",
@@ -425,32 +488,54 @@ export default function AdminPortfolioShell({
     }
   };
 
-  const onSubmit = handleSubmit((values) => {
-    if (writeDisabled) {
-      toast.error("Publishing disabled", {
-        description: "Add a real MongoDB connection string to save portfolio content.",
-      });
-      return;
-    }
-
-    startSaveTransition(async () => {
-      const result = await savePortfolioAction(values);
-
-      if (!result.success || !result.data) {
-        toast.error("Case study not saved", {
-          description: result.message,
+  const onSubmit = handleSubmit(
+    async (values) => {
+      if (writeDisabled) {
+        toast.error("Publishing disabled", {
+          description: "Add a real MongoDB connection string to save portfolio content.",
         });
         return;
       }
 
-      toast.success("Case study saved", {
-        description: result.message,
-      });
-      setSelectedPortfolioId(result.data.id);
-      reset(toFormValues(result.data));
-      router.refresh();
-    });
-  });
+      setIsSaving(true);
+      try {
+        const result = await savePortfolioAction(values);
+
+        if (!result.success || !result.data) {
+          toast.error("Case study not saved", {
+            description: result.message,
+          });
+          return;
+        }
+
+        toast.success(selectedPortfolioId ? "Changes saved" : "Case study published", {
+          description: result.message,
+        });
+        
+        if (!selectedPortfolioId) {
+          setSelectedPortfolioId(result.data.id);
+        }
+        
+        setLastSavedHash(JSON.stringify(toFormValues(result.data)));
+        reset(toFormValues(result.data));
+        router.refresh();
+      } catch (error) {
+        toast.error("An error occurred", {
+          description: "Failed to save project data.",
+        });
+      } finally {
+        setIsSaving(false);
+      }
+    },
+    (errors) => {
+      // Only show validation errors on manual publish attempts
+      if (!selectedPortfolioId) {
+        toast.error("Required fields missing", {
+          description: "Please fill in the project title and basic details.",
+        });
+      }
+    }
+  );
 
   const handleDeletePortfolio = (portfolio: PortfolioRecord) => {
     if (writeDisabled) {
@@ -583,7 +668,7 @@ export default function AdminPortfolioShell({
       </section>
 
       <section className="bg-white px-5 py-16 text-aztec md:px-10 md:py-24 lg:px-20">
-        <div className="mx-auto grid max-w-[1450px] gap-8 lg:grid-cols-[minmax(0,1.08fr)_380px] lg:gap-12">
+        <div className="mx-auto max-w-[1450px] space-y-16">
           <motion.div
             initial={{ opacity: 0, y: 22 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -598,30 +683,56 @@ export default function AdminPortfolioShell({
                   {selectedPortfolio ? selectedPortfolio.title : "Build a new case study"}
                 </h2>
               </div>
-              <div className="flex gap-3">
-                <button
-                  type="button"
-                  onClick={clearForm}
-                  className="inline-flex h-12 items-center justify-center gap-2 border border-aztec/10 px-5 text-sm font-semibold uppercase tracking-widest text-aztec transition hover:border-pine-green hover:text-pine-green"
-                >
-                  <Plus size={16} weight="bold" />
-                  New
-                </button>
-                {selectedPortfolio ? (
-                  <Link
-                    href={`/portfolio/${selectedPortfolio.slug}`}
-                    target="_blank"
+              <div className="flex items-center gap-4">
+                {autoSaveStatus !== "idle" && selectedPortfolioId && (
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-aztec/5 text-[11px] font-bold uppercase tracking-widest text-xanadu">
+                    {autoSaveStatus === "saving" ? (
+                      <>
+                        <div className="h-1 w-1 animate-pulse rounded-full bg-pine-green" />
+                        Saving changes...
+                      </>
+                    ) : autoSaveStatus === "saved" ? (
+                      <>
+                        <CheckCircle size={14} className="text-pine-green" weight="fill" />
+                        All changes saved
+                      </>
+                    ) : (
+                      <>
+                        <WarningCircle size={14} className="text-[#c76754]" weight="fill" />
+                        Sync error
+                      </>
+                    )}
+                  </div>
+                )}
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={clearForm}
                     className="inline-flex h-12 items-center justify-center gap-2 border border-aztec/10 px-5 text-sm font-semibold uppercase tracking-widest text-aztec transition hover:border-pine-green hover:text-pine-green"
                   >
-                    <Eye size={16} weight="bold" />
-                    Preview
-                  </Link>
-                ) : null}
+                    <Plus size={16} weight="bold" />
+                    New
+                  </button>
+                  {selectedPortfolio ? (
+                    <Link
+                      href={`/portfolio/${selectedPortfolio.slug}`}
+                      target="_blank"
+                      className="inline-flex h-12 items-center justify-center gap-2 border border-aztec/10 px-5 text-sm font-semibold uppercase tracking-widest text-aztec transition hover:border-pine-green hover:text-pine-green"
+                    >
+                      <Eye size={16} weight="bold" />
+                      Preview
+                    </Link>
+                  ) : null}
+                </div>
               </div>
             </div>
 
-            <form onSubmit={onSubmit} className="grid gap-8">
-              <div className="grid gap-8 md:grid-cols-2">
+            <form 
+              onSubmit={onSubmit} 
+              className="space-y-12"
+            >
+              {/* Metadata Section */}
+              <div className="grid gap-6 border border-aztec/5 bg-[#fcfcfb] p-6 md:p-8 md:grid-cols-2 lg:grid-cols-3">
                 <AdminField label="Project title">
                   <input
                     {...register("title", { required: "Project title is required." })}
@@ -629,7 +740,7 @@ export default function AdminPortfolioShell({
                     placeholder="Clarendon House Turnaround"
                   />
                   {errors.title ? (
-                    <p className="mt-3 text-sm font-medium text-[#c76754]">{errors.title.message}</p>
+                    <p className="text-xs font-semibold text-[#c76754]">{errors.title.message}</p>
                   ) : null}
                 </AdminField>
 
@@ -640,7 +751,7 @@ export default function AdminPortfolioShell({
                     placeholder="End Of Tenancy Cleaning"
                   />
                   {errors.serviceType ? (
-                    <p className="mt-3 text-sm font-medium text-[#c76754]">
+                    <p className="text-xs font-semibold text-[#c76754]">
                       {errors.serviceType.message}
                     </p>
                   ) : null}
@@ -653,7 +764,7 @@ export default function AdminPortfolioShell({
                     placeholder="Taunton, Somerset"
                   />
                   {errors.location ? (
-                    <p className="mt-3 text-sm font-medium text-[#c76754]">{errors.location.message}</p>
+                    <p className="text-xs font-semibold text-[#c76754]">{errors.location.message}</p>
                   ) : null}
                 </AdminField>
 
@@ -664,163 +775,194 @@ export default function AdminPortfolioShell({
                     className={inputClassName}
                   />
                   {errors.completionDate ? (
-                    <p className="mt-3 text-sm font-medium text-[#c76754]">
+                    <p className="text-xs font-semibold text-[#c76754]">
                       {errors.completionDate.message}
                     </p>
                   ) : null}
                 </AdminField>
 
-                <AdminField label="Turnaround time" hint="Example: 19 hours from key release to final sign-off">
+                <AdminField label="Turnaround time" hint="e.g. 19 hours total">
                   <input
                     {...register("turnaroundTime", { required: "Turnaround time is required." })}
                     className={inputClassName}
                     placeholder="Single-day site handover clean"
                   />
                   {errors.turnaroundTime ? (
-                    <p className="mt-3 text-sm font-medium text-[#c76754]">
+                    <p className="text-xs font-semibold text-[#c76754]">
                       {errors.turnaroundTime.message}
                     </p>
                   ) : null}
                 </AdminField>
 
-                <AdminField label="Featured placement" hint="Featured projects can lead the public archive.">
+                <AdminField label="Featured placement">
                   <button
                     type="button"
                     onClick={() => setValue("featured", !isFeatured, { shouldDirty: true })}
-                    className={`inline-flex h-12 items-center gap-3 border px-5 text-sm font-semibold uppercase tracking-widest transition ${
+                    className={`inline-flex h-[52px] items-center justify-center gap-3 border px-5 text-sm font-bold uppercase tracking-widest transition ${
                       isFeatured
-                        ? "border-pine-green bg-pine-green text-white"
-                        : "border-aztec/10 bg-[#f5f5f3] text-aztec hover:border-pine-green hover:text-pine-green"
+                        ? "border-pine-green bg-pine-green text-white shadow-lg shadow-pine-green/20"
+                        : "border-aztec/10 bg-white text-aztec hover:border-pine-green"
                     }`}
                   >
-                    <SealCheck size={16} weight="bold" />
-                    <span>{isFeatured ? "Featured project" : "Standard project"}</span>
+                    <SealCheck size={18} weight={isFeatured ? "fill" : "bold"} />
+                    <span>{isFeatured ? "Featured project" : "Set as Featured"}</span>
                   </button>
                 </AdminField>
               </div>
 
-              <AdminField label="Detailed work description">
-                <textarea
-                  {...register("description", { required: "Project description is required." })}
-                  className="min-h-[180px] w-full resize-y border-0 border-b border-aztec/14 bg-transparent px-0 py-4 text-base font-medium tracking-tight text-aztec outline-none transition duration-300 placeholder:text-xanadu/65 focus:border-pine-green"
-                  placeholder="Describe the site condition, the work sequence, and how the finish was achieved."
-                />
-                {errors.description ? (
-                  <p className="mt-3 text-sm font-medium text-[#c76754]">{errors.description.message}</p>
-                ) : null}
-              </AdminField>
+              {/* Narratives Section */}
+              <div className="grid gap-6 border border-aztec/5 bg-[#fcfcfb] p-6 md:p-8 md:grid-cols-2">
+                <AdminField label="Detailed work description">
+                  <textarea
+                    {...register("description", { required: "Project description is required." })}
+                    className="min-h-[160px] w-full resize-none border border-aztec/10 bg-white p-4 text-base font-medium tracking-tight text-aztec outline-none transition duration-300 placeholder:text-xanadu/50 focus:border-pine-green"
+                    placeholder="Describe the site condition, the work sequence, and how the finish was achieved."
+                  />
+                  {errors.description ? (
+                    <p className="text-xs font-semibold text-[#c76754]">{errors.description.message}</p>
+                  ) : null}
+                </AdminField>
 
-              <AdminField label="Result summary">
-                <textarea
-                  {...register("resultSummary", { required: "Result summary is required." })}
-                  className="min-h-[120px] w-full resize-y border-0 border-b border-aztec/14 bg-transparent px-0 py-4 text-base font-medium tracking-tight text-aztec outline-none transition duration-300 placeholder:text-xanadu/65 focus:border-pine-green"
-                  placeholder="Summarise the landlord-ready outcome and what changed for the client."
-                />
-                {errors.resultSummary ? (
-                  <p className="mt-3 text-sm font-medium text-[#c76754]">
-                    {errors.resultSummary.message}
-                  </p>
-                ) : null}
-              </AdminField>
-
-              <div className="grid gap-8 lg:grid-cols-2">
-                <UploadSurface
-                  title="Cover image"
-                  description="The lead visual for the portfolio grid and case study hero."
-                  kind="cover"
-                  assets={coverImage ? [coverImage] : []}
-                  uploading={uploadingKind === "cover"}
-                  disabled={!uploadReady}
-                  onUpload={handleUpload}
-                  onRemove={() => setValue("coverImage", null, { shouldDirty: true })}
-                />
-                <UploadSurface
-                  title="Before image"
-                  description="Use this for the slider's left-hand comparison state."
-                  kind="before"
-                  assets={beforeImage ? [beforeImage] : []}
-                  uploading={uploadingKind === "before"}
-                  disabled={!uploadReady}
-                  onUpload={handleUpload}
-                  onRemove={() => setValue("beforeImage", null, { shouldDirty: true })}
-                />
-                <UploadSurface
-                  title="After image"
-                  description="Use this for the slider's right-hand comparison state."
-                  kind="after"
-                  assets={afterImage ? [afterImage] : []}
-                  uploading={uploadingKind === "after"}
-                  disabled={!uploadReady}
-                  onUpload={handleUpload}
-                  onRemove={() => setValue("afterImage", null, { shouldDirty: true })}
-                />
-                <UploadSurface
-                  title="Supporting gallery"
-                  description="Upload additional detail imagery to support the story sequence."
-                  kind="detail"
-                  multiple
-                  assets={detailGallery}
-                  uploading={uploadingKind === "detail"}
-                  disabled={!uploadReady}
-                  onUpload={handleUpload}
-                  onRemove={(assetIndex) =>
-                    setValue(
-                      "detailGallery",
-                      detailGallery.filter((_, index) => index !== assetIndex),
-                      { shouldDirty: true },
-                    )
-                  }
-                />
+                <AdminField label="Result summary">
+                  <textarea
+                    {...register("resultSummary", { required: "Result summary is required." })}
+                    className="min-h-[160px] w-full resize-none border border-aztec/10 bg-white p-4 text-base font-medium tracking-tight text-aztec outline-none transition duration-300 placeholder:text-xanadu/50 focus:border-pine-green"
+                    placeholder="Summarise the landlord-ready outcome and what changed for the client."
+                  />
+                  {errors.resultSummary ? (
+                    <p className="text-xs font-semibold text-[#c76754]">
+                      {errors.resultSummary.message}
+                    </p>
+                  ) : null}
+                </AdminField>
               </div>
 
-              <div className="border border-aztec/10 bg-[#f5f5f3] p-5 md:p-6">
-                <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              {/* Case Study Details Section */}
+              <div className="grid gap-6 border border-aztec/5 bg-[#fcfcfb] p-6 md:p-8 md:grid-cols-2 lg:grid-cols-3">
+                <AdminField label="Property type" hint="e.g. Student Accom">
+                  <input {...register("propertyType")} className={inputClassName} placeholder="Luxury HMO / Estate" />
+                </AdminField>
+                <AdminField label="Property size" hint="e.g. 5 Bed / 200 sqm">
+                  <input {...register("propertySize")} className={inputClassName} placeholder="5-Bedroom Detached" />
+                </AdminField>
+                <AdminField label="Team size" hint="e.g. 4 specialists">
+                  <input {...register("teamSize")} className={inputClassName} placeholder="6 Cleaning Specialists" />
+                </AdminField>
+                <AdminField label="Primary client issue">
+                  <input {...register("clientIssue")} className={inputClassName} placeholder="Severe limescale & mold" />
+                </AdminField>
+                <AdminField label="Main challenge">
+                  <input {...register("challenge")} className={inputClassName} placeholder="Tight 8hr deadline" />
+                </AdminField>
+                <AdminField label="Handover notes">
+                  <input {...register("handoverNotes")} className={inputClassName} placeholder="All keys returned to concierge" />
+                </AdminField>
+              </div>
+
+              {/* Media Section */}
+              <div className="border border-aztec/5 bg-[#fcfcfb] p-6 md:p-8">
+                <p className="mb-6 text-[11px] font-bold uppercase tracking-widest text-pine-green">Project Media Assets</p>
+                <div className="grid gap-6 items-start lg:grid-cols-4">
+                  <UploadSurface
+                    title="Cover"
+                    description="Lead visual"
+                    kind="cover"
+                    assets={coverImage ? [coverImage] : []}
+                    uploading={uploadingKind === "cover"}
+                    disabled={!uploadReady}
+                    onUpload={handleUpload}
+                    onRemove={() => setValue("coverImage", null, { shouldDirty: true })}
+                  />
+                  <UploadSurface
+                    title="Before"
+                    description="Slider state"
+                    kind="before"
+                    assets={beforeImage ? [beforeImage] : []}
+                    uploading={uploadingKind === "before"}
+                    disabled={!uploadReady}
+                    onUpload={handleUpload}
+                    onRemove={() => setValue("beforeImage", null, { shouldDirty: true })}
+                  />
+                  <UploadSurface
+                    title="After"
+                    description="Slider state"
+                    kind="after"
+                    assets={afterImage ? [afterImage] : []}
+                    uploading={uploadingKind === "after"}
+                    disabled={!uploadReady}
+                    onUpload={handleUpload}
+                    onRemove={() => setValue("afterImage", null, { shouldDirty: true })}
+                  />
+                  <UploadSurface
+                    title="Gallery"
+                    description="Support visuals"
+                    kind="detail"
+                    multiple
+                    assets={detailGallery}
+                    uploading={uploadingKind === "detail"}
+                    disabled={!uploadReady}
+                    onUpload={handleUpload}
+                    onRemove={(assetIndex) =>
+                      setValue(
+                        "detailGallery",
+                        detailGallery.filter((_, index) => index !== assetIndex),
+                        { shouldDirty: true },
+                      )
+                    }
+                  />
+                </div>
+              </div>
+
+              {/* Metrics Section */}
+              <div className="border border-aztec/5 bg-[#fcfcfb] p-6 md:p-8">
+                <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                   <div>
-                    <p className="text-sm font-semibold uppercase tracking-widest text-pine-green">
-                      Metrics
+                    <p className="text-[11px] font-bold uppercase tracking-widest text-pine-green">
+                      Performance Metrics
                     </p>
-                    <p className="mt-3 text-sm leading-relaxed text-xanadu">
+                    <p className="mt-2 text-sm leading-relaxed text-xanadu">
                       Add the proof points that should appear on the public case study page.
                     </p>
                   </div>
                   <button
                     type="button"
                     onClick={() => append(emptyMetric())}
-                    className="inline-flex h-12 items-center justify-center gap-2 border border-aztec/10 bg-white px-5 text-sm font-semibold uppercase tracking-widest text-aztec transition hover:border-pine-green hover:text-pine-green"
+                    className="inline-flex h-11 items-center justify-center gap-2 border border-aztec/10 bg-white px-5 text-sm font-bold uppercase tracking-widest text-aztec transition hover:border-pine-green"
                   >
                     <Plus size={16} weight="bold" />
                     Add Metric
                   </button>
                 </div>
 
-                <div className="grid gap-4">
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                   {fields.map((field, index) => (
-                    <div key={field.id} className="grid gap-4 md:grid-cols-[1fr_1fr_auto]">
+                    <div key={field.id} className="flex flex-col gap-3 border border-aztec/5 bg-white p-5">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-pine-green/60">Metric #{index + 1}</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (fields.length === 1) {
+                              setValue("metrics", [emptyMetric()], { shouldDirty: true });
+                              return;
+                            }
+                            remove(index);
+                          }}
+                          className="text-xanadu hover:text-[#c76754] transition"
+                        >
+                          <Trash size={16} />
+                        </button>
+                      </div>
                       <input
                         {...register(`metrics.${index}.label` as const)}
-                        className={inputClassName}
-                        placeholder="Metric label"
+                        className="h-10 w-full border-b border-aztec/10 bg-transparent text-sm font-medium outline-none focus:border-pine-green"
+                        placeholder="Label (e.g. Efficiency)"
                       />
                       <input
                         {...register(`metrics.${index}.value` as const)}
-                        className={inputClassName}
-                        placeholder="Metric value"
+                        className="h-10 w-full border-b border-aztec/10 bg-transparent text-sm font-medium outline-none focus:border-pine-green"
+                        placeholder="Value (e.g. 100%)"
                       />
-                      <button
-                        type="button"
-                        onClick={() => {
-                          if (fields.length === 1) {
-                            setValue("metrics", [emptyMetric()], { shouldDirty: true });
-                            return;
-                          }
-
-                          remove(index);
-                        }}
-                        className="inline-flex h-12 w-12 items-center justify-center self-end border border-aztec/10 text-aztec transition hover:border-[#c76754] hover:text-[#c76754]"
-                        aria-label="Remove metric"
-                      >
-                        <Trash size={16} weight="bold" />
-                      </button>
                     </div>
                   ))}
                 </div>
@@ -828,27 +970,29 @@ export default function AdminPortfolioShell({
 
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <p className="max-w-xl text-sm leading-relaxed text-xanadu md:text-base">
-                  Slugs are generated automatically from the project title, and any replaced Cloudinary assets are cleaned up when the record is saved or deleted.
+                  Slugs are generated automatically from the project title. Edits to existing records are saved automatically as you work.
                 </p>
-                <motion.div 
-                  className="sticky bottom-4 z-30 mt-4 md:relative md:bottom-auto md:z-auto md:mt-0"
-                  whileHover={writeDisabled || isSaving ? {} : { y: -2 }} 
-                  whileTap={writeDisabled || isSaving ? {} : { scale: 0.98 }}
-                >
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    className="w-full px-8 shadow-[0_12px_30px_rgba(0,0,0,0.12)] md:w-auto md:shadow-none"
-                    disabled={writeDisabled || isSaving}
+                {!selectedPortfolioId && (
+                  <motion.div 
+                    className="sticky bottom-4 z-30 mt-4 md:relative md:bottom-auto md:z-auto md:mt-0"
+                    whileHover={writeDisabled || isSaving ? {} : { y: -2 }} 
+                    whileTap={writeDisabled || isSaving ? {} : { scale: 0.98 }}
                   >
-                    {isSaving ? "Saving Case Study..." : selectedPortfolio ? "Update Case Study" : "Publish Case Study"}
-                  </Button>
-                </motion.div>
+                    <Button
+                      type="submit"
+                      variant="primary"
+                      className="w-full px-8 shadow-[0_12px_30px_rgba(0,0,0,0.12)] md:w-auto md:shadow-none"
+                      disabled={writeDisabled || isSaving}
+                    >
+                      {isSaving ? "Publishing..." : "Publish Case Study"}
+                    </Button>
+                  </motion.div>
+                )}
               </div>
             </form>
           </motion.div>
 
-          <div className="grid gap-4">
+          <div className="space-y-8">
             <motion.div
               initial={{ opacity: 0, y: 22 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -857,111 +1001,104 @@ export default function AdminPortfolioShell({
               className="border border-aztec/10 bg-[#f5f5f3] p-6 md:p-8"
             >
               <div className="flex items-center justify-between">
-                <div className="flex-1">
+                <div>
                   <MotionEyebrow>Project Library</MotionEyebrow>
                   <h2 className="text-xl font-medium leading-[1.1] tracking-tight text-aztec md:text-3xl">
                     Existing portfolio cases
                   </h2>
                 </div>
-                <button 
-                  type="button"
-                  onClick={() => setIsLibraryOpen(!isLibraryOpen)}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-aztec/10 text-aztec md:hidden"
-                >
-                  <CaretDown size={20} className={`transition-transform duration-300 ${isLibraryOpen ? "rotate-180" : ""}`} />
-                </button>
               </div>
               <p className="mt-4 text-sm leading-relaxed text-xanadu md:text-base">
                 Select a case study to edit it, preview the live route, or remove it entirely.
               </p>
             </motion.div>
 
-            <div className={`${!isLibraryOpen ? "hidden md:grid" : "grid"} gap-4`}>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {initialPortfolios.length ? (
                 initialPortfolios.map((portfolio, index) => {
                   const isSelected = portfolio.id === selectedPortfolioId;
 
-                return (
-                  <motion.article
-                    key={portfolio.id}
-                    initial={{ opacity: 0, y: 22 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.65, delay: index * 0.05 }}
-                    className={`overflow-hidden border transition ${
-                      isSelected
-                        ? "border-pine-green bg-white shadow-[0_18px_45px_rgba(0,0,0,0.08)]"
-                        : "border-aztec/10 bg-white"
-                    }`}
-                  >
-                    <div className="relative aspect-[16/10]">
-                      <Image src={portfolio.coverImage.url} alt={portfolio.coverImage.alt} fill className="object-cover" />
-                    </div>
-                    <div className="p-5">
-                      <div className="mb-4 flex items-center justify-between gap-4">
-                        <p className="text-sm font-semibold uppercase tracking-widest text-pine-green">
-                          {portfolio.serviceType}
+                  return (
+                    <motion.article
+                      key={portfolio.id}
+                      initial={{ opacity: 0, y: 22 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-80px" }}
+                      transition={{ duration: 0.65, delay: index * 0.05 }}
+                      className={`overflow-hidden border transition flex flex-col h-full ${
+                        isSelected
+                          ? "border-pine-green bg-white shadow-[0_18px_45px_rgba(0,0,0,0.08)]"
+                          : "border-aztec/10 bg-white"
+                      }`}
+                    >
+                      <div className="relative aspect-[16/10]">
+                        <Image src={portfolio.coverImage.url} alt={portfolio.coverImage.alt} fill className="object-cover" />
+                      </div>
+                      <div className="p-5 flex flex-col flex-1">
+                        <div className="mb-4 flex items-center justify-between gap-4">
+                          <p className="text-sm font-semibold uppercase tracking-widest text-pine-green">
+                            {portfolio.serviceType}
+                          </p>
+                          {portfolio.featured ? (
+                            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-aztec">
+                              <Sparkle size={14} className="text-pine-green" weight="fill" />
+                              Featured
+                            </span>
+                          ) : null}
+                        </div>
+                        <h3 className="text-xl font-medium leading-[1.1] tracking-tight text-aztec">
+                          {portfolio.title}
+                        </h3>
+                        <div className="mt-4 flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-xanadu">
+                          <MapPin size={14} className="text-pine-green" weight="fill" />
+                          <span>{portfolio.location}</span>
+                        </div>
+                        <p className="mt-4 text-sm leading-relaxed text-xanadu line-clamp-2">
+                          {portfolio.resultSummary}
                         </p>
-                        {portfolio.featured ? (
-                          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-aztec">
-                            <Sparkle size={14} className="text-pine-green" weight="fill" />
-                            Featured
-                          </span>
-                        ) : null}
+                        
+                        <div className="mt-auto pt-6 grid gap-3 sm:grid-cols-2">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setSelectedPortfolioId(portfolio.id);
+                              window.scrollTo({ top: 0, behavior: "smooth" });
+                            }}
+                            className="inline-flex h-11 items-center justify-center gap-2 border border-aztec/10 text-sm font-semibold uppercase tracking-widest text-aztec transition hover:border-pine-green hover:text-pine-green"
+                          >
+                            <NotePencil size={16} weight="bold" />
+                            Edit
+                          </button>
+                          <Link
+                            href={`/portfolio/${portfolio.slug}`}
+                            target="_blank"
+                            className="inline-flex h-11 items-center justify-center gap-2 border border-aztec/10 text-sm font-semibold uppercase tracking-widest text-aztec transition hover:border-pine-green hover:text-pine-green"
+                          >
+                            <ArrowUpRight size={16} weight="bold" />
+                            View
+                          </Link>
+                          <button
+                            type="button"
+                            onClick={() => handleDeletePortfolio(portfolio)}
+                            disabled={writeDisabled || isDeleting}
+                            className="inline-flex h-11 items-center justify-center gap-2 border border-aztec/10 text-sm font-semibold uppercase tracking-widest text-[#8c4536] transition hover:border-[#c76754] hover:text-[#c76754] disabled:cursor-not-allowed disabled:opacity-40 sm:col-span-2"
+                          >
+                            <Trash size={16} weight="bold" />
+                            Delete
+                          </button>
+                        </div>
                       </div>
-                      <h3 className="text-xl font-medium leading-[1.1] tracking-tight text-aztec">
-                        {portfolio.title}
-                      </h3>
-                      <div className="mt-4 flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-xanadu">
-                        <MapPin size={14} className="text-pine-green" weight="fill" />
-                        <span>{portfolio.location}</span>
-                      </div>
-                      <p className="mt-4 text-sm leading-relaxed text-xanadu">
-                        {portfolio.resultSummary}
-                      </p>
-                      <p className="mt-4 text-xs font-semibold uppercase tracking-widest text-xanadu">
-                        Completed {format(new Date(portfolio.completionDate), "dd MMM yyyy")}
-                      </p>
-
-                      <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                        <button
-                          type="button"
-                          onClick={() => setSelectedPortfolioId(portfolio.id)}
-                          className="inline-flex h-11 items-center justify-center gap-2 border border-aztec/10 text-sm font-semibold uppercase tracking-widest text-aztec transition hover:border-pine-green hover:text-pine-green"
-                        >
-                          <NotePencil size={16} weight="bold" />
-                          Edit
-                        </button>
-                        <Link
-                          href={`/portfolio/${portfolio.slug}`}
-                          target="_blank"
-                          className="inline-flex h-11 items-center justify-center gap-2 border border-aztec/10 text-sm font-semibold uppercase tracking-widest text-aztec transition hover:border-pine-green hover:text-pine-green"
-                        >
-                          <ArrowUpRight size={16} weight="bold" />
-                          View
-                        </Link>
-                        <button
-                          type="button"
-                          onClick={() => handleDeletePortfolio(portfolio)}
-                          disabled={writeDisabled || isDeleting}
-                          className="inline-flex h-11 items-center justify-center gap-2 border border-aztec/10 text-sm font-semibold uppercase tracking-widest text-[#8c4536] transition hover:border-[#c76754] hover:text-[#c76754] disabled:cursor-not-allowed disabled:opacity-40 sm:col-span-2"
-                        >
-                          <Trash size={16} weight="bold" />
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  </motion.article>
-                );
-              })
-            ) : (
-              <div className="border border-aztec/10 bg-white p-6 text-base leading-relaxed text-xanadu md:p-8">
-                No portfolio cases exist yet. Use the form to publish the first one.
-              </div>
-            )}
+                    </motion.article>
+                  );
+                })
+              ) : (
+                <div className="border border-aztec/10 bg-white p-6 text-base leading-relaxed text-xanadu md:p-8 lg:col-span-3">
+                  No portfolio cases exist yet. Use the form to publish the first one.
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
     </section>
 
       <section className="px-5 py-20 md:px-10 md:py-24 lg:px-20">
@@ -995,7 +1132,7 @@ export default function AdminPortfolioShell({
                   transition={{ duration: 0.65, delay: index * 0.05 }}
                   className="border border-white/10 bg-white/5 p-6 backdrop-blur-sm md:p-8"
                 >
-                  <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+                    <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                     <div className="max-w-3xl">
                       <div className="mb-4 flex flex-wrap items-center gap-3">
                         <span

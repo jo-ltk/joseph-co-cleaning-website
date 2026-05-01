@@ -29,6 +29,16 @@ export type PortfolioRecord = {
   metrics: PortfolioMetric[];
   featured: boolean;
   createdAt: string;
+  // New detailed case study fields
+  propertyType: string;
+  propertySize: string;
+  clientIssue: string;
+  challenge: string;
+  teamSize: string;
+  tasksCompleted: string[];
+  handoverNotes: string;
+  trustBadges: string[];
+  resultBadge: string;
 };
 
 export type ReviewRecord = {
@@ -59,6 +69,14 @@ export type PortfolioMutationInput = {
   beforeImage: PortfolioAsset | null;
   afterImage: PortfolioAsset | null;
   detailGallery: PortfolioAsset[];
+  // New detailed case study fields
+  propertyType?: string;
+  propertySize?: string;
+  clientIssue?: string;
+  challenge?: string;
+  teamSize?: string;
+  handoverNotes?: string;
+  resultBadge?: string;
 };
 
 export type ReviewSubmissionInput = {

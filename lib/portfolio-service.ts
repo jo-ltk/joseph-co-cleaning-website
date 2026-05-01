@@ -22,7 +22,10 @@ import type {
   ReviewSubmissionInput,
 } from "@/types/portfolio";
 
-function cleanText(value: string) {
+function cleanText(value: any) {
+  if (typeof value !== "string") {
+    return "";
+  }
   return value.trim();
 }
 
@@ -44,17 +47,18 @@ function normalizeAsset(
   kind: PortfolioAsset["kind"],
   fallbackAlt: string,
 ): PortfolioAsset | null {
-  if (!asset?.url) {
+  const url = cleanText(asset?.url);
+  if (!url) {
     return null;
   }
 
   return {
-    url: cleanText(asset.url),
-    alt: cleanText(asset.alt || fallbackAlt),
+    url,
+    alt: cleanText(asset?.alt || fallbackAlt),
     kind,
-    ...(asset.publicId ? { publicId: cleanText(asset.publicId) } : {}),
-    ...(typeof asset.width === "number" ? { width: asset.width } : {}),
-    ...(typeof asset.height === "number" ? { height: asset.height } : {}),
+    publicId: cleanText(asset?.publicId),
+    width: typeof asset?.width === "number" ? asset.width : undefined,
+    height: typeof asset?.height === "number" ? asset.height : undefined,
   };
 }
 
@@ -154,6 +158,14 @@ function validatePortfolioInput(input: PortfolioMutationInput) {
     coverImage,
     galleryImages: buildGalleryImages(input),
     featured: Boolean(input.featured),
+    // New fields
+    propertyType: cleanText(input.propertyType),
+    propertySize: cleanText(input.propertySize),
+    clientIssue: cleanText(input.clientIssue),
+    challenge: cleanText(input.challenge),
+    teamSize: cleanText(input.teamSize),
+    handoverNotes: cleanText(input.handoverNotes),
+    resultBadge: cleanText(input.resultBadge),
   };
 }
 
@@ -221,6 +233,7 @@ export async function savePortfolio(input: PortfolioMutationInput) {
   await connectToDatabase();
 
   const validated = validatePortfolioInput(input);
+
   const slug = await ensureUniqueSlug(validated.title, input.id);
   const payload = {
     ...validated,
@@ -246,8 +259,16 @@ export async function savePortfolio(input: PortfolioMutationInput) {
     : [];
 
   const savedPortfolio = existingPortfolio
-    ? await existingPortfolio.set(payload).save()
+    ? await Portfolio.findByIdAndUpdate(
+        input.id,
+        { $set: payload },
+        { new: true, runValidators: true },
+      ).lean()
     : await Portfolio.create(payload);
+
+  if (!savedPortfolio) {
+    throw new Error("Failed to save portfolio project.");
+  }
 
   const currentPublicIds = collectAssetPublicIds([
     payload.coverImage,
@@ -260,7 +281,7 @@ export async function savePortfolio(input: PortfolioMutationInput) {
 
   await deleteCloudinaryAssets(removedPublicIds);
 
-  return serializePortfolio(savedPortfolio.toObject());
+  return serializePortfolio(savedPortfolio);
 }
 
 export async function deletePortfolioRecord(portfolioId: string) {

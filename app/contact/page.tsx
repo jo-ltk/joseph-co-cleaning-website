@@ -495,12 +495,12 @@ export default function ContactPage() {
                   transition={{ duration: 0.65, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
                   className="group flex min-h-[150px] items-end justify-between gap-6 overflow-hidden bg-aztec p-6 text-yellow-green transition duration-300 hover:bg-[#172b31] md:p-10"
                 >
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <div className="mb-8 flex h-12 w-12 items-center justify-center rounded-full bg-yellow-green text-aztec transition duration-300 group-hover:translate-x-1">
                       <Icon size={22} weight="duotone" />
                     </div>
                     <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-yellow-green/55">{contact.label}</p>
-                    <h3 className="text-xl font-medium leading-[1.1] tracking-tight text-yellow-green md:text-2xl">
+                    <h3 className="break-all text-lg font-medium leading-[1.2] tracking-tight text-yellow-green sm:text-xl md:text-2xl">
                       {contact.value}
                     </h3>
                     <p className="mt-3 text-base leading-relaxed text-yellow-green/65">{contact.note}</p>
@@ -556,10 +556,10 @@ export default function ContactPage() {
             >
               <a
                 href="mailto:josephandcocleaningservicesltd@gmail.com"
-                className="flex items-center gap-4 border-b border-aztec/10 pb-5 text-lg font-medium tracking-tight text-aztec transition hover:text-pine-green"
+                className="flex items-center gap-4 border-b border-aztec/10 pb-5 text-base font-medium tracking-tight text-aztec transition hover:text-pine-green md:text-lg"
               >
-                <EnvelopeSimple size={22} className="text-pine-green" weight="duotone" />
-                <span>josephandcocleaningservicesltd@gmail.com</span>
+                <EnvelopeSimple size={22} className="shrink-0 text-pine-green" weight="duotone" />
+                <span className="break-all text-xs sm:text-base">josephandcocleaningservicesltd@gmail.com</span>
               </a>
               <div className="flex items-start gap-4 border-b border-aztec/10 pb-5 text-lg font-medium tracking-tight text-aztec">
                 <MapPin size={22} className="mt-1 shrink-0 text-pine-green" weight="duotone" />
@@ -570,11 +570,23 @@ export default function ContactPage() {
                 <span>Helpful response, clear availability, and service guidance before you book.</span>
               </div>
             </motion.div>
-            <div className="btn-pair">
-              <ButtonLink href="tel:+447787857305" variant="primary" className="px-8">
-                Call Now
-              </ButtonLink>
-              <IconButton href="mailto:josephandcocleaningservicesltd@gmail.com" aria-label="Email Joseph and Co" size="md" />
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
+                <ButtonLink href="tel:+447787857305" variant="primary" className="h-14 flex-1 px-10 text-base sm:h-12 sm:w-auto sm:flex-none">
+                  Call Now
+                </ButtonLink>
+                <IconButton href="mailto:josephandcocleaningservicesltd@gmail.com" aria-label="Email Joseph and Co" size="lg" className="shrink-0" />
+              </div>
+              
+              <div className="hidden items-center gap-3 border-l border-aztec/10 pl-6 lg:flex">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-pine-green/5 text-pine-green">
+                  <Clock size={20} weight="duotone" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-aztec">Fast Response</p>
+                  <p className="text-sm text-xanadu">Direct to booking team</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -673,11 +685,23 @@ export default function ContactPage() {
               <p className="mb-8 text-lg font-medium leading-relaxed text-white/68 md:text-xl">
                 We will help you turn the enquiry into a clear plan for a cleaner, calmer, better-presented space.
               </p>
-              <div className="btn-pair">
-                <ButtonLink href="tel:+447787857305" variant="primary" className="px-8">
-                  Call Team
-                </ButtonLink>
-                <IconButton href="tel:+447570421556" aria-label="Call Team" size="md" />
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
+                  <ButtonLink href="tel:+447787857305" variant="primary" className="h-14 flex-1 px-10 text-base sm:h-12 sm:w-auto sm:flex-none">
+                    Call Team
+                  </ButtonLink>
+                  <IconButton href="tel:+447570421556" aria-label="Call Team" size="lg" className="shrink-0" />
+                </div>
+
+                <div className="hidden items-center gap-3 border-l border-white/10 pl-6 lg:flex">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-yellow-green">
+                    <SealCheck size={20} weight="duotone" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-white">Verified Finish</p>
+                    <p className="text-sm text-white/60">Expert local support</p>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>

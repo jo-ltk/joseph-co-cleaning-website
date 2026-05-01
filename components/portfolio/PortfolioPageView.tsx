@@ -8,24 +8,20 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import {
   ArrowUpRight,
   Buildings,
+  Clock,
   MapPin,
   SealCheck,
   Sparkle,
 } from "@phosphor-icons/react/dist/ssr";
+
+import TrustLabel from "./TrustLabel";
 
 import ScrollReveal from "@/components/ScrollReveal";
 import { ButtonLink } from "@/components/ui/Button";
 import IconButton from "@/components/ui/IconButton";
 import type { PortfolioCollectionResult, PortfolioRecord } from "@/types/portfolio";
 
-const cardSpans = [
-  "lg:col-span-7",
-  "lg:col-span-5",
-  "lg:col-span-5",
-  "lg:col-span-7",
-  "lg:col-span-7",
-  "lg:col-span-5",
-];
+// cardSpans removed for uniformity as requested
 
 function MotionEyebrow({ children, light = false }: { children: string; light?: boolean }) {
   return (
@@ -55,62 +51,81 @@ function PortfolioCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.75, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-      className={`group relative min-h-[400px] overflow-hidden bg-[#d9d9d2] ${cardSpans[index % cardSpans.length]}`}
+      className="group flex flex-col bg-white border border-aztec/10 overflow-hidden h-full"
     >
-      <Image
-        src={portfolio.coverImage.url}
-        alt={`${portfolio.coverImage.alt} - ${portfolio.serviceType} case study in ${portfolio.location}`}
-        fill
-        className="object-cover transition-transform duration-1000 group-hover:scale-105"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#120f0c]/88 via-[#120f0c]/18 to-transparent" />
-
-      <div className="absolute inset-x-0 top-0 z-10 flex items-start justify-between gap-3 p-4 md:p-8">
-        <div className="inline-flex items-center gap-2 border border-white/10 bg-black/15 px-3 py-2 backdrop-blur-sm">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-yellow-green md:text-xs">
+      <div className="relative aspect-[16/10] overflow-hidden bg-[#d9d9d2]">
+        <Image
+          src={portfolio.coverImage.url}
+          alt={`${portfolio.coverImage.alt} - ${portfolio.serviceType} case study in ${portfolio.location}`}
+          fill
+          className="object-cover transition-transform duration-1000 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
+        
+        {/* Floating Badges */}
+        <div className="absolute left-4 top-4 z-10 flex flex-wrap gap-2">
+          <div className="inline-flex items-center gap-2 bg-aztec/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-yellow-green backdrop-blur-md">
             {portfolio.serviceType}
-          </span>
-        </div>
-        <div className="inline-flex items-center gap-2 border border-white/10 bg-black/15 px-3 py-2 backdrop-blur-sm">
-          <MapPin size={15} className="text-yellow-green" weight="fill" />
-          <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/72 md:text-xs">
-            {portfolio.location}
-          </span>
+          </div>
+          {portfolio.resultBadge && (
+            <div className="inline-flex items-center gap-2 bg-yellow-green px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-aztec backdrop-blur-md">
+              <SealCheck size={14} weight="fill" />
+              {portfolio.resultBadge}
+            </div>
+          )}
         </div>
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 z-10 p-5 md:p-10">
-        <div className="mb-4 flex flex-wrap items-center gap-4 md:mb-6">
-          <span className="text-xs font-semibold uppercase tracking-widest text-white/56 md:text-sm">
-            {format(new Date(portfolio.completionDate), "MMM yyyy")}
-          </span>
-          {portfolio.featured ? (
-            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-yellow-green md:text-sm">
-              <Sparkle size={14} weight="fill" />
-              Featured
-            </span>
-          ) : null}
+      <div className="flex flex-1 flex-col p-6 md:p-8 lg:p-10">
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-aztec/5 pb-6">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <div className="flex items-center gap-2">
+              <Clock size={16} className="text-pine-green" />
+              <span className="text-xs font-bold uppercase tracking-widest text-xanadu">
+                {portfolio.turnaroundTime}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Buildings size={16} className="text-pine-green" />
+              <span className="text-xs font-bold uppercase tracking-widest text-xanadu">
+                {portfolio.propertySize}
+              </span>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 text-xanadu">
+            <MapPin size={16} weight="fill" className="text-pine-green" />
+            <span className="text-xs font-bold uppercase tracking-widest">{portfolio.location}</span>
+          </div>
         </div>
 
-        <h3 className="mb-4 max-w-xl text-lg font-medium leading-[1.1] tracking-tight text-white md:text-3xl">
+        <h3 className="mb-4 text-xl font-medium leading-[1.1] tracking-tight text-aztec md:text-3xl">
           {portfolio.title}
         </h3>
-        <p className="mb-6 max-w-2xl text-sm leading-relaxed text-white/70 md:mb-8 md:text-lg">
-          {portfolio.resultSummary}
-        </p>
 
-        <motion.div
-          whileHover={shouldReduceMotion ? {} : { y: -2 }}
-          className="inline-flex"
-        >
+        <div className="mb-6 space-y-4">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-pine-green">
+            Issue: <span className="text-xanadu">{portfolio.clientIssue}</span>
+          </p>
+          <p className="text-base leading-relaxed text-xanadu line-clamp-3">
+            {portfolio.resultSummary}
+          </p>
+        </div>
+
+        <div className="mb-10 flex flex-wrap gap-2">
+          {portfolio.trustBadges.slice(0, 3).map((badge) => (
+            <TrustLabel key={badge} label={badge} variant="dark" />
+          ))}
+        </div>
+
+        <div className="mt-auto">
           <Link
             href={`/portfolio/${portfolio.slug}`}
-            className="inline-flex items-center gap-4 rounded-full bg-yellow-green px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-aztec transition duration-300 hover:bg-[#b9f53a]"
+            className="inline-flex items-center gap-4 rounded-full bg-aztec px-6 py-3 text-sm font-semibold uppercase tracking-widest text-white transition-all duration-300 hover:bg-pine-green"
           >
-            <span>View Case Study</span>
+            <span>View Full Report</span>
             <ArrowUpRight size={18} weight="bold" />
           </Link>
-        </motion.div>
+        </div>
       </div>
     </motion.article>
   );
@@ -214,19 +229,21 @@ export default function PortfolioPageView({ portfolios, source }: PortfolioIndex
       {/* Archive Overview Section - Moved from Hero */}
       <section className="bg-wild-sand px-5 py-16 md:px-10 md:py-24 lg:px-20">
         <div className="mx-auto max-w-[1450px]">
-          <div className="grid gap-12 lg:grid-cols-[1fr_420px] lg:items-start">
-            <div className="max-w-3xl">
-              <MotionEyebrow>Archive Overview</MotionEyebrow>
-              <ScrollReveal
-                as="h2"
-                enableBlur
-                blurStrength={8}
-                containerClassName="mb-8 text-2xl font-medium leading-[1.15] tracking-tight text-aztec md:text-4xl"
-              >
-                Explore proof-of-work stories across landlord handovers, communal management, builders cleans, and premium resets.
-              </ScrollReveal>
+          <div className="grid gap-12 lg:grid-cols-[1fr_380px] lg:items-stretch">
+            <div className="flex flex-col justify-between py-2">
+              <div>
+                <MotionEyebrow>Archive Overview</MotionEyebrow>
+                <ScrollReveal
+                  as="h2"
+                  enableBlur
+                  blurStrength={8}
+                  containerClassName="mb-8 text-2xl font-medium leading-[1.15] tracking-tight text-aztec md:text-5xl"
+                >
+                  Explore proof-of-work stories across landlord handovers, communal management, builders cleans, and premium resets.
+                </ScrollReveal>
+              </div>
               
-              <div className="btn-pair">
+              <div className="btn-pair mt-8">
                 <ButtonLink href="/contact?source=Portfolio Index" variant="primary" className="px-8">
                   Discuss Your Project
                 </ButtonLink>
@@ -241,7 +258,7 @@ export default function PortfolioPageView({ portfolios, source }: PortfolioIndex
               transition={{ duration: 0.7, delay: 0.1 }}
               className="grid grid-cols-2 gap-3"
             >
-              <div className="border border-aztec/10 bg-white p-5 md:p-8 shadow-sm">
+              <div className="border border-aztec/10 bg-white p-6 md:p-8 shadow-sm">
                 <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-pine-green/60">
                   Projects
                 </p>
@@ -249,7 +266,7 @@ export default function PortfolioPageView({ portfolios, source }: PortfolioIndex
                   {projectCount}
                 </p>
               </div>
-              <div className="border border-aztec/10 bg-white p-5 md:p-8 shadow-sm">
+              <div className="border border-aztec/10 bg-white p-6 md:p-8 shadow-sm">
                 <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-pine-green/60">
                   Locations
                 </p>
@@ -257,7 +274,7 @@ export default function PortfolioPageView({ portfolios, source }: PortfolioIndex
                   {locationCount}
                 </p>
               </div>
-              <div className="border border-aztec/10 bg-white p-5 md:p-8 shadow-sm">
+              <div className="border border-aztec/10 bg-white p-6 md:p-8 shadow-sm">
                 <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-pine-green/60">
                   Featured
                 </p>
@@ -265,7 +282,7 @@ export default function PortfolioPageView({ portfolios, source }: PortfolioIndex
                   {featuredCount}
                 </p>
               </div>
-              <div className="border border-aztec/10 bg-white p-5 md:p-8 shadow-sm">
+              <div className="border border-aztec/10 bg-white p-6 md:p-8 shadow-sm">
                 <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-pine-green/60">
                   Satisfaction
                 </p>
@@ -338,7 +355,7 @@ export default function PortfolioPageView({ portfolios, source }: PortfolioIndex
           </div>
 
           {filteredPortfolios.length ? (
-            <div className="grid gap-4 lg:grid-cols-12">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {filteredPortfolios.map((portfolio, index) => (
                 <PortfolioCard key={portfolio.id} portfolio={portfolio} index={index} />
               ))}
@@ -349,42 +366,42 @@ export default function PortfolioPageView({ portfolios, source }: PortfolioIndex
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.75, delay: filteredPortfolios.length * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                className={`group relative flex flex-col justify-between overflow-hidden border border-aztec/10 bg-[#f5f5f3] p-8 md:p-12 ${
-                  cardSpans[filteredPortfolios.length % cardSpans.length]
-                }`}
+                className="group relative flex flex-col justify-between overflow-hidden border border-aztec/10 bg-[#f5f5f3] p-8 md:p-12 lg:col-span-3"
               >
-                <div>
-                  <MotionEyebrow>Next Steps</MotionEyebrow>
-                  <h3 className="mb-6 max-w-md text-2xl font-medium leading-[1.1] tracking-tight text-aztec md:text-4xl">
-                    Don't see your specific project type?
-                  </h3>
-                  <p className="max-w-sm text-base leading-relaxed text-xanadu md:text-lg">
-                    We specialize in tailored resets for complex environments, from clinical spaces to heritage properties.
-                  </p>
-                </div>
-
-                <div className="mt-12 flex flex-col gap-6">
-                  <div className="flex flex-wrap gap-2">
-                    {["Post-Tenancy", "Commercial Resets", "Builders Cleans", "Deep Resets"].map((tag) => (
-                      <span key={tag} className="border border-aztec/10 bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-aztec/60">
-                        {tag}
-                      </span>
-                    ))}
+                <div className="relative z-10 grid gap-12 lg:grid-cols-[1fr_auto] lg:items-center">
+                  <div>
+                    <MotionEyebrow>Next Steps</MotionEyebrow>
+                    <h3 className="mb-6 max-w-2xl text-2xl font-medium leading-[1.1] tracking-tight text-aztec md:text-4xl">
+                      Don't see your specific project type?
+                    </h3>
+                    <p className="max-w-xl text-base leading-relaxed text-xanadu md:text-lg">
+                      We specialize in tailored resets for complex environments, from clinical spaces to heritage properties.
+                    </p>
                   </div>
-                  
-                  <div className="btn-pair">
-                    <ButtonLink
-                      href="/contact?source=Portfolio Fallback"
-                      variant="primary"
-                      className="px-8"
-                    >
-                      Request a Custom Quote
-                    </ButtonLink>
-                    <IconButton
-                      href="/contact?source=Portfolio Fallback"
-                      aria-label="Request custom quote"
-                      size="md"
-                    />
+
+                  <div className="flex flex-col gap-8 lg:items-end">
+                    <div className="flex flex-wrap gap-2 lg:justify-end">
+                      {["Post-Tenancy", "Commercial Resets", "Builders Cleans", "Deep Resets"].map((tag) => (
+                        <span key={tag} className="border border-aztec/10 bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-aztec/60">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    
+                    <div className="btn-pair">
+                      <ButtonLink
+                        href="/contact?source=Portfolio Fallback"
+                        variant="primary"
+                        className="px-8"
+                      >
+                        Request a Custom Quote
+                      </ButtonLink>
+                      <IconButton
+                        href="/contact?source=Portfolio Fallback"
+                        aria-label="Request custom quote"
+                        size="md"
+                      />
+                    </div>
                   </div>
                 </div>
 

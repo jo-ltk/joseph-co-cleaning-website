@@ -8,20 +8,20 @@ export function serializePortfolio(document: any): PortfolioRecord {
     description: document.description,
     coverImage: {
       url: document.coverImage.url,
-      publicId: document.coverImage.publicId ?? undefined,
-      alt: document.coverImage.alt,
-      kind: document.coverImage.kind,
-      width: document.coverImage.width ?? undefined,
-      height: document.coverImage.height ?? undefined,
+      publicId: document.coverImage.publicId || null,
+      alt: document.coverImage.alt || "",
+      kind: document.coverImage.kind || "cover",
+      width: typeof document.coverImage.width === "number" ? document.coverImage.width : null,
+      height: typeof document.coverImage.height === "number" ? document.coverImage.height : null,
     },
     galleryImages: Array.isArray(document.galleryImages)
       ? document.galleryImages.map((asset: any) => ({
           url: asset.url,
-          publicId: asset.publicId ?? undefined,
-          alt: asset.alt,
-          kind: asset.kind,
-          width: asset.width ?? undefined,
-          height: asset.height ?? undefined,
+          publicId: asset.publicId || null,
+          alt: asset.alt || "",
+          kind: asset.kind || "detail",
+          width: typeof asset.width === "number" ? asset.width : null,
+          height: typeof asset.height === "number" ? asset.height : null,
         }))
       : [],
     serviceType: document.serviceType,
@@ -37,6 +37,16 @@ export function serializePortfolio(document: any): PortfolioRecord {
       : [],
     featured: Boolean(document.featured),
     createdAt: new Date(document.createdAt).toISOString(),
+    // New detailed case study fields
+    propertyType: document.propertyType || "",
+    propertySize: document.propertySize || "",
+    clientIssue: document.clientIssue || "",
+    challenge: document.challenge || "",
+    teamSize: document.teamSize || "",
+    tasksCompleted: Array.isArray(document.tasksCompleted) ? document.tasksCompleted : [],
+    handoverNotes: document.handoverNotes || "",
+    trustBadges: Array.isArray(document.trustBadges) ? document.trustBadges : [],
+    resultBadge: document.resultBadge || "",
   };
 }
 
