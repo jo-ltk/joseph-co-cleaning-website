@@ -204,16 +204,19 @@ export default function PremiumSupportAssistant() {
 
               {/* Suggestions */}
               {messages.length === 1 && !isLoading && (
-                <div className="px-5 pb-4 bg-[#fdfdfc] flex flex-wrap gap-2">
-                  {SUGGESTED_QUESTIONS.map((q, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => handleSend(q)}
-                      className="bg-white border border-[#e0e0e0] rounded-full px-3 py-1.5 text-[13px] text-[#120f0c] cursor-pointer whitespace-nowrap transition-all hover:bg-[#f5f5f3] hover:border-[#c4da3d]"
-                    >
-                      {q}
-                    </button>
-                  ))}
+                <div className="px-5 pb-4 bg-[#fdfdfc]">
+                  <p className="text-[11px] text-[#8c8c8c] font-medium uppercase tracking-wider mb-2">Quick questions</p>
+                  <div className="flex flex-col gap-2">
+                    {SUGGESTED_QUESTIONS.map((q, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => handleSend(q)}
+                        className="w-fit bg-white border border-[#e0e0e0] rounded-full px-3 py-1.5 text-[13px] text-[#120f0c] cursor-pointer text-left whitespace-nowrap transition-all hover:bg-[#f5f5f3] hover:border-[#c4da3d]"
+                      >
+                        {q}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
 
