@@ -36,11 +36,23 @@ export default function PremiumSupportAssistant() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
+  const [hasWarmedUp, setHasWarmedUp] = useState(false);
+
   useEffect(() => {
+    if (isOpen && !hasWarmedUp) {
+      // Pre-warm the API route to avoid cold start latency on first message
+      fetch("/api/chatbot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: [{ role: "user", content: "warmup" }], isWarmup: true }),
+      }).catch(() => {}); // Ignore errors for warmup
+      setHasWarmedUp(true);
+    }
+
     if (isOpen) {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messages, isOpen]);
+  }, [messages, isOpen, hasWarmedUp]);
 
   const handleClear = () => {
     setMessages([{ role: "assistant", content: WELCOME_MESSAGE }]);
