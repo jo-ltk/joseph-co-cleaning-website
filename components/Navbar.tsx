@@ -106,10 +106,9 @@ export default function Navbar({
             <div className="hidden items-center rounded-[8px] bg-white px-5 py-6 text-[#111713] shadow-[0_24px_70px_rgba(0,0,0,0.18)] md:flex">
               <Link
                 href="/"
-                className="shrink-0 text-[1.12rem] font-medium tracking-[-0.06em]"
-                style={{ fontFamily: "var(--font-inter), sans-serif" }}
+                className="shrink-0 flex items-center gap-2"
               >
-                &copy;Joseph.co
+                <img src="/logo.png" alt="Joseph.co Logo" className="h-12 md:h-16 w-auto object-contain scale-[1.65] origin-left" />
               </Link>
 
               <ul
@@ -133,10 +132,9 @@ export default function Navbar({
               <div className="flex items-center justify-between rounded-[12px] bg-white px-4 py-3.5 text-[#111713] shadow-[0_18px_50px_rgba(0,0,0,0.18)]">
                 <Link
                   href="/"
-                  className="text-[1.02rem] font-medium tracking-[-0.06em]"
-                  style={{ fontFamily: "var(--font-inter), sans-serif" }}
+                  className="flex items-center gap-2"
                 >
-                  &copy;Joseph.co
+                  <img src="/logo.png" alt="Joseph.co Logo" className="h-12 w-auto object-contain scale-[1.65] origin-left" />
                 </Link>
 
                 <div className="flex items-center gap-2">
@@ -252,10 +250,10 @@ export default function Navbar({
                 <div className="flex items-start justify-between">
                   <Link
                     href="/"
-                    className="text-[1.1rem] font-semibold tracking-[-0.06em]"
+                    className="flex items-center gap-2"
                     onClick={() => setMobileOpen(false)}
                   >
-                    &copy;Joseph.co
+                    <img src="/logo.png" alt="Joseph.co Logo" className="h-12 w-auto object-contain scale-[1.65] origin-left" />
                   </Link>
 
                   <button

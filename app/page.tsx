@@ -37,7 +37,7 @@ export default function HomePage() {
       <Navbar />
       <div data-stack><Hero /></div>
       <div data-stack data-reveal><TrustStrip /></div>
-      <div data-stack data-reveal><PartnershipsSection /></div>
+      {/* <div data-stack data-reveal><PartnershipsSection /></div> */}
       <div data-stack data-reveal><IndustriesSection /></div>
       <div data-stack data-reveal><WhyChooseUs /></div>
       <div data-stack data-reveal><ProcessSection /></div>

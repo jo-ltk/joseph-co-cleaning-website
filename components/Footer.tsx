@@ -58,7 +58,8 @@ export default function Footer() {
 
           <div className="flex flex-col justify-between">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="max-w-[680px]">
-              <h2 className="mb-5 md:mb-8 text-2xl md:text-4xl leading-[1.1] text-yellow-green">
+              <img src="/logo.png" alt="Joseph.co Logo" className="h-28 md:h-36 w-auto object-contain mb-0 md:-mb-4 brightness-0 invert opacity-90 scale-[1.2] origin-left" />
+              <h2 className="mb-5 md:mb-8 text-2xl md:text-4xl leading-[1.1] text-yellow-green relative z-10">
                 Elevating the standards of clean.
               </h2>
               <p className="text-base md:text-lg leading-relaxed text-yellow-green/70">

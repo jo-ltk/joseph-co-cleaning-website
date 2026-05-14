@@ -177,7 +177,7 @@ export function localBusinessSchema() {
     "@type": "LocalBusiness",
     name: siteName,
     url: siteUrl,
-    logo: absoluteUrl("/images/logo.png"),
+    logo: absoluteUrl("/logo.png"),
     image: absoluteUrl("/images/hero-wall.png"),
     telephone: businessContact.phone,
     email: businessContact.email,

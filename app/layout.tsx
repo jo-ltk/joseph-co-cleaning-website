@@ -46,20 +46,11 @@ export const metadata: Metadata = {
     siteName,
     title: defaultTitle,
     description: defaultDescription,
-    images: [
-      {
-        url: "/images/hero-wall.png",
-        width: 1200,
-        height: 630,
-        alt: `${siteName} residential and commercial cleaning services`,
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: defaultTitle,
     description: defaultDescription,
-    images: ["/images/hero-wall.png"],
   },
   robots: {
     index: true,

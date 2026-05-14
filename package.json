@@ -27,7 +27,8 @@
     "react-hook-form": "^7.74.0",
     "resend": "^6.12.2",
     "slugify": "^1.6.9",
-    "sonner": "^2.0.7"
+    "sonner": "^2.0.7",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "^22.15.3",
