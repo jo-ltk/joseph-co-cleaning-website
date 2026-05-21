@@ -43,9 +43,17 @@ export async function connectToDatabase() {
     global.mongooseCache!.promise = mongoose.connect(MONGODB_URI, {
       bufferCommands: false,
       dbName: "josephco",
+      serverSelectionTimeoutMS: 10_000,
     });
   }
 
-  global.mongooseCache!.connection = await global.mongooseCache!.promise;
+  try {
+    global.mongooseCache!.connection = await global.mongooseCache!.promise;
+  } catch (error) {
+    global.mongooseCache!.promise = null;
+    global.mongooseCache!.connection = null;
+    throw error;
+  }
+
   return global.mongooseCache!.connection;
 }
