@@ -82,7 +82,7 @@ function IndustryCard({
 
 export default function IndustriesSection() {
   return (
-    <section className="bg-wild-sand pb-16 md:pb-24 pt-0 px-5 md:px-10 lg:px-20 text-aztec">
+    <section className="bg-wild-sand pt-12 pb-16 md:pt-16 md:pb-24 px-5 md:px-10 lg:px-20 text-aztec">
       <div className="mx-auto max-w-[1450px]">
         <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6 lg:gap-12 mb-10 md:mb-16">
           <div className="max-w-2xl">

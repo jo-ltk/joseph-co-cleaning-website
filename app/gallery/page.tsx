@@ -92,24 +92,27 @@ function MotionEyebrow({ children, light = false }: { children: string; light?: 
   );
 }
 
-function CtaPair({ label = "Request A Quote", dark = false }: { label?: string; dark?: boolean }) {
+function CtaPair({ label = "Request A Quote", onLime = false }: { label?: string; onLime?: boolean }) {
+  const limeCta =
+    "!bg-pine-green !text-white hover:!bg-[#016663] hover:!text-white";
+
   return (
     <div className="btn-pair">
       <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
-        <ButtonLink 
-          href="/contact?source=Gallery" 
-          variant="primary" 
-          className={cn("px-8", dark ? "bg-aztec text-white hover:bg-aztec/90" : "")}
+        <ButtonLink
+          href="/contact?source=Gallery"
+          variant="primary"
+          className={cn("px-8", onLime && limeCta)}
         >
           {label}
         </ButtonLink>
       </motion.div>
       <motion.div whileHover={{ y: -2, rotate: 3 }} whileTap={{ scale: 0.96 }}>
-        <IconButton 
-          href="/contact?source=Gallery" 
-          aria-label={label} 
-          size="md" 
-          className={dark ? "bg-aztec text-white hover:bg-aztec/90" : ""}
+        <IconButton
+          href="/contact?source=Gallery"
+          aria-label={label}
+          size="md"
+          className={onLime ? limeCta : undefined}
         />
       </motion.div>
     </div>
@@ -381,7 +384,7 @@ export default function GalleryPage() {
             <p className="mb-8 text-lg font-medium leading-relaxed text-aztec/75 md:text-xl">
               Tell us what needs to change. We will shape the clean around your property, schedule, and desired finish.
             </p>
-            <CtaPair label="Request Quote" dark={true} />
+            <CtaPair label="Request Quote" onLime />
           </motion.div>
         </div>
       </section>
