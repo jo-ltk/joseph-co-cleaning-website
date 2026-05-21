@@ -1,4 +1,5 @@
-import { unstable_noStore as noStore } from "next/cache";
+import { unstable_cache } from "next/cache";
+import { cache } from "react";
 import { Types } from "mongoose";
 
 import { connectToDatabase, isMongoConfigured } from "@/lib/mongodb";
@@ -8,93 +9,155 @@ import Portfolio from "@/models/Portfolio";
 import Review from "@/models/Review";
 import type { PortfolioCollectionResult } from "@/types/portfolio";
 
-export async function getPortfolioIndex(): Promise<PortfolioCollectionResult> {
-  noStore();
+const PORTFOLIO_REVALIDATE_SECONDS = 60;
 
-  if (!isMongoConfigured()) {
+const portfolioIndexProjection = {
+  title: 1,
+  slug: 1,
+  description: 1,
+  coverImage: 1,
+  serviceType: 1,
+  location: 1,
+  completionDate: 1,
+  turnaroundTime: 1,
+  resultSummary: 1,
+  featured: 1,
+  propertySize: 1,
+  clientIssue: 1,
+  trustBadges: 1,
+  resultBadge: 1,
+  createdAt: 1,
+  metrics: 1,
+} as const;
+
+async function fetchPortfolioIndexFromDatabase(): Promise<PortfolioCollectionResult> {
+  await connectToDatabase();
+  const portfolios = await Portfolio.find({})
+    .select(portfolioIndexProjection)
+    .sort({ featured: -1, completionDate: -1, createdAt: -1 })
+    .lean();
+
+  if (!portfolios.length) {
     return {
       items: samplePortfolios,
-      source: "sample",
+      source: "sample" as const,
     };
   }
 
-  try {
-    await connectToDatabase();
-    const portfolios = await Portfolio.find({})
-      .sort({ featured: -1, completionDate: -1, createdAt: -1 })
-      .lean();
+  return {
+    items: portfolios.map(serializePortfolio),
+    source: "database" as const,
+  };
+}
 
-    if (!portfolios.length) {
+const getCachedPortfolioIndex = unstable_cache(
+  async () => {
+    try {
+      return await fetchPortfolioIndexFromDatabase();
+    } catch (error) {
+      console.error("PORTFOLIO_INDEX_ERROR", error);
       return {
         items: samplePortfolios,
-        source: "sample",
+        source: "sample" as const,
       };
     }
+  },
+  ["portfolio-index"],
+  { revalidate: PORTFOLIO_REVALIDATE_SECONDS, tags: ["portfolio"] },
+);
 
-    return {
-      items: portfolios.map(serializePortfolio),
-      source: "database",
-    };
-  } catch (error) {
-    console.error("PORTFOLIO_INDEX_ERROR", error);
+export async function getPortfolioIndex(): Promise<PortfolioCollectionResult> {
+  if (!isMongoConfigured()) {
     return {
       items: samplePortfolios,
       source: "sample",
     };
   }
+
+  return getCachedPortfolioIndex();
 }
 
-export async function getPortfolioBySlug(slug: string) {
-  noStore();
+async function fetchPortfolioBySlug(slug: string) {
+  await connectToDatabase();
+  const portfolio = await Portfolio.findOne({ slug }).lean();
 
+  if (!portfolio) {
+    return samplePortfolios.find((entry) => entry.slug === slug) ?? null;
+  }
+
+  return serializePortfolio(portfolio);
+}
+
+function getCachedPortfolioBySlug(slug: string) {
+  return unstable_cache(
+    async () => {
+      try {
+        return await fetchPortfolioBySlug(slug);
+      } catch (error) {
+        console.error("PORTFOLIO_DETAIL_ERROR", error);
+        return samplePortfolios.find((portfolio) => portfolio.slug === slug) ?? null;
+      }
+    },
+    ["portfolio-slug", slug],
+    {
+      revalidate: PORTFOLIO_REVALIDATE_SECONDS,
+      tags: ["portfolio", `portfolio-${slug}`],
+    },
+  )();
+}
+
+export const getPortfolioBySlug = cache(async (slug: string) => {
   if (!isMongoConfigured()) {
     return samplePortfolios.find((portfolio) => portfolio.slug === slug) ?? null;
   }
 
-  try {
-    await connectToDatabase();
-    const portfolio = await Portfolio.findOne({ slug }).lean();
+  return getCachedPortfolioBySlug(slug);
+});
 
-    if (!portfolio) {
-      return samplePortfolios.find((entry) => entry.slug === slug) ?? null;
-    }
+async function fetchApprovedReviewsByPortfolio(portfolioId: string) {
+  await connectToDatabase();
+  const reviews = await Review.find({
+    portfolioId,
+    approved: true,
+  })
+    .sort({ createdAt: -1 })
+    .lean();
 
-    return serializePortfolio(portfolio);
-  } catch (error) {
-    console.error("PORTFOLIO_DETAIL_ERROR", error);
-    return samplePortfolios.find((portfolio) => portfolio.slug === slug) ?? null;
-  }
+  return reviews.map(serializeReview);
 }
 
-export async function getApprovedReviewsByPortfolio(portfolioId: string) {
-  noStore();
+function getCachedApprovedReviews(portfolioId: string) {
+  return unstable_cache(
+    async () => {
+      try {
+        if (!Types.ObjectId.isValid(portfolioId)) {
+          return sampleReviews.filter(
+            (review) => review.portfolioId === portfolioId && review.approved,
+          );
+        }
 
+        return await fetchApprovedReviewsByPortfolio(portfolioId);
+      } catch (error) {
+        console.error("PORTFOLIO_REVIEW_READ_ERROR", error);
+        return sampleReviews.filter(
+          (review) => review.portfolioId === portfolioId && review.approved,
+        );
+      }
+    },
+    ["portfolio-reviews", portfolioId],
+    {
+      revalidate: PORTFOLIO_REVALIDATE_SECONDS,
+      tags: ["portfolio", `portfolio-reviews-${portfolioId}`],
+    },
+  )();
+}
+
+export const getApprovedReviewsByPortfolio = cache(async (portfolioId: string) => {
   if (!isMongoConfigured()) {
     return sampleReviews.filter(
       (review) => review.portfolioId === portfolioId && review.approved,
     );
   }
 
-  try {
-    if (!Types.ObjectId.isValid(portfolioId)) {
-      return sampleReviews.filter(
-        (review) => review.portfolioId === portfolioId && review.approved,
-      );
-    }
-
-    await connectToDatabase();
-    const reviews = await Review.find({
-      portfolioId,
-      approved: true,
-    })
-      .sort({ createdAt: -1 })
-      .lean();
-
-    return reviews.map(serializeReview);
-  } catch (error) {
-    console.error("PORTFOLIO_REVIEW_READ_ERROR", error);
-    return sampleReviews.filter(
-      (review) => review.portfolioId === portfolioId && review.approved,
-    );
-  }
-}
+  return getCachedApprovedReviews(portfolioId);
+});

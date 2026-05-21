@@ -12,7 +12,7 @@ declare global {
     | undefined;
 }
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URI?.trim();
 
 if (!global.mongooseCache) {
   global.mongooseCache = {
@@ -43,7 +43,8 @@ export async function connectToDatabase() {
     global.mongooseCache!.promise = mongoose.connect(MONGODB_URI, {
       bufferCommands: false,
       dbName: "josephco",
-      serverSelectionTimeoutMS: 10_000,
+      maxPoolSize: 10,
+      serverSelectionTimeoutMS: 5_000,
     });
   }
 

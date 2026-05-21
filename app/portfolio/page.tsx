@@ -7,7 +7,7 @@ import { getPortfolioIndex } from "@/lib/portfolio-queries";
 import { buildMetadata, serviceKeywords } from "@/lib/seo";
 import { breadcrumbSchema, jsonLdScript } from "@/lib/schema";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export const metadata: Metadata = buildMetadata({
   title: "Cleaning Case Studies And Portfolio",

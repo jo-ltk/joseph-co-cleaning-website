@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 import { getSession } from "@/lib/auth";
 
@@ -28,10 +28,12 @@ function messageFromError(error: unknown) {
 }
 
 function revalidatePortfolioSurfaces(slug?: string) {
+  revalidateTag("portfolio");
   revalidatePath("/portfolio");
   revalidatePath("/admin/portfolio");
 
   if (slug) {
+    revalidateTag(`portfolio-${slug}`);
     revalidatePath(`/portfolio/${slug}`);
   }
 }
