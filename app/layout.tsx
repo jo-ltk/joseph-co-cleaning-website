@@ -7,7 +7,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import MobileExperienceNotice from "@/components/MobileExperienceNotice";
 // import PremiumSupportAssistant from "@/components/PremiumSupportAssistant";
 import { Toaster } from "sonner";
-import { defaultDescription, defaultTitle, seoKeywords, siteName, siteUrl } from "@/lib/seo";
+import { defaultDescription, defaultTitle, seoKeywords, siteIcons, siteName, siteUrl } from "@/lib/seo";
 import {
   jsonLdScript,
   localBusinessSchema,
@@ -34,6 +34,7 @@ export const metadata: Metadata = {
   },
   description: defaultDescription,
   keywords: seoKeywords,
+  icons: siteIcons,
   applicationName: siteName,
   category: "Cleaning Services",
   alternates: {

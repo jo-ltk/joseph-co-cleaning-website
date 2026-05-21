@@ -7,6 +7,12 @@ export const defaultTitle =
 export const defaultDescription =
   "Joseph & Co Cleaning Services Ltd provides insured residential, commercial, office, deep, carpet, appliance, garden and end of tenancy cleaning across the UK, with fast quotes for landlords, tenants, estate agents, offices and homeowners.";
 
+export const siteIcons: Metadata["icons"] = {
+  icon: [{ url: "/logo.png", type: "image/png" }],
+  shortcut: "/logo.png",
+  apple: "/logo.png",
+};
+
 export const businessContact = {
   name: siteName,
   url: siteUrl,
@@ -93,6 +99,7 @@ export function buildMetadata({
     title,
     description,
     keywords: [...seoKeywords, ...keywords],
+    icons: siteIcons,
 
     // ✅ Added: E-E-A-T signals for Google
     authors: [{ name: siteName, url: siteUrl }],
