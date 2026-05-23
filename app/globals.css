@@ -152,6 +152,32 @@ summary::-webkit-details-marker {
   }
 }
 
+@keyframes trust-strip-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.trust-strip-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: trust-strip-marquee 28s linear infinite;
+  will-change: transform;
+}
+
+.trust-strip-marquee:hover .trust-strip-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trust-strip-marquee-track {
+    animation: none;
+  }
+}
+
 @keyframes marqueeScroll {
   from {
     transform: translateX(0);

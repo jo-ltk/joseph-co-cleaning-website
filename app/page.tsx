@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import IndustriesSection from "../components/IndustriesSection";
 import ProcessSection from "../components/ProcessSection";
+import MethodologyRockSection from "../components/MethodologyRockSection";
 import PartnershipsSection from "../components/PartnershipsSection";
 import Navbar from "../components/Navbar";
 import RecentProjectsSection from "../components/RecentProjectsSection";
@@ -41,6 +42,7 @@ export default function HomePage() {
       <div data-stack data-reveal><IndustriesSection /></div>
       <div data-stack data-reveal><WhyChooseUs /></div>
       <div data-stack data-reveal><ProcessSection /></div>
+      <div data-stack data-reveal><MethodologyRockSection /></div>
       <div data-stack data-reveal><ResultsComparison /></div>
       <div data-stack><TestimonialsSection /></div>
       <div data-stack><PricingSection /></div>

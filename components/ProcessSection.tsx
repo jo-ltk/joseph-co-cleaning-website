@@ -14,7 +14,7 @@ const steps = [
 
 export default function ProcessSection() {
   return (
-    <section className="bg-wild-sand py-16 md:py-24 px-5 md:px-10 lg:px-20 overflow-hidden">
+    <section className="bg-wild-sand pt-16 pb-6 md:pt-24 md:pb-8 px-5 md:px-10 lg:px-20 overflow-hidden">
       <div className="mx-auto max-w-[1450px]">
         <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6 lg:gap-12 mb-10 md:mb-16">
           <div className="max-w-2xl">

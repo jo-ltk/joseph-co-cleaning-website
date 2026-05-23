@@ -7,7 +7,7 @@ import ScrollReveal from "./ScrollReveal";
 
 export default function ResultsComparison() {
   return (
-    <section className="bg-white py-16 md:py-24 px-5 md:px-10 lg:px-20 overflow-hidden">
+    <section className="bg-white pt-8 pb-16 md:pt-10 md:pb-24 px-5 md:px-10 lg:px-20 overflow-hidden">
       <div className="mx-auto max-w-[1450px]">
         <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6 lg:gap-12 mb-10 md:mb-16">
           <div className="max-w-2xl">
