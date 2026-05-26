@@ -1,82 +1,116 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, CheckCircle } from "@phosphor-icons/react/dist/ssr";
 import Button, { ButtonLink } from "./ui/Button";
-
 import ScrollReveal from "./ScrollReveal";
 
-const floatingAvatars = [
-  { src: "https://i.pravatar.cc/150?u=1", size: 72, top: "15%", left: "10%", delay: 0 },
-  { src: "https://i.pravatar.cc/150?u=2", size: 56, top: "60%", left: "8%", delay: 0.5 },
-  { src: "https://i.pravatar.cc/150?u=3", size: 64, top: "25%", right: "12%", delay: 1.2 },
-  { src: "https://i.pravatar.cc/150?u=4", size: 80, top: "65%", right: "10%", delay: 0.8 },
-  { src: "https://i.pravatar.cc/150?u=5", size: 48, top: "10%", right: "25%", delay: 1.5 },
-  { src: "https://i.pravatar.cc/150?u=6", size: 52, top: "75%", left: "25%", delay: 0.3 },
+const highlights = [
+  "Free on-site assessment",
+  "Fully vetted cleaning teams",
+  "Flexible weekly or one-off visits",
 ];
 
 export default function CtaPodSection() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
-    <section className="bg-wild-sand py-16 md:py-24 px-5 md:px-10 lg:px-20 overflow-hidden">
+    <section className="overflow-hidden bg-wild-sand py-16 md:py-24 px-5 md:px-10 lg:px-20">
       <div className="mx-auto max-w-[1450px]">
         <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="relative bg-white rounded-[32px] md:rounded-[64px] py-12 md:py-20 px-6 md:px-10 text-left md:text-center overflow-hidden border border-aztec/5 shadow-[0_32px_100px_rgba(0,0,0,0.04)]"
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+          whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+          className="grid overflow-hidden rounded-[28px] border border-aztec/8 bg-white shadow-[0_24px_80px_rgba(17,32,37,0.08)] md:rounded-[40px] lg:grid-cols-[1fr_1.05fr]"
         >
-          {floatingAvatars.map((img, i) => (
-            <motion.div key={i} animate={{ y: [0, -12, 0], x: [0, 4, 0] }} transition={{ duration: 5 + Math.random() * 2, repeat: Infinity, ease: "easeInOut", delay: img.delay }}
-              className="absolute hidden xl:block rounded-full overflow-hidden border-4 border-white shadow-lg pointer-events-none"
-              style={{ width: img.size, height: img.size, top: img.top, left: img.left, right: img.right }}>
-              <Image src={img.src} alt="Client" fill className="object-cover" unoptimized />
-            </motion.div>
-          ))}
+          {/* Copy */}
+          <div className="flex flex-col justify-center px-6 py-10 sm:px-10 sm:py-12 lg:px-14 lg:py-16">
+            <motion.span
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mb-4 block text-sm font-semibold uppercase tracking-widest text-pine-green"
+            >
+              Book your clean
+            </motion.span>
 
-          <div className="relative z-10 max-w-3xl md:mx-auto">
             <ScrollReveal
               as="h2"
-              enableBlur={true}
+              enableBlur={!shouldReduceMotion}
               blurStrength={8}
-              containerClassName="text-2xl md:text-4xl leading-[1.1] text-aztec mb-3 md:mb-4"
+              containerClassName="mb-4 text-2xl leading-[1.1] text-aztec md:text-4xl lg:text-[2.75rem]"
             >
               Ready for a spotless space?
             </ScrollReveal>
-           <motion.p
-  initial={{ opacity: 0, y: 24 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true, margin: "-50px" }}
-  transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-  className="text-xanadu text-base md:text-lg mb-6 md:mb-8 max-w-lg md:mx-auto leading-relaxed pt-2 md:pt-3"
->
-  Join the elite homeowners and estates who trust Joseph.co for uncompromising standards.
-</motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+
+            <motion.p
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="flex flex-col sm:flex-row items-start md:items-center md:justify-center gap-3 md:gap-4"
+              transition={{ duration: 0.55, delay: 0.1 }}
+              className="mb-8 max-w-md text-base leading-relaxed text-xanadu md:text-lg"
             >
-              <Button 
-                variant="primary" 
-                className="w-full sm:w-auto h-11 md:h-12 px-8 md:px-10 rounded-full text-base font-bold"
+              Tell us about your property. We will build a bespoke cleaning plan around your schedule, finish, and standards.
+            </motion.p>
+
+            <motion.ul
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.15 }}
+              className="mb-8 space-y-3"
+            >
+              {highlights.map((item) => (
+                <li key={item} className="flex items-start gap-2.5 text-sm font-medium text-aztec md:text-base">
+                  <CheckCircle size={20} weight="fill" className="mt-0.5 shrink-0 text-pine-green" />
+                  {item}
+                </li>
+              ))}
+            </motion.ul>
+
+            <motion.div
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.22 }}
+              className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center"
+            >
+              <Button
+                variant="primary"
+                className="group h-12 w-full px-8 text-base font-semibold sm:w-auto"
                 onClick={() => window.dispatchEvent(new CustomEvent("open-estimate"))}
               >
-                Get Started &rarr;
+                Get a free quote
+                <ArrowRight
+                  size={18}
+                  weight="bold"
+                  className="ml-2 transition-transform duration-300 group-hover:translate-x-0.5"
+                />
               </Button>
-              <ButtonLink 
+              <ButtonLink
                 href="/contact?source=CtaPod"
-                variant="secondary" 
-                className="w-full sm:w-auto h-11 md:h-12 px-8 md:px-10 border-2 border-aztec/10 text-aztec hover:bg-aztec/5 rounded-full text-base font-bold"
+                variant="secondary"
+                className="h-12 w-full border border-aztec/15 px-8 text-base font-semibold text-aztec hover:bg-aztec/5 sm:w-auto"
               >
-                Talk to Sales
+                Contact us
               </ButtonLink>
             </motion.div>
           </div>
 
-          <div className="absolute inset-0 bg-gradient-to-br from-yellow-green/5 via-transparent to-pine-green/5 pointer-events-none" />
+          {/* Visual */}
+          <div className="relative min-h-[260px] bg-wild-sand sm:min-h-[320px] lg:min-h-[420px]">
+            <Image
+              src="/images/cta-pod.png"
+              alt="Professional cleaning service by Joseph.co"
+              fill
+              quality={95}
+              priority
+              className="object-cover object-center"
+              sizes="(max-width: 1024px) 100vw, 720px"
+            />
+          </div>
         </motion.div>
       </div>
     </section>

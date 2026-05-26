@@ -9,28 +9,28 @@ import IconButton from "./ui/IconButton";
 
 import ScrollReveal from "./ScrollReveal";
 
-type ProjectCard = { title: string; image: string; alt: string; overlay: string; desktopClassName: string; backgroundPosition?: string; showViewProject?: boolean; showPlus?: boolean; };
+type ProjectCard = { title: string; image: string; alt: string; overlay: string; desktopClassName: string; backgroundPosition?: string; showViewProject?: boolean; };
+
+const colSpan = "md:col-span-3";
 
 const slides: ProjectCard[][] = [
   [
-    { title: "The Heights Penthouse", image: "https://images.pexels.com/photos/15379018/pexels-photo-15379018.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1600&w=2200", alt: "Luxury penthouse living room with skyline view", overlay: "linear-gradient(180deg, rgba(150, 155, 148, 0.18) 0%, rgba(18, 21, 16, 0.38) 100%)", desktopClassName: "md:col-span-4", backgroundPosition: "center center", showViewProject: true, showPlus: true },
-    { title: "Regency Corporate Hub", image: "/images/unsplash/photo-1558494949-ef010cbdcc31.jpg", alt: "Modern glass office building interior", overlay: "linear-gradient(180deg, rgba(3, 12, 13, 0.08) 0%, rgba(3, 9, 12, 0.54) 100%)", desktopClassName: "md:col-span-4", backgroundPosition: "center center" },
-    { title: "Luxe Retail Plaza", image: "/images/unsplash/photo-1500530855697-b586d89ba3ee.jpg", alt: "High-end shopping mall atrium", overlay: "linear-gradient(180deg, rgba(9, 22, 19, 0.12) 0%, rgba(8, 14, 13, 0.42) 100%)", desktopClassName: "md:col-span-4", backgroundPosition: "center center" },
+    { title: "The Heights Penthouse", image: "/images/projects/recent-project-1.png", alt: "Luxury penthouse living room with skyline view", overlay: "linear-gradient(180deg, rgba(150, 155, 148, 0.18) 0%, rgba(18, 21, 16, 0.38) 100%)", desktopClassName: colSpan, backgroundPosition: "center center", showViewProject: true },
+    { title: "Regency Corporate Hub", image: "/images/projects/recent-project-2.png", alt: "Modern glass office building interior", overlay: "linear-gradient(180deg, rgba(3, 12, 13, 0.08) 0%, rgba(3, 9, 12, 0.54) 100%)", desktopClassName: colSpan, backgroundPosition: "center center" },
+    { title: "Luxe Retail Plaza", image: "/images/projects/recent-project-3.png", alt: "High-end shopping mall atrium", overlay: "linear-gradient(180deg, rgba(9, 22, 19, 0.12) 0%, rgba(8, 14, 13, 0.42) 100%)", desktopClassName: colSpan, backgroundPosition: "center center" },
+    { title: "Azure Marina Villas", image: "/images/projects/recent-project-4.png", alt: "Waterfront luxury villa exterior", overlay: "linear-gradient(180deg, rgba(152, 140, 118, 0.14) 0%, rgba(19, 18, 14, 0.42) 100%)", desktopClassName: colSpan, backgroundPosition: "center center" },
   ],
   [
-    { title: "Azure Marina Villas", image: "/images/unsplash/photo-1497436072909-60f360e1d4b1.jpg", alt: "Waterfront luxury villa exterior", overlay: "linear-gradient(180deg, rgba(152, 140, 118, 0.14) 0%, rgba(19, 18, 14, 0.42) 100%)", desktopClassName: "md:col-span-4", backgroundPosition: "center center", showViewProject: true, showPlus: true },
-    { title: "Global Tech Campus", image: "/images/unsplash/photo-1518770660439-4636190af475.jpg", alt: "Minimalist tech office lobby", overlay: "linear-gradient(180deg, rgba(2, 10, 13, 0.1) 0%, rgba(3, 10, 12, 0.55) 100%)", desktopClassName: "md:col-span-4", backgroundPosition: "center center" },
-    { title: "Skyview Residences", image: "/images/unsplash/photo-1506744038136-46273834b3fb.jpg", alt: "Modern apartment balcony view", overlay: "linear-gradient(180deg, rgba(8, 22, 20, 0.1) 0%, rgba(8, 16, 15, 0.4) 100%)", desktopClassName: "md:col-span-4", backgroundPosition: "center center" },
+    { title: "Global Tech Campus", image: "/images/unsplash/photo-1518770660439-4636190af475.jpg", alt: "Minimalist tech office lobby", overlay: "linear-gradient(180deg, rgba(2, 10, 13, 0.1) 0%, rgba(3, 10, 12, 0.55) 100%)", desktopClassName: colSpan, backgroundPosition: "center center", showViewProject: true },
+    { title: "Skyview Residences", image: "/images/unsplash/photo-1506744038136-46273834b3fb.jpg", alt: "Modern apartment balcony view", overlay: "linear-gradient(180deg, rgba(8, 22, 20, 0.1) 0%, rgba(8, 16, 15, 0.4) 100%)", desktopClassName: colSpan, backgroundPosition: "center center" },
+    { title: "Beacon Health Center", image: "/images/unsplash/photo-1473341304170-971dccb5ac1e.jpg", alt: "Sterile medical facility hallway", overlay: "linear-gradient(180deg, rgba(118, 139, 154, 0.12) 0%, rgba(12, 18, 17, 0.42) 100%)", desktopClassName: colSpan, backgroundPosition: "center center" },
+    { title: "Grand Horizon Hotel", image: "/images/unsplash/photo-1516321318423-f06f85e504b3.jpg", alt: "Luxury hotel lobby with marble floors", overlay: "linear-gradient(180deg, rgba(3, 9, 12, 0.08) 0%, rgba(2, 10, 12, 0.56) 100%)", desktopClassName: colSpan, backgroundPosition: "center center" },
   ],
   [
-    { title: "Beacon Health Center", image: "/images/unsplash/photo-1473341304170-971dccb5ac1e.jpg", alt: "Sterile medical facility hallway", overlay: "linear-gradient(180deg, rgba(118, 139, 154, 0.12) 0%, rgba(12, 18, 17, 0.42) 100%)", desktopClassName: "md:col-span-4", backgroundPosition: "center center", showViewProject: true, showPlus: true },
-    { title: "Grand Horizon Hotel", image: "/images/unsplash/photo-1516321318423-f06f85e504b3.jpg", alt: "Luxury hotel lobby with marble floors", overlay: "linear-gradient(180deg, rgba(3, 9, 12, 0.08) 0%, rgba(2, 10, 12, 0.56) 100%)", desktopClassName: "md:col-span-4", backgroundPosition: "center center" },
-    { title: "Nature Retreat Spa", image: "/images/unsplash/photo-1441974231531-c6227db76b6e.jpg", alt: "Serene spa interior", overlay: "linear-gradient(180deg, rgba(9, 18, 14, 0.08) 0%, rgba(8, 13, 11, 0.44) 100%)", desktopClassName: "md:col-span-4", backgroundPosition: "center center" },
-  ],
-  [
-    { title: "Summit Executive Suites", image: "/images/unsplash/photo-1466611653911-95081537e5b7.jpg", alt: "High-floor executive office", overlay: "linear-gradient(180deg, rgba(150, 149, 132, 0.14) 0%, rgba(15, 17, 13, 0.42) 100%)", desktopClassName: "md:col-span-4", backgroundPosition: "center center", showViewProject: true, showPlus: true },
-    { title: "Elite Fitness Club", image: "/images/unsplash/photo-1489515217757-5fd1be406fef.jpg", alt: "High-end gym interior", overlay: "linear-gradient(180deg, rgba(4, 10, 12, 0.08) 0%, rgba(4, 10, 12, 0.58) 100%)", desktopClassName: "md:col-span-4", backgroundPosition: "center center" },
-    { title: "Legacy Library Hall", image: "/images/unsplash/photo-1505764706515-aa95265c5abc.jpg", alt: "Polished historic library", overlay: "linear-gradient(180deg, rgba(8, 22, 20, 0.08) 0%, rgba(7, 13, 12, 0.44) 100%)", desktopClassName: "md:col-span-4", backgroundPosition: "center center" },
+    { title: "Nature Retreat Spa", image: "/images/unsplash/photo-1441974231531-c6227db76b6e.jpg", alt: "Serene spa interior", overlay: "linear-gradient(180deg, rgba(9, 18, 14, 0.08) 0%, rgba(8, 13, 11, 0.44) 100%)", desktopClassName: colSpan, backgroundPosition: "center center", showViewProject: true },
+    { title: "Summit Executive Suites", image: "/images/unsplash/photo-1466611653911-95081537e5b7.jpg", alt: "High-floor executive office", overlay: "linear-gradient(180deg, rgba(150, 149, 132, 0.14) 0%, rgba(15, 17, 13, 0.42) 100%)", desktopClassName: colSpan, backgroundPosition: "center center" },
+    { title: "Elite Fitness Club", image: "/images/unsplash/photo-1489515217757-5fd1be406fef.jpg", alt: "High-end gym interior", overlay: "linear-gradient(180deg, rgba(4, 10, 12, 0.08) 0%, rgba(4, 10, 12, 0.58) 100%)", desktopClassName: colSpan, backgroundPosition: "center center" },
+    { title: "Legacy Library Hall", image: "/images/unsplash/photo-1505764706515-aa95265c5abc.jpg", alt: "Polished historic library", overlay: "linear-gradient(180deg, rgba(8, 22, 20, 0.08) 0%, rgba(7, 13, 12, 0.44) 100%)", desktopClassName: colSpan, backgroundPosition: "center center" },
   ],
 ];
 
@@ -89,24 +89,35 @@ export default function RecentProjectsSection() {
         </div>
 
         <div className="overflow-hidden">
-          <div className="relative min-h-[420px] sm:min-h-[480px] md:min-h-[380px]">
+          <div className="relative min-h-[380px] sm:min-h-[460px] md:min-h-[340px] lg:min-h-[380px]">
             <AnimatePresence initial={false} custom={direction} mode="wait">
-              <motion.div key={activeSlide} custom={direction} variants={shouldReduceMotion ? undefined : slideVariants} initial={shouldReduceMotion ? undefined : "enter"} animate={shouldReduceMotion ? undefined : "center"} exit={shouldReduceMotion ? undefined : "exit"} transition={{ duration: 0.64, ease: [0.22, 1, 0.36, 1] }} className="grid grid-cols-1 gap-3 md:gap-4 md:grid-cols-12">
+              <motion.div key={activeSlide} custom={direction} variants={shouldReduceMotion ? undefined : slideVariants} initial={shouldReduceMotion ? undefined : "enter"} animate={shouldReduceMotion ? undefined : "center"} exit={shouldReduceMotion ? undefined : "exit"} transition={{ duration: 0.64, ease: [0.22, 1, 0.36, 1] }} className="grid grid-cols-2 gap-3 md:gap-4 md:grid-cols-12">
                 {slides[activeSlide].map((project, index) => (
                   <motion.article key={project.title} whileHover={shouldReduceMotion ? undefined : "hover"} initial={shouldReduceMotion ? false : { opacity: 0, y: 26 }} animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: shouldReduceMotion ? 0 : 0.08 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                    className={`group relative overflow-hidden bg-[#d9d9d2] ${project.desktopClassName} ${index === 2 ? "min-h-[200px] md:min-h-[380px]" : "min-h-[200px] sm:min-h-[240px] md:min-h-[380px]"}`}>
+                    className={`group relative overflow-hidden bg-[#d9d9d2] ${project.desktopClassName} min-h-[180px] sm:min-h-[220px] md:min-h-[340px] lg:min-h-[380px]`}>
                     <motion.div variants={shouldReduceMotion ? undefined : { hover: { scale: 1.045 } }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="absolute inset-0"
                       style={{ backgroundImage: `${project.overlay}, url("${project.image}")`, backgroundPosition: project.backgroundPosition ?? "center center", backgroundRepeat: "no-repeat", backgroundSize: "cover" }} aria-label={project.alt} role="img" />
-                    {project.showPlus && (
-                      <motion.div variants={shouldReduceMotion ? undefined : { hover: { scale: 1.08, opacity: 0.94 } }} className="absolute left-1/2 top-1/2 z-10 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full text-2xl font-extralight leading-none text-white/70 md:h-16 md:w-16">+</motion.div>
-                    )}
-                    <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-4 md:p-8">
-                      <motion.p variants={shouldReduceMotion ? undefined : { hover: { y: -2 } }} className="text-sm md:text-base font-medium tracking-tight text-white" style={{ fontFamily: "var(--font-inter), sans-serif" }}>{project.title}</motion.p>
+                    <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-2 bg-gradient-to-t from-black/50 via-black/25 to-transparent p-3 sm:gap-2.5 sm:p-4 lg:flex-row lg:items-end lg:justify-between lg:gap-3 lg:p-5">
+                      <motion.p
+                        variants={shouldReduceMotion ? undefined : { hover: { y: -2 } }}
+                        className="min-w-0 text-xs font-medium leading-snug tracking-tight text-white sm:text-sm lg:max-w-[55%] lg:text-base"
+                        style={{ fontFamily: "var(--font-inter), sans-serif" }}
+                      >
+                        {project.title}
+                      </motion.p>
                       {project.showViewProject && (
-                        <motion.div variants={shouldReduceMotion ? undefined : { hover: { y: -3, opacity: 1 } }} className="hidden opacity-90 md:block">
-                          <Link href="/gallery" className="inline-flex items-center gap-4 rounded-full bg-[#dbe783]/10 px-4 py-2 text-sm font-medium tracking-tight text-[#d5d18d] backdrop-blur-md transition duration-300 hover:bg-[#dbe783]/18 hover:text-[#eff7ae]" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
-                            <span>View Project</span>
-                            <span className="flex h-8 w-8 items-center justify-center rounded-full border border-[#d5d18d]/25 bg-black/10"><span aria-hidden="true">↗</span></span>
+                        <motion.div variants={shouldReduceMotion ? undefined : { hover: { y: -2 } }} className="shrink-0 self-start lg:self-auto">
+                          <Link
+                            href="/gallery"
+                            aria-label={`View ${project.title}`}
+                            className="inline-flex max-w-full items-center gap-1.5 rounded-full bg-[#dbe783]/10 px-2.5 py-1.5 text-[11px] font-medium tracking-tight text-[#d5d18d] backdrop-blur-md transition duration-300 hover:bg-[#dbe783]/18 hover:text-[#eff7ae] sm:gap-2 sm:px-3 sm:py-2 sm:text-xs xl:gap-3 xl:px-4 xl:text-sm"
+                            style={{ fontFamily: "var(--font-inter), sans-serif" }}
+                          >
+                            <span className="whitespace-nowrap sm:inline 2xl:hidden">View</span>
+                            <span className="hidden whitespace-nowrap 2xl:inline">View Project</span>
+                            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#d5d18d]/25 bg-black/10 text-xs sm:h-7 sm:w-7 xl:h-8 xl:w-8" aria-hidden="true">
+                              ↗
+                            </span>
                           </Link>
                         </motion.div>
                       )}
