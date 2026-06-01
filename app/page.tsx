@@ -10,6 +10,7 @@ import MethodologyRockSection from "../components/MethodologyRockSection";
 import PartnershipsSection from "../components/PartnershipsSection";
 import Navbar from "../components/Navbar";
 import RecentProjectsSection from "../components/RecentProjectsSection";
+import LatestUpdatesSection from "../components/latest-updates/LatestUpdatesSection";
 import ResultsSection from "../components/ResultsSection";
 import ResultsComparison from "../components/ResultsComparison";
 import TestimonialsSection from "../components/TestimonialsSection";
@@ -47,6 +48,7 @@ export default function HomePage() {
       <div data-stack><TestimonialsSection /></div>
       <div data-stack><PricingSection /></div>
       <div data-stack><CtaPodSection /></div>
+      <div data-stack data-reveal><LatestUpdatesSection /></div>
       <div data-stack><RecentProjectsSection /></div>
       <div data-stack><FaqSection /></div>
       <div data-stack><BottomCta /></div>
