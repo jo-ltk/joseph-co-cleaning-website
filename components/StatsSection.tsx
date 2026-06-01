@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 import ScrollReveal from "./ScrollReveal";
 
 const stats = [
-  { value: "15+", label: "SERVICE SPECIALISTS" },
-  { value: "450+", label: "ESTATES & HOMES MANAGED" },
+  { value: "5+", label: "TRAINED TEAM MEMBERS" },
+  { value: "Insured", label: "AND BONDED TEAMS" },
   { value: "4", label: "COUNTIES COVERED" },
   { value: "100%", label: "DBS CLEARANCE" },
 ];
@@ -29,7 +29,7 @@ export default function StatsSection() {
           containerClassName="text-2xl md:text-4xl leading-[1.1] text-[#1a1a1a] font-medium tracking-tight"
           style={{ fontFamily: "var(--font-inter), sans-serif" }}
         >
-          The Foundation of Our Success
+          Built on Trust & High Standards
         </ScrollReveal>
       </div>
 
