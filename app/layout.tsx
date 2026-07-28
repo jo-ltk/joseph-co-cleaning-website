@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
 
 import "../app/globals.css";
-import WhatsAppFloat from "@/components/WhatsAppFloat";
 import SmoothScroll from "@/components/SmoothScroll";
-import MobileExperienceNotice from "@/components/MobileExperienceNotice";
+import PresentationRouteExtras from "@/components/PresentationRouteExtras";
 // import PremiumSupportAssistant from "@/components/PremiumSupportAssistant";
 import { Toaster } from "sonner";
 import { defaultDescription, defaultTitle, seoKeywords, siteIcons, siteName, siteUrl } from "@/lib/seo";
@@ -84,9 +83,8 @@ export default function RootLayout({
           <main className="relative w-full overflow-x-hidden">
             {children}
           </main>
-          <WhatsAppFloat />
+          <PresentationRouteExtras />
           {/* <PremiumSupportAssistant /> */}
-          <MobileExperienceNotice />
           <Toaster position="bottom-right" richColors />
         </SmoothScroll>
       </body>
