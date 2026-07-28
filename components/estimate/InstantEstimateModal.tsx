@@ -19,7 +19,8 @@ import {
   Calculator,
   NavigationArrow,
   Spinner,
-  Leaf
+  Leaf,
+  Key
 } from "@phosphor-icons/react";
 import Button from "../ui/Button";
 import { toast } from "sonner";
@@ -29,6 +30,7 @@ const services = [
   { id: "commercial", label: "Commercial Cleaning", icon: <Buildings size={24} />, description: "Office & retail spaces" },
   { id: "deep", label: "Deep Cleaning", icon: <Sparkle size={24} />, description: "Intensive seasonal refresh" },
   { id: "tenancy", label: "End of Tenancy", icon: <Door size={24} />, description: "Moving in or out" },
+  { id: "property", label: "Property Services", icon: <Key size={24} />, description: "Management, letting & handovers" },
   { id: "garden", label: "Garden & Exterior Care", icon: <Leaf size={24} />, description: "Patios, driveways & tidy-ups" },
 ];
 
@@ -56,6 +58,12 @@ const serviceOptionsMap: Record<string, { id: string; label: string; multiplier:
     { id: "flat-let", label: "Standard Rental Flat", multiplier: 1.4 },
     { id: "house-let", label: "Family Tenancy House", multiplier: 2.2 },
     { id: "hmo-let", label: "Multi-Room Let / HMO", multiplier: 3.5 },
+  ],
+  property: [
+    { id: "single-let", label: "Single Rental Property", multiplier: 1 },
+    { id: "multi-let", label: "Small Portfolio (2–5 Units)", multiplier: 2.2 },
+    { id: "hmo-portfolio", label: "HMO / Shared Accommodation", multiplier: 2.8 },
+    { id: "estate-portfolio", label: "Estate or Multi-Property Portfolio", multiplier: 4.5 },
   ],
   garden: [
     { id: "garden-tidy", label: "Front Garden Tidy", multiplier: 1 },
@@ -161,6 +169,7 @@ export default function InstantEstimateModal({ isOpen, onClose }: { isOpen: bool
     if (formData.service === "commercial") base = 120;
     if (formData.service === "deep") base = 150;
     if (formData.service === "tenancy") base = 180;
+    if (formData.service === "property") base = 160;
     if (formData.service === "garden") base = 60;
 
     const options = serviceOptionsMap[formData.service] || [];
@@ -183,11 +192,13 @@ export default function InstantEstimateModal({ isOpen, onClose }: { isOpen: bool
     try {
       const { submitBooking } = await import("../../app/actions/booking");
       
+      const serviceLabel = services.find((s) => s.id === formData.service)?.label || formData.service;
+
       const result = await submitBooking({
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
-        service: formData.service,
+        service: serviceLabel,
         location: formData.location,
         leadSource: "Instant Estimate",
         message: `Generated Estimate: £${calculateEstimate().min} - £${calculateEstimate().max}\nProperty Option: ${serviceOptionsMap[formData.service]?.find(p => p.id === formData.propertySize)?.label || formData.propertySize}\nFrequency: ${frequencies.find(f => f.id === formData.frequency)?.label || formData.frequency}`

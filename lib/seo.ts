@@ -5,7 +5,7 @@ export const siteName = "Joseph & Co Cleaning Services Ltd";
 export const defaultTitle =
   "Professional Cleaning Services UK | Joseph & Co Cleaning";
 export const defaultDescription =
-  "Joseph & Co Cleaning Services Ltd provides insured residential, commercial, office, deep, carpet, appliance, garden and end of tenancy cleaning across the UK, with fast quotes for landlords, tenants, estate agents, offices and homeowners.";
+  "Joseph & Co Cleaning Services Ltd provides insured residential, commercial, office, deep, carpet, appliance, garden, property and end of tenancy cleaning across the UK, with fast quotes for landlords, tenants, estate agents, offices and homeowners.";
 
 export const siteIcons: Metadata["icons"] = {
   icon: [{ url: "/logo.png", type: "image/png" }],
@@ -38,6 +38,9 @@ export const seoKeywords = [
   "after builders cleaning",
   "move out cleaning",
   "property handover cleaning",
+  "property services UK",
+  "property management support",
+  "letting services",
 ];
 
 export const serviceKeywords = {
@@ -54,6 +57,8 @@ export const serviceKeywords = {
     "commercial cleaning",
     "after builders cleaning",
     "domestic cleaning",
+    "property services",
+    "property management support",
   ],
   portfolio: [
     "cleaning case studies",

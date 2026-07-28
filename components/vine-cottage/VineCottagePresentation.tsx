@@ -128,6 +128,7 @@ const services = [
   [Sparkle, "Commercial Cleaning", "Immaculate workspaces maintained to the highest professional standards."],
   [HouseLine, "Domestic Cleaning", "Bespoke home care delivered with discretion and attention to detail."],
   [Key, "End of Tenancy Cleaning", "Comprehensive move-out cleaning that meets agency-approved standards."],
+  [Briefcase, "Property Services", "Property management support, letting services, and coordinated move-in/move-out care."],
   [Truck, "House Removals", "Careful, efficient relocations handled by experienced professionals."],
   [PaintBrush, "Property Preparation", "Presentation-ready properties prepared for guests or new tenancies."],
   [Gear, "Maintenance Coordination", "Prompt reporting and coordination of repairs to protect your asset."],

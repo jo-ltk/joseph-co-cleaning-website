@@ -381,7 +381,7 @@ export default function PortfolioPageView({ portfolios, source }: PortfolioIndex
 
                   <div className="flex flex-col gap-8 lg:items-end">
                     <div className="flex flex-wrap gap-2 lg:justify-end">
-                      {["Post-Tenancy", "Commercial Resets", "Builders Cleans", "Deep Resets"].map((tag) => (
+                      {["Post-Tenancy", "Property Services", "Commercial Resets", "Builders Cleans", "Deep Resets"].map((tag) => (
                         <span key={tag} className="border border-aztec/10 bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-aztec/60">
                           {tag}
                         </span>

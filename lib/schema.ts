@@ -110,6 +110,9 @@ export function localBusinessSchema(): JsonLd {
       "Appliance cleaning",
       "Garden cleaning",
       "After builders cleaning",
+      "Property services",
+      "Property management support",
+      "Letting services",
     ],
     sameAs,
   };
@@ -152,7 +155,7 @@ export function cleaningServiceSchema(path = "/services"): JsonLd {
     },
     areaServed: "United Kingdom",
     serviceType:
-      "Residential, commercial, office, deep and end of tenancy cleaning",
+      "Residential, commercial, office, deep, end of tenancy, and property services",
     offers: {
       "@type": "Offer",
       availability: "https://schema.org/InStock",

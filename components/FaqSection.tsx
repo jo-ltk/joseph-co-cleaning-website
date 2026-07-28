@@ -10,6 +10,7 @@ const faqItems = [
   { question: "What industries do you specialize in?", answer: "We specialize in luxury residential properties, corporate offices, high-end retail, and specialized medical facilities." },
   { question: "Do you provide your own cleaning supplies?", answer: "Yes, we bring our own premium, eco-friendly cleaning products and professional-grade equipment to every job." },
   { question: "Can I schedule recurring cleaning services?", answer: "Absolutely. We offer daily, weekly, and bi-weekly schedules tailored to your specific needs and property requirements." },
+  { question: "Do you offer property management and letting support?", answer: "Yes. Our Property Services cover management support, professional letting assistance, move-in and move-out coordination, and ongoing property care for landlords, agents, and property owners." },
   { question: "What if I'm not satisfied with the results?", answer: "Client satisfaction is our top priority. If any area is missed or not cleaned to our standard, let us know within 24 hours and we will return to make it right." },
 ];
 

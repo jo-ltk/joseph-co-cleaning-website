@@ -17,6 +17,15 @@ const pageLinks = [
   { href: "/contact", label: "Contact" },
 ];
 
+const serviceLinks = [
+  { href: "/services/domestic-cleaning", label: "Domestic Cleaning" },
+  { href: "/services/commercial-cleaning", label: "Commercial Cleaning" },
+  { href: "/services/end-of-tenancy-cleaning", label: "End of Tenancy" },
+  { href: "/services/property-services", label: "Property Services" },
+  { href: "/services/deep-cleaning", label: "Deep Cleaning" },
+  { href: "/services/after-builders-cleaning", label: "After Builders" },
+];
+
 const socialLinks = [
   { href: "https://www.facebook.com/people/JosephCo-Ltd/61572054301932/", label: "Facebook", Icon: FacebookLogo },
   { href: "https://www.instagram.com/joseph_and_co_l.t.d?utm_source=qr", label: "Instagram", Icon: InstagramLogo },
@@ -63,7 +72,7 @@ export default function Footer() {
                 Elevating the standards of clean.
               </h2>
               <p className="text-base md:text-lg leading-relaxed text-yellow-green/70">
-                Joseph & Co provides bespoke cleaning services for the most discerning residential and commercial spaces across the South West. We combine traditional care with modern precision.
+                Joseph & Co provides bespoke cleaning and property services for the most discerning residential and commercial spaces across the South West. We combine traditional care with modern precision.
               </p>
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }} className="mt-8 md:mt-16 flex items-center gap-4">
@@ -74,11 +83,19 @@ export default function Footer() {
             </motion.div>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-3 md:gap-12 lg:gap-16">
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12 lg:gap-16">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.3 }} className="space-y-3 md:space-y-4">
               <span className="block font-mono text-sm uppercase tracking-widest text-yellow-green/40">Sitemap</span>
               <ul className="space-y-3 md:space-y-4">
                 {pageLinks.map((link) => (
+                  <li key={link.href}><Link href={link.href} className="text-sm md:text-base transition-colors duration-300 hover:text-white">{link.label}</Link></li>
+                ))}
+              </ul>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.35 }} className="space-y-3 md:space-y-4">
+              <span className="block font-mono text-sm uppercase tracking-widest text-yellow-green/40">Services</span>
+              <ul className="space-y-3 md:space-y-4">
+                {serviceLinks.map((link) => (
                   <li key={link.href}><Link href={link.href} className="text-sm md:text-base transition-colors duration-300 hover:text-white">{link.label}</Link></li>
                 ))}
               </ul>

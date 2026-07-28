@@ -41,6 +41,14 @@ const services = [
     cta: "/services/end-of-tenancy-cleaning"
 },
   {
+    label: "Property",
+    title: "Property Services",
+    description: "Comprehensive support for landlords, agents, and property owners. From ongoing property management assistance and professional letting services to seamless move-in and move-out coordination, we deliver the property care solutions your portfolio needs.",
+    benefits: ["Property Management Support", "Professional Letting Services", "Move-In & Move-Out Assistance", "Ongoing Property Care Solutions"],
+    image: "/images/unsplash/photo-1600585154340-be6161a56a0c.jpg",
+    cta: "/services/property-services"
+  },
+  {
     label: "Deep Clean",
     title: "Deep Cleaning",
     description: "For when your property needs more than just a surface clean. Our deep cleaning service targets hidden dirt and grime in often-overlooked areas.",

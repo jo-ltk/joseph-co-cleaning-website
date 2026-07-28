@@ -40,8 +40,16 @@ const featuredStories = [
     label: "Specialist Detail",
     title: "Equipment, method, and finish working together.",
     image: "/equipment-vacuum-cleaning.jpg",
-    stat: "6",
+    stat: "7",
     detail: "service disciplines",
+    className: "lg:col-span-5 lg:min-h-[360px]",
+  },
+  {
+    label: "Property Services",
+    title: "Landlords and agents supported from let to handover.",
+    image: "/images/unsplash/photo-1600585154340-be6161a56a0c.jpg",
+    stat: "360°",
+    detail: "property care",
     className: "lg:col-span-5 lg:min-h-[360px]",
   },
   {
@@ -64,6 +72,11 @@ const detailHighlights = [
     label: "After Builders",
     title: "Construction dust cleared for the final reveal.",
     image: "/images/hero-bg-new.png",
+  },
+  {
+    label: "Property Services",
+    title: "Management, letting and move-in support in one place.",
+    image: "/images/unsplash/photo-1600585154340-be6161a56a0c.jpg",
   },
   {
     label: "Quality Assurance",

@@ -12,7 +12,7 @@ export const revalidate = 60;
 export const metadata: Metadata = buildMetadata({
   title: "Cleaning Case Studies And Portfolio",
   description:
-    "Explore Joseph & Co cleaning case studies for landlord handovers, end of tenancy cleaning, commercial cleaning, after builders cleaning and premium property resets.",
+    "Explore Joseph & Co cleaning case studies for landlord handovers, end of tenancy cleaning, property services, commercial cleaning, after builders cleaning and premium property resets.",
   path: "/portfolio",
   keywords: serviceKeywords.portfolio,
   image: "/images/gallery-hero.png",

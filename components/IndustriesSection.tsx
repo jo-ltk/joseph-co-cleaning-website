@@ -14,6 +14,7 @@ import {
   Storefront,
   Hammer,
   Tree,
+  Key,
   ArrowRight,
 } from "@phosphor-icons/react/dist/ssr";
 import type { Icon } from "@phosphor-icons/react/dist/lib/types";
@@ -79,6 +80,16 @@ const industries: Industry[] = [
     imagePosition: "center center",
     highlights: ["Grounds & pathways", "Pool & terrace areas", "Seasonal deep cleans"],
     Icon: Tree,
+  },
+  {
+    title: "Property Services",
+    summary:
+      "Property management support, professional letting services, and coordinated move-in and move-out assistance for landlords, agents, and property owners.",
+    tag: "Property",
+    image: "/images/unsplash/photo-1600585154340-be6161a56a0c.jpg",
+    imagePosition: "center center",
+    highlights: ["Management support", "Letting services", "Move-in & move-out care"],
+    Icon: Key,
   },
 ];
 

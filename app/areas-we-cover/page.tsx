@@ -44,7 +44,7 @@ const regions = [
     alt: "Bright premium home interior prepared to a high standard",
     accent: "bg-[#dfe7d5]",
     align: "left" as const,
-    bullets: ["Luxury residential care", "End-of-tenancy precision", "Flexible weekly and fortnightly visits"],
+    bullets: ["Luxury residential care", "Property management support", "End-of-tenancy precision", "Flexible weekly and fortnightly visits"],
   },
   {
     name: "Devon",
@@ -116,7 +116,7 @@ const faqItems = [
   {
     question: "Do you provide one-off deep cleans as well as regular maintenance?",
     answer:
-      "Yes. We handle deep cleans, end-of-tenancy preparation, after-builders work and premium recurring cleaning, depending on the property and the level of support needed.",
+      "Yes. We handle deep cleans, end-of-tenancy preparation, after-builders work, property services for landlords and agents, and premium recurring cleaning, depending on the property and the level of support needed.",
   },
   {
     question: "How quickly can you respond to quote requests?",

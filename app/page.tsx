@@ -24,7 +24,7 @@ import { cleaningServiceSchema, jsonLdScript } from "@/lib/schema";
 export const metadata: Metadata = buildMetadata({
   title: "Professional Cleaning Services UK",
   description:
-    "Book insured professional cleaners for end of tenancy, deep, residential, office, commercial, carpet, appliance and garden cleaning. Joseph & Co supports landlords, estate agents, tenants, offices and homeowners across the UK.",
+    "Book insured professional cleaners for end of tenancy, deep, residential, office, commercial, carpet, appliance, garden and property services. Joseph & Co supports landlords, estate agents, tenants, offices and homeowners across the UK.",
   path: "/",
   keywords: serviceKeywords.home,
 });

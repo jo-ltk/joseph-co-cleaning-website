@@ -79,7 +79,7 @@ export default function Hero() {
             className="text-[0.93rem] leading-[1.65] font-normal max-w-[320px]"
             style={{ fontFamily: "var(--font-inter), sans-serif", color: "rgba(30,42,30,0.52)" }}
           >
-            Outstanding cleaning services tailored for high-end residential and commercial environments.
+            Outstanding cleaning and property services tailored for high-end residential and commercial environments.
           </motion.p>
 
           {/* Push CTAs to bottom */}
@@ -176,7 +176,7 @@ export default function Hero() {
               className="max-w-[480px] text-balance text-lg font-medium leading-relaxed text-white/90 drop-shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
               style={{ fontFamily: "var(--font-inter), sans-serif" }}
             >
-              Delivering outstanding cleaning services tailored for high-end residential and commercial environments.
+              Delivering outstanding cleaning and property services tailored for high-end residential and commercial environments.
             </motion.p>
 
             <motion.div

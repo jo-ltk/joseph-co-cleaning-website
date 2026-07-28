@@ -54,7 +54,7 @@ export default function ServicesHero() {
               containerClassName="text-balance text-4xl md:text-6xl lg:text-[80px] leading-[1.0] tracking-tight font-medium text-white max-w-[800px]"
               style={{ fontFamily: "var(--font-inter), sans-serif" }}
             >
-              Our Professional Cleaning Services
+              Our Professional Cleaning & Property Services
             </ScrollReveal>
           </motion.div>
 
