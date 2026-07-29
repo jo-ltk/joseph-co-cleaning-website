@@ -3,8 +3,9 @@ import type { Metadata } from "next";
 import VineCottagePresentation from "@/components/vine-cottage/VineCottagePresentation";
 
 export const metadata: Metadata = {
-  title: "Vine Cottage | Presentation",
-  description: "A luxury hospitality vision for Vine Cottage in Queen Camel, Somerset.",
+  title: "Vine Cottage | Queen Camel, Somerset",
+  description:
+    "A Grade II listed countryside retreat in Queen Camel, Somerset — heritage, gardens, and unhurried luxury stays.",
   robots: { index: false, follow: false },
 };
 

@@ -47,40 +47,33 @@ export default function PartnershipFooter() {
     <footer ref={footerRef} className={footerStyles.footer}>
       <div className={footerStyles.inner}>
         <div data-footer-content className={footerStyles.content}>
-          <div className="grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-14">
+          <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14">
             <div>
-              <SectionLabel variant="dark">Partnership</SectionLabel>
+              <SectionLabel variant="dark">Presented by</SectionLabel>
               <ScrollReveal
                 as="h2"
-                containerClassName="mt-4 text-4xl leading-[1.02] font-medium tracking-tight text-white md:text-6xl lg:text-7xl"
+                containerClassName="mt-4 text-4xl leading-[1.02] font-medium tracking-tight text-white md:text-5xl lg:text-6xl"
               >
-                A Long-Term Partnership Built on Trust
+                Joseph &amp; Co
               </ScrollReveal>
+              <p className="mt-5 max-w-md text-base leading-relaxed text-white/65 md:text-lg">
+                Hotel-standard care for a historic Somerset cottage — heritage protected,
+                guests welcomed.
+              </p>
             </div>
 
-            <div className="flex flex-col justify-between gap-8 lg:gap-10">
-              <p className="max-w-lg text-base leading-relaxed text-white/70 md:text-lg">
-                Joseph &amp; Co is committed to treating Vine Cottage with the same care and
-                respect as if it were our own—delivering exceptional guest experiences while
-                protecting your investment and preserving the historic character of this
-                remarkable property.
+            <div className="flex flex-col justify-end gap-3 lg:items-end lg:text-right">
+              <p className="text-sm font-semibold uppercase tracking-widest text-yellow-green">
+                Property Ltd
               </p>
-
-              <div className={footerStyles.presentedBy}>
-                <p className="text-sm font-semibold uppercase tracking-widest text-yellow-green">
-                  Presented by
-                </p>
-                <p className="mt-2 text-2xl font-medium tracking-tight md:text-3xl">
-                  Joseph &amp; Co Property Ltd
-                </p>
-              </div>
+              <a
+                href="mailto:hello@josephco.uk?subject=Vine%20Cottage%20enquiry"
+                className="text-lg font-medium text-white transition-colors hover:text-yellow-green md:text-xl"
+              >
+                hello@josephco.uk
+              </a>
             </div>
           </div>
-        </div>
-
-        <div className={footerStyles.meta}>
-          <p>Vine Cottage &middot; Queen Camel, Somerset</p>
-          <p className="tracking-wide">Confidential presentation</p>
         </div>
       </div>
     </footer>

@@ -18,43 +18,40 @@ export function usePresentationAnimations(reduceMotion: boolean | null) {
     const cleanups: Array<() => void> = [];
 
     const ctx = gsap.context(() => {
-      // Hero entrance
       const heroItems = gsap.utils.toArray<HTMLElement>("[data-hero-item]");
       if (heroItems.length) {
         gsap.fromTo(
           heroItems,
-          { opacity: 0, y: 40 },
+          { opacity: 0, y: 36 },
           {
             opacity: 1,
             y: 0,
             duration: 1,
-            stagger: 0.12,
+            stagger: 0.1,
             ease: "power3.out",
-            delay: 0.15,
+            delay: 0.12,
           },
         );
       }
 
-      // Hero image Ken Burns
       const heroImage = root.querySelector<HTMLElement>("[data-hero-image]");
       if (heroImage) {
         gsap.fromTo(
           heroImage,
-          { scale: 1.1 },
-          { scale: 1, duration: 2.2, ease: "power2.out" },
+          { scale: 1.12 },
+          { scale: 1, duration: 2.4, ease: "power2.out" },
         );
       }
 
-      // Section labels fade-up
       const labels = gsap.utils.toArray<HTMLElement>("[data-section-label]");
       labels.forEach((label) => {
         gsap.fromTo(
           label,
-          { opacity: 0, y: 14 },
+          { opacity: 0, y: 12 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.6,
+            duration: 0.55,
             ease: "power2.out",
             scrollTrigger: {
               trigger: label,
@@ -65,17 +62,15 @@ export function usePresentationAnimations(reduceMotion: boolean | null) {
         );
       });
 
-      // Body copy reveals
       const bodyCopy = gsap.utils.toArray<HTMLElement>("[data-body-reveal]");
-      bodyCopy.forEach((el, i) => {
+      bodyCopy.forEach((el) => {
         gsap.fromTo(
           el,
-          { opacity: 0, y: 22 },
+          { opacity: 0, y: 16 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.75,
-            delay: i * 0.06,
+            duration: 0.65,
             ease: "power2.out",
             scrollTrigger: {
               trigger: el,
@@ -86,24 +81,37 @@ export function usePresentationAnimations(reduceMotion: boolean | null) {
         );
       });
 
-      // Card hover micro-interactions
+      const revealGroups = gsap.utils.toArray<HTMLElement>("[data-reveal-group]");
+      revealGroups.forEach((group) => {
+        const items = group.querySelectorAll<HTMLElement>("[data-reveal-item]");
+        if (!items.length) return;
+        gsap.fromTo(
+          items,
+          { opacity: 0, y: 22, scale: 0.98 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.55,
+            stagger: 0.07,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: group,
+              start: "top 85%",
+              once: true,
+            },
+          },
+        );
+      });
+
       const hoverCards = gsap.utils.toArray<HTMLElement>("[data-hover-card]");
       hoverCards.forEach((card) => {
         const onEnter = () => {
-          gsap.to(card, {
-            y: -6,
-            duration: 0.45,
-            ease: "power2.out",
-          });
+          gsap.to(card, { y: -5, duration: 0.4, ease: "power2.out" });
         };
         const onLeave = () => {
-          gsap.to(card, {
-            y: 0,
-            duration: 0.55,
-            ease: "power2.out",
-          });
+          gsap.to(card, { y: 0, duration: 0.5, ease: "power2.out" });
         };
-
         card.addEventListener("mouseenter", onEnter);
         card.addEventListener("mouseleave", onLeave);
         cleanups.push(() => {
@@ -112,39 +120,18 @@ export function usePresentationAnimations(reduceMotion: boolean | null) {
         });
       });
 
-      // Milestone accent animation on scroll
-      const milestones = gsap.utils.toArray<HTMLElement>("[data-milestone]");
-      milestones.forEach((row) => {
-        gsap.fromTo(
-          row,
-          { opacity: 0, x: -16 },
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.7,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: row,
-              start: "top 88%",
-              once: true,
-            },
-          },
-        );
-      });
-
-      // Stats counter strip
       const stats = gsap.utils.toArray<HTMLElement>("[data-stat]");
       if (stats.length) {
         gsap.fromTo(
           stats,
-          { opacity: 0, y: 20, scale: 0.96 },
+          { opacity: 0, y: 18, scale: 0.96 },
           {
             opacity: 1,
             y: 0,
             scale: 1,
-            duration: 0.65,
-            stagger: 0.08,
-            ease: "back.out(1.4)",
+            duration: 0.6,
+            stagger: 0.07,
+            ease: "power2.out",
             scrollTrigger: {
               trigger: stats[0].parentElement,
               start: "top 88%",
@@ -153,6 +140,21 @@ export function usePresentationAnimations(reduceMotion: boolean | null) {
           },
         );
       }
+
+      const parallaxEls = gsap.utils.toArray<HTMLElement>("[data-parallax]");
+      parallaxEls.forEach((el) => {
+        const amount = Number(el.dataset.parallax || "0.1");
+        gsap.to(el, {
+          yPercent: amount * 100,
+          ease: "none",
+          scrollTrigger: {
+            trigger: el.parentElement || el,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      });
     }, root);
 
     const refresh = () => ScrollTrigger.refresh();
