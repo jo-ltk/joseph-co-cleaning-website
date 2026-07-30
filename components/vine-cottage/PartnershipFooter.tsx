@@ -1,30 +1,32 @@
 "use client";
 
+import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
 import ScrollReveal from "@/components/ScrollReveal";
 import { SectionLabel } from "@/components/vine-cottage/PresentationComponents";
 
 import footerStyles from "./partnership-footer.module.css";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function PartnershipFooter() {
   const reduceMotion = useReducedMotion();
   const footerRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    if (reduceMotion) return;
+  useGSAP(
+    () => {
+      if (reduceMotion) return;
 
-    const footer = footerRef.current;
-    if (!footer) return;
+      const footer = footerRef.current;
+      const content = footer?.querySelector<HTMLElement>("[data-footer-content]");
+      if (!footer || !content) return;
 
-    const ctx = gsap.context(() => {
       gsap.fromTo(
-        "[data-footer-content]",
+        content,
         { opacity: 0, y: 22 },
         {
           opacity: 1,
@@ -34,14 +36,14 @@ export default function PartnershipFooter() {
           scrollTrigger: {
             trigger: footer,
             start: "top 90%",
-            once: true,
+            end: "top 40%",
+            toggleActions: "play none none none",
           },
         },
       );
-    }, footer);
-
-    return () => ctx.revert();
-  }, [reduceMotion]);
+    },
+    { scope: footerRef, dependencies: [reduceMotion] },
+  );
 
   return (
     <footer ref={footerRef} className={footerStyles.footer}>
