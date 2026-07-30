@@ -287,7 +287,7 @@ export default function VineCottagePresentation() {
       <section
         id="thank-you"
         className={styles.closingBand}
-        aria-label="Thank you and presented by Joseph & Co"
+        aria-label="Thank you"
       >
         <SectionContainer className={styles.sectionInner}>
           <article className={styles.thankCard} data-reveal-group>
@@ -302,28 +302,6 @@ export default function VineCottagePresentation() {
                 exceptional countryside retreat that future guests will remember.
               </p>
             </header>
-
-            <div className={styles.thankCardRule} aria-hidden="true" data-reveal-item />
-
-            <footer className={styles.thankCardFooter} data-reveal-item>
-              <div className={styles.thankCardPresented}>
-                <p className={styles.thankCardPresentedLabel}>Presented by</p>
-                <h3 className={styles.closingBrand}>Joseph &amp; Co</h3>
-                <p className={styles.closingBrandNote}>
-                  Hotel-standard care for a historic Somerset cottage — heritage protected,
-                  guests welcomed.
-                </p>
-              </div>
-              <div className={styles.closingContact}>
-                <p className={styles.closingEntity}>Property Ltd</p>
-                <a
-                  href="mailto:hello@josephco.uk?subject=Vine%20Cottage%20enquiry"
-                  className={styles.closingEmail}
-                >
-                  hello@josephco.uk
-                </a>
-              </div>
-            </footer>
           </article>
         </SectionContainer>
       </section>
