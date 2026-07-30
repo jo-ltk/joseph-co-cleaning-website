@@ -1,27 +1,21 @@
 "use client";
 
 import {
-  Baby,
-  BookOpen,
-  Briefcase,
   CastleTurret,
   Church,
   Compass,
   ForkKnife,
-  Heart,
   Mountains,
   Path,
-  Sparkle,
   TreeEvergreen,
-  UsersThree,
   Wine,
 } from "@phosphor-icons/react";
 
 import FloorPlanSection from "@/components/vine-cottage/FloorPlanSection";
 import HighlightsSection from "@/components/vine-cottage/HighlightsSection";
 import LifestyleSection from "@/components/vine-cottage/LifestyleSection";
+import PerfectForSection from "@/components/vine-cottage/PerfectForSection";
 import {
-  LightFeatureCard,
   SectionContainer,
   SectionHeading,
   SectionLabel,
@@ -47,39 +41,6 @@ const propertyHighlights = [
   ["4", "Bedrooms"],
   ["Stone barns", "Outbuildings"],
   ["Village", "Setting"],
-] as const;
-
-const perfectFor = [
-  {
-    icon: Heart,
-    title: "Couples",
-    description: "Private, unhurried stays with space to truly disconnect.",
-  },
-  {
-    icon: Baby,
-    title: "Families",
-    description: "Four bedrooms and generous living for multi-generational weekends.",
-  },
-  {
-    icon: UsersThree,
-    title: "Friends' retreats",
-    description: "A shared countryside house — kitchen table, garden, and long evenings.",
-  },
-  {
-    icon: Sparkle,
-    title: "Wellness retreats",
-    description: "Sauna, hot tub, and garden air for restorative countryside pauses.",
-  },
-  {
-    icon: Briefcase,
-    title: "Small corporate retreats",
-    description: "Strategy days in calm surroundings, away from hotel conference rooms.",
-  },
-  {
-    icon: BookOpen,
-    title: "Creatives",
-    description: "Room to think, write, and make — with countryside quiet as the only deadline.",
-  },
 ] as const;
 
 const occasions = [
@@ -225,32 +186,7 @@ export default function VineCottagePresentation() {
       </section>
 
       {/* 7. Perfect For */}
-      <section id="perfect-for" className={`${styles.sectionMesh} py-20 md:py-28`}>
-        <SectionContainer className={styles.sectionInner}>
-          <div className="mb-10 max-w-xl md:mb-14">
-            <SectionLabel>Perfect For</SectionLabel>
-            <SectionHeading>Guests who seek quiet luxury.</SectionHeading>
-            <SectionLead>
-              Designed for intimate stays — never for volume, never for spectacle.
-            </SectionLead>
-          </div>
-          <div className={styles.perfectGrid} data-reveal-group>
-            {perfectFor.map((item) => (
-              <LightFeatureCard
-                key={item.title}
-                icon={item.icon}
-                title={item.title}
-                description={item.description}
-              />
-            ))}
-          </div>
-          <p className={styles.perfectMore} data-body-reveal>
-            <span className={styles.perfectMoreLabel}>And more&hellip;</span>
-            Book clubs, quiet birthdays, sabbaticals, and many other intimate stays —
-            if it fits the cottage, it belongs here.
-          </p>
-        </SectionContainer>
-      </section>
+      <PerfectForSection />
 
       {/* 8. Ideal Occasions */}
       <section id="occasions" className={`${styles.sectionCool} py-20 md:py-28`}>

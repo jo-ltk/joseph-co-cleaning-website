@@ -16,10 +16,22 @@ export function usePresentationAnimations(reduceMotion: boolean | null) {
   useGSAP(
     () => {
       const root = rootRef.current;
-      if (!root || reduceMotion) return;
+      // Wait until framer's useReducedMotion resolves — null→false remounts
+      // were killing ScrollTriggers mid-refresh (reading `.end` of undefined).
+      if (!root || reduceMotion !== false) return;
 
       const mm = gsap.matchMedia();
       const cleanups: Array<() => void> = [];
+      let disposed = false;
+
+      const safeRefresh = () => {
+        if (disposed) return;
+        try {
+          ScrollTrigger.refresh();
+        } catch {
+          // Ignore refresh races during HMR / matchMedia teardown.
+        }
+      };
 
       mm.add(
         {
@@ -31,9 +43,10 @@ export function usePresentationAnimations(reduceMotion: boolean | null) {
           if (reduceMotionQuery) return;
 
           const hoverLift = isDesktop ? -6 : 0;
+          const q = gsap.utils.selector(root);
 
           /* ── Hero entrance ─────────────────────────────────────────────── */
-          const heroItems = gsap.utils.toArray<HTMLElement>("[data-hero-item]");
+          const heroItems = q<HTMLElement>("[data-hero-item]");
           if (heroItems.length) {
             gsap.fromTo(
               heroItems,
@@ -80,7 +93,7 @@ export function usePresentationAnimations(reduceMotion: boolean | null) {
           }
 
           /* ── Section labels — soft fade-up ─────────────────────────────── */
-          gsap.utils.toArray<HTMLElement>("[data-section-label]").forEach((label) => {
+          q<HTMLElement>("[data-section-label]").forEach((label) => {
             gsap.fromTo(
               label,
               { autoAlpha: 0, y: 14 },
@@ -99,7 +112,7 @@ export function usePresentationAnimations(reduceMotion: boolean | null) {
           });
 
           /* ── Body copy / leads — gentle opacity + fade-up ──────────────── */
-          gsap.utils.toArray<HTMLElement>("[data-body-reveal]").forEach((el) => {
+          q<HTMLElement>("[data-body-reveal]").forEach((el) => {
             gsap.fromTo(
               el,
               { autoAlpha: 0, y: 18 },
@@ -118,54 +131,53 @@ export function usePresentationAnimations(reduceMotion: boolean | null) {
           });
 
           /* ── Heading blocks without ScrollReveal ───────────────────────── */
-          gsap.utils
-            .toArray<HTMLElement>("[data-heading-reveal]")
-            .forEach((el) => {
-              gsap.fromTo(
-                el,
-                { autoAlpha: 0, y: 22 },
-                {
-                  autoAlpha: 1,
-                  y: 0,
-                  duration: DURATION.base,
-                  ease: EASE,
-                  scrollTrigger: {
-                    trigger: el,
-                    start: "top 88%",
-                    once: true,
-                  },
+          q<HTMLElement>("[data-heading-reveal]").forEach((el) => {
+            gsap.fromTo(
+              el,
+              { autoAlpha: 0, y: 22 },
+              {
+                autoAlpha: 1,
+                y: 0,
+                duration: DURATION.base,
+                ease: EASE,
+                scrollTrigger: {
+                  trigger: el,
+                  start: "top 88%",
+                  once: true,
                 },
-              );
-            });
+              },
+            );
+          });
 
           /* ── Staggered reveal groups (galleries, grids, CTA) ───────────── */
-          gsap.utils
-            .toArray<HTMLElement>("[data-reveal-group]")
-            .forEach((group) => {
-              const items = group.querySelectorAll<HTMLElement>("[data-reveal-item]");
-              if (!items.length) return;
+          q<HTMLElement>("[data-reveal-group]").forEach((group) => {
+            const items = group.querySelectorAll<HTMLElement>(":scope > [data-reveal-item], :scope [data-reveal-item]");
+            const directItems = Array.from(items).filter(
+              (item) => item.closest("[data-reveal-group]") === group,
+            );
+            if (!directItems.length) return;
 
-              gsap.fromTo(
-                items,
-                { autoAlpha: 0, y: 26, scale: 0.97 },
-                {
-                  autoAlpha: 1,
-                  y: 0,
-                  scale: 1,
-                  duration: DURATION.base,
-                  stagger: 0.1,
-                  ease: EASE,
-                  scrollTrigger: {
-                    trigger: group,
-                    start: "top 82%",
-                    once: true,
-                  },
+            gsap.fromTo(
+              directItems,
+              { autoAlpha: 0, y: 26, scale: 0.97 },
+              {
+                autoAlpha: 1,
+                y: 0,
+                scale: 1,
+                duration: DURATION.base,
+                stagger: 0.1,
+                ease: EASE,
+                scrollTrigger: {
+                  trigger: group,
+                  start: "top 82%",
+                  once: true,
                 },
-              );
-            });
+              },
+            );
+          });
 
           /* ── Large image scale-in ──────────────────────────────────────── */
-          gsap.utils.toArray<HTMLElement>("[data-scale-in]").forEach((el) => {
+          q<HTMLElement>("[data-scale-in]").forEach((el) => {
             gsap.fromTo(
               el,
               { scale: 1.06, autoAlpha: 0.72 },
@@ -185,29 +197,28 @@ export function usePresentationAnimations(reduceMotion: boolean | null) {
 
           /* ── Lifestyle / gallery image parallax (subtle, desktop) ──────── */
           if (isDesktop) {
-            gsap.utils
-              .toArray<HTMLElement>("[data-image-parallax]")
-              .forEach((el) => {
-                const amount = Number(el.dataset.imageParallax || "8");
-                gsap.fromTo(
-                  el,
-                  { yPercent: -amount * 0.35 },
-                  {
-                    yPercent: amount * 0.65,
-                    ease: "none",
-                    scrollTrigger: {
-                      trigger: el.parentElement || el,
-                      start: "top bottom",
-                      end: "bottom top",
-                      scrub: 0.7,
-                    },
+            q<HTMLElement>("[data-image-parallax]").forEach((el) => {
+              const amount = Number(el.dataset.imageParallax || "8");
+              const trigger = el.parentElement || el;
+              gsap.fromTo(
+                el,
+                { yPercent: -amount * 0.35 },
+                {
+                  yPercent: amount * 0.65,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 0.7,
                   },
-                );
-              });
+                },
+              );
+            });
           }
 
           /* ── Split / large media: scale-in + subtle parallax ───────────── */
-          gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((el) => {
+          q<HTMLElement>("[data-parallax]").forEach((el) => {
             // Hero handles its own parallax
             if (el.hasAttribute("data-hero-image")) return;
 
@@ -247,7 +258,7 @@ export function usePresentationAnimations(reduceMotion: boolean | null) {
           });
 
           /* ── Room tour panels — once-per-enter fade + scale ────────────── */
-          const roomPanels = gsap.utils.toArray<HTMLElement>("[data-room-panel]");
+          const roomPanels = q<HTMLElement>("[data-room-panel]");
           if (roomPanels.length) {
             ScrollTrigger.batch(roomPanels, {
               start: "top 78%",
@@ -275,9 +286,14 @@ export function usePresentationAnimations(reduceMotion: boolean | null) {
                     );
                   }
 
-                  if (meta) {
+                  const metaChildren = meta
+                    ? Array.from(meta.children).filter(
+                        (node): node is HTMLElement => node instanceof HTMLElement,
+                      )
+                    : [];
+                  if (metaChildren.length) {
                     gsap.fromTo(
-                      meta.children,
+                      metaChildren,
                       { autoAlpha: 0, y: 20 },
                       {
                         autoAlpha: 1,
@@ -317,8 +333,9 @@ export function usePresentationAnimations(reduceMotion: boolean | null) {
           }
 
           /* ── Stats strip ───────────────────────────────────────────────── */
-          const stats = gsap.utils.toArray<HTMLElement>("[data-stat]");
-          if (stats.length) {
+          const stats = q<HTMLElement>("[data-stat]");
+          const statsTrigger = stats[0]?.parentElement;
+          if (stats.length && statsTrigger) {
             gsap.fromTo(
               stats,
               { autoAlpha: 0, y: 18, scale: 0.96 },
@@ -330,7 +347,7 @@ export function usePresentationAnimations(reduceMotion: boolean | null) {
                 stagger: 0.08,
                 ease: EASE,
                 scrollTrigger: {
-                  trigger: stats[0].parentElement,
+                  trigger: statsTrigger,
                   start: "top 88%",
                   once: true,
                 },
@@ -340,7 +357,7 @@ export function usePresentationAnimations(reduceMotion: boolean | null) {
 
           /* ── Elegant hover lifts (desktop only) ────────────────────────── */
           if (hoverLift !== 0) {
-            gsap.utils.toArray<HTMLElement>("[data-hover-card]").forEach((card) => {
+            q<HTMLElement>("[data-hover-card]").forEach((card) => {
               const onEnter = () => {
                 gsap.to(card, {
                   y: hoverLift,
@@ -365,7 +382,7 @@ export function usePresentationAnimations(reduceMotion: boolean | null) {
               });
             });
 
-            gsap.utils.toArray<HTMLElement>("[data-hover-cta]").forEach((cta) => {
+            q<HTMLElement>("[data-hover-cta]").forEach((cta) => {
               const onEnter = () => {
                 gsap.to(cta, {
                   y: -2,
@@ -400,15 +417,13 @@ export function usePresentationAnimations(reduceMotion: boolean | null) {
         },
       );
 
-      const refresh = () => ScrollTrigger.refresh();
-      window.addEventListener("resize", refresh);
-      const timer = window.setTimeout(refresh, 450);
-
-      // Images loading can shift layout — refresh once more after settle
-      const lateRefresh = window.setTimeout(refresh, 1200);
+      window.addEventListener("resize", safeRefresh);
+      const timer = window.setTimeout(safeRefresh, 450);
+      const lateRefresh = window.setTimeout(safeRefresh, 1200);
 
       return () => {
-        window.removeEventListener("resize", refresh);
+        disposed = true;
+        window.removeEventListener("resize", safeRefresh);
         window.clearTimeout(timer);
         window.clearTimeout(lateRefresh);
         cleanups.forEach((fn) => fn());
