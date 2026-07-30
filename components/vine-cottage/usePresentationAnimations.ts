@@ -52,11 +52,11 @@ export function usePresentationAnimations(reduceMotion: boolean | null) {
           const heroImage = root.querySelector<HTMLElement>("[data-hero-image]");
           if (heroImage) {
             // Keep slight overscale so scrubbed parallax never shows edges
-            const restScale = isDesktop ? 1.1 : 1;
+            const restScale = isDesktop ? 1.05 : 1;
             gsap.set(heroImage, { scale: restScale, transformOrigin: "50% 50%" });
             gsap.fromTo(
               heroImage,
-              { scale: isDesktop ? 1.18 : 1.04, autoAlpha: 0.85 },
+              { scale: isDesktop ? 1.12 : 1.04, autoAlpha: 0.85 },
               {
                 scale: restScale,
                 autoAlpha: 1,

@@ -438,7 +438,7 @@ export default function HighlightsSection() {
     if (isFirstViewerOpen.current) {
       gsap.set(overlay, { autoAlpha: 0 });
       gsap.set(imageWrap, { scale: 1.14, opacity: 0.35 });
-      gsap.set(meta, { y: 36, opacity: 0 });
+      gsap.set(meta, { y: -18, opacity: 0 });
 
       tl.to(overlay, { autoAlpha: 1, duration: 0.45 })
         .to(imageWrap, { scale: 1, opacity: 1, duration: 1.15 }, 0.05)
@@ -452,7 +452,7 @@ export default function HighlightsSection() {
         { scale: 1, opacity: 1, duration: 0.85 },
       ).fromTo(
         meta,
-        { y: 22, opacity: 0 },
+        { y: -14, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.55 },
         0.15,
       );
@@ -659,6 +659,7 @@ export default function HighlightsSection() {
                   alt={slide.alt}
                   fill
                   priority={index === 0}
+                  quality={95}
                   sizes="100vw"
                   className={styles.roomTourImage}
                   data-room-image
@@ -727,12 +728,11 @@ export default function HighlightsSection() {
               alt={viewerImage.alt}
               fill
               priority
+              quality={95}
               sizes="100vw"
               className={styles.roomViewerImage}
             />
           </div>
-
-          <div className={styles.roomViewerGradient} aria-hidden="true" />
 
           <div ref={viewerMetaRef} className={styles.roomViewerMeta}>
             <p className={styles.roomViewerNumber}>

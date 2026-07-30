@@ -208,8 +208,9 @@ export default function VineCottagePresentation() {
                   <Image
                     src={item.src}
                     alt={item.caption}
-                    width={1536}
-                    height={1024}
+                    width={1920}
+                    height={1280}
+                    quality={95}
                     sizes="(max-width: 768px) 90vw, 34vw"
                     className={styles.lifestyleImg}
                     data-image-parallax="7"
