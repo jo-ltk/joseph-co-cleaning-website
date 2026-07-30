@@ -5,6 +5,10 @@ import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+function isVineCottage(el: Element) {
+  return Boolean(el.closest("[data-vine-cottage]"));
+}
+
 export default function SmoothScroll({ children }: { children: ReactNode }) {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -24,7 +28,9 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       const ctx = gsap.context(() => {
         // Parallax — disabled on mobile (too expensive, never feels right)
         // Reveal animations still work perfectly with native scroll
-        const revealEls = gsap.utils.toArray<HTMLElement>("[data-reveal]");
+        const revealEls = gsap.utils
+          .toArray<HTMLElement>("[data-reveal]")
+          .filter((el) => !isVineCottage(el));
         revealEls.forEach((el) => {
           const delay = parseFloat(el.dataset.revealDelay ?? "0");
           gsap.fromTo(
@@ -42,7 +48,9 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
           );
         });
 
-        const groups = gsap.utils.toArray<HTMLElement>("[data-reveal-group]");
+        const groups = gsap.utils
+          .toArray<HTMLElement>("[data-reveal-group]")
+          .filter((el) => !isVineCottage(el));
         groups.forEach((group) => {
           const items = group.querySelectorAll<HTMLElement>("[data-reveal-item]");
           if (!items.length) return;
@@ -64,7 +72,6 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
 
       return () => {
         ctx.revert();
-        ScrollTrigger.getAll().forEach((t) => t.kill());
       };
     }
 
@@ -85,7 +92,9 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
     lenis.on("scroll", ScrollTrigger.update);
 
     const ctx = gsap.context(() => {
-      const parallaxEls = gsap.utils.toArray<HTMLElement>("[data-parallax]");
+      const parallaxEls = gsap.utils
+        .toArray<HTMLElement>("[data-parallax]")
+        .filter((el) => !isVineCottage(el));
       gsap.set(parallaxEls, { scale: 1.12, willChange: "transform", force3D: true });
 
       parallaxEls.forEach((el) => {
@@ -103,7 +112,9 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
         });
       });
 
-      const revealEls = gsap.utils.toArray<HTMLElement>("[data-reveal]");
+      const revealEls = gsap.utils
+        .toArray<HTMLElement>("[data-reveal]")
+        .filter((el) => !isVineCottage(el));
       gsap.set(revealEls, { willChange: "opacity, transform" });
       revealEls.forEach((el) => {
         const delay = parseFloat(el.dataset.revealDelay ?? "0");
@@ -125,7 +136,9 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
         );
       });
 
-      const groups = gsap.utils.toArray<HTMLElement>("[data-reveal-group]");
+      const groups = gsap.utils
+        .toArray<HTMLElement>("[data-reveal-group]")
+        .filter((el) => !isVineCottage(el));
       groups.forEach((group) => {
         const items = group.querySelectorAll<HTMLElement>("[data-reveal-item]");
         if (!items.length) return;
@@ -154,7 +167,6 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       lenis.off("scroll", ScrollTrigger.update);
       lenis.destroy();
       ctx.revert();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
 

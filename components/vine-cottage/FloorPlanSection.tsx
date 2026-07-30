@@ -27,7 +27,7 @@ export default function FloorPlanSection() {
       </div>
 
       <div className={styles.floorPlanImageStage}>
-        <div className={styles.floorPlanPeelBoard}>
+        <div className={styles.floorPlanPeelBoard} data-floor-plan>
           <StickerPeel
             imageSrc={FLOOR_PLAN}
             alt="Vine Cottage floor plans — first floor, ground floor and outbuilding"

@@ -25,12 +25,12 @@ export default function PartnershipFooter() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         "[data-footer-content]",
-        { opacity: 0, y: 24 },
+        { opacity: 0, y: 22 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
-          ease: "power3.out",
+          duration: 0.9,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: footer,
             start: "top 90%",

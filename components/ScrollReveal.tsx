@@ -47,17 +47,31 @@ const ScrollReveal = ({
     const el = containerRef.current;
     if (!el) return;
 
+    const prefersReduced =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReduced) {
+      gsap.set(el, { opacity: 1, clearProps: 'filter' });
+      gsap.set(el.querySelectorAll('.word'), {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        filter: 'none',
+      });
+      return;
+    }
+
     const scroller = scrollContainerRef?.current || window;
     const trigger = triggerRef?.current || el;
 
     const isMobile = window.innerWidth < 768;
     const words = el.querySelectorAll(".word");
 
-    // Initial state
     gsap.set(el, { rotate: 0 });
     gsap.set(words, {
       opacity: 0,
-      y: isMobile ? 20 : 30,
+      y: isMobile ? 16 : 22,
       scale: 0.98,
       filter: isMobile ? "none" : (enableBlur ? `blur(${blurStrength}px)` : "none"),
     });
@@ -67,18 +81,18 @@ const ScrollReveal = ({
         trigger,
         scroller,
         start: "top 90%",
+        once: true,
         toggleActions: "play none none none",
       },
     });
 
-    // Luxury fade-in for the container
     tl.fromTo(
       el,
       { opacity: 0 },
       {
         opacity: 1,
-        duration: 0.6,
-        ease: "power1.out",
+        duration: 0.65,
+        ease: "power2.out",
       },
       0
     );
@@ -89,17 +103,16 @@ const ScrollReveal = ({
       scale: 1,
       filter: "blur(0px)",
       stagger: {
-        each: 0.04,
+        each: 0.035,
         from: "start",
       },
-      duration: 0.8,
-      ease: "expo.out",
-    }, 0.1);
+      duration: 0.85,
+      ease: "power2.out",
+    }, 0.08);
 
     return () => {
-      ScrollTrigger.getAll().forEach((t) => {
-        if (t.vars.trigger === trigger) t.kill();
-      });
+      tl.scrollTrigger?.kill();
+      tl.kill();
     };
   }, [scrollContainerRef, triggerRef, enableBlur, blurStrength]);
 

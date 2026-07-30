@@ -608,10 +608,14 @@ export default function HighlightsSection() {
       className={styles.roomTour}
       aria-label="Rooms through Vine Cottage"
     >
-      <header className={styles.roomTourIntro}>
-        <p className={styles.roomTourEyebrow}>Inside the cottage</p>
-        <h2 className={styles.roomTourHeading}>Explore Every Space</h2>
-        <p className={styles.roomTourLead}>
+      <header className={styles.roomTourIntro} data-reveal-group>
+        <p className={styles.roomTourEyebrow} data-reveal-item>
+          Inside the cottage
+        </p>
+        <h2 className={styles.roomTourHeading} data-heading-reveal>
+          Explore Every Space
+        </h2>
+        <p className={styles.roomTourLead} data-body-reveal>
           Discover each thoughtfully restored room of Vine Cottage.
         </p>
       </header>
@@ -643,23 +647,27 @@ export default function HighlightsSection() {
                   : ""
               }`}
             >
-              <button
-                type="button"
-                className={styles.roomTourOpenBtn}
-                aria-label={`View ${slide.roomName} fullscreen`}
-                onClick={() => openViewer(slide.roomId)}
-              />
-              <Image
-                src={slide.src}
-                alt={slide.alt}
-                fill
-                priority={index === 0}
-                sizes="100vw"
-                className={styles.roomTourImage}
-              />
-              <div className={styles.roomTourGradient} aria-hidden="true" />
+              <div className={styles.roomTourMedia}>
+                <button
+                  type="button"
+                  className={styles.roomTourOpenBtn}
+                  aria-label={`View ${slide.roomName} fullscreen`}
+                  onClick={() => openViewer(slide.roomId)}
+                />
+                <Image
+                  src={slide.src}
+                  alt={slide.alt}
+                  fill
+                  priority={index === 0}
+                  sizes="100vw"
+                  className={styles.roomTourImage}
+                  data-room-image
+                  data-image-parallax="5"
+                />
+                <div className={styles.roomTourGradient} aria-hidden="true" />
+              </div>
 
-              <div className={styles.roomTourMeta}>
+              <div className={styles.roomTourMeta} data-room-meta>
                 <p className={styles.roomTourNumber}>{roomNumber}</p>
                 <div className={styles.roomTourCopy}>
                   <h3 className={styles.roomTourName}>{slide.roomName}</h3>

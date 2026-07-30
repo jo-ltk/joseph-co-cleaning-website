@@ -121,7 +121,7 @@ export default function VineCottagePresentation() {
   const rootRef = usePresentationAnimations(reduceMotion);
 
   return (
-    <main ref={rootRef} className="bg-wild-sand text-aztec">
+    <main ref={rootRef} className="bg-wild-sand text-aztec" data-vine-cottage>
       {/* Hero */}
       <section id="top" className={styles.hero} aria-label="Vine Cottage introduction">
         <img
@@ -212,6 +212,7 @@ export default function VineCottagePresentation() {
                     height={1024}
                     sizes="(max-width: 768px) 90vw, 34vw"
                     className={styles.lifestyleImg}
+                    data-image-parallax="7"
                   />
                   <div className={styles.lifestyleShade} aria-hidden="true" />
                 </div>
@@ -349,6 +350,7 @@ export default function VineCottagePresentation() {
               href="mailto:hello@josephco.uk?subject=Vine%20Cottage%20enquiry"
               className={styles.ctaButton}
               data-reveal-item
+              data-hover-cta
             >
               Enquire to stay
             </a>

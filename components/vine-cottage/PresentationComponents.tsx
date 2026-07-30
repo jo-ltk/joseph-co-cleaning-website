@@ -46,7 +46,7 @@ export function SectionHeading({
   className?: string;
 }) {
   return (
-    <ScrollReveal as="h2" containerClassName={className}>
+    <ScrollReveal as="h2" enableBlur={false} containerClassName={className}>
       {children}
     </ScrollReveal>
   );
