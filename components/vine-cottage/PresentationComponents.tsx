@@ -40,7 +40,7 @@ export function SectionLabel({
 
 export function SectionHeading({
   children,
-  className = "text-4xl leading-[1.08] font-medium tracking-tight md:text-6xl lg:text-[4.25rem]",
+  className = "text-4xl leading-[1.15] font-medium tracking-tight md:text-6xl lg:text-[4.25rem]",
 }: {
   children: string;
   className?: string;

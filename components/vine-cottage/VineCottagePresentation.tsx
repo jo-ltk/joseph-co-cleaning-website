@@ -28,8 +28,7 @@ import { useReducedMotion } from "framer-motion";
 
 const images = {
   hero: "/images/vine-cottage/vine-cottage-hero.png",
-  experience:
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85",
+  experience: "/images/vine-cottage/experience-01.png",
   lifestyleMorning: "/images/vine-cottage/lifestyle-morning.png",
   lifestyleFire: "/images/vine-cottage/lifestyle-fire.png",
   lifestyleGarden: "/images/vine-cottage/lifestyle-garden.png",
@@ -175,7 +174,7 @@ export default function VineCottagePresentation() {
       {/* Luxury Lifestyle — visual story strip */}
       <section className={`${styles.sectionMesh} py-20 md:py-28`}>
         <SectionContainer className={styles.sectionInner}>
-          <div className="mb-10 max-w-xl md:mb-14">
+          <div className="mb-10 max-w-3xl md:mb-14">
             <SectionLabel>Lifestyle</SectionLabel>
             <SectionHeading>A weekend, imagined.</SectionHeading>
           </div>
