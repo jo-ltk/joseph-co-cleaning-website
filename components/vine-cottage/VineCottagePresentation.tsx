@@ -5,17 +5,14 @@ import {
   BookOpen,
   Briefcase,
   CastleTurret,
-  Champagne,
   Church,
   Compass,
   ForkKnife,
   Heart,
-  Laptop,
   Mountains,
   Path,
   Sparkle,
   TreeEvergreen,
-  Users,
   UsersThree,
   Wine,
 } from "@phosphor-icons/react";
@@ -45,11 +42,11 @@ const images = {
 
 const propertyHighlights = [
   ["Grade II*", "Listed"],
-  ["15th C.", "Origins"],
+  ["15th Century", "Origins"],
   ["0.67 acres", "Gardens"],
   ["4", "Bedrooms"],
   ["Stone barns", "Outbuildings"],
-  ["Queen Camel", "Somerset"],
+  ["Village", "Setting"],
 ] as const;
 
 const perfectFor = [
@@ -69,33 +66,18 @@ const perfectFor = [
     description: "A shared countryside house — kitchen table, garden, and long evenings.",
   },
   {
+    icon: Sparkle,
+    title: "Wellness retreats",
+    description: "Sauna, hot tub, and garden air for restorative countryside pauses.",
+  },
+  {
     icon: Briefcase,
     title: "Small corporate retreats",
     description: "Strategy days in calm surroundings, away from hotel conference rooms.",
   },
   {
-    icon: Laptop,
-    title: "Remote professionals",
-    description: "Quiet focus by day; orchard stillness when the laptop closes.",
-  },
-  {
-    icon: Sparkle,
-    title: "Wellness escapes",
-    description: "Sauna, hot tub, and garden air for restorative countryside pauses.",
-  },
-  {
-    icon: Users,
-    title: "International visitors",
-    description: "An authentic Somerset cottage with hotel-standard care.",
-  },
-  {
-    icon: Champagne,
-    title: "Anniversary escapes",
-    description: "Milestone weekends held gently — just the two of you, and the cottage.",
-  },
-  {
     icon: BookOpen,
-    title: "Writers & creatives",
+    title: "Creatives",
     description: "Room to think, write, and make — with countryside quiet as the only deadline.",
   },
 ] as const;
@@ -198,7 +180,7 @@ export default function VineCottagePresentation() {
               className="mt-5 max-w-md text-lg font-medium leading-snug tracking-tight text-white/85 md:text-2xl"
               data-hero-item
             >
-              A Grade II* listed retreat for unhurried countryside stays.
+              A Vision for Vine Cottage
             </p>
           </div>
         </div>
@@ -206,7 +188,7 @@ export default function VineCottagePresentation() {
 
       <FloorPlanSection />
 
-      {/* 2. Our Vision */}
+      {/* 3. Our Vision */}
       <section id="vision" className={styles.sectionCool}>
         <SplitImageSection image={images.vision} alt="Light-filled cottage interior">
           <SectionLabel>Our Vision</SectionLabel>
@@ -219,14 +201,14 @@ export default function VineCottagePresentation() {
         </SplitImageSection>
       </section>
 
-      {/* 3. Our Design Vision */}
+      {/* 4. Design Concept Gallery */}
       <HighlightsSection />
 
-      {/* 4. Lifestyle */}
+      {/* 5. The Guest Experience */}
       <LifestyleSection />
 
-      {/* 5. Property Highlights */}
-      <section id="highlights" className={`${styles.sectionWarm} py-20 md:py-28`}>
+      {/* 6. Property Highlights */}
+      <section id="property" className={`${styles.sectionWarm} py-20 md:py-28`}>
         <SectionContainer className={styles.sectionInner}>
           <div className="mb-10 max-w-xl md:mb-14" data-reveal-group>
             <SectionLabel>Property Highlights</SectionLabel>
@@ -242,7 +224,7 @@ export default function VineCottagePresentation() {
         </SectionContainer>
       </section>
 
-      {/* 6. Perfect For */}
+      {/* 7. Perfect For */}
       <section id="perfect-for" className={`${styles.sectionMesh} py-20 md:py-28`}>
         <SectionContainer className={styles.sectionInner}>
           <div className="mb-10 max-w-xl md:mb-14">
@@ -270,7 +252,7 @@ export default function VineCottagePresentation() {
         </SectionContainer>
       </section>
 
-      {/* 7. Ideal Occasions */}
+      {/* 8. Ideal Occasions */}
       <section id="occasions" className={`${styles.sectionCool} py-20 md:py-28`}>
         <SectionContainer className={styles.sectionInner}>
           <div className="mb-10 max-w-xl md:mb-12">
@@ -293,14 +275,14 @@ export default function VineCottagePresentation() {
         </SectionContainer>
       </section>
 
-      {/* 8. Nearby Somerset */}
+      {/* 9. Discover Somerset */}
       <section id="location" className={styles.sectionWarm}>
         <SplitImageSection
           image={images.location}
           alt="Somerset countryside landscape"
           imagePosition="right"
         >
-          <SectionLabel>Nearby Somerset</SectionLabel>
+          <SectionLabel>Discover Somerset</SectionLabel>
           <SectionHeading>Queen Camel, and beyond.</SectionHeading>
           <SectionLead>
             Village peace with Bath, Sherborne and the A303 within easy reach.
@@ -311,7 +293,7 @@ export default function VineCottagePresentation() {
       <section className={`${styles.sectionMesh} py-20 md:py-28`}>
         <SectionContainer className={styles.sectionInner}>
           <div className="mb-10 max-w-xl md:mb-14">
-            <SectionLabel>Beyond the Gate</SectionLabel>
+            <SectionLabel>Discover Somerset</SectionLabel>
             <SectionHeading>Places worth the slow drive.</SectionHeading>
             <SectionLead>
               Walks from the door, museums minutes away, and day trips that reward an
@@ -349,13 +331,13 @@ export default function VineCottagePresentation() {
         </SectionContainer>
       </section>
 
-      {/* 9. Preserving Heritage */}
+      {/* 10. Preserving the Heritage */}
       <section id="heritage" className={styles.sectionCool}>
         <SplitImageSection
           image={images.heritage}
           alt="Front garden and historic façade of Vine Cottage"
         >
-          <SectionLabel>Preserving Heritage</SectionLabel>
+          <SectionLabel>Preserving the Heritage</SectionLabel>
           <SectionHeading>Sympathetic, reversible, respectful.</SectionHeading>
           <SectionLead>
             Every proposal respects the Grade II* listed character and focuses on
@@ -365,7 +347,7 @@ export default function VineCottagePresentation() {
         </SplitImageSection>
       </section>
 
-      {/* 10. Thank You card */}
+      {/* 11. Thank You */}
       <section
         id="thank-you"
         className={styles.closingBand}
@@ -374,7 +356,7 @@ export default function VineCottagePresentation() {
         <SectionContainer className={styles.sectionInner}>
           <article className={styles.thankCard} data-reveal-group>
             <header className={styles.thankCardHeader}>
-              <SectionLabel variant="dark">Closing</SectionLabel>
+              <SectionLabel variant="dark">Thank You</SectionLabel>
               <h2 className={styles.thankCardTitle} data-reveal-item>
                 Thank You
               </h2>

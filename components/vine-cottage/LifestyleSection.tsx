@@ -5,7 +5,7 @@ import {
   Coffee,
   Fire,
   type Icon,
-  TreeEvergreen,
+  Sun,
 } from "@phosphor-icons/react";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
@@ -35,7 +35,7 @@ type LifestyleMoment = {
 const moments: LifestyleMoment[] = [
   {
     id: "morning",
-    name: "Morning coffee",
+    name: "Morning",
     shortName: "Morning",
     icon: Coffee,
     src: "/images/vine-cottage/lifestyle-morning.png",
@@ -43,22 +43,22 @@ const moments: LifestyleMoment[] = [
     caption: "Slow start by the window",
   },
   {
-    id: "fireplace",
-    name: "Fireplace evenings",
+    id: "afternoon",
+    name: "Afternoon",
+    shortName: "Afternoon",
+    icon: Sun,
+    src: "/images/vine-cottage/lifestyle-garden.png",
+    alt: "Afternoon in the garden at Vine Cottage",
+    caption: "Orchard air and easy hours outdoors",
+  },
+  {
+    id: "evening",
+    name: "Evening",
     shortName: "Evening",
     icon: Fire,
     src: "/images/vine-cottage/lifestyle-fire.png",
     alt: "Fireplace evening at Vine Cottage",
     caption: "Warm light, long talks",
-  },
-  {
-    id: "garden",
-    name: "Golden-hour garden",
-    shortName: "Garden",
-    icon: TreeEvergreen,
-    src: "/images/vine-cottage/lifestyle-garden.png",
-    alt: "Golden-hour garden at Vine Cottage",
-    caption: "Orchard air at dusk",
   },
 ];
 
@@ -236,17 +236,17 @@ export default function LifestyleSection() {
       id="experience"
       ref={rootRef}
       className={styles.roomTour}
-      aria-label="A weekend imagined at Vine Cottage"
+      aria-label="The guest experience at Vine Cottage"
     >
       <header className={styles.roomTourIntro} data-reveal-group>
         <p className={styles.roomTourEyebrow} data-reveal-item>
-          Lifestyle
+          The Guest Experience
         </p>
         <h2 className={styles.roomTourHeading} data-heading-reveal>
-          A weekend, imagined.
+          A day at the cottage.
         </h2>
         <p className={styles.roomTourLead} data-body-reveal>
-          Morning light, hearthside evenings, and orchard air at dusk.
+          Morning light, afternoon outdoors, and hearthside evenings.
         </p>
       </header>
 
@@ -255,7 +255,7 @@ export default function LifestyleSection() {
         <div style={{ height: navHeight }} aria-hidden="true" />
       )}
 
-      <nav ref={navRef} className={navClassName} aria-label="Weekend moments">
+      <nav ref={navRef} className={navClassName} aria-label="Guest experience moments">
         {renderPills(navScrollRef)}
       </nav>
 
