@@ -2,10 +2,13 @@
 
 import Image from "next/image";
 import {
-  CookingPot,
-  MapPin,
+  CastleTurret,
+  Church,
+  Compass,
+  ForkKnife,
+  Mountains,
   Path,
-  Tree,
+  TreeEvergreen,
   Wine,
 } from "@phosphor-icons/react";
 
@@ -27,47 +30,91 @@ const images = {
   hero: "/images/vine-cottage/vine-cottage-hero.png",
   experience:
     "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85",
-  lifestyleMorning:
-    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=85",
-  lifestyleFire:
-    "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=85",
-  lifestyleGarden:
-    "https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=1200&q=85",
+  lifestyleMorning: "/images/vine-cottage/lifestyle-morning.png",
+  lifestyleFire: "/images/vine-cottage/lifestyle-fire.png",
+  lifestyleGarden: "/images/vine-cottage/lifestyle-garden.png",
   garden: "/images/vine-cottage/orchard-01.png",
-  location:
-    "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=85",
+  location: "/images/vine-cottage/location-01.png",
 };
 
 const nearby = [
-  { icon: Path, title: "Village walks", note: "Lanes & footpaths" },
-  { icon: Wine, title: "Local tables", note: "Pubs & farm shops" },
-  { icon: MapPin, title: "Day trips", note: "Bath · Sherborne" },
-  { icon: CookingPot, title: "Slow mornings", note: "Kitchen & garden" },
+  {
+    icon: CastleTurret,
+    title: "Cadbury Castle",
+    distance: "5 min",
+    note: "Iron Age ramparts and wide Somerset skies — a quiet climb with Camelot lore in the grass.",
+    featured: true,
+  },
+  {
+    icon: Compass,
+    title: "Haynes Motor Museum",
+    distance: "8 min",
+    note: "Sparkford’s celebrated collection — a bright afternoon for curious minds.",
+    featured: true,
+  },
+  {
+    icon: Path,
+    title: "Village lanes",
+    distance: "On foot",
+    note: "Hedgerow footpaths and quiet loops from the cottage gate.",
+  },
+  {
+    icon: Wine,
+    title: "Pubs & farm shops",
+    distance: "Nearby",
+    note: "Local tables, seasonal produce, and a glass after dusk.",
+  },
+  {
+    icon: Church,
+    title: "Sherborne",
+    distance: "20 min",
+    note: "Abbey stone, bookshops, and a handsome market town pace.",
+  },
+  {
+    icon: Mountains,
+    title: "Glastonbury Tor",
+    distance: "35 min",
+    note: "A landmark climb with levels stretching to the horizon.",
+  },
+  {
+    icon: TreeEvergreen,
+    title: "Lytes Cary Manor",
+    distance: "15 min",
+    note: "National Trust gardens and a Tudor house in soft light.",
+  },
+  {
+    icon: ForkKnife,
+    title: "Bath",
+    distance: "45 min",
+    note: "Roman baths, crescents, and a full day of Georgian splendour.",
+  },
 ] as const;
 
-const reviews = [
+const quietLuxuries = [
   {
-    quote: "We felt we had the countryside entirely to ourselves.",
-    name: "Eleanor M.",
-    stay: "Weekend escape",
+    title: "Hotel care, cottage soul",
+    note: "Joseph & Co standards in a private historic home — every detail considered, never institutional.",
   },
   {
-    quote: "Quiet luxury — the kind you notice in the details.",
-    name: "James & Claire",
-    stay: "Family stay",
+    title: "Wellness beyond the barn",
+    note: "Cube sauna and cedar hot tub for slow evenings under Somerset sky.",
   },
   {
-    quote: "Historic character without sacrificing comfort.",
-    name: "Sophie R.",
-    stay: "Long weekend",
+    title: "Space to truly gather",
+    note: "Four bedrooms and generous living — family reunions without compromise.",
   },
-] as const;
-
-const navLinks = [
-  { href: "#floor-plan", label: "Plan" },
-  { href: "#experience", label: "Stay" },
-  { href: "#highlights", label: "Spaces" },
-  { href: "#enquire", label: "Enquire" },
+  {
+    title: "0.67 acres of stillness",
+    note: "Orchard air, garden light, and room to breathe between village and countryside.",
+  },
+  {
+    title: "Heritage, held gently",
+    note: "Character protected, comfort elevated — history you can live in, not look at.",
+  },
+  {
+    title: "Close to everything quiet",
+    note: "Village walks from the gate; Bath, Sherborne and Glastonbury when you want the wider world.",
+  },
 ] as const;
 
 export default function VineCottagePresentation() {
@@ -76,19 +123,6 @@ export default function VineCottagePresentation() {
 
   return (
     <main ref={rootRef} className="bg-wild-sand text-aztec">
-      <nav className={styles.pageNav} aria-label="Vine Cottage">
-        <a href="#top" className={styles.pageNavBrand}>
-          Vine Cottage
-        </a>
-        <div className={styles.pageNavLinks}>
-          {navLinks.map((link) => (
-            <a key={link.href} href={link.href} className={styles.pageNavLink}>
-              {link.label}
-            </a>
-          ))}
-        </div>
-      </nav>
-
       {/* Hero */}
       <section id="top" className={styles.hero} aria-label="Vine Cottage introduction">
         <img
@@ -119,14 +153,6 @@ export default function VineCottagePresentation() {
             >
               A Grade II listed retreat for unhurried countryside stays.
             </p>
-            <div className={styles.heroCtas} data-hero-item>
-              <a href="#floor-plan" className={styles.heroCtaPrimary}>
-                View floor plan
-              </a>
-              <a href="#enquire" className={styles.heroCtaGhost}>
-                Enquire to stay
-              </a>
-            </div>
           </div>
         </div>
       </section>
@@ -153,12 +179,26 @@ export default function VineCottagePresentation() {
             <SectionLabel>Lifestyle</SectionLabel>
             <SectionHeading>A weekend, imagined.</SectionHeading>
           </div>
+        </SectionContainer>
+        <div className={styles.lifestyleBleed}>
           <div className={styles.lifestyleGrid} data-reveal-group>
             {[
-              { src: images.lifestyleMorning, caption: "Morning coffee" },
-              { src: images.lifestyleFire, caption: "Fireplace evenings" },
-              { src: images.lifestyleGarden, caption: "Golden-hour garden" },
-            ].map((item) => (
+              {
+                src: images.lifestyleMorning,
+                caption: "Morning coffee",
+                note: "Slow start by the window",
+              },
+              {
+                src: images.lifestyleFire,
+                caption: "Fireplace evenings",
+                note: "Warm light, long talks",
+              },
+              {
+                src: images.lifestyleGarden,
+                caption: "Golden-hour garden",
+                note: "Orchard air at dusk",
+              },
+            ].map((item, index) => (
               <figure
                 key={item.caption}
                 className={styles.lifestyleCard}
@@ -169,16 +209,26 @@ export default function VineCottagePresentation() {
                   <Image
                     src={item.src}
                     alt={item.caption}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover"
+                    width={1536}
+                    height={1024}
+                    sizes="(max-width: 768px) 90vw, 34vw"
+                    className={styles.lifestyleImg}
                   />
+                  <div className={styles.lifestyleShade} aria-hidden="true" />
                 </div>
-                <figcaption className={styles.lifestyleCaption}>{item.caption}</figcaption>
+                <figcaption className={styles.lifestyleCaption}>
+                  <span className={styles.lifestyleIndex}>
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className={styles.lifestyleCaptionText}>
+                    <span className={styles.lifestyleTitle}>{item.caption}</span>
+                    <span className={styles.lifestyleNote}>{item.note}</span>
+                  </span>
+                </figcaption>
               </figure>
             ))}
           </div>
-        </SectionContainer>
+        </div>
       </section>
 
       {/* Garden */}
@@ -188,7 +238,7 @@ export default function VineCottagePresentation() {
           <SectionHeading>0.67 acres to breathe.</SectionHeading>
           <SectionLead>Lawn games, orchard shade, evening air.</SectionLead>
           <p className={styles.iconLine} data-body-reveal>
-            <Tree size={22} weight="light" aria-hidden="true" />
+            <TreeEvergreen size={22} weight="light" aria-hidden="true" />
             Private · seasonal · still
           </p>
         </SplitImageSection>
@@ -215,19 +265,63 @@ export default function VineCottagePresentation() {
           <div className="mb-10 max-w-xl md:mb-14">
             <SectionLabel>Nearby</SectionLabel>
             <SectionHeading>Beyond the gate.</SectionHeading>
+            <SectionLead>
+              Walks from the door, museums minutes away, and day trips that reward a slow drive.
+            </SectionLead>
           </div>
-          <div className={styles.highlightRow} data-reveal-group>
-            {nearby.map(({ icon: Icon, title, note }) => (
+          <div className={styles.nearbyGrid} data-reveal-group>
+            {nearby.map((place) => {
+              const Icon = place.icon;
+              const isFeatured = "featured" in place && place.featured;
+
+              return (
               <article
-                key={title}
-                className={styles.highlightChip}
+                key={place.title}
+                className={
+                  isFeatured ? `${styles.nearbyCard} ${styles.nearbyFeatured}` : styles.nearbyCard
+                }
                 data-reveal-item
                 data-hover-card
               >
-                <Icon size={28} weight="light" className="text-pine-green" aria-hidden="true" />
-                <div>
-                  <h3 className={styles.highlightTitle}>{title}</h3>
-                  <p className={styles.highlightNote}>{note}</p>
+                <div className={styles.nearbyTop}>
+                  <span className={styles.nearbyIcon} aria-hidden="true">
+                    <Icon size={26} weight="light" />
+                  </span>
+                  <span className={styles.nearbyDistance}>{place.distance}</span>
+                </div>
+                <h3 className={styles.nearbyTitle}>{place.title}</h3>
+                <p className={styles.nearbyNote}>{place.note}</p>
+              </article>
+              );
+            })}
+          </div>
+        </SectionContainer>
+      </section>
+
+      {/* Quiet luxuries */}
+      <section className={`${styles.sectionWarm} py-20 md:py-28`}>
+        <SectionContainer className={styles.sectionInner}>
+          <div className="mb-12 max-w-xl md:mb-16">
+            <SectionLabel>Signature</SectionLabel>
+            <SectionHeading>Quiet luxuries.</SectionHeading>
+            <SectionLead>
+              The points that make Vine Cottage feel rare — crafted for guests who notice the difference.
+            </SectionLead>
+          </div>
+          <div className={styles.luxuryGrid} data-reveal-group>
+            {quietLuxuries.map((item, index) => (
+              <article
+                key={item.title}
+                className={styles.luxuryItem}
+                data-reveal-item
+                data-hover-card
+              >
+                <span className={styles.luxuryIndex} aria-hidden="true">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div className={styles.luxuryCopy}>
+                  <h3 className={styles.luxuryTitle}>{item.title}</h3>
+                  <p className={styles.luxuryNote}>{item.note}</p>
                 </div>
               </article>
             ))}
@@ -235,45 +329,19 @@ export default function VineCottagePresentation() {
         </SectionContainer>
       </section>
 
-      {/* Reviews */}
-      <section className={`${styles.sectionWarm} py-20 md:py-28`}>
-        <SectionContainer>
-          <div className="mb-10 max-w-xl md:mb-14">
-            <SectionLabel>Guest words</SectionLabel>
-            <SectionHeading>Quiet praise.</SectionHeading>
-          </div>
-          <div className={styles.reviewGrid} data-reveal-group>
-            {reviews.map((review) => (
-              <blockquote
-                key={review.name}
-                className={styles.reviewCard}
-                data-reveal-item
-                data-hover-card
-              >
-                <p className={styles.reviewQuote}>&ldquo;{review.quote}&rdquo;</p>
-                <footer className={styles.reviewMeta}>
-                  <cite className={styles.reviewName}>{review.name}</cite>
-                  <span>{review.stay}</span>
-                </footer>
-              </blockquote>
-            ))}
-          </div>
-        </SectionContainer>
-      </section>
-
       {/* Booking CTA */}
-      <section id="enquire" className={`${styles.ctaBand} py-20 md:py-28`}>
+      <section id="enquire" className={`${styles.ctaBand} py-12 md:py-16`}>
         <SectionContainer className={styles.sectionInner}>
           <div className="mx-auto max-w-2xl text-center" data-reveal-group>
             <SectionLabel variant="dark">Stay</SectionLabel>
             <h2
-              className="mt-4 text-4xl font-medium leading-[1.05] tracking-tight text-white md:text-6xl"
+              className="mt-3 text-4xl font-medium leading-[1.05] tracking-tight text-white md:text-5xl"
               data-reveal-item
             >
               Ready for Somerset stillness?
             </h2>
             <p
-              className="mx-auto mt-5 max-w-md text-base leading-relaxed text-white/70 md:text-lg"
+              className="mx-auto mt-3 max-w-md text-base leading-relaxed text-white/70 md:text-lg"
               data-body-reveal
             >
               Enquire privately. We respond with care.

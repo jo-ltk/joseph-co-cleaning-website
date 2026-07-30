@@ -47,16 +47,16 @@ export default function PartnershipFooter() {
     <footer ref={footerRef} className={footerStyles.footer}>
       <div className={footerStyles.inner}>
         <div data-footer-content className={footerStyles.content}>
-          <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14">
+          <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
             <div>
               <SectionLabel variant="dark">Presented by</SectionLabel>
               <ScrollReveal
                 as="h2"
-                containerClassName="mt-4 text-4xl leading-[1.02] font-medium tracking-tight text-white md:text-5xl lg:text-6xl"
+                containerClassName="mt-3 text-3xl leading-[1.02] font-medium tracking-tight text-white md:text-4xl lg:text-5xl"
               >
                 Joseph &amp; Co
               </ScrollReveal>
-              <p className="mt-5 max-w-md text-base leading-relaxed text-white/65 md:text-lg">
+              <p className="mt-3 max-w-md text-base leading-relaxed text-white/65 md:text-lg">
                 Hotel-standard care for a historic Somerset cottage — heritage protected,
                 guests welcomed.
               </p>

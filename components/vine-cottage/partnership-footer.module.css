@@ -6,12 +6,12 @@
 .inner {
   max-width: 1450px;
   margin-inline: auto;
-  padding: 4rem 1.25rem;
+  padding: 2rem 1.25rem 2.5rem;
 }
 
 @media (min-width: 768px) {
   .inner {
-    padding: 5rem 2.5rem;
+    padding: 2.5rem 2.5rem 3rem;
   }
 }
 
@@ -22,13 +22,13 @@
 }
 
 .content {
-  padding-top: 2.5rem;
+  padding-top: 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 @media (min-width: 768px) {
   .content {
-    padding-top: 3rem;
+    padding-top: 1.75rem;
   }
 }
 
