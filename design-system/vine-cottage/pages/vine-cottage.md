@@ -5,7 +5,7 @@
 - Existing CSS variables and section surface gradients in `vine-cottage.module.css`
 
 ## Direction
-- Luxury hospitality storytelling (Soho Farmhouse / The Pig feel)
-- Visual-first, aggressively reduced copy
-- Premium gallery (masonry + lightbox), floor plan as experience
+- Luxury hospitality vision presentation for the property owner
+- Flow: Hero → Vision → Guest Experience → Concept Gallery → Highlights → Perfect For → Occasions → Nearby → Heritage → Thank You
+- Unified design-concept gallery (no Indoor/Outdoor split)
 - Motion: tasteful GSAP / Framer — never flashy

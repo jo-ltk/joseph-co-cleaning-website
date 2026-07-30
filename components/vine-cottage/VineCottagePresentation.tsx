@@ -1,26 +1,36 @@
 "use client";
 
-import Image from "next/image";
 import {
+  Baby,
+  BookOpen,
+  Briefcase,
   CastleTurret,
+  Champagne,
   Church,
   Compass,
   ForkKnife,
+  Heart,
+  Laptop,
   Mountains,
   Path,
+  Sparkle,
   TreeEvergreen,
+  Users,
+  UsersThree,
   Wine,
 } from "@phosphor-icons/react";
 
 import FloorPlanSection from "@/components/vine-cottage/FloorPlanSection";
 import HighlightsSection from "@/components/vine-cottage/HighlightsSection";
-import PartnershipFooter from "@/components/vine-cottage/PartnershipFooter";
+import LifestyleSection from "@/components/vine-cottage/LifestyleSection";
 import {
+  LightFeatureCard,
   SectionContainer,
   SectionHeading,
   SectionLabel,
   SectionLead,
   SplitImageSection,
+  StatsStrip,
   styles,
 } from "@/components/vine-cottage/PresentationComponents";
 import { usePresentationAnimations } from "@/components/vine-cottage/usePresentationAnimations";
@@ -28,13 +38,78 @@ import { useReducedMotion } from "framer-motion";
 
 const images = {
   hero: "/images/vine-cottage/vine-cottage-hero.png",
-  experience: "/images/vine-cottage/experience-01.png",
-  lifestyleMorning: "/images/vine-cottage/lifestyle-morning.png",
-  lifestyleFire: "/images/vine-cottage/lifestyle-fire.png",
-  lifestyleGarden: "/images/vine-cottage/lifestyle-garden.png",
-  garden: "/images/vine-cottage/orchard-01.png",
+  vision: "/images/vine-cottage/experience-01.png",
   location: "/images/vine-cottage/location-01.png",
+  heritage: "/images/vine-cottage/front-garden-01.png",
 };
+
+const propertyHighlights = [
+  ["Grade II*", "Listed"],
+  ["15th C.", "Origins"],
+  ["0.67 acres", "Gardens"],
+  ["4", "Bedrooms"],
+  ["Stone barns", "Outbuildings"],
+  ["Queen Camel", "Somerset"],
+] as const;
+
+const perfectFor = [
+  {
+    icon: Heart,
+    title: "Couples",
+    description: "Private, unhurried stays with space to truly disconnect.",
+  },
+  {
+    icon: Baby,
+    title: "Families",
+    description: "Four bedrooms and generous living for multi-generational weekends.",
+  },
+  {
+    icon: UsersThree,
+    title: "Friends' retreats",
+    description: "A shared countryside house — kitchen table, garden, and long evenings.",
+  },
+  {
+    icon: Briefcase,
+    title: "Small corporate retreats",
+    description: "Strategy days in calm surroundings, away from hotel conference rooms.",
+  },
+  {
+    icon: Laptop,
+    title: "Remote professionals",
+    description: "Quiet focus by day; orchard stillness when the laptop closes.",
+  },
+  {
+    icon: Sparkle,
+    title: "Wellness escapes",
+    description: "Sauna, hot tub, and garden air for restorative countryside pauses.",
+  },
+  {
+    icon: Users,
+    title: "International visitors",
+    description: "An authentic Somerset cottage with hotel-standard care.",
+  },
+  {
+    icon: Champagne,
+    title: "Anniversary escapes",
+    description: "Milestone weekends held gently — just the two of you, and the cottage.",
+  },
+  {
+    icon: BookOpen,
+    title: "Writers & creatives",
+    description: "Room to think, write, and make — with countryside quiet as the only deadline.",
+  },
+] as const;
+
+const occasions = [
+  "Family gatherings",
+  "Anniversary weekends",
+  "Birthday celebrations",
+  "Friends' reunions",
+  "Quiet Christmas holidays",
+  "Easter breaks",
+  "Team strategy retreats",
+  "Book clubs",
+] as const;
 
 const nearby = [
   {
@@ -48,7 +123,7 @@ const nearby = [
     icon: Compass,
     title: "Haynes Motor Museum",
     distance: "8 min",
-    note: "Sparkford’s celebrated collection — a bright afternoon for curious minds.",
+    note: "Sparkford's celebrated collection — a bright afternoon for curious minds.",
     featured: true,
   },
   {
@@ -89,40 +164,13 @@ const nearby = [
   },
 ] as const;
 
-const quietLuxuries = [
-  {
-    title: "Hotel care, cottage soul",
-    note: "Joseph & Co standards in a private historic home — every detail considered, never institutional.",
-  },
-  {
-    title: "Wellness beyond the barn",
-    note: "Cube sauna and cedar hot tub for slow evenings under Somerset sky.",
-  },
-  {
-    title: "Space to truly gather",
-    note: "Four bedrooms and generous living — family reunions without compromise.",
-  },
-  {
-    title: "0.67 acres of stillness",
-    note: "Orchard air, garden light, and room to breathe between village and countryside.",
-  },
-  {
-    title: "Heritage, held gently",
-    note: "Character protected, comfort elevated — history you can live in, not look at.",
-  },
-  {
-    title: "Close to everything quiet",
-    note: "Village walks from the gate; Bath, Sherborne and Glastonbury when you want the wider world.",
-  },
-] as const;
-
 export default function VineCottagePresentation() {
   const reduceMotion = useReducedMotion();
   const rootRef = usePresentationAnimations(reduceMotion);
 
   return (
     <main ref={rootRef} className="bg-wild-sand text-aztec" data-vine-cottage>
-      {/* Hero */}
+      {/* 1. Hero */}
       <section id="top" className={styles.hero} aria-label="Vine Cottage introduction">
         <img
           src={images.hero}
@@ -150,7 +198,7 @@ export default function VineCottagePresentation() {
               className="mt-5 max-w-md text-lg font-medium leading-snug tracking-tight text-white/85 md:text-2xl"
               data-hero-item
             >
-              A Grade II listed retreat for unhurried countryside stays.
+              A Grade II* listed retreat for unhurried countryside stays.
             </p>
           </div>
         </div>
@@ -158,116 +206,116 @@ export default function VineCottagePresentation() {
 
       <FloorPlanSection />
 
-      {/* Property Experience */}
-      <section id="experience" className={styles.sectionCool}>
-        <SplitImageSection image={images.experience} alt="Light-filled cottage interior">
-          <SectionLabel>The Experience</SectionLabel>
-          <SectionHeading>Arrive. Soften. Stay.</SectionHeading>
+      {/* 2. Our Vision */}
+      <section id="vision" className={styles.sectionCool}>
+        <SplitImageSection image={images.vision} alt="Light-filled cottage interior">
+          <SectionLabel>Our Vision</SectionLabel>
+          <SectionHeading>Celebrate the cottage. Elevate the stay.</SectionHeading>
           <SectionLead>
-            Stone, linen, orchard light — a cottage made for weekends that linger.
+            Every concept respects the heritage of Vine Cottage and focuses on guest
+            experience rather than structural change — styling, care, and atmosphere
+            that honour Grade II* character while creating a luxury countryside retreat.
           </SectionLead>
         </SplitImageSection>
       </section>
 
+      {/* 3. Our Design Vision */}
       <HighlightsSection />
 
-      {/* Luxury Lifestyle — visual story strip */}
-      <section className={`${styles.sectionMesh} py-20 md:py-28`}>
+      {/* 4. Lifestyle */}
+      <LifestyleSection />
+
+      {/* 5. Property Highlights */}
+      <section id="highlights" className={`${styles.sectionWarm} py-20 md:py-28`}>
         <SectionContainer className={styles.sectionInner}>
-          <div className="mb-10 max-w-3xl md:mb-14">
-            <SectionLabel>Lifestyle</SectionLabel>
-            <SectionHeading>A weekend, imagined.</SectionHeading>
+          <div className="mb-10 max-w-xl md:mb-14" data-reveal-group>
+            <SectionLabel>Property Highlights</SectionLabel>
+            <SectionHeading>The facts that matter.</SectionHeading>
+            <SectionLead>
+              A historic Somerset cottage with the scale, setting, and character for
+              an exceptional private retreat.
+            </SectionLead>
           </div>
+          <StatsStrip
+            stats={propertyHighlights.map(([value, label]) => [value, label] as const)}
+          />
         </SectionContainer>
-        <div className={styles.lifestyleBleed}>
-          <div className={styles.lifestyleGrid} data-reveal-group>
-            {[
-              {
-                src: images.lifestyleMorning,
-                caption: "Morning coffee",
-                note: "Slow start by the window",
-              },
-              {
-                src: images.lifestyleFire,
-                caption: "Fireplace evenings",
-                note: "Warm light, long talks",
-              },
-              {
-                src: images.lifestyleGarden,
-                caption: "Golden-hour garden",
-                note: "Orchard air at dusk",
-              },
-            ].map((item, index) => (
-              <figure
-                key={item.caption}
-                className={styles.lifestyleCard}
-                data-reveal-item
-                data-hover-card
-              >
-                <div className={styles.lifestyleImage}>
-                  <Image
-                    src={item.src}
-                    alt={item.caption}
-                    width={1920}
-                    height={1280}
-                    quality={95}
-                    sizes="(max-width: 768px) 90vw, 34vw"
-                    className={styles.lifestyleImg}
-                    data-image-parallax="7"
-                  />
-                  <div className={styles.lifestyleShade} aria-hidden="true" />
-                </div>
-                <figcaption className={styles.lifestyleCaption}>
-                  <span className={styles.lifestyleIndex}>
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className={styles.lifestyleCaptionText}>
-                    <span className={styles.lifestyleTitle}>{item.caption}</span>
-                    <span className={styles.lifestyleNote}>{item.note}</span>
-                  </span>
-                </figcaption>
-              </figure>
+      </section>
+
+      {/* 6. Perfect For */}
+      <section id="perfect-for" className={`${styles.sectionMesh} py-20 md:py-28`}>
+        <SectionContainer className={styles.sectionInner}>
+          <div className="mb-10 max-w-xl md:mb-14">
+            <SectionLabel>Perfect For</SectionLabel>
+            <SectionHeading>Guests who seek quiet luxury.</SectionHeading>
+            <SectionLead>
+              Designed for intimate stays — never for volume, never for spectacle.
+            </SectionLead>
+          </div>
+          <div className={styles.perfectGrid} data-reveal-group>
+            {perfectFor.map((item) => (
+              <LightFeatureCard
+                key={item.title}
+                icon={item.icon}
+                title={item.title}
+                description={item.description}
+              />
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Garden */}
-      <section className={styles.sectionCool}>
-        <SplitImageSection image={images.garden} alt="English cottage garden">
-          <SectionLabel>Garden &amp; Orchard</SectionLabel>
-          <SectionHeading>0.67 acres to breathe.</SectionHeading>
-          <SectionLead>Lawn games, orchard shade, evening air.</SectionLead>
-          <p className={styles.iconLine} data-body-reveal>
-            <TreeEvergreen size={22} weight="light" aria-hidden="true" />
-            Private · seasonal · still
+          <p className={styles.perfectMore} data-body-reveal>
+            <span className={styles.perfectMoreLabel}>And more&hellip;</span>
+            Book clubs, quiet birthdays, sabbaticals, and many other intimate stays —
+            if it fits the cottage, it belongs here.
           </p>
-        </SplitImageSection>
+        </SectionContainer>
       </section>
 
-      {/* Location */}
+      {/* 7. Ideal Occasions */}
+      <section id="occasions" className={`${styles.sectionCool} py-20 md:py-28`}>
+        <SectionContainer className={styles.sectionInner}>
+          <div className="mb-10 max-w-xl md:mb-12">
+            <SectionLabel>Ideal Occasions</SectionLabel>
+            <SectionHeading>Small-scale, beautifully held.</SectionHeading>
+            <SectionLead>
+              Moments that fit the cottage — intimate gatherings, not large events.
+            </SectionLead>
+          </div>
+          <ul className={styles.occasionGrid} data-reveal-group>
+            {occasions.map((item) => (
+              <li key={item} className={styles.occasionItem} data-reveal-item>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <p className={styles.occasionNote} data-body-reveal>
+            Not intended for weddings, large parties, or high-volume events.
+          </p>
+        </SectionContainer>
+      </section>
+
+      {/* 8. Nearby Somerset */}
       <section id="location" className={styles.sectionWarm}>
         <SplitImageSection
           image={images.location}
           alt="Somerset countryside landscape"
           imagePosition="right"
         >
-          <SectionLabel>Location</SectionLabel>
-          <SectionHeading>Queen Camel, Somerset.</SectionHeading>
+          <SectionLabel>Nearby Somerset</SectionLabel>
+          <SectionHeading>Queen Camel, and beyond.</SectionHeading>
           <SectionLead>
             Village peace with Bath, Sherborne and the A303 within easy reach.
           </SectionLead>
         </SplitImageSection>
       </section>
 
-      {/* Nearby */}
       <section className={`${styles.sectionMesh} py-20 md:py-28`}>
         <SectionContainer className={styles.sectionInner}>
           <div className="mb-10 max-w-xl md:mb-14">
-            <SectionLabel>Nearby</SectionLabel>
-            <SectionHeading>Beyond the gate.</SectionHeading>
+            <SectionLabel>Beyond the Gate</SectionLabel>
+            <SectionHeading>Places worth the slow drive.</SectionHeading>
             <SectionLead>
-              Walks from the door, museums minutes away, and day trips that reward a slow drive.
+              Walks from the door, museums minutes away, and day trips that reward an
+              unhurried pace.
             </SectionLead>
           </div>
           <div className={styles.nearbyGrid} data-reveal-group>
@@ -276,90 +324,91 @@ export default function VineCottagePresentation() {
               const isFeatured = "featured" in place && place.featured;
 
               return (
-              <article
-                key={place.title}
-                className={
-                  isFeatured ? `${styles.nearbyCard} ${styles.nearbyFeatured}` : styles.nearbyCard
-                }
-                data-reveal-item
-                data-hover-card
-              >
-                <div className={styles.nearbyTop}>
-                  <span className={styles.nearbyIcon} aria-hidden="true">
-                    <Icon size={26} weight="light" />
-                  </span>
-                  <span className={styles.nearbyDistance}>{place.distance}</span>
-                </div>
-                <h3 className={styles.nearbyTitle}>{place.title}</h3>
-                <p className={styles.nearbyNote}>{place.note}</p>
-              </article>
+                <article
+                  key={place.title}
+                  className={
+                    isFeatured
+                      ? `${styles.nearbyCard} ${styles.nearbyFeatured}`
+                      : styles.nearbyCard
+                  }
+                  data-reveal-item
+                  data-hover-card
+                >
+                  <div className={styles.nearbyTop}>
+                    <span className={styles.nearbyIcon} aria-hidden="true">
+                      <Icon size={26} weight="light" />
+                    </span>
+                    <span className={styles.nearbyDistance}>{place.distance}</span>
+                  </div>
+                  <h3 className={styles.nearbyTitle}>{place.title}</h3>
+                  <p className={styles.nearbyNote}>{place.note}</p>
+                </article>
               );
             })}
           </div>
         </SectionContainer>
       </section>
 
-      {/* Quiet luxuries */}
-      <section className={`${styles.sectionWarm} py-20 md:py-28`}>
-        <SectionContainer className={styles.sectionInner}>
-          <div className="mb-12 max-w-xl md:mb-16">
-            <SectionLabel>Signature</SectionLabel>
-            <SectionHeading>Quiet luxuries.</SectionHeading>
-            <SectionLead>
-              The points that make Vine Cottage feel rare — crafted for guests who notice the difference.
-            </SectionLead>
-          </div>
-          <div className={styles.luxuryGrid} data-reveal-group>
-            {quietLuxuries.map((item, index) => (
-              <article
-                key={item.title}
-                className={styles.luxuryItem}
-                data-reveal-item
-                data-hover-card
-              >
-                <span className={styles.luxuryIndex} aria-hidden="true">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <div className={styles.luxuryCopy}>
-                  <h3 className={styles.luxuryTitle}>{item.title}</h3>
-                  <p className={styles.luxuryNote}>{item.note}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </SectionContainer>
+      {/* 9. Preserving Heritage */}
+      <section id="heritage" className={styles.sectionCool}>
+        <SplitImageSection
+          image={images.heritage}
+          alt="Front garden and historic façade of Vine Cottage"
+        >
+          <SectionLabel>Preserving Heritage</SectionLabel>
+          <SectionHeading>Sympathetic, reversible, respectful.</SectionHeading>
+          <SectionLead>
+            Every proposal respects the Grade II* listed character and focuses on
+            reversible, sympathetic styling rather than altering the historic fabric.
+            Comfort and atmosphere rise; the cottage itself remains true.
+          </SectionLead>
+        </SplitImageSection>
       </section>
 
-      {/* Booking CTA */}
-      <section id="enquire" className={`${styles.ctaBand} py-12 md:py-16`}>
+      {/* 10. Thank You card */}
+      <section
+        id="thank-you"
+        className={styles.closingBand}
+        aria-label="Thank you and presented by Joseph & Co"
+      >
         <SectionContainer className={styles.sectionInner}>
-          <div className="mx-auto max-w-2xl text-center" data-reveal-group>
-            <SectionLabel variant="dark">Stay</SectionLabel>
-            <h2
-              className="mt-3 text-4xl font-medium leading-[1.05] tracking-tight text-white md:text-5xl"
-              data-reveal-item
-            >
-              Ready for Somerset stillness?
-            </h2>
-            <p
-              className="mx-auto mt-3 max-w-md text-base leading-relaxed text-white/70 md:text-lg"
-              data-body-reveal
-            >
-              Enquire privately. We respond with care.
-            </p>
-            <a
-              href="mailto:hello@josephco.uk?subject=Vine%20Cottage%20enquiry"
-              className={styles.ctaButton}
-              data-reveal-item
-              data-hover-cta
-            >
-              Enquire to stay
-            </a>
-          </div>
+          <article className={styles.thankCard} data-reveal-group>
+            <header className={styles.thankCardHeader}>
+              <SectionLabel variant="dark">Closing</SectionLabel>
+              <h2 className={styles.thankCardTitle} data-reveal-item>
+                Thank You
+              </h2>
+              <p className={styles.thankCardQuote} data-body-reveal>
+                Thank you for taking the time to explore our vision for Vine Cottage. Our
+                ambition is to celebrate its remarkable history while creating an
+                exceptional countryside retreat that future guests will remember.
+              </p>
+            </header>
+
+            <div className={styles.thankCardRule} aria-hidden="true" data-reveal-item />
+
+            <footer className={styles.thankCardFooter} data-reveal-item>
+              <div className={styles.thankCardPresented}>
+                <p className={styles.thankCardPresentedLabel}>Presented by</p>
+                <h3 className={styles.closingBrand}>Joseph &amp; Co</h3>
+                <p className={styles.closingBrandNote}>
+                  Hotel-standard care for a historic Somerset cottage — heritage protected,
+                  guests welcomed.
+                </p>
+              </div>
+              <div className={styles.closingContact}>
+                <p className={styles.closingEntity}>Property Ltd</p>
+                <a
+                  href="mailto:hello@josephco.uk?subject=Vine%20Cottage%20enquiry"
+                  className={styles.closingEmail}
+                >
+                  hello@josephco.uk
+                </a>
+              </div>
+            </footer>
+          </article>
         </SectionContainer>
       </section>
-
-      <PartnershipFooter />
     </main>
   );
 }

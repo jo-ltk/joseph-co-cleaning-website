@@ -16,6 +16,8 @@ import {
   Shower,
   Tree,
   Warehouse,
+  WashingMachine,
+  Sparkle,
   X,
 } from "@phosphor-icons/react";
 import { gsap } from "gsap";
@@ -189,6 +191,19 @@ const rooms: Room[] = [
     ],
   },
   {
+    id: "laundry",
+    name: "Laundry",
+    shortName: "Laundry",
+    icon: WashingMachine,
+    images: [
+      {
+        src: "/images/vine-cottage/gallery/vine-cottage-08.png",
+        alt: "Bright laundry and utility room at Vine Cottage",
+        caption: "Quiet utility — washed, folded, ready for the next day.",
+      },
+    ],
+  },
+  {
     id: "front-garden",
     name: "Front Garden",
     shortName: "Front",
@@ -250,6 +265,24 @@ const rooms: Room[] = [
         src: "/images/vine-cottage/gallery/vine-cottage-sauna-hot-tub.png",
         alt: "Sauna and hot tub wellness space at Vine Cottage",
         caption: "Heat, stillness, and the garden beyond.",
+      },
+    ],
+  },
+  {
+    id: "more-concepts",
+    name: "More Concepts",
+    shortName: "More",
+    icon: Sparkle,
+    images: [
+      {
+        src: "/images/vine-cottage/gallery/vine-cottage-wellness-retreat.png",
+        alt: "Wellness retreat concept at Vine Cottage",
+        caption: "Wellness Retreat",
+      },
+      {
+        src: "/images/vine-cottage/gallery/vine-cottage-01.png",
+        alt: "Design concept for Vine Cottage",
+        caption: "Concept Study",
       },
     ],
   },
@@ -609,14 +642,12 @@ export default function HighlightsSection() {
       aria-label="Rooms through Vine Cottage"
     >
       <header className={styles.roomTourIntro} data-reveal-group>
-        <p className={styles.roomTourEyebrow} data-reveal-item>
-          Inside the cottage
-        </p>
         <h2 className={styles.roomTourHeading} data-heading-reveal>
-          Explore Every Space
+          Our Design Vision
         </h2>
         <p className={styles.roomTourLead} data-body-reveal>
-          Discover each thoughtfully restored room of Vine Cottage.
+          Explore our complete vision for Vine Cottage, where timeless heritage
+          meets thoughtful hospitality.
         </p>
       </header>
 
