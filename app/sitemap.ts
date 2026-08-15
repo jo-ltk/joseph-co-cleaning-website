@@ -18,6 +18,8 @@ const publicRoutes = [
   { path: "/areas-we-cover", priority: 0.82, changeFrequency: "monthly" as const },
   { path: "/about", priority: 0.7, changeFrequency: "monthly" as const },
   { path: "/contact", priority: 0.88, changeFrequency: "monthly" as const },
+  { path: "/care", priority: 0.9, changeFrequency: "monthly" as const },
+  { path: "/care/apply", priority: 0.8, changeFrequency: "monthly" as const },
   { path: "/privacy-policy", priority: 0.2, changeFrequency: "yearly" as const },
   { path: "/terms-of-service", priority: 0.2, changeFrequency: "yearly" as const },
 ];
