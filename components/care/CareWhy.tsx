@@ -3,6 +3,7 @@
 import { useRef } from "react";
 
 import { gsap, useGSAP } from "./care-gsap";
+import CareSectionHeading from "./CareSectionHeading";
 
 const features = [
   {
@@ -220,9 +221,13 @@ export default function CareWhy() {
   return (
     <section ref={sectionRef} id="why-us" className="care-why scroll-mt-24">
       <div className="care-why-pin">
-        <div className="care-wrap care-why-heading">
-          <p className="care-eyebrow">Why Care Connect</p>
-          <h2>More Than Staffing. A Reliable Care Partner.</h2>
+        <div className="care-wrap">
+          <CareSectionHeading
+            className="care-why-heading"
+            tone="dark"
+            eyebrow="Why Care Connect"
+            lines={["More Than Staffing.", "A Reliable Care Partner."]}
+          />
         </div>
 
         <div className="care-why-stage">

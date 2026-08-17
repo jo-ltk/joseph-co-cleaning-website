@@ -3,7 +3,6 @@
 import { useId, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
-  ArrowRight,
   CheckCircle,
   CloudArrowUp,
   FilePdf,
@@ -14,6 +13,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 
 import { carePositions } from "@/lib/care";
+import CareButton from "./CareButton";
 
 const accept =
   ".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document";
@@ -243,9 +243,9 @@ export default function CareApplyForm() {
                   </div>
                   {pending ? null : (
                     <div className="care-dropzone-actions">
-                      <button type="button" className="care-btn care-btn-secondary" onClick={() => fileRef.current?.click()}>
+                      <CareButton variant="ghost" onClick={() => fileRef.current?.click()}>
                         Replace
-                      </button>
+                      </CareButton>
                       <button type="button" className="care-dropzone-remove" onClick={clearFile} aria-label="Remove selected file">
                         <Trash size={18} weight="bold" />
                       </button>
@@ -263,17 +263,15 @@ export default function CareApplyForm() {
                   <p id={dropHintId} className="care-dropzone-meta">
                     PDF, DOC, DOCX · maximum 4.5MB
                   </p>
-                  <button
-                    type="button"
-                    className="care-btn care-btn-secondary mt-5"
+                  <CareButton
+                    variant="ghost"
+                    className="mt-5"
                     onClick={() => fileRef.current?.click()}
                     aria-describedby={dropHintId}
+                    icon={<CloudArrowUp size={16} weight="bold" />}
                   >
                     Choose File
-                    <span className="care-btn-hero-icon" aria-hidden>
-                      <CloudArrowUp size={16} weight="bold" />
-                    </span>
-                  </button>
+                  </CareButton>
                 </>
               )}
             </div>
@@ -293,14 +291,9 @@ export default function CareApplyForm() {
             </p>
           ) : null}
 
-          <button className="care-btn care-btn-primary w-full sm:w-auto" disabled={pending}>
-            {pending ? "Submitting…" : "Submit Application"}
-            {pending ? null : (
-              <span className="care-btn-hero-icon" aria-hidden>
-                <ArrowRight size={16} weight="bold" />
-              </span>
-            )}
-          </button>
+          <CareButton type="submit" className="w-full sm:w-auto" disabled={pending} hideIcon={pending}>
+            {pending ? "Submitting…" : "Join Our Team"}
+          </CareButton>
         </motion.form>
       )}
     </AnimatePresence>

@@ -13,8 +13,10 @@ export default function CareShell({ children }: { children: React.ReactNode }) {
   return (
     <CareUiProvider value={{ openRequest: () => setRequestOpen(true) }}>
       <CareNavbar />
-      {children}
-      <CareFooter />
+      <div className="care-shell-main">
+        {children}
+        <CareFooter />
+      </div>
       <CareRequestForm open={requestOpen} onClose={() => setRequestOpen(false)} />
     </CareUiProvider>
   );

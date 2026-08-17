@@ -2,10 +2,11 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
-import { X, ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { X } from "@phosphor-icons/react/dist/ssr";
 
 import { submitStaffRequest } from "@/app/actions/care";
 import { facilityTypes, staffingNeeds } from "@/lib/care";
+import CareButton from "./CareButton";
 
 export default function CareRequestForm({
   open,
@@ -98,16 +99,9 @@ export default function CareRequestForm({
                 <p className="mt-3">
                   Thank you. A member of the Care Connect team will be in touch to discuss your staffing requirements.
                 </p>
-                <button
-                  type="button"
-                  className="care-btn care-btn-primary mt-6"
-                  onClick={close}
-                >
+                <CareButton className="mt-6" onClick={close}>
                   Close
-                  <span className="care-btn-hero-icon" aria-hidden>
-                    <ArrowRight size={16} weight="bold" />
-                  </span>
-                </button>
+                </CareButton>
               </div>
             ) : (
               <form className="grid gap-4 sm:grid-cols-2" onSubmit={onSubmit}>
@@ -155,14 +149,9 @@ export default function CareRequestForm({
                 </label>
                 {error ? <p className="care-error sm:col-span-2">{error}</p> : null}
                 <div className="sm:col-span-2">
-                  <button className="care-btn care-btn-primary w-full sm:w-auto" disabled={pending}>
-                    {pending ? "Sending…" : "Request Staff"}
-                    {pending ? null : (
-                      <span className="care-btn-hero-icon" aria-hidden>
-                        <ArrowRight size={16} weight="bold" />
-                      </span>
-                    )}
-                  </button>
+                  <CareButton type="submit" className="w-full sm:w-auto" disabled={pending} hideIcon={pending}>
+                    {pending ? "Sending…" : "Find Staff"}
+                  </CareButton>
                 </div>
               </form>
             )}

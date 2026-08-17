@@ -11,7 +11,7 @@ const links = [
 
 export default function CareFooter() {
   return (
-    <footer className="bg-[var(--cc-navy)] text-[var(--cc-white)]">
+    <footer className="care-site-footer bg-[var(--cc-navy)] text-[var(--cc-white)]">
       <div className="care-wrap grid gap-6 py-16 md:grid-cols-[1.2fr_1fr] md:py-24 lg:gap-12">
         <div>
           <CareLogo inverted />

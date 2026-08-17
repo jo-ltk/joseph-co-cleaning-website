@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import { CaretLeft, CaretRight, ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { CaretLeft, CaretRight } from "@phosphor-icons/react/dist/ssr";
 
 import { complianceItems } from "@/lib/care";
+import CareButton from "./CareButton";
 import { gsap, SplitText, useGSAP } from "./care-gsap";
 import { useCareUi } from "./CareUi";
+import CareSectionHeading from "./CareSectionHeading";
 
 const COUNT = complianceItems.length;
 
@@ -82,14 +83,9 @@ export default function CareCompliance() {
             wordsClass: "care-compliance-word",
           });
 
-          const photos = liveCards
-            .map((card) => card.querySelector<HTMLElement>(".care-compliance-photo img"))
-            .filter((el): el is HTMLElement => Boolean(el));
-
           gsap.set(split.chars, { yPercent: 118 });
           gsap.set(introBits, { autoAlpha: 0, y: 18 });
           gsap.set(liveCards, { autoAlpha: 0, y: 36 });
-          gsap.set(photos, { scale: 1.12 });
 
           const introTl = gsap.timeline({
             scrollTrigger: {
@@ -127,16 +123,6 @@ export default function CareCompliance() {
                 ease: "power3.out",
               },
               0.28,
-            )
-            .to(
-              photos,
-              {
-                scale: 1,
-                duration: 1.15,
-                stagger: 0.07,
-                ease: "power3.out",
-              },
-              0.32,
             );
 
           const tween = gsap.to(track, {
@@ -239,40 +225,52 @@ export default function CareCompliance() {
           {String(index + 1).padStart(2, "0")} · {card.category}
         </span>
 
-        <div className="care-compliance-photo">
-          <Image
-            src={card.image.src}
-            alt={clone ? "" : card.image.alt}
-            fill
-            sizes="(max-width: 768px) calc(100vw - 2.5rem), 540px"
-            className="object-cover"
-          />
-        </div>
-
         <h3>{card.title}</h3>
         <p>{card.overview}</p>
-        <button type="button" className="care-btn care-btn-primary" tabIndex={clone ? -1 : 0} onClick={openRequest}>
-          Request staff
-          <span className="care-btn-hero-icon" aria-hidden>
-            <ArrowRight size={16} weight="bold" />
-          </span>
-        </button>
+        <CareButton tabIndex={clone ? -1 : 0} onClick={openRequest}>
+          Find Staff
+        </CareButton>
       </article>
     ));
 
   return (
     <section ref={rootRef} className="care-compliance">
       <div className="care-wrap care-compliance-head">
-        <p className="care-eyebrow" data-compliance-intro>
-          Compliance
-        </p>
-        <div className="care-compliance-head-row">
-          <h2 className="care-compliance-title">Compliance Built Into Every Placement</h2>
+        <CareSectionHeading
+          eyebrow="Compliance"
+          lines={["Compliance Built Into", "Every Placement"]}
+          titleClassName="care-compliance-title"
+          eyebrowAttrs={{ "data-compliance-intro": true }}
+        >
           <p className="care-compliance-lede" data-compliance-intro>
             Our recruitment and quality processes are designed to support safe, reliable and compliant healthcare
             staffing.
           </p>
-        </div>
+          <div className="care-section-links" data-compliance-intro>
+            <a
+              href="https://www.gov.uk/government/organisations/disclosure-and-barring-service"
+              className="care-text-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              DBS
+            </a>
+            <a href="https://www.nmc.org.uk/" className="care-text-link" target="_blank" rel="noopener noreferrer">
+              NMC
+            </a>
+            <a href="https://www.cqc.org.uk/" className="care-text-link" target="_blank" rel="noopener noreferrer">
+              CQC
+            </a>
+            <a
+              href="https://www.skillsforcare.org.uk/"
+              className="care-text-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Skills for Care
+            </a>
+          </div>
+        </CareSectionHeading>
         <div className="care-compliance-meta" data-compliance-intro>
           <span className="care-compliance-count">
             <span data-compliance-index>01</span>

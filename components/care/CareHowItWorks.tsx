@@ -1,6 +1,7 @@
 "use client";
 
 import CareReveal, { CareStagger } from "./CareReveal";
+import CareSectionHeading from "./CareSectionHeading";
 
 const steps = [
   {
@@ -21,11 +22,11 @@ export default function CareHowItWorks() {
   return (
     <section className="py-16 md:py-24">
       <div className="care-wrap">
-        <CareReveal className="mb-10 md:mb-16">
-          <p className="care-eyebrow">How it works</p>
-          <h2 className="max-w-2xl text-2xl font-medium leading-[1.1] tracking-tight md:text-4xl">
-            A clear path from request to placement.
-          </h2>
+        <CareReveal className="mb-2 md:mb-3">
+          <CareSectionHeading
+            eyebrow="How it works"
+            lines={["A clear path from", "request to placement."]}
+          />
         </CareReveal>
         <CareStagger className="grid gap-6 md:grid-cols-3 md:gap-8" stagger={0.12}>
           {steps.map((step, index) => (

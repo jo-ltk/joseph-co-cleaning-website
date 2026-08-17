@@ -4,11 +4,15 @@ import { useRef } from "react";
 import { CookingPot, FirstAid, Handshake, HouseLine, User } from "@phosphor-icons/react/dist/ssr";
 
 import { careServices } from "@/lib/care";
+import CareButton from "./CareButton";
 import { gsap, ScrollTrigger, SplitText, useGSAP } from "./care-gsap";
+import CareSectionHeading from "./CareSectionHeading";
+import { useCareUi } from "./CareUi";
 
 const icons = [FirstAid, User, Handshake, HouseLine, CookingPot];
 
 export default function CareServices() {
+  const { openRequest } = useCareUi();
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -59,6 +63,8 @@ export default function CareServices() {
             },
           });
 
+          gsap.set(cards, { autoAlpha: 0, y: 36 });
+
           introTl
             .to(introBits, {
               autoAlpha: 1,
@@ -76,6 +82,17 @@ export default function CareServices() {
                 ease: "power3.out",
               },
               0.12,
+            )
+            .to(
+              cards,
+              {
+                autoAlpha: 1,
+                y: 0,
+                duration: 0.85,
+                stagger: 0.09,
+                ease: "power3.out",
+              },
+              0.28,
             );
 
           const setActive = (progressValue: number) => {
@@ -88,45 +105,42 @@ export default function CareServices() {
           setActive(0);
 
           if (desktop && motion) {
-            cards.forEach((card, index) => {
-              const bits = card.querySelectorAll("[data-service-bit]");
-              if (index === 0) return;
-              gsap.set(bits, { autoAlpha: 0, y: 28 });
+            cards.forEach((card) => {
+              gsap.set(card.querySelectorAll("[data-service-bit]"), { autoAlpha: 1, y: 0 });
             });
 
             const getDistance = () => Math.max(0, track.scrollWidth - viewport.clientWidth);
 
-            const scrollTween = gsap.to(track, {
+            gsap.to(track, {
               x: () => -getDistance(),
               ease: "none",
               scrollTrigger: {
                 trigger: section,
                 pin,
-                scrub: 0.75,
+                scrub: 0.85,
                 anticipatePin: 1,
                 invalidateOnRefresh: true,
-                end: () => `+=${Math.max(getDistance() * 1.2, window.innerHeight)}`,
+                end: () => `+=${Math.max(getDistance() * 1.15, window.innerHeight * 0.7)}`,
                 onUpdate: (self) => setActive(self.progress),
               },
             });
 
-            cards.forEach((card, index) => {
-              if (index === 0) return;
-              const bits = card.querySelectorAll("[data-service-bit]");
-              gsap.to(bits, {
-                y: 0,
-                autoAlpha: 1,
-                duration: 0.7,
-                stagger: 0.08,
-                ease: "power3.out",
-                scrollTrigger: {
-                  trigger: card,
-                  containerAnimation: scrollTween,
-                  start: "left 78%",
-                  toggleActions: "play none none reverse",
-                },
-              });
+            let cancelled = false;
+            const refreshTriggers = () => {
+              if (!cancelled) ScrollTrigger.refresh();
+            };
+            let rafInner = 0;
+            const raf = requestAnimationFrame(() => {
+              rafInner = requestAnimationFrame(refreshTriggers);
             });
+            document.fonts?.ready.then(refreshTriggers);
+
+            return () => {
+              cancelled = true;
+              cancelAnimationFrame(raf);
+              cancelAnimationFrame(rafInner);
+              split.revert();
+            };
           } else if (motion) {
             ScrollTrigger.create({
               trigger: section,
@@ -179,15 +193,22 @@ export default function CareServices() {
     <section ref={sectionRef} id="services" className="care-services scroll-mt-24">
       <div className="care-services-pin">
         <div className="care-wrap care-services-head">
-          <p className="care-eyebrow" data-service-intro>
-            Services
-          </p>
-          <div className="care-services-head-row">
-            <h2 className="care-services-title">Healthcare Professionals You Can Rely On</h2>
+          <CareSectionHeading
+            eyebrow="Services"
+            lines={["Healthcare Professionals", "You Can Rely On"]}
+            titleClassName="care-services-title"
+            eyebrowAttrs={{ "data-service-intro": true }}
+          >
             <p className="care-services-lede" data-service-intro>
               Flexible staffing solutions for care homes and healthcare providers.
             </p>
-          </div>
+            <div className="care-section-links" data-service-intro>
+              <CareButton onClick={openRequest}>Find Staff</CareButton>
+              <CareButton href="/care/apply" variant="ghost">
+                Join Our Team
+              </CareButton>
+            </div>
+          </CareSectionHeading>
           <div className="care-services-meta" data-service-intro>
             <span className="care-services-count">
               <span data-service-index>01</span>
@@ -205,29 +226,39 @@ export default function CareServices() {
               const Icon = icons[index];
               return (
                 <article key={service.title} className="care-service-card">
-                  <div className="care-service-top">
-                    <span className="care-service-index" data-service-bit>
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <span className="care-service-icon" data-service-bit aria-hidden>
-                      <Icon size={32} weight="duotone" />
-                    </span>
-                  </div>
+                  <span className="care-service-index" data-service-bit>
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="care-service-icon" data-service-bit aria-hidden>
+                    <Icon size={28} weight="duotone" />
+                  </span>
                   <h3 data-service-bit>{service.title}</h3>
                   <p data-service-bit>{service.text}</p>
+                  <div className="care-card-actions" data-service-bit>
+                    <CareButton onClick={openRequest}>Find Staff</CareButton>
+                    <CareButton href={service.applyHref} variant="ghost">
+                      Join Our Team
+                    </CareButton>
+                  </div>
                 </article>
               );
             })}
             <article className="care-service-card care-service-card--cta">
-              <div className="care-service-top">
-                <span className="care-service-index" data-service-bit>
-                  {String(careServices.length + 1).padStart(2, "0")}
-                </span>
-              </div>
+              <span className="care-service-index" data-service-bit>
+                {String(careServices.length + 1).padStart(2, "0")}
+              </span>
               <h3 data-service-bit>Coverage that stays close to the floor.</h3>
               <p data-service-bit>
                 Planned rotas, urgent cover and ongoing support — coordinated by a dedicated team.
               </p>
+              <div className="care-card-actions" data-service-bit>
+                <CareButton surface="dark" onClick={openRequest}>
+                  Find Staff
+                </CareButton>
+                <CareButton href="/care/apply" variant="ghost" surface="dark">
+                  Join Our Team
+                </CareButton>
+              </div>
             </article>
           </div>
         </div>

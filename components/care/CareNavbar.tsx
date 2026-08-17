@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Equals, X, ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { Equals, X } from "@phosphor-icons/react/dist/ssr";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
+import CareButton from "./CareButton";
 import CareLogo from "./CareLogo";
 import { useCareUi } from "./CareUi";
 
@@ -76,22 +77,25 @@ export default function CareNavbar() {
 
   return (
     <>
-      <motion.header
-        variants={{
-          visible: { y: 0, opacity: 1 },
-          hidden: { y: -110, opacity: 0 },
-        }}
-        animate={isHidden ? "hidden" : "visible"}
-        transition={{
-          duration: 0.45,
-          ease: [0.22, 1, 0.36, 1],
-          opacity: { duration: 0.3 },
-        }}
-        className="pointer-events-none fixed inset-x-0 top-0 z-50"
-      >
+      <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
         <nav className="mx-auto w-full max-w-[1920px] px-3 pt-3 sm:px-5 sm:pt-4">
-          <div ref={menuRef} className="pointer-events-auto relative">
-            <div className="care-nav-glass">
+          <div
+            ref={menuRef}
+            className={`pointer-events-auto relative${isHome ? "" : " care-nav--light"}`}
+          >
+            <motion.div
+              className="care-nav-glass"
+              variants={{
+                visible: { y: 0, opacity: 1 },
+                hidden: { y: -110, opacity: 0 },
+              }}
+              animate={isHidden ? "hidden" : "visible"}
+              transition={{
+                duration: 0.45,
+                ease: [0.22, 1, 0.36, 1],
+                opacity: { duration: 0.3 },
+              }}
+            >
               <CareLogo compact />
 
               <div className="flex shrink-0 items-center gap-2">
@@ -108,12 +112,7 @@ export default function CareNavbar() {
                   ))}
                 </div>
 
-                <button type="button" className="care-btn care-btn-primary" onClick={openRequest}>
-                  <span className="care-btn-label">Find Staff</span>
-                  <span className="care-btn-hero-icon" aria-hidden>
-                    <ArrowRight size={16} weight="bold" />
-                  </span>
-                </button>
+                <CareButton onClick={openRequest}>Find Staff</CareButton>
 
                 <button
                   type="button"
@@ -126,7 +125,7 @@ export default function CareNavbar() {
                   {menuOpen ? <X size={18} weight="bold" /> : <Equals size={20} weight="bold" />}
                 </button>
               </div>
-            </div>
+            </motion.div>
 
             {menuOpen ? (
               <div id="care-nav-menu" className="care-nav-dropdown" role="menu">
@@ -142,37 +141,32 @@ export default function CareNavbar() {
                       {link.label}
                     </Link>
                   ))}
-                  <Link
+                  <CareButton
                     href="/care/apply"
+                    variant="ghost"
+                    surface={isHome ? "dark" : "light"}
                     role="menuitem"
-                    className={`care-btn care-btn-primary${pathname === "/care/apply" ? " is-active" : ""}`}
+                    className={pathname === "/care/apply" ? "is-active" : undefined}
                     onClick={() => setMenuOpen(false)}
                   >
-                    I&apos;m a clinician
-                    <span className="care-btn-hero-icon" aria-hidden>
-                      <ArrowRight size={16} weight="bold" />
-                    </span>
-                  </Link>
-                  <button
-                    type="button"
+                    Join Our Team
+                  </CareButton>
+                  <CareButton
                     role="menuitem"
-                    className="care-btn care-btn-secondary"
+                    surface={isHome ? "dark" : "light"}
                     onClick={() => {
                       setMenuOpen(false);
                       openRequest();
                     }}
                   >
-                    Request staff
-                    <span className="care-btn-hero-icon" aria-hidden>
-                      <ArrowRight size={16} weight="bold" />
-                    </span>
-                  </button>
+                    Find Staff
+                  </CareButton>
                 </div>
               </div>
             ) : null}
           </div>
         </nav>
-      </motion.header>
+      </header>
       {!isHome ? <div className="h-24" aria-hidden /> : null}
     </>
   );

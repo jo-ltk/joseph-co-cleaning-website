@@ -2,11 +2,11 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 import { careImages } from "@/lib/care";
+import CareButton from "./CareButton";
 import { gsap, useGSAP } from "./care-gsap";
+import CareSectionHeading from "./CareSectionHeading";
 import { useCareUi } from "./CareUi";
 
 const audiences = [
@@ -163,29 +163,21 @@ export default function CareAudiences() {
     <section ref={sectionRef} id="facilities" className="care-audiences scroll-mt-24">
       <div className="care-wrap">
         <div className="care-audiences-intro">
-          <p className="care-eyebrow">Two audiences. One standard.</p>
-          <h2>Staffing that serves both sides of care.</h2>
+          <CareSectionHeading
+            eyebrow="Two audiences. One standard."
+            lines={["Staffing that serves", "both sides of care."]}
+          />
         </div>
       </div>
 
       <div className="care-audiences-stack">
         {audiences.map((audience, index) => {
-          const label = (
-            <>
-              {audience.cta}
-              <span className="care-btn-hero-icon" aria-hidden>
-                <ArrowRight size={16} weight="bold" />
-              </span>
-            </>
-          );
           const cta = audience.href ? (
-            <Link href={audience.href} className="care-btn care-btn-hero">
-              {label}
-            </Link>
+            <CareButton href={audience.href} variant={index === 1 ? "ghost" : "solid"}>
+              {audience.cta}
+            </CareButton>
           ) : (
-            <button type="button" onClick={openRequest} className="care-btn care-btn-hero">
-              {label}
-            </button>
+            <CareButton onClick={openRequest}>{audience.cta}</CareButton>
           );
 
           return (

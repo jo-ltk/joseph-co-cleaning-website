@@ -2,10 +2,9 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 import { careImages } from "@/lib/care";
+import CareButton from "./CareButton";
 import { gsap, useGSAP } from "./care-gsap";
 
 export default function CareRecruitmentCta() {
@@ -82,18 +81,12 @@ export default function CareRecruitmentCta() {
             Join the Care Connect team and become part of a network of skilled healthcare professionals.
           </p>
           <div className="care-cinematic-actions">
-            <Link href="/care/apply" className="care-btn care-btn-hero-on-dark">
+            <CareButton href="/care/apply" surface="dark">
               Join Our Team
-              <span className="care-btn-hero-icon" aria-hidden>
-                <ArrowRight size={16} weight="bold" />
-              </span>
-            </Link>
-            <Link href="/care/apply#cv" className="care-btn care-btn-hero-ghost-on-dark">
+            </CareButton>
+            <CareButton href="/care/apply#cv" variant="ghost" surface="dark">
               Upload Your CV
-              <span className="care-btn-hero-icon" aria-hidden>
-                <ArrowRight size={16} weight="bold" />
-              </span>
-            </Link>
+            </CareButton>
           </div>
         </div>
       </div>

@@ -18,26 +18,63 @@ export const careStats = [
   { value: 15, suffix: "+", label: "Years Experience" },
 ] as const;
 
+export const carePhotos = {
+  companionship: {
+    src: "/care/photos/companionship.jpg",
+    alt: "Carer and resident sharing a joyful moment together",
+  },
+  nurseResident: {
+    src: "/care/photos/nurse-resident.jpg",
+    alt: "Nurse supporting an elderly resident in a wheelchair",
+  },
+  nurseBriefing: {
+    src: "/care/photos/nurse-briefing.jpg",
+    alt: "Healthcare professional briefing residents with a tablet",
+  },
+  kitchen: {
+    src: "/care/photos/kitchen-community.jpg",
+    alt: "Residents preparing food together in a community kitchen",
+  },
+  lounge: {
+    src: "/care/photos/residents-lounge.jpg",
+    alt: "Residents laughing together in a sunlit lounge",
+  },
+  together: {
+    src: "/care/photos/residents-together.jpg",
+    alt: "Residents socialising in a care home living room",
+  },
+} as const;
+
 export const careServices = [
   {
     title: "Registered Nurses",
     text: "Qualified nursing professionals supporting high standards of patient care.",
+    applyHref: "/care/apply",
+    applyLabel: "Apply as a Registered Nurse",
   },
   {
     title: "Healthcare Assistants",
     text: "Supporting patients with daily care while maintaining compassion, professionalism and respect.",
+    applyHref: "/care/apply",
+    applyLabel: "Apply as a Healthcare Assistant",
   },
   {
     title: "Support Workers",
     text: "Providing practical and emotional support to individuals who need assistance.",
+    applyHref: "/care/apply",
+    applyLabel: "Apply as a Support Worker",
   },
   {
     title: "Domestic Assistants",
     text: "Reliable support for care environments.",
+    applyHref: "/care/apply",
+    applyLabel: "Apply as a Domestic Assistant",
   },
   {
     title: "Kitchen Assistants",
     text: "Reliable kitchen and catering support for healthcare environments.",
+    applyHref: "/care/apply",
+    applyLabel: "Apply as a Kitchen Assistant",
   },
 ] as const;
 
@@ -72,108 +109,85 @@ export const complianceItems = [
     category: "Screening",
     overview:
       "Every candidate completes an Enhanced DBS check before placement, so facilities can be confident in who is arriving on shift.",
-    image: {
-      src: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
-      alt: "Official documents being reviewed on a desk",
-    },
+    href: "https://www.gov.uk/government/organisations/disclosure-and-barring-service",
+    linkLabel: "GOV.UK · Disclosure and Barring Service",
   },
   {
     title: "NMC registration verification where applicable",
     category: "Screening",
     overview:
       "Where applicable, we verify live NMC registration so registered nurses are current, pin-checked and eligible to practise.",
-    image: {
-      src: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1200&q=80",
-      alt: "Registered nurse in professional uniform",
-    },
+    href: "https://www.nmc.org.uk/registration/search-the-register/",
+    linkLabel: "NMC · Search the register",
   },
   {
     title: "Reference checks",
     category: "Screening",
     overview:
       "Professional references are taken and reviewed so recent performance, reliability and conduct are confirmed before we send staff.",
-    image: {
-      src: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1200&q=80",
-      alt: "Two professionals in a reference discussion",
-    },
+    href: "https://www.cqc.org.uk/guidance-regulation/providers/regulations-service-providers-and-managers/health-and-social-care-act-2008-regulated-activities-regulations-2014/regulation-19",
+    linkLabel: "CQC · Fit and proper persons",
   },
   {
     title: "Employment history checks",
     category: "Screening",
     overview:
       "We review employment history and close gaps so facilities receive a clear, consistent picture of a candidate’s working record.",
-    image: {
-      src: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=1200&q=80",
-      alt: "Employment paperwork and a laptop on a desk",
-    },
+    href: "https://www.cqc.org.uk/guidance-providers/regulations-enforcement/regulation-19-fit-proper-persons-employed",
+    linkLabel: "CQC · Regulation 19",
   },
   {
     title: "Mandatory training",
     category: "Training",
     overview:
       "Core mandatory training is confirmed before deployment, so staff arrive ready for the expectations of a regulated care setting.",
-    image: {
-      src: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80",
-      alt: "Healthcare professionals in a training session",
-    },
+    href: "https://www.skillsforcare.org.uk/Developing-your-workforce/Care-Certificate/Care-Certificate.aspx",
+    linkLabel: "Skills for Care · Care Certificate",
   },
   {
     title: "Safeguarding training",
     category: "Training",
     overview:
       "Safeguarding training is required so staff understand how to recognise, report and respond to risk around vulnerable people.",
-    image: {
-      src: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1200&q=80",
-      alt: "Carer supporting an older person in a calm setting",
-    },
+    href: "https://www.gov.uk/government/publications/care-act-statutory-guidance/care-and-support-statutory-guidance",
+    linkLabel: "GOV.UK · Care Act safeguarding",
   },
   {
     title: "Infection control training",
     category: "Training",
     overview:
       "Infection prevention training is checked so hygiene practice, PPE use and outbreak-ready habits are in place from day one.",
-    image: {
-      src: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1200&q=80",
-      alt: "Clinical hygiene supplies used in infection control",
-    },
+    href: "https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-settings",
+    linkLabel: "GOV.UK · Infection prevention",
   },
   {
     title: "Competency assessments",
     category: "Quality",
     overview:
       "Role-appropriate competency is assessed so the person we send can work safely within the duties of the placement.",
-    image: {
-      src: "https://images.unsplash.com/photo-1631217868264-e5b90bb7e975?auto=format&fit=crop&w=1200&q=80",
-      alt: "Clinician reviewing notes during an assessment",
-    },
+    href: "https://www.skillsforcare.org.uk/",
+    linkLabel: "Skills for Care",
   },
   {
     title: "CPD monitoring",
     category: "Quality",
     overview:
       "Continuing professional development is monitored so skills stay current and staff keep building on their practice.",
-    image: {
-      src: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80",
-      alt: "Clinician reviewing professional development notes",
-    },
+    href: "https://www.nmc.org.uk/revalidation/",
+    linkLabel: "NMC · Revalidation",
   },
   {
     title: "Appropriate insurance coverage",
     category: "Cover",
     overview:
       "Appropriate insurance is in place around placements, giving facilities an extra layer of confidence in every booking.",
-    image: {
-      src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
-      alt: "Professional reviewing coverage documents",
-    },
+    href: "https://www.gov.uk/employers-liability-insurance",
+    linkLabel: "GOV.UK · Employers’ liability",
   },
 ] as const;
 
 export const careImages = {
-  hero: {
-    src: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1800&q=80",
-    alt: "Healthcare professional supporting an elderly patient in a calm care setting",
-  },
+  hero: carePhotos.nurseResident,
   facility: {
     src: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1400&q=80",
     alt: "Modern healthcare facility corridor with natural light",
@@ -182,22 +196,10 @@ export const careImages = {
     src: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1400&q=80",
     alt: "Registered nurse in professional uniform",
   },
-  why: {
-    src: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1600&q=80",
-    alt: "Clinician reviewing patient notes with a colleague",
-  },
-  videoPoster: {
-    src: "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1800&q=80",
-    alt: "Care worker walking with an elderly resident",
-  },
-  recruitment: {
-    src: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=1600&q=80",
-    alt: "Healthcare professionals collaborating in a care environment",
-  },
-  apply: {
-    src: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1600&q=80",
-    alt: "Nurse providing attentive care in a residential setting",
-  },
+  why: carePhotos.companionship,
+  videoPoster: carePhotos.nurseResident,
+  recruitment: carePhotos.lounge,
+  apply: carePhotos.companionship,
 } as const;
 
 export const careVideo = {
