@@ -43,6 +43,7 @@ export default function CareHero() {
         {
           reduce: "(prefers-reduced-motion: reduce)",
           motion: "(prefers-reduced-motion: no-preference)",
+          mobile: "(max-width: 767px)",
         },
         (context) => {
           if (context.conditions?.reduce) {
@@ -62,7 +63,7 @@ export default function CareHero() {
             .from(".care-hero-features li", { autoAlpha: 0, y: 20, duration: 0.65, stagger: 0.1 }, 0.38)
             .from(".care-hero-cta", { autoAlpha: 0, y: 20, duration: 0.7 }, 0.5);
 
-          if (video) {
+          if (video && !context.conditions?.mobile) {
             gsap.set(video, { scale: 1.12, transformOrigin: "center center" });
             gsap.to(video, {
               yPercent: 8,
@@ -74,6 +75,8 @@ export default function CareHero() {
                 scrub: 0.6,
               },
             });
+          } else if (video) {
+            gsap.set(video, { scale: 1, yPercent: 0, clearProps: "transform" });
           }
         },
       );
@@ -93,20 +96,6 @@ export default function CareHero() {
         <span className="care-hero-deco-line care-hero-deco-line--blue" />
         <span className="care-hero-deco-shape care-hero-deco-shape--one" />
         <span className="care-hero-deco-shape care-hero-deco-shape--two" />
-      </div>
-
-      <div className="care-hero-media" aria-hidden>
-        <video
-          ref={videoRef}
-          poster={careVideo.poster}
-          muted
-          playsInline
-          loop
-          preload="auto"
-        >
-          <source src={careVideo.src} type="video/mp4" />
-        </video>
-        <div className="care-hero-shade" />
       </div>
 
       <div className="care-hero-inner">
@@ -158,6 +147,20 @@ export default function CareHero() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="care-hero-media" aria-hidden>
+        <video
+          ref={videoRef}
+          poster={careVideo.poster}
+          muted
+          playsInline
+          loop
+          preload="auto"
+        >
+          <source src={careVideo.src} type="video/mp4" />
+        </video>
+        <div className="care-hero-shade" />
       </div>
     </section>
   );
