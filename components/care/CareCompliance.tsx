@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { CaretLeft, CaretRight, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
@@ -16,6 +16,15 @@ export default function CareCompliance() {
   const trackRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const tweenRef = useRef<gsap.core.Tween | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const sync = () => setIsMobile(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   useGSAP(
     (_context, contextSafe) => {
@@ -33,31 +42,35 @@ export default function CareCompliance() {
       const next = root.querySelector("[data-compliance-next]");
       const mm = gsap.matchMedia();
 
+      const resetTrack = () => {
+        gsap.killTweensOf(track);
+        tweenRef.current = null;
+        gsap.set(track, { x: 0, xPercent: 0, clearProps: "transform" });
+      };
+
       const setActive = (progressValue: number) => {
-        const i = Math.floor(progressValue * COUNT) % COUNT;
+        const i = Math.min(COUNT - 1, Math.max(0, Math.floor(progressValue * COUNT)));
         liveCards.forEach((card, idx) => card.classList.toggle("is-active", idx === i));
         if (indexEl) indexEl.textContent = String(i + 1).padStart(2, "0");
-        if (progress) gsap.set(progress, { scaleX: progressValue });
+        if (progress) gsap.set(progress, { scaleX: (i + 1) / COUNT });
       };
 
       setActive(0);
 
+      mm.add("(max-width: 767px)", () => {
+        resetTrack();
+        gsap.set([introBits, liveCards, heading], { autoAlpha: 1, y: 0, clearProps: "clipPath" });
+        return () => resetTrack();
+      });
+
       mm.add(
         {
           reduce: "(prefers-reduced-motion: reduce)",
-          motion: "(prefers-reduced-motion: no-preference)",
-          mobile: "(max-width: 767px)",
+          desktop: "(min-width: 768px)",
         },
         (context) => {
-          const { reduce, mobile } = context.conditions ?? {};
-
-          if (!heading) {
-            gsap.set([introBits, liveCards, heading], { autoAlpha: 1, y: 0, clearProps: "clipPath" });
-            return;
-          }
-
-          if (reduce || mobile) {
-            gsap.set(track, { clearProps: "transform" });
+          if (context.conditions?.reduce || !heading) {
+            resetTrack();
             gsap.set([introBits, liveCards, heading], { autoAlpha: 1, y: 0, clearProps: "clipPath" });
             return;
           }
@@ -128,7 +141,7 @@ export default function CareCompliance() {
 
           const tween = gsap.to(track, {
             xPercent: -50,
-            duration: 96,
+            duration: 110,
             ease: "none",
             repeat: -1,
             onUpdate: () => setActive(tween.progress()),
@@ -152,8 +165,7 @@ export default function CareCompliance() {
             root.removeEventListener("mouseleave", play);
             root.removeEventListener("focusin", pause);
             root.removeEventListener("focusout", play);
-            tween.kill();
-            tweenRef.current = null;
+            resetTrack();
             split.revert();
           };
         },
@@ -180,21 +192,21 @@ export default function CareCompliance() {
         }
 
         if (!viewport || liveCards.length === 0) return;
-        const cardWidth = liveCards[0].offsetWidth;
-        const gap = Number.parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || "13.6");
-        viewport.scrollBy({ left: direction * (cardWidth + gap), behavior: "smooth" });
+        const card = liveCards[0];
+        const gap = Number.parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || "16");
+        viewport.scrollBy({ left: direction * (card.offsetWidth + gap), behavior: "smooth" });
       });
 
       const onViewportScroll = () => {
         if (!viewport || liveCards.length === 0 || tweenRef.current) return;
-        const focus = viewport.scrollLeft + viewport.clientWidth * 0.2;
+        const focus = viewport.scrollLeft + viewport.clientWidth * 0.35;
         let active = 0;
         liveCards.forEach((card, index) => {
           const left = card.offsetLeft;
           const right = left + card.offsetWidth;
           if (focus >= left && focus < right) active = index;
         });
-        setActive((active + 0.01) / COUNT);
+        setActive((active + 1) / COUNT);
       };
 
       viewport?.addEventListener("scroll", onViewportScroll, { passive: true });
@@ -209,9 +221,10 @@ export default function CareCompliance() {
         prev?.removeEventListener("click", onPrev);
         next?.removeEventListener("click", onNext);
         viewport?.removeEventListener("scroll", onViewportScroll);
+        resetTrack();
       };
     },
-    { scope: rootRef },
+    { scope: rootRef, dependencies: [isMobile] },
   );
 
   const renderCards = (clone: boolean) =>
@@ -231,7 +244,7 @@ export default function CareCompliance() {
             src={card.image.src}
             alt={clone ? "" : card.image.alt}
             fill
-            sizes="(max-width: 768px) 82vw, 540px"
+            sizes="(max-width: 768px) calc(100vw - 2.5rem), 540px"
             className="object-cover"
           />
         </div>
@@ -275,7 +288,7 @@ export default function CareCompliance() {
         <div ref={viewportRef} className="care-compliance-viewport" aria-label="Compliance checks carousel">
           <div ref={trackRef} className="care-compliance-track">
             {renderCards(false)}
-            {renderCards(true)}
+            {!isMobile ? renderCards(true) : null}
           </div>
         </div>
 

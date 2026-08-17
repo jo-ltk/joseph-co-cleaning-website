@@ -1847,6 +1847,7 @@
 @media (max-width: 767px) {
   .care-compliance {
     padding: 3rem 0 2.5rem;
+    overflow: visible;
   }
 
   .care-compliance-head {
@@ -1858,9 +1859,13 @@
     max-width: 100%;
   }
 
+  .care-compliance-stage {
+    overflow: visible;
+  }
+
   .care-compliance-viewport {
     overflow-x: auto;
-    overflow-y: hidden;
+    overflow-y: visible;
     mask-image: none;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
@@ -1874,21 +1879,23 @@
   }
 
   .care-compliance-track {
-    width: auto;
-    padding-inline: 1.25rem;
+    display: flex;
+    width: max-content;
+    gap: 1rem;
+    padding: 0 1.25rem 0.35rem;
     will-change: auto;
     transform: none !important;
-  }
-
-  .care-compliance-card[aria-hidden="true"] {
-    display: none;
+    translate: none !important;
   }
 
   .care-compliance-card {
     flex: 0 0 calc(100vw - 2.5rem);
-    min-height: auto;
+    width: calc(100vw - 2.5rem);
+    max-width: calc(100vw - 2.5rem);
+    min-height: 0;
+    overflow: visible;
     scroll-snap-align: start;
-    transform: none;
+    transform: none !important;
     box-shadow: none;
     padding: 1.25rem 1.15rem 1.2rem;
   }
@@ -1896,8 +1903,13 @@
   .care-compliance-card.is-active,
   .care-compliance-card:hover,
   .care-compliance-card:focus-within {
-    transform: none;
+    transform: none !important;
     box-shadow: 0 12px 32px rgb(11 28 44 / 0.08);
+  }
+
+  .care-compliance-photo {
+    min-height: 9.5rem;
+    margin-top: 1rem;
   }
 
   .care-compliance-card h3 {
