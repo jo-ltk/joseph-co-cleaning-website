@@ -28,14 +28,7 @@
   letter-spacing: 0;
   min-height: 100vh;
   isolation: isolate;
-  padding-bottom: 5.5rem;
   overflow-x: clip;
-}
-
-@media (min-width: 768px) {
-  .care-root {
-    padding-bottom: 0;
-  }
 }
 
 .care-root *,
