@@ -90,15 +90,17 @@ export default function CareApplyForm() {
         | { success?: boolean; error?: string }
         | null;
       if (!response.ok || !payload?.success) {
-        setError(payload?.error || "Unable to submit your application.");
+        setError(
+          payload?.error ||
+            "We couldn't send your application. Your details are still here — please try again.",
+        );
         return;
       }
       setSuccess(true);
       form.reset();
-      setFile(null);
-      setFileError("");
+      clearFile();
     } catch {
-      setError("Unable to submit your application. Please try again.");
+      setError("We couldn't send your application. Your details are still here — please try again.");
     } finally {
       setPending(false);
     }
@@ -128,10 +130,8 @@ export default function CareApplyForm() {
           role="status"
         >
           <CheckCircle size={40} weight="fill" className="text-[var(--cc-blue)]" />
-          <h2>Application Received</h2>
-          <p>
-            Thank you. Our team will review your application and contact you if there is a suitable opportunity.
-          </p>
+          <h2>Application submitted successfully</h2>
+          <p>We&apos;ll be in touch soon.</p>
         </motion.div>
       ) : (
         <motion.form

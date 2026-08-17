@@ -3,6 +3,11 @@ import type { ReactElement } from "react";
 import { careBrand } from "@/lib/care";
 import { resend } from "@/lib/resend";
 
+export const CARE_APPLICATION_RECIPIENT =
+  process.env.CARE_ADMIN_EMAIL ||
+  process.env.ADMIN_EMAIL ||
+  "josephandcocleaningservicesltd@gmail.com";
+
 const TEST_FALLBACK = "josephandcocleaningservicesltd@gmail.com";
 
 function fromAddress() {
@@ -10,7 +15,7 @@ function fromAddress() {
 }
 
 function intendedRecipient() {
-  return process.env.CARE_ADMIN_EMAIL || careBrand.email;
+  return process.env.CARE_ADMIN_EMAIL || process.env.ADMIN_EMAIL || careBrand.email;
 }
 
 function isTestModeRestriction(message?: string) {
@@ -30,7 +35,7 @@ export async function sendCareEmail({
   subject: string;
   replyTo: string;
   react: ReactElement;
-  attachments?: Array<{ filename: string; content: Buffer }>;
+  attachments?: Array<{ filename: string; content: Buffer; contentType?: string }>;
   to?: string;
 }) {
   const to = toOverride || intendedRecipient();
@@ -44,6 +49,7 @@ export async function sendCareEmail({
     attachments: attachments?.map((file) => ({
       filename: file.filename,
       content: file.content,
+      ...(file.contentType ? { contentType: file.contentType } : {}),
     })),
   };
 

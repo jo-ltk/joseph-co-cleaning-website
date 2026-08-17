@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { CareApplicationEmail } from "@/components/care/emails";
-import { sendCareEmail } from "@/lib/care-mail";
+import { CARE_APPLICATION_RECIPIENT, sendCareEmail } from "@/lib/care-mail";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -13,6 +13,15 @@ const allowedTypes = [
   "application/msword",
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 ];
+
+function cvContentType(filename: string) {
+  if (/\.pdf$/i.test(filename)) return "application/pdf";
+  if (/\.docx$/i.test(filename)) {
+    return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+  }
+  if (/\.doc$/i.test(filename)) return "application/msword";
+  return "application/octet-stream";
+}
 
 const ApplicationSchema = z.object({
   fullName: z.string().min(2, "Enter your full name"),
@@ -89,9 +98,9 @@ export async function POST(request: Request) {
     const buffer = Buffer.from(await cv.arrayBuffer());
 
     const result = await sendCareEmail({
-      to: "josephandcocleaningservicesltd@gmail.com",
+      to: CARE_APPLICATION_RECIPIENT,
       replyTo: data.email,
-      subject: `Application: ${data.fullName} — ${data.position}`,
+      subject: `New Care Connect Job Application — ${data.fullName}`,
       react: (
         <CareApplicationEmail
           fullName={data.fullName}
@@ -101,11 +110,16 @@ export async function POST(request: Request) {
           position={data.position}
           experience={data.experience}
           summary={data.summary || ""}
-          cvFileName={cv.name}
           timestamp={timestamp}
         />
       ),
-      attachments: [{ filename: cv.name, content: buffer }],
+      attachments: [
+        {
+          filename: cv.name,
+          content: buffer,
+          contentType: cvContentType(cv.name),
+        },
+      ],
     });
 
     if (!result.success) {

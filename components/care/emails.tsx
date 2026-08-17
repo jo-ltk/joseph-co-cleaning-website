@@ -54,7 +54,6 @@ export function CareApplicationEmail({
   position,
   experience,
   summary,
-  cvFileName,
   timestamp,
 }: {
   fullName: string;
@@ -64,24 +63,23 @@ export function CareApplicationEmail({
   position: string;
   experience: string;
   summary: string;
-  cvFileName: string;
   timestamp: string;
 }) {
   return (
     <div style={{ fontFamily: "Arial, sans-serif", maxWidth: "640px", color: "#0B1C2C" }}>
-      <h2 style={{ borderBottom: "2px solid #B23B3B", paddingBottom: "10px" }}>New candidate application</h2>
+      <h2 style={{ borderBottom: "2px solid #B23B3B", paddingBottom: "10px" }}>Application Submission</h2>
+      <p>A new job application has been submitted via the Care Connect website. The candidate&apos;s CV is attached.</p>
       <table style={{ width: "100%", borderCollapse: "collapse" }}>
         <tbody>
           {[
-            ["Name", fullName],
+            ["Full Name", fullName],
             ["Email", email],
             ["Phone", phone],
             ["Location", location],
-            ["Position", position],
-            ["Years of experience", experience],
-            ["Summary", summary || "Not provided"],
-            ["CV", cvFileName],
-            ["Submitted", timestamp],
+            ["Position Applied For", position],
+            ["Years of Experience", experience],
+            ["Professional Summary", summary || "Not provided"],
+            ["Application submission date/time", timestamp],
           ].map(([label, value]) => (
             <tr key={label}>
               <td style={{ padding: "8px", border: "1px solid #e6e1d8", fontWeight: 700, width: "180px" }}>{label}</td>
