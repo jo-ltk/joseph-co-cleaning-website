@@ -71,7 +71,7 @@ export default function CareStats() {
   );
 
   return (
-    <section ref={rootRef} className="border-y border-[var(--cc-line)] bg-[var(--cc-navy)] text-[var(--cc-white)]">
+    <section ref={rootRef} className="care-stats border-y border-[var(--cc-line)] bg-[var(--cc-navy)] text-[var(--cc-white)]">
       <div className="care-wrap grid grid-cols-2 gap-px md:grid-cols-4">
         {careStats.map((stat) => (
           <div

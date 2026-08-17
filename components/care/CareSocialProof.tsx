@@ -39,7 +39,7 @@ export default function CareSocialProof() {
         </CareReveal>
         <CareStagger className="mt-10 grid gap-6 md:mb-0 md:grid-cols-3 md:gap-8">
           {commitments.map((item) => (
-            <article key={item.title} data-care-item className="border border-[var(--cc-line)] p-6 md:p-10">
+            <article key={item.title} data-care-item className="care-proof-card border border-[var(--cc-line)] p-6 md:p-10">
               <h3 className="text-xl font-medium leading-[1.1] tracking-tight md:text-2xl">{item.title}</h3>
               <p className="mt-3 text-base leading-relaxed">{item.text}</p>
             </article>
