@@ -2,37 +2,66 @@
 
 import { useId, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { CheckCircle, UploadSimple } from "@phosphor-icons/react/dist/ssr";
+import {
+  ArrowRight,
+  CheckCircle,
+  CloudArrowUp,
+  FilePdf,
+  FileText,
+  SpinnerGap,
+  Trash,
+  WarningCircle,
+} from "@phosphor-icons/react/dist/ssr";
 
 import { carePositions } from "@/lib/care";
 
-const accept = ".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+const accept =
+  ".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+
+function formatBytes(bytes: number) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
 
 export default function CareApplyForm() {
   const reduce = useReducedMotion();
   const fileInputId = useId();
+  const dropHintId = useId();
   const fileRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [dragOver, setDragOver] = useState(false);
   const [error, setError] = useState("");
+  const [fileError, setFileError] = useState("");
   const [pending, setPending] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  function clearFile() {
+    setFile(null);
+    setFileError("");
+    if (fileRef.current) fileRef.current.value = "";
+  }
 
   function takeFile(next: File | undefined) {
     if (!next) return;
     const okType = /\.(pdf|doc|docx)$/i.test(next.name);
     if (!okType) {
-      setError("Please upload a PDF, DOC or DOCX file.");
+      const message = "Please upload a PDF, DOC or DOCX file.";
+      setFileError(message);
+      setError(message);
       setFile(null);
       if (fileRef.current) fileRef.current.value = "";
       return;
     }
     if (next.size > 4.5 * 1024 * 1024) {
-      setError("CV must be 4.5MB or smaller.");
+      const message = "CV must be 4.5MB or smaller.";
+      setFileError(message);
+      setError(message);
       setFile(null);
       if (fileRef.current) fileRef.current.value = "";
       return;
     }
+    setFileError("");
     setError("");
     setFile(next);
   }
@@ -40,7 +69,9 @@ export default function CareApplyForm() {
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!file) {
-      setError("Please attach your CV before submitting.");
+      const message = "Please attach your CV before submitting.";
+      setFileError(message);
+      setError(message);
       return;
     }
     setPending(true);
@@ -65,6 +96,7 @@ export default function CareApplyForm() {
       setSuccess(true);
       form.reset();
       setFile(null);
+      setFileError("");
     } catch {
       setError("Unable to submit your application. Please try again.");
     } finally {
@@ -72,32 +104,55 @@ export default function CareApplyForm() {
     }
   }
 
+  const dropState = pending
+    ? "is-busy"
+    : fileError
+      ? "is-error"
+      : dragOver
+        ? "is-over"
+        : file
+          ? "is-ready"
+          : "";
+
+  const FileIcon = file && /\.pdf$/i.test(file.name) ? FilePdf : FileText;
+
   return (
     <AnimatePresence mode="wait">
       {success ? (
         <motion.div
           key="success"
-          className="border border-[var(--cc-line)] bg-[var(--cc-white)] p-8 md:p-12"
+          className="care-apply-success"
           initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           role="status"
         >
-          <CheckCircle size={36} className="text-[var(--cc-blue)]" />
-          <h2 className="mt-5 text-4xl">Application Received</h2>
-          <p className="mt-4 max-w-xl">
+          <CheckCircle size={40} weight="fill" className="text-[var(--cc-blue)]" />
+          <h2>Application Received</h2>
+          <p>
             Thank you. Our team will review your application and contact you if there is a suitable opportunity.
           </p>
         </motion.div>
       ) : (
         <motion.form
           key="form"
-          className="grid gap-10"
+          className="care-apply-form"
           onSubmit={onSubmit}
           initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
-          <fieldset className="care-fieldset">
-            <legend className="care-legend">Personal Details</legend>
+          <div className="care-apply-form-head">
+            <p className="care-eyebrow">Application</p>
+            <h2>Tell us about you</h2>
+            <p>Complete the details below and attach your CV. We typically review applications within a few working days.</p>
+          </div>
+
+          <fieldset className="care-fieldset care-apply-section">
+            <legend className="care-legend">
+              <span>01</span>
+              Personal Details
+            </legend>
             <div className="grid gap-4 sm:grid-cols-2">
               <label className="care-field">
                 <span>Full Name</span>
@@ -118,8 +173,11 @@ export default function CareApplyForm() {
             </div>
           </fieldset>
 
-          <fieldset className="care-fieldset">
-            <legend className="care-legend">Professional Details</legend>
+          <fieldset className="care-fieldset care-apply-section">
+            <legend className="care-legend">
+              <span>02</span>
+              Professional Details
+            </legend>
             <div className="grid gap-4 sm:grid-cols-2">
               <label className="care-field">
                 <span>Position</span>
@@ -137,18 +195,19 @@ export default function CareApplyForm() {
                 <input className="care-input" name="experience" required placeholder="e.g. 4" />
               </label>
               <label className="care-field sm:col-span-2">
-                <span>Short professional summary</span>
+                <span>Short Professional Summary</span>
                 <textarea className="care-textarea" name="summary" rows={4} />
               </label>
             </div>
           </fieldset>
 
-          <fieldset id="cv" className="care-fieldset scroll-mt-28">
-            <legend className="care-legend">CV</legend>
+          <fieldset id="cv" className="care-fieldset care-apply-section scroll-mt-28">
+            <legend className="care-legend">
+              <span>03</span>
+              CV / Resume Upload
+            </legend>
             <div
-              className={`flex min-h-[220px] flex-col items-center justify-center border border-dashed p-8 text-center transition ${
-                dragOver ? "border-[var(--cc-navy)] bg-[var(--cc-white)]" : "border-[var(--cc-line-strong)] bg-[var(--cc-cream)]/50"
-              }`}
+              className={`care-dropzone ${dropState}`}
               onDragOver={(event) => {
                 event.preventDefault();
                 setDragOver(true);
@@ -160,9 +219,6 @@ export default function CareApplyForm() {
                 takeFile(event.dataTransfer.files[0]);
               }}
             >
-              <UploadSimple size={28} className="text-[var(--cc-blue)]" aria-hidden />
-              <p className="mt-4 text-lg font-medium !text-[var(--cc-navy)]">Upload your CV</p>
-              <p className="mt-1 text-sm">PDF, DOC or DOCX · max 4.5MB</p>
               <input
                 id={fileInputId}
                 ref={fileRef}
@@ -173,21 +229,58 @@ export default function CareApplyForm() {
                 aria-hidden="true"
                 onChange={(event) => takeFile(event.target.files?.[0])}
               />
-              <button
-                type="button"
-                className="care-btn care-btn-secondary mt-5"
-                onClick={() => fileRef.current?.click()}
-              >
-                Choose File
-              </button>
-              <p className="mt-4 text-sm font-semibold !text-[var(--cc-navy)]" aria-live="polite">
-                {file ? `Selected: ${file.name}` : "No file selected"}
-              </p>
+
+              {file ? (
+                <div className="care-dropzone-file">
+                  <span className="care-dropzone-icon" aria-hidden>
+                    {pending ? <SpinnerGap size={28} className="care-spin" /> : <FileIcon size={28} weight="duotone" />}
+                  </span>
+                  <div className="care-dropzone-file-copy">
+                    <p className="care-dropzone-title">{pending ? "Uploading your CV…" : file.name}</p>
+                    <p id={dropHintId} className="care-dropzone-meta">
+                      {pending ? "Please wait while we send your application." : `${formatBytes(file.size)} · PDF, DOC, DOCX · max 4.5MB`}
+                    </p>
+                  </div>
+                  {pending ? null : (
+                    <div className="care-dropzone-actions">
+                      <button type="button" className="care-btn care-btn-secondary" onClick={() => fileRef.current?.click()}>
+                        Replace
+                      </button>
+                      <button type="button" className="care-dropzone-remove" onClick={clearFile} aria-label="Remove selected file">
+                        <Trash size={18} weight="bold" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <>
+                  <span className="care-dropzone-icon" aria-hidden>
+                    {fileError ? <WarningCircle size={32} weight="fill" /> : <CloudArrowUp size={32} weight="duotone" />}
+                  </span>
+                  <p className="care-dropzone-title">
+                    {dragOver ? "Drop your CV here" : fileError ? "Unable to attach this file" : "Drag and drop your CV"}
+                  </p>
+                  <p id={dropHintId} className="care-dropzone-meta">
+                    PDF, DOC, DOCX · maximum 4.5MB
+                  </p>
+                  <button
+                    type="button"
+                    className="care-btn care-btn-secondary mt-5"
+                    onClick={() => fileRef.current?.click()}
+                    aria-describedby={dropHintId}
+                  >
+                    Choose File
+                    <span className="care-btn-hero-icon" aria-hidden>
+                      <CloudArrowUp size={16} weight="bold" />
+                    </span>
+                  </button>
+                </>
+              )}
             </div>
           </fieldset>
 
-          <label className="flex items-start gap-3 text-sm text-[var(--cc-ink)]">
-            <input type="checkbox" name="consent" required className="mt-1 h-5 w-5 shrink-0" />
+          <label className="care-apply-consent">
+            <input type="checkbox" name="consent" required />
             <span>
               I confirm that the information provided is accurate and I consent to Care Connect contacting me regarding
               employment opportunities.
@@ -202,6 +295,11 @@ export default function CareApplyForm() {
 
           <button className="care-btn care-btn-primary w-full sm:w-auto" disabled={pending}>
             {pending ? "Submitting…" : "Submit Application"}
+            {pending ? null : (
+              <span className="care-btn-hero-icon" aria-hidden>
+                <ArrowRight size={16} weight="bold" />
+              </span>
+            )}
           </button>
         </motion.form>
       )}

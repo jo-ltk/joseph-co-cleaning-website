@@ -1,44 +1,17 @@
 "use client";
 
 import { useRef } from "react";
-import {
-  CaretLeft,
-  CaretRight,
-  ClipboardText,
-  ClockCounterClockwise,
-  FirstAid,
-  GraduationCap,
-  HandHeart,
-  IdentificationCard,
-  ShieldCheck,
-  TrendUp,
-  Umbrella,
-  UserList,
-} from "@phosphor-icons/react/dist/ssr";
+import Image from "next/image";
+import { CaretLeft, CaretRight, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 import { complianceItems } from "@/lib/care";
-import CareReveal from "./CareReveal";
-import { gsap, useGSAP } from "./care-gsap";
+import { gsap, SplitText, useGSAP } from "./care-gsap";
+import { useCareUi } from "./CareUi";
 
-const icons = [
-  ShieldCheck,
-  IdentificationCard,
-  UserList,
-  ClockCounterClockwise,
-  GraduationCap,
-  HandHeart,
-  FirstAid,
-  ClipboardText,
-  TrendUp,
-  Umbrella,
-];
-
-const cards = complianceItems.map((item, index) => ({
-  item,
-  icon: icons[index],
-}));
+const COUNT = complianceItems.length;
 
 export default function CareCompliance() {
+  const { openRequest } = useCareUi();
   const rootRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const tweenRef = useRef<gsap.core.Tween | null>(null);
@@ -49,46 +22,137 @@ export default function CareCompliance() {
       const track = trackRef.current;
       if (!root || !track) return;
 
+      const heading = root.querySelector<HTMLElement>(".care-compliance-title");
+      const introBits = gsap.utils.toArray<HTMLElement>("[data-compliance-intro]", root);
+      const liveCards = gsap.utils.toArray<HTMLElement>("[data-compliance-card]:not([aria-hidden])", root);
+      const progress = root.querySelector<HTMLElement>(".care-compliance-progress-bar");
+      const indexEl = root.querySelector<HTMLElement>("[data-compliance-index]");
       const prev = root.querySelector("[data-compliance-prev]");
       const next = root.querySelector("[data-compliance-next]");
       const mm = gsap.matchMedia();
 
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        const tween = gsap.to(track, {
-          xPercent: -50,
-          duration: 36,
-          ease: "none",
-          repeat: -1,
-        });
-        tweenRef.current = tween;
+      const setActive = (progressValue: number) => {
+        const i = Math.floor(progressValue * COUNT) % COUNT;
+        liveCards.forEach((card, idx) => card.classList.toggle("is-active", idx === i));
+        if (indexEl) indexEl.textContent = String(i + 1).padStart(2, "0");
+        if (progress) gsap.set(progress, { scaleX: progressValue });
+      };
 
-        const pause = () => tween.pause();
-        const play = () => {
-          if (!root.matches(":hover") && !root.contains(document.activeElement)) {
-            tween.play();
+      setActive(0);
+
+      mm.add(
+        {
+          reduce: "(prefers-reduced-motion: reduce)",
+          motion: "(prefers-reduced-motion: no-preference)",
+        },
+        (context) => {
+          if (context.conditions?.reduce || !heading) {
+            gsap.set([introBits, liveCards, heading], { autoAlpha: 1, y: 0, clearProps: "clipPath" });
+            return;
           }
-        };
 
-        root.addEventListener("mouseenter", pause);
-        root.addEventListener("mouseleave", play);
-        root.addEventListener("focusin", pause);
-        root.addEventListener("focusout", play);
+          const split = SplitText.create(heading, {
+            type: "words,chars",
+            mask: "words",
+            charsClass: "care-compliance-char",
+            wordsClass: "care-compliance-word",
+          });
 
-        return () => {
-          root.removeEventListener("mouseenter", pause);
-          root.removeEventListener("mouseleave", play);
-          root.removeEventListener("focusin", pause);
-          root.removeEventListener("focusout", play);
-          tween.kill();
-          tweenRef.current = null;
-        };
-      });
+          const photos = liveCards
+            .map((card) => card.querySelector<HTMLElement>(".care-compliance-photo img"))
+            .filter((el): el is HTMLElement => Boolean(el));
+
+          gsap.set(split.chars, { yPercent: 118 });
+          gsap.set(introBits, { autoAlpha: 0, y: 18 });
+          gsap.set(liveCards, { autoAlpha: 0, y: 36 });
+          gsap.set(photos, { scale: 1.12 });
+
+          const introTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: root,
+              start: "top 78%",
+              once: true,
+            },
+          });
+
+          introTl
+            .to(introBits, {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.7,
+              stagger: 0.08,
+              ease: "power3.out",
+            })
+            .to(
+              split.chars,
+              {
+                yPercent: 0,
+                duration: 0.9,
+                stagger: 0.018,
+                ease: "power3.out",
+              },
+              0.12,
+            )
+            .to(
+              liveCards,
+              {
+                autoAlpha: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.07,
+                ease: "power3.out",
+              },
+              0.28,
+            )
+            .to(
+              photos,
+              {
+                scale: 1,
+                duration: 1.15,
+                stagger: 0.07,
+                ease: "power3.out",
+              },
+              0.32,
+            );
+
+          const tween = gsap.to(track, {
+            xPercent: -50,
+            duration: 42,
+            ease: "none",
+            repeat: -1,
+            onUpdate: () => setActive(tween.progress()),
+          });
+          tweenRef.current = tween;
+
+          const pause = () => tween.pause();
+          const play = () => {
+            if (!root.matches(":hover") && !root.contains(document.activeElement)) {
+              tween.play();
+            }
+          };
+
+          root.addEventListener("mouseenter", pause);
+          root.addEventListener("mouseleave", play);
+          root.addEventListener("focusin", pause);
+          root.addEventListener("focusout", play);
+
+          return () => {
+            root.removeEventListener("mouseenter", pause);
+            root.removeEventListener("mouseleave", play);
+            root.removeEventListener("focusin", pause);
+            root.removeEventListener("focusout", play);
+            tween.kill();
+            tweenRef.current = null;
+            split.revert();
+          };
+        },
+      );
 
       const nudge = contextSafe?.((direction: number) => {
         const tween = tweenRef.current;
         if (!tween) return;
 
-        const step = 1 / cards.length;
+        const step = 1 / COUNT;
         const nextProgress = (tween.progress() + direction * step + 1) % 1;
         tween.pause();
         gsap.to(tween, {
@@ -119,34 +183,60 @@ export default function CareCompliance() {
   );
 
   const renderCards = (clone: boolean) =>
-    cards.map((card) => {
-      const Icon = card.icon;
-      return (
-        <article
-          key={`${clone ? "clone" : "live"}-${card.item}`}
-          data-compliance-card
-          className="care-compliance-card"
-          aria-hidden={clone || undefined}
-        >
-          <span className="care-compliance-icon" aria-hidden>
-            <Icon size={22} weight="duotone" />
+    complianceItems.map((card, index) => (
+      <article
+        key={`${clone ? "clone" : "live"}-${card.title}`}
+        data-compliance-card
+        className="care-compliance-card"
+        aria-hidden={clone || undefined}
+      >
+        <span className="care-compliance-index">
+          {String(index + 1).padStart(2, "0")} · {card.category}
+        </span>
+
+        <div className="care-compliance-photo">
+          <Image
+            src={card.image.src}
+            alt={clone ? "" : card.image.alt}
+            fill
+            sizes="(max-width: 768px) 82vw, 540px"
+            className="object-cover"
+          />
+        </div>
+
+        <h3>{card.title}</h3>
+        <p>{card.overview}</p>
+        <button type="button" className="care-btn care-btn-primary" tabIndex={clone ? -1 : 0} onClick={openRequest}>
+          Request staff
+          <span className="care-btn-hero-icon" aria-hidden>
+            <ArrowRight size={16} weight="bold" />
           </span>
-          <p>{card.item}</p>
-        </article>
-      );
-    });
+        </button>
+      </article>
+    ));
 
   return (
     <section ref={rootRef} className="care-compliance">
-      <div className="care-wrap">
-        <CareReveal className="care-compliance-intro">
-          <p className="care-eyebrow">Compliance</p>
-          <h2>Compliance Built Into Every Placement</h2>
-          <p>
+      <div className="care-wrap care-compliance-head">
+        <p className="care-eyebrow" data-compliance-intro>
+          Compliance
+        </p>
+        <div className="care-compliance-head-row">
+          <h2 className="care-compliance-title">Compliance Built Into Every Placement</h2>
+          <p className="care-compliance-lede" data-compliance-intro>
             Our recruitment and quality processes are designed to support safe, reliable and compliant healthcare
             staffing.
           </p>
-        </CareReveal>
+        </div>
+        <div className="care-compliance-meta" data-compliance-intro>
+          <span className="care-compliance-count">
+            <span data-compliance-index>01</span>
+            <span aria-hidden> / {String(COUNT).padStart(2, "0")}</span>
+          </span>
+          <span className="care-compliance-progress" aria-hidden>
+            <span className="care-compliance-progress-bar" />
+          </span>
+        </div>
       </div>
 
       <div className="care-compliance-stage">

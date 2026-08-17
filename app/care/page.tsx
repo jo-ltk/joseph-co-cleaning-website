@@ -1,6 +1,5 @@
 import CareAudiences from "@/components/care/CareAudiences";
 import CareCompliance from "@/components/care/CareCompliance";
-import CareContact from "@/components/care/CareContact";
 import CareFacilityCta from "@/components/care/CareFacilityCta";
 import CareHero from "@/components/care/CareHero";
 import CareHowItWorks from "@/components/care/CareHowItWorks";
@@ -25,7 +24,6 @@ export default function CarePage() {
       <CareSocialProof />
       <CareRecruitmentCta />
       <CareFacilityCta />
-      <CareContact />
     </>
   );
 }

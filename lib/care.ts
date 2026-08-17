@@ -67,16 +67,106 @@ export const staffingNeeds = [
 ] as const;
 
 export const complianceItems = [
-  "Enhanced DBS checks",
-  "NMC registration verification where applicable",
-  "Reference checks",
-  "Employment history checks",
-  "Mandatory training",
-  "Safeguarding training",
-  "Infection control training",
-  "Competency assessments",
-  "CPD monitoring",
-  "Appropriate insurance coverage",
+  {
+    title: "Enhanced DBS checks",
+    category: "Screening",
+    overview:
+      "Every candidate completes an Enhanced DBS check before placement, so facilities can be confident in who is arriving on shift.",
+    image: {
+      src: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
+      alt: "Official documents being reviewed on a desk",
+    },
+  },
+  {
+    title: "NMC registration verification where applicable",
+    category: "Screening",
+    overview:
+      "Where applicable, we verify live NMC registration so registered nurses are current, pin-checked and eligible to practise.",
+    image: {
+      src: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1200&q=80",
+      alt: "Registered nurse in professional uniform",
+    },
+  },
+  {
+    title: "Reference checks",
+    category: "Screening",
+    overview:
+      "Professional references are taken and reviewed so recent performance, reliability and conduct are confirmed before we send staff.",
+    image: {
+      src: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1200&q=80",
+      alt: "Two professionals in a reference discussion",
+    },
+  },
+  {
+    title: "Employment history checks",
+    category: "Screening",
+    overview:
+      "We review employment history and close gaps so facilities receive a clear, consistent picture of a candidate’s working record.",
+    image: {
+      src: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=1200&q=80",
+      alt: "Employment paperwork and a laptop on a desk",
+    },
+  },
+  {
+    title: "Mandatory training",
+    category: "Training",
+    overview:
+      "Core mandatory training is confirmed before deployment, so staff arrive ready for the expectations of a regulated care setting.",
+    image: {
+      src: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80",
+      alt: "Healthcare professionals in a training session",
+    },
+  },
+  {
+    title: "Safeguarding training",
+    category: "Training",
+    overview:
+      "Safeguarding training is required so staff understand how to recognise, report and respond to risk around vulnerable people.",
+    image: {
+      src: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1200&q=80",
+      alt: "Carer supporting an older person in a calm setting",
+    },
+  },
+  {
+    title: "Infection control training",
+    category: "Training",
+    overview:
+      "Infection prevention training is checked so hygiene practice, PPE use and outbreak-ready habits are in place from day one.",
+    image: {
+      src: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1200&q=80",
+      alt: "Clinical hygiene supplies used in infection control",
+    },
+  },
+  {
+    title: "Competency assessments",
+    category: "Quality",
+    overview:
+      "Role-appropriate competency is assessed so the person we send can work safely within the duties of the placement.",
+    image: {
+      src: "https://images.unsplash.com/photo-1631217868264-e5b90bb7e975?auto=format&fit=crop&w=1200&q=80",
+      alt: "Clinician reviewing notes during an assessment",
+    },
+  },
+  {
+    title: "CPD monitoring",
+    category: "Quality",
+    overview:
+      "Continuing professional development is monitored so skills stay current and staff keep building on their practice.",
+    image: {
+      src: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80",
+      alt: "Clinician reviewing professional development notes",
+    },
+  },
+  {
+    title: "Appropriate insurance coverage",
+    category: "Cover",
+    overview:
+      "Appropriate insurance is in place around placements, giving facilities an extra layer of confidence in every booking.",
+    image: {
+      src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+      alt: "Professional reviewing coverage documents",
+    },
+  },
 ] as const;
 
 export const careImages = {

@@ -1,16 +1,14 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { Play, Pause } from "@phosphor-icons/react/dist/ssr";
+import { useRef } from "react";
 
 import { careVideo } from "@/lib/care";
-import { gsap, useGSAP } from "./care-gsap";
+import { gsap, safePlay, ScrollTrigger, useGSAP } from "./care-gsap";
 
 export default function CareVideo() {
   const sectionRef = useRef<HTMLElement>(null);
   const mediaRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [playing, setPlaying] = useState(false);
 
   useGSAP(
     () => {
@@ -21,10 +19,22 @@ export default function CareVideo() {
           motion: "(prefers-reduced-motion: no-preference)",
         },
         (context) => {
+          const video = videoRef.current;
           if (context.conditions?.reduce) {
-            videoRef.current?.pause();
-            return;
+            video?.pause();
+            gsap.set(".care-cinematic-copy", { autoAlpha: 1, y: 0 });
+            return () => video?.pause();
           }
+
+          ScrollTrigger.create({
+            trigger: sectionRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            onEnter: () => safePlay(video),
+            onEnterBack: () => safePlay(video),
+            onLeave: () => video?.pause(),
+            onLeaveBack: () => video?.pause(),
+          });
 
           gsap.fromTo(
             mediaRef.current,
@@ -41,10 +51,10 @@ export default function CareVideo() {
             },
           );
 
-          gsap.from(".care-video-copy", {
+          gsap.from(".care-cinematic-copy", {
             autoAlpha: 0,
             y: 24,
-            duration: 0.8,
+            duration: 0.9,
             ease: "power3.out",
             scrollTrigger: {
               trigger: sectionRef.current,
@@ -55,52 +65,38 @@ export default function CareVideo() {
         },
       );
 
-      return () => mm.revert();
+      return () => {
+        videoRef.current?.pause();
+        mm.revert();
+      };
     },
     { scope: sectionRef },
   );
 
-  function toggle() {
-    const video = videoRef.current;
-    if (!video) return;
-    if (video.paused) {
-      void video.play();
-      setPlaying(true);
-    } else {
-      video.pause();
-      setPlaying(false);
-    }
-  }
-
   return (
-    <section ref={sectionRef} className="relative h-[70vh] min-h-[480px] overflow-hidden bg-[var(--cc-navy)]">
-      <div ref={mediaRef} className="absolute inset-0">
-        <video
-          ref={videoRef}
-          className="h-[120%] w-full object-cover"
-          poster={careVideo.poster}
-          muted
-          playsInline
-          loop
-          preload="metadata"
-          controls={false}
-        >
-          <source src={careVideo.src} type="video/mp4" />
-        </video>
-      </div>
-      <div className="absolute inset-0 bg-[var(--cc-navy)]/55" />
-      <div className="care-video-copy relative z-10 flex h-full flex-col items-center justify-center px-5 text-center md:px-10 lg:px-20">
-        <h2 className="max-w-3xl text-2xl font-medium leading-[1.1] tracking-tight text-white md:text-4xl">
-          Care That Starts With the Right People.
+    <section ref={sectionRef} className="care-cinematic">
+      <div className="care-cinematic-frame">
+        <div ref={mediaRef} className="care-cinematic-media">
+          <video
+            ref={videoRef}
+            className="care-cinematic-video"
+            poster={careVideo.poster}
+            muted
+            playsInline
+            loop
+            preload="metadata"
+            controls={false}
+          >
+            <source src={careVideo.src} type="video/mp4" />
+          </video>
+        </div>
+        <h2 className="care-cinematic-copy">
+          Care That Starts
+          <br />
+          With the Right
+          <br />
+          People.
         </h2>
-        <button
-          type="button"
-          onClick={toggle}
-          className="mt-8 inline-flex h-16 w-16 items-center justify-center rounded-full border border-white/40 text-white transition hover:bg-white/10"
-          aria-label={playing ? "Pause video" : "Play video"}
-        >
-          {playing ? <Pause size={22} weight="fill" /> : <Play size={22} weight="fill" className="ml-0.5" />}
-        </button>
       </div>
     </section>
   );

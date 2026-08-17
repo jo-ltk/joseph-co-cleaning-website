@@ -9,8 +9,10 @@ export default function CareMobileDock() {
     <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--cc-line)] bg-[var(--cc-paper)]/95 p-3 backdrop-blur md:hidden">
       <div className="grid grid-cols-2 gap-2">
         <a className="care-btn care-btn-primary" href={`tel:${careBrand.phoneTel}`}>
-          <Phone size={16} weight="bold" />
           Call
+          <span className="care-btn-hero-icon" aria-hidden>
+            <Phone size={14} weight="bold" />
+          </span>
         </a>
         <a
           className="care-btn care-btn-secondary"
@@ -18,8 +20,10 @@ export default function CareMobileDock() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <WhatsappLogo size={16} weight="bold" />
           WhatsApp
+          <span className="care-btn-hero-icon" aria-hidden>
+            <WhatsappLogo size={14} weight="bold" />
+          </span>
         </a>
       </div>
     </div>

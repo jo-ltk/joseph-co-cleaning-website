@@ -2,6 +2,7 @@
 
 import CareReveal from "./CareReveal";
 import { useCareUi } from "./CareUi";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 export default function CareFacilityCta() {
   const { openRequest } = useCareUi();
@@ -27,6 +28,9 @@ export default function CareFacilityCta() {
           </p>
           <button type="button" className="care-btn care-btn-primary mt-8" onClick={openRequest}>
             Request Staff
+            <span className="care-btn-hero-icon" aria-hidden>
+              <ArrowRight size={16} weight="bold" />
+            </span>
           </button>
         </CareReveal>
       </div>

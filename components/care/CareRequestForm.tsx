@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
-import { X } from "@phosphor-icons/react/dist/ssr";
+import { X, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 import { submitStaffRequest } from "@/app/actions/care";
 import { facilityTypes, staffingNeeds } from "@/lib/care";
@@ -85,7 +85,7 @@ export default function CareRequestForm({
               <button
                 type="button"
                 onClick={close}
-                className="inline-flex h-11 w-11 items-center justify-center border border-[var(--cc-line)]"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[var(--cc-line)]"
                 aria-label="Close request form"
               >
                 <X size={18} />
@@ -104,6 +104,9 @@ export default function CareRequestForm({
                   onClick={close}
                 >
                   Close
+                  <span className="care-btn-hero-icon" aria-hidden>
+                    <ArrowRight size={16} weight="bold" />
+                  </span>
                 </button>
               </div>
             ) : (
@@ -154,6 +157,11 @@ export default function CareRequestForm({
                 <div className="sm:col-span-2">
                   <button className="care-btn care-btn-primary w-full sm:w-auto" disabled={pending}>
                     {pending ? "Sending…" : "Request Staff"}
+                    {pending ? null : (
+                      <span className="care-btn-hero-icon" aria-hidden>
+                        <ArrowRight size={16} weight="bold" />
+                      </span>
+                    )}
                   </button>
                 </div>
               </form>

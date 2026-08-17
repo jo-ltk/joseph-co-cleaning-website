@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { ArrowRight, Clock, Handshake, ShieldCheck } from "@phosphor-icons/react/dist/ssr";
 
 import { careVideo } from "@/lib/care";
-import { gsap, useGSAP } from "./care-gsap";
+import { gsap, safePlay, useGSAP } from "./care-gsap";
 import { useCareUi } from "./CareUi";
 
 const features = [
@@ -51,10 +51,10 @@ export default function CareHero() {
               autoAlpha: 1,
               y: 0,
             });
-            return;
+            return () => video?.pause();
           }
 
-          void video?.play().catch(() => undefined);
+          safePlay(video);
 
           const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
           tl.from(".care-hero-eyebrow", { autoAlpha: 0, y: 16, duration: 0.7 }, 0.12)
@@ -78,7 +78,10 @@ export default function CareHero() {
         },
       );
 
-      return () => mm.revert();
+      return () => {
+        videoRef.current?.pause();
+        mm.revert();
+      };
     },
     { scope: rootRef },
   );
@@ -89,7 +92,6 @@ export default function CareHero() {
         <video
           ref={videoRef}
           poster={careVideo.poster}
-          autoPlay
           muted
           playsInline
           loop
@@ -143,6 +145,9 @@ export default function CareHero() {
               </button>
               <Link href="/care/apply" className="care-btn care-btn-hero-ghost">
                 Join Our Team
+                <span className="care-btn-hero-icon" aria-hidden>
+                  <ArrowRight size={16} weight="bold" />
+                </span>
               </Link>
             </div>
           </div>
