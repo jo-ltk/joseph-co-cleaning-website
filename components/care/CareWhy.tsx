@@ -137,7 +137,7 @@ export default function CareWhy() {
               gsap.set(el, {
                 scale: 1 + near * 2.4,
                 opacity: visible * (0.2 + near * 0.8),
-                backgroundColor: gsap.utils.interpolate("#ffffff", "#f08a2a", near),
+                backgroundColor: gsap.utils.interpolate("#ffffff", "#3164B7", near),
               });
             });
 

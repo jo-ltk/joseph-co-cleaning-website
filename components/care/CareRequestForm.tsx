@@ -55,7 +55,7 @@ export default function CareRequestForm({
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[80] flex items-end justify-center bg-[var(--cc-navy)]/55 p-0 sm:items-center sm:p-6"
+          className="care-modal-overlay"
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -65,7 +65,7 @@ export default function CareRequestForm({
             role="dialog"
             aria-modal="true"
             aria-labelledby="staff-request-title"
-            className="max-h-[92vh] w-full overflow-y-auto bg-[var(--cc-paper)] p-6 sm:max-w-[640px] sm:p-8"
+            className="care-modal-panel"
             initial={reduce ? false : { y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 24, opacity: 0 }}
@@ -85,7 +85,7 @@ export default function CareRequestForm({
               <button
                 type="button"
                 onClick={close}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[var(--cc-line)]"
+                className="care-modal-close"
                 aria-label="Close request form"
               >
                 <X size={18} />
@@ -93,7 +93,7 @@ export default function CareRequestForm({
             </div>
 
             {success ? (
-              <div className="border border-[var(--cc-line)] bg-[var(--cc-white)] p-6">
+              <div className="care-modal-success">
                 <h3 className="text-2xl">Request received</h3>
                 <p className="mt-3">
                   Thank you. A member of the Care Connect team will be in touch to discuss your staffing requirements.

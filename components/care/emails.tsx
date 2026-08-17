@@ -20,8 +20,8 @@ export function CareStaffRequestEmail({
   timestamp: string;
 }) {
   return (
-    <div style={{ fontFamily: "Arial, sans-serif", maxWidth: "640px", color: "#0B1C2C" }}>
-      <h2 style={{ borderBottom: "2px solid #B23B3B", paddingBottom: "10px" }}>New staffing request</h2>
+    <div style={{ fontFamily: "Arial, sans-serif", maxWidth: "640px", color: "#172033" }}>
+      <h2 style={{ borderBottom: "2px solid #C0312D", paddingBottom: "10px" }}>New staffing request</h2>
       <p>A care facility has submitted a request via the Care Connect website.</p>
       <table style={{ width: "100%", borderCollapse: "collapse" }}>
         <tbody>
@@ -66,8 +66,8 @@ export function CareApplicationEmail({
   timestamp: string;
 }) {
   return (
-    <div style={{ fontFamily: "Arial, sans-serif", maxWidth: "640px", color: "#0B1C2C" }}>
-      <h2 style={{ borderBottom: "2px solid #B23B3B", paddingBottom: "10px" }}>Application Submission</h2>
+    <div style={{ fontFamily: "Arial, sans-serif", maxWidth: "640px", color: "#172033" }}>
+      <h2 style={{ borderBottom: "2px solid #C0312D", paddingBottom: "10px" }}>Application Submission</h2>
       <p>A new job application has been submitted via the Care Connect website. The candidate&apos;s CV is attached.</p>
       <table style={{ width: "100%", borderCollapse: "collapse" }}>
         <tbody>

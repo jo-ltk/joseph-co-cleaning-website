@@ -88,6 +88,13 @@ export default function CareHero() {
 
   return (
     <section ref={rootRef} className="care-hero">
+      <div className="care-hero-deco" aria-hidden>
+        <span className="care-hero-deco-line care-hero-deco-line--red" />
+        <span className="care-hero-deco-line care-hero-deco-line--blue" />
+        <span className="care-hero-deco-shape care-hero-deco-shape--one" />
+        <span className="care-hero-deco-shape care-hero-deco-shape--two" />
+      </div>
+
       <div className="care-hero-media" aria-hidden>
         <video
           ref={videoRef}
@@ -99,9 +106,8 @@ export default function CareHero() {
         >
           <source src={careVideo.src} type="video/mp4" />
         </video>
+        <div className="care-hero-shade" />
       </div>
-
-      <div className="care-hero-shade" />
 
       <div className="care-hero-inner">
         <div className="care-hero-copy">
@@ -137,13 +143,13 @@ export default function CareHero() {
               staffing support, rapid response and 24/7 availability.
             </p>
             <div className="care-hero-actions">
-              <button type="button" className="care-btn care-btn-hero" onClick={openRequest}>
+              <button type="button" className="care-btn care-btn-primary" onClick={openRequest}>
                 Find Staff
                 <span className="care-btn-hero-icon" aria-hidden>
                   <ArrowRight size={16} weight="bold" />
                 </span>
               </button>
-              <Link href="/care/apply" className="care-btn care-btn-hero-ghost">
+              <Link href="/care/apply" className="care-btn care-btn-secondary">
                 Join Our Team
                 <span className="care-btn-hero-icon" aria-hidden>
                   <ArrowRight size={16} weight="bold" />

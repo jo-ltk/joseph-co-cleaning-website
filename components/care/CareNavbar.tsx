@@ -76,7 +76,7 @@ export default function CareNavbar() {
         <nav className="mx-auto w-full max-w-[1920px] px-3 pt-3 sm:px-5 sm:pt-4">
           <div ref={menuRef} className="pointer-events-auto relative">
             <div className="care-nav-glass">
-              <CareLogo inverted compact />
+              <CareLogo compact />
 
               <div className="flex shrink-0 items-center gap-2">
                 <div className="care-nav-links" aria-label="Primary">
@@ -87,7 +87,7 @@ export default function CareNavbar() {
                   ))}
                 </div>
 
-                <button type="button" className="care-btn care-btn-hero" onClick={openRequest}>
+                <button type="button" className="care-btn care-btn-primary" onClick={openRequest}>
                   <span className="care-btn-label">Find Staff</span>
                   <span className="care-btn-hero-icon" aria-hidden>
                     <ArrowRight size={16} weight="bold" />

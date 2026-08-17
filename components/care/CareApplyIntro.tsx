@@ -83,6 +83,11 @@ export default function CareApplyIntro() {
 
   return (
     <aside ref={rootRef} className="care-apply-intro">
+      <div className="care-apply-deco" aria-hidden>
+        <span className="care-apply-deco-line care-apply-deco-line--red" />
+        <span className="care-apply-deco-line care-apply-deco-line--blue" />
+      </div>
+
       <figure className="care-apply-photo">
         <div className="care-apply-photo-media">
           <Image

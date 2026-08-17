@@ -82,13 +82,13 @@ export default function CareRecruitmentCta() {
             Join the Care Connect team and become part of a network of skilled healthcare professionals.
           </p>
           <div className="care-cinematic-actions">
-            <Link href="/care/apply" className="care-btn care-btn-hero">
+            <Link href="/care/apply" className="care-btn care-btn-hero-on-dark">
               Join Our Team
               <span className="care-btn-hero-icon" aria-hidden>
                 <ArrowRight size={16} weight="bold" />
               </span>
             </Link>
-            <Link href="/care/apply#cv" className="care-btn care-btn-hero-ghost">
+            <Link href="/care/apply#cv" className="care-btn care-btn-hero-ghost-on-dark">
               Upload Your CV
               <span className="care-btn-hero-icon" aria-hidden>
                 <ArrowRight size={16} weight="bold" />
