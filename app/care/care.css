@@ -612,6 +612,30 @@
   -webkit-backdrop-filter: blur(22px) saturate(160%);
 }
 
+.care-logo-link {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  max-width: min(100%, 12.5rem);
+  text-decoration: none;
+}
+
+.care-logo-link--compact {
+  max-width: min(100%, 9.5rem);
+}
+
+.care-logo-link--inverted {
+  max-width: min(100%, 14rem);
+}
+
+.care-logo-image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
 .care-nav-links {
   display: none;
   align-items: center;
@@ -763,6 +787,10 @@
   .care-nav-glass .care-btn-hero {
     width: 2.75rem;
     padding: 0;
+  }
+
+  .care-logo-link--compact {
+    max-width: min(100%, 8rem);
   }
 }
 
