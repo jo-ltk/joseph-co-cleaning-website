@@ -129,7 +129,7 @@ export default function CareApplyForm() {
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           role="status"
         >
-          <CheckCircle size={40} weight="fill" className="text-[var(--cc-blue)]" />
+          <CheckCircle size={40} weight="fill" className="care-apply-success-icon" />
           <h2>Application submitted successfully</h2>
           <p>We&apos;ll be in touch soon.</p>
         </motion.div>

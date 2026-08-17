@@ -20,7 +20,7 @@ export default function CareFooter() {
           </p>
         </div>
         <div className="self-start pt-2">
-          <p className="text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-white/45">Staffing desk</p>
+          <p className="care-footer-label text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-white/45">Staffing desk</p>
           <a
             href={`tel:${careBrand.phoneTel}`}
             className="mt-3 block text-xl font-medium tracking-tight text-white"

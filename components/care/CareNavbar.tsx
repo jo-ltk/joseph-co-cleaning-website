@@ -15,14 +15,30 @@ const navLinks = [
   { href: "/care#why-us", label: "Why us" },
 ];
 
+function isNavLinkActive(pathname: string, hash: string, href: string) {
+  if (href.startsWith("/care#")) {
+    return pathname === "/care" && hash === href.slice("/care".length);
+  }
+
+  return pathname === href;
+}
+
 export default function CareNavbar() {
   const { openRequest } = useCareUi();
   const pathname = usePathname();
   const { scrollY } = useScroll();
   const [isHidden, setIsHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [hash, setHash] = useState("");
   const menuRef = useRef<HTMLDivElement>(null);
   const isHome = pathname === "/care";
+
+  useEffect(() => {
+    const updateHash = () => setHash(window.location.hash);
+    updateHash();
+    window.addEventListener("hashchange", updateHash);
+    return () => window.removeEventListener("hashchange", updateHash);
+  }, [pathname]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
@@ -81,7 +97,12 @@ export default function CareNavbar() {
               <div className="flex shrink-0 items-center gap-2">
                 <div className="care-nav-links" aria-label="Primary">
                   {navLinks.map((link) => (
-                    <Link key={link.href} href={link.href} onClick={() => setMenuOpen(false)}>
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={isNavLinkActive(pathname, hash, link.href) ? "is-active" : undefined}
+                      onClick={() => setMenuOpen(false)}
+                    >
                       {link.label}
                     </Link>
                   ))}
@@ -115,13 +136,18 @@ export default function CareNavbar() {
                       key={link.href}
                       href={link.href}
                       role="menuitem"
-                      className="lg:hidden"
+                      className={`lg:hidden${isNavLinkActive(pathname, hash, link.href) ? " is-active" : ""}`}
                       onClick={() => setMenuOpen(false)}
                     >
                       {link.label}
                     </Link>
                   ))}
-                  <Link href="/care/apply" role="menuitem" className="care-btn care-btn-primary" onClick={() => setMenuOpen(false)}>
+                  <Link
+                    href="/care/apply"
+                    role="menuitem"
+                    className={`care-btn care-btn-primary${pathname === "/care/apply" ? " is-active" : ""}`}
+                    onClick={() => setMenuOpen(false)}
+                  >
                     I&apos;m a clinician
                     <span className="care-btn-hero-icon" aria-hidden>
                       <ArrowRight size={16} weight="bold" />

@@ -29,8 +29,8 @@ export default function CareHowItWorks() {
         </CareReveal>
         <CareStagger className="grid gap-6 md:grid-cols-3 md:gap-8" stagger={0.12}>
           {steps.map((step, index) => (
-            <article key={step.title} data-care-item className="relative border-t border-[var(--cc-navy)] pt-8">
-              <p className="care-serif text-2xl font-medium leading-[1.1] tracking-tight text-[var(--cc-blue)]/25 md:text-4xl">
+            <article key={step.title} data-care-item className="relative border-t border-[var(--cc-red)] pt-8">
+              <p className="care-serif text-2xl font-medium leading-[1.1] tracking-tight text-[var(--cc-red)]/30 md:text-4xl">
                 0{index + 1}
               </p>
               <h3 className="mt-6 text-xl font-medium leading-[1.1] tracking-tight md:text-2xl">{step.title}</h3>
