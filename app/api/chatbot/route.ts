@@ -1,14 +1,27 @@
 import OpenAI from "openai";
 import { NextResponse } from "next/server";
 
-const openrouter = new OpenAI({
-  baseURL: "https://openrouter.ai/api/v1",
-  apiKey: process.env.OPENROUTER_API_KEY,
-  defaultHeaders: {
-    "HTTP-Referer": "https://josephandco.co.uk",
-    "X-Title": "Joseph & Co Cleaning Services",
-  },
-});
+let openrouter: OpenAI | null = null;
+
+function getOpenRouter() {
+  const apiKey = process.env.OPENROUTER_API_KEY;
+  if (!apiKey) {
+    throw new Error("OPENROUTER_API_KEY is not configured.");
+  }
+
+  if (!openrouter) {
+    openrouter = new OpenAI({
+      baseURL: "https://openrouter.ai/api/v1",
+      apiKey,
+      defaultHeaders: {
+        "HTTP-Referer": "https://josephandco.co.uk",
+        "X-Title": "Joseph & Co Cleaning Services",
+      },
+    });
+  }
+
+  return openrouter;
+}
 
 const systemPrompt = `You are Josephine 🧹✨ — the sparkling, charismatic AI assistant for Joseph & Co Cleaning Services Ltd. You're the Marie Kondo of chatbots: you bring joy, tackle mess, and never leave a surface unwiped.
 
@@ -57,7 +70,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid messages" }, { status: 400 });
     }
 
-    const completion = await openrouter.chat.completions.create({
+    const client = getOpenRouter();
+    const completion = await client.chat.completions.create({
       model: "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
       messages: [
         { role: "system", content: systemPrompt },
@@ -77,6 +91,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ reply });
   } catch (error: any) {
     console.error("Chatbot Error:", error);
+
+    if (error instanceof Error && error.message === "OPENROUTER_API_KEY is not configured.") {
+      return NextResponse.json(
+        { error: "Chatbot is temporarily unavailable. Please contact us on WhatsApp or call +44 7787857305." },
+        { status: 503 },
+      );
+    }
 
     if (error?.status === 429) {
       return NextResponse.json(
