@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 
 import { careBrand } from "@/lib/care";
-import { resend } from "@/lib/resend";
+import { getResend } from "@/lib/resend";
 
 export const CARE_APPLICATION_RECIPIENT =
   process.env.CARE_ADMIN_EMAIL ||
@@ -52,6 +52,14 @@ export async function sendCareEmail({
       ...(file.contentType ? { contentType: file.contentType } : {}),
     })),
   };
+
+  let resend;
+  try {
+    resend = getResend();
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Email service not configured.";
+    return { success: false as const, error: message };
+  }
 
   const first = await resend.emails.send(payload);
   if (!first.error) {

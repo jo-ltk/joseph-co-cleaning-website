@@ -1,6 +1,6 @@
 "use server";
 
-import { resend } from "@/lib/resend";
+import { getResend } from "@/lib/resend";
 import { AdminBookingEmail, CustomerConfirmationEmail } from "@/components/email-template";
 import { z } from "zod";
 
@@ -47,7 +47,10 @@ export async function submitBooking(rawData: BookingFormData) {
     const rawWaText = `*New Service Request - Joseph & Co*\n\n*Name:* ${name}\n*Phone:* ${phone}\n*Email:* ${email}\n*Service:* ${service || "Not specified"}\n*Location:* ${location || "Not specified"}\n*Preferred Date:* ${preferredDate || "Not specified"}\n*Lead Source:* ${leadSource}\n\n*Message:*\n${message || "N/A"}\n\n*Submitted:* ${timestamp}`;
     const waUrl = `https://api.whatsapp.com/send?phone=${whatsappPrimary}&text=${encodeURIComponent(rawWaText)}&lang=en`;
 
-    if (!resend) {
+    let resend;
+    try {
+      resend = getResend();
+    } catch {
       return { success: false, error: "Email service not configured." };
     }
 

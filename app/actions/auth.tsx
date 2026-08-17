@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { login, logout, encrypt, decrypt } from "@/lib/auth";
-import { resend } from "@/lib/resend";
+import { getResend } from "@/lib/resend";
 import { headers, cookies } from "next/headers";
 import fs from "fs/promises";
 import path from "path";
@@ -49,6 +49,13 @@ export async function forgotPasswordAction(prevState: any, formData: FormData) {
     const host = headerList.get("host");
     const protocol = host?.includes("localhost") ? "http" : "https";
     const recoveryUrl = `${protocol}://${host}/admin/login/verify?token=${token}`;
+
+    let resend;
+    try {
+      resend = getResend();
+    } catch {
+      return { error: "Email service not configured." };
+    }
 
     const { error } = await resend.emails.send({
       from: `Joseph & Co Security <${fromEmail}>`,
