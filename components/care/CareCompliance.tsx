@@ -14,12 +14,14 @@ export default function CareCompliance() {
   const { openRequest } = useCareUi();
   const rootRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
   const tweenRef = useRef<gsap.core.Tween | null>(null);
 
   useGSAP(
     (_context, contextSafe) => {
       const root = rootRef.current;
       const track = trackRef.current;
+      const viewport = viewportRef.current;
       if (!root || !track) return;
 
       const heading = root.querySelector<HTMLElement>(".care-compliance-title");
@@ -44,9 +46,18 @@ export default function CareCompliance() {
         {
           reduce: "(prefers-reduced-motion: reduce)",
           motion: "(prefers-reduced-motion: no-preference)",
+          mobile: "(max-width: 767px)",
         },
         (context) => {
-          if (context.conditions?.reduce || !heading) {
+          const { reduce, mobile } = context.conditions ?? {};
+
+          if (!heading) {
+            gsap.set([introBits, liveCards, heading], { autoAlpha: 1, y: 0, clearProps: "clipPath" });
+            return;
+          }
+
+          if (reduce || mobile) {
+            gsap.set(track, { clearProps: "transform" });
             gsap.set([introBits, liveCards, heading], { autoAlpha: 1, y: 0, clearProps: "clipPath" });
             return;
           }
@@ -117,7 +128,7 @@ export default function CareCompliance() {
 
           const tween = gsap.to(track, {
             xPercent: -50,
-            duration: 42,
+            duration: 96,
             ease: "none",
             repeat: -1,
             onUpdate: () => setActive(tween.progress()),
@@ -150,23 +161,43 @@ export default function CareCompliance() {
 
       const nudge = contextSafe?.((direction: number) => {
         const tween = tweenRef.current;
-        if (!tween) return;
+        if (tween) {
+          const step = 1 / COUNT;
+          const nextProgress = (tween.progress() + direction * step + 1) % 1;
+          tween.pause();
+          gsap.to(tween, {
+            progress: nextProgress,
+            duration: 0.55,
+            ease: "power3.out",
+            overwrite: "auto",
+            onComplete: () => {
+              if (!root.matches(":hover") && !root.contains(document.activeElement)) {
+                tween.play();
+              }
+            },
+          });
+          return;
+        }
 
-        const step = 1 / COUNT;
-        const nextProgress = (tween.progress() + direction * step + 1) % 1;
-        tween.pause();
-        gsap.to(tween, {
-          progress: nextProgress,
-          duration: 0.55,
-          ease: "power3.out",
-          overwrite: "auto",
-          onComplete: () => {
-            if (!root.matches(":hover") && !root.contains(document.activeElement)) {
-              tween.play();
-            }
-          },
-        });
+        if (!viewport || liveCards.length === 0) return;
+        const cardWidth = liveCards[0].offsetWidth;
+        const gap = Number.parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || "13.6");
+        viewport.scrollBy({ left: direction * (cardWidth + gap), behavior: "smooth" });
       });
+
+      const onViewportScroll = () => {
+        if (!viewport || liveCards.length === 0 || tweenRef.current) return;
+        const focus = viewport.scrollLeft + viewport.clientWidth * 0.2;
+        let active = 0;
+        liveCards.forEach((card, index) => {
+          const left = card.offsetLeft;
+          const right = left + card.offsetWidth;
+          if (focus >= left && focus < right) active = index;
+        });
+        setActive((active + 0.01) / COUNT);
+      };
+
+      viewport?.addEventListener("scroll", onViewportScroll, { passive: true });
 
       const onPrev = () => nudge?.(-1);
       const onNext = () => nudge?.(1);
@@ -177,6 +208,7 @@ export default function CareCompliance() {
         mm.revert();
         prev?.removeEventListener("click", onPrev);
         next?.removeEventListener("click", onNext);
+        viewport?.removeEventListener("scroll", onViewportScroll);
       };
     },
     { scope: rootRef },
@@ -240,7 +272,7 @@ export default function CareCompliance() {
       </div>
 
       <div className="care-compliance-stage">
-        <div className="care-compliance-viewport" aria-label="Compliance checks carousel">
+        <div ref={viewportRef} className="care-compliance-viewport" aria-label="Compliance checks carousel">
           <div ref={trackRef} className="care-compliance-track">
             {renderCards(false)}
             {renderCards(true)}
