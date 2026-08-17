@@ -61,7 +61,7 @@ export default function CareRecruitmentCta() {
   );
 
   return (
-    <section ref={sectionRef} className="care-cinematic">
+    <section ref={sectionRef} className="care-cinematic care-cinematic--recruitment">
       <div className="care-cinematic-frame">
         <div ref={mediaRef} className="care-cinematic-media">
           <Image
