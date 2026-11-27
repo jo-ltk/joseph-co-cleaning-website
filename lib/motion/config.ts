@@ -8,6 +8,9 @@ export const MOTION = {
     reduced: "(prefers-reduced-motion: reduce)",
     fine: "(hover: hover) and (pointer: fine)",
     desktop: "(min-width: 1024px)",
+    /** Always true. gsap.matchMedia only runs a setup when at least one condition matches;
+     *  a touch phone matches none of the others, so without this nothing would animate there. */
+    always: "(min-width: 0px)",
   },
 
   /** Lenis smooth scroll (fine pointer only; touch keeps native scrolling). Lower lerp = silkier, slower catch-up. */
