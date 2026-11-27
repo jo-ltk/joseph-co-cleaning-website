@@ -24,6 +24,7 @@ import {
 } from "@phosphor-icons/react";
 import Button from "../ui/Button";
 import { toast } from "sonner";
+import { pushDataLayerEventThen } from "@/lib/gtm";
 
 const services = [
   { id: "domestic", label: "Domestic Cleaning", icon: <House size={24} />, description: "Regular home maintenance" },
@@ -208,9 +209,14 @@ export default function InstantEstimateModal({ isOpen, onClose }: { isOpen: bool
         toast.success("Quote Confirmed!", {
           description: "Redirecting to WhatsApp...",
         });
-        if (result.whatsappUrl) {
-          window.location.href = result.whatsappUrl;
-        }
+        const whatsappTarget = result.whatsappUrl;
+        pushDataLayerEventThen(
+          "contact_form_success",
+          { form_id: "instant_estimate" },
+          () => {
+            if (whatsappTarget) window.location.href = whatsappTarget;
+          },
+        );
         setTimeout(onClose, 500);
       } else {
         const errorMsg = result.error || "Failed to book quote. Please try again.";

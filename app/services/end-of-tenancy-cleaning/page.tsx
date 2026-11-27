@@ -9,7 +9,7 @@ import { breadcrumbSchema, cleaningServiceSchema, jsonLdScript } from "@/lib/sch
 export const metadata: Metadata = buildMetadata({
   title: "End Of Tenancy Cleaning UK",
   description:
-    "End of tenancy cleaning for landlords, estate agents and tenants. Joseph & Co prepares properties for inventory checks, deposit returns, photography and new tenant handovers.",
+    "End of tenancy cleaning for landlords, agents and tenants. Joseph & Co prepares properties for inventory checks, deposit returns and new tenant handovers.",
   path: "/services/end-of-tenancy-cleaning",
   keywords: ["end of tenancy cleaning UK", "move out cleaning", "landlord handover cleaning", "estate agent cleaning"],
 });

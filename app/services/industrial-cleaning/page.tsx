@@ -9,7 +9,7 @@ import { breadcrumbSchema, cleaningServiceSchema, jsonLdScript } from "@/lib/sch
 export const metadata: Metadata = buildMetadata({
   title: "Industrial Cleaning Services UK",
   description:
-    "Industrial cleaning for warehouses, operational spaces and demanding environments. Joseph & Co supports safer, cleaner sites with professional equipment and planned routines.",
+    "Industrial cleaning for warehouses, operational spaces and demanding environments, with professional equipment and planned routines from Joseph & Co.",
   path: "/services/industrial-cleaning",
   keywords: ["industrial cleaning UK", "warehouse cleaning", "factory cleaning", "specialist commercial cleaning"],
 });

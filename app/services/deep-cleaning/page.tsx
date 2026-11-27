@@ -9,7 +9,7 @@ import { breadcrumbSchema, cleaningServiceSchema, jsonLdScript } from "@/lib/sch
 export const metadata: Metadata = buildMetadata({
   title: "Deep Cleaning Services UK",
   description:
-    "Deep cleaning services for homes, rented properties, offices and commercial spaces needing a detailed reset, appliance attention, sanitising and high-touch surface care.",
+    "Deep cleaning for homes, rented properties, offices and commercial spaces: a detailed reset with appliance attention, sanitising and high-touch surface care.",
   path: "/services/deep-cleaning",
   keywords: ["deep cleaning services UK", "one off deep clean", "professional deep cleaners", "home deep cleaning"],
 });

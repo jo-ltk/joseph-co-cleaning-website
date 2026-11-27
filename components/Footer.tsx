@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ButtonLink } from "./ui/Button";
@@ -68,7 +69,7 @@ export default function Footer() {
 
           <div className="grid gap-8 md:gap-10 lg:grid-cols-12 lg:items-end">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="max-w-[680px] lg:col-span-8">
-              <img src="/logo.png" alt="Joseph.co Logo" className="h-28 md:h-36 w-auto object-contain mb-0 md:-mb-4 brightness-0 invert opacity-90 scale-[1.2] origin-left" />
+              <Image src="/logo.png" alt="Joseph & Co Cleaning Services logo" width={1024} height={1024} sizes="144px" className="h-28 md:h-36 w-auto object-contain mb-0 md:-mb-4 brightness-0 invert opacity-90 scale-[1.2] origin-left" />
               <h2 className="relative z-10 mb-4 text-[1.75rem] leading-[1.1] tracking-tight text-yellow-green sm:text-3xl md:mb-6 md:text-4xl xl:text-5xl">
                 Elevating the standards of clean.
               </h2>

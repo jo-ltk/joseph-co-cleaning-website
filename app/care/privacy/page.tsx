@@ -6,7 +6,7 @@ import { siteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: { absolute: "Privacy Policy | Care Connect" },
-  description: "Privacy information for Care Connect healthcare staffing enquiries and applications.",
+  description: "How Care Connect handles personal information submitted through healthcare staffing enquiries and job applications.",
   alternates: { canonical: `${siteUrl}/care/privacy` },
 };
 

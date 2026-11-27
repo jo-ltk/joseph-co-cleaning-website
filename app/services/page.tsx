@@ -12,7 +12,7 @@ import { cleaningServiceSchema, jsonLdScript } from "@/lib/schema";
 export const metadata = buildMetadata({
   title: "Cleaning Services UK",
   description:
-    "Explore Joseph & Co cleaning and property services for end of tenancy, deep cleaning, domestic cleaning, property management support, letting services, office cleaning, commercial cleaning, carpet cleaning, appliance cleaning and after builders work.",
+    "End of tenancy, deep, domestic, commercial, after builders and industrial cleaning, plus property services, from Joseph & Co. Request a quote online.",
   path: "/services",
   keywords: serviceKeywords.services,
   image: "/images/services-hero.png",

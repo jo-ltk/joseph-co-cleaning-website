@@ -6,7 +6,7 @@ import { siteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: { absolute: "Terms | Care Connect" },
-  description: "Terms of use for the Care Connect website.",
+  description: "Terms of use for the Care Connect website and its healthcare staffing and recruitment services.",
   alternates: { canonical: `${siteUrl}/care/terms` },
 };
 

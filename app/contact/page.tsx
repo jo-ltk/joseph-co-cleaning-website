@@ -18,6 +18,7 @@ import {
 
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
+import { pushDataLayerEventThen } from "@/lib/gtm";
 import ScrollReveal from "../../components/ScrollReveal";
 import Button, { ButtonLink } from "../../components/ui/Button";
 import IconButton from "../../components/ui/IconButton";
@@ -203,9 +204,14 @@ export default function ContactPage() {
         toast.success("Inquiry Received!", {
           description: "Redirecting to WhatsApp...",
         });
-        if (result.whatsappUrl) {
-          window.location.href = result.whatsappUrl;
-        }
+        const whatsappTarget = result.whatsappUrl;
+        pushDataLayerEventThen(
+          "contact_form_success",
+          { form_id: "contact_page" },
+          () => {
+            if (whatsappTarget) window.location.href = whatsappTarget;
+          },
+        );
       } else {
         const errorMsg = result.error || "Failed to submit request.";
         setError(errorMsg);

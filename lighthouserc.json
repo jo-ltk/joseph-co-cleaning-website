@@ -1,0 +1,31 @@
+{
+  "ci": {
+    "collect": {
+      "startServerCommand": "npm run start -- -p 3100",
+      "startServerReadyPattern": "Ready",
+      "url": [
+        "http://localhost:3100/",
+        "http://localhost:3100/services",
+        "http://localhost:3100/services/end-of-tenancy-cleaning",
+        "http://localhost:3100/contact",
+        "http://localhost:3100/areas-we-cover"
+      ],
+      "numberOfRuns": 1,
+      "settings": { "chromeFlags": "--no-sandbox" }
+    },
+    "assert": {
+      "assertions": {
+        "categories:seo": ["error", { "minScore": 0.9 }],
+        "categories:accessibility": ["warn", { "minScore": 0.85 }],
+        "categories:best-practices": ["warn", { "minScore": 0.85 }],
+        "categories:performance": ["warn", { "minScore": 0.5 }],
+        "is-crawlable": "error",
+        "canonical": "error",
+        "meta-description": "error",
+        "document-title": "error",
+        "image-alt": "error"
+      }
+    },
+    "upload": { "target": "temporary-public-storage" }
+  }
+}

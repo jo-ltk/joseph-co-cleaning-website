@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -108,7 +109,7 @@ export default function Navbar({
                 href="/"
                 className="shrink-0 flex items-center gap-2"
               >
-                <img src="/logo.png" alt="Joseph.co Logo" className="h-9 lg:h-16 w-auto object-contain scale-[1.65] origin-left" />
+                <Image src="/logo.png" alt="Joseph & Co Cleaning Services logo" width={1024} height={1024} sizes="(min-width: 1024px) 106px, 80px" className="h-9 lg:h-16 w-auto object-contain scale-[1.65] origin-left" />
               </Link>
 
               <ul
@@ -134,7 +135,7 @@ export default function Navbar({
                   href="/"
                   className="flex items-center gap-2"
                 >
-                  <img src="/logo.png" alt="Joseph.co Logo" className="h-12 w-auto object-contain scale-[1.65] origin-left" />
+                  <Image src="/logo.png" alt="Joseph & Co Cleaning Services logo" width={1024} height={1024} sizes="(min-width: 1024px) 106px, 80px" className="h-12 w-auto object-contain scale-[1.65] origin-left" />
                 </Link>
 
                 <div className="flex items-center gap-2">
@@ -254,7 +255,7 @@ export default function Navbar({
                     className="flex items-center gap-2"
                     onClick={() => setMobileOpen(false)}
                   >
-                    <img src="/logo.png" alt="Joseph.co Logo" className="h-12 w-auto object-contain scale-[1.65] origin-left" />
+                    <Image src="/logo.png" alt="Joseph & Co Cleaning Services logo" width={1024} height={1024} sizes="(min-width: 1024px) 106px, 80px" className="h-12 w-auto object-contain scale-[1.65] origin-left" />
                   </Link>
 
                   <button

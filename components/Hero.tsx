@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import { motion } from "framer-motion";
@@ -49,10 +50,13 @@ export default function Hero() {
         {/* Image zone — tall enough to contain the full heading */}
         <div className="relative w-full shrink-0 overflow-hidden" style={{ height: "72dvh" }}>
           <div data-hero-layer="bg" className="absolute inset-0">
-            <img
+            <Image
               src={heroImage}
-              alt="Premium Interior"
-              className="h-full w-full scale-[1.3] object-cover object-[center_60%]"
+              alt="Bright, freshly cleaned living space"
+              fill
+              priority
+              sizes="100vw"
+              className="scale-[1.3] object-cover object-[center_60%]"
             />
           </div>
           {/* Top vignette for navbar */}
@@ -144,9 +148,13 @@ export default function Hero() {
           data-hero-layer="bg"
           className="absolute inset-0"
         >
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat brightness-[1.05] contrast-[1.02]"
-            style={{ backgroundImage: `url("${heroImage}")` }}
+          <Image
+            src={heroImage}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center brightness-[1.05] contrast-[1.02]"
           />
         </div>
 

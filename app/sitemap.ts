@@ -25,12 +25,10 @@ const publicRoutes = [
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const now = new Date();
   const { items } = await getPortfolioIndex();
 
   const staticEntries = publicRoutes.map((route) => ({
     url: `${siteUrl}${route.path}`,
-    lastModified: now,
     changeFrequency: route.changeFrequency,
     priority: route.priority,
   }));

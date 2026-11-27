@@ -9,7 +9,7 @@ import { breadcrumbSchema, cleaningServiceSchema, jsonLdScript } from "@/lib/sch
 export const metadata: Metadata = buildMetadata({
   title: "Domestic And Residential Cleaning UK",
   description:
-    "Domestic and residential cleaning for homeowners, tenants and premium private spaces. Joseph & Co offers trusted, vetted cleaners for regular and one-off home cleaning.",
+    "Domestic and residential cleaning for homeowners, tenants and private spaces. Joseph & Co offers vetted cleaners for regular and one-off home cleans.",
   path: "/services/domestic-cleaning",
   keywords: ["domestic cleaning UK", "residential cleaning services", "home cleaners", "trusted house cleaning"],
 });

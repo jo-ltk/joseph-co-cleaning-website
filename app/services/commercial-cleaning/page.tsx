@@ -9,7 +9,7 @@ import { breadcrumbSchema, cleaningServiceSchema, jsonLdScript } from "@/lib/sch
 export const metadata: Metadata = buildMetadata({
   title: "Commercial Cleaning Services UK",
   description:
-    "Commercial cleaning for offices, managed buildings, retail spaces and shared property areas. Joseph & Co delivers reliable cleaning for property managers and business teams.",
+    "Commercial cleaning for offices, managed buildings, retail spaces and shared areas. Joseph & Co supports property managers and business teams.",
   path: "/services/commercial-cleaning",
   keywords: ["commercial cleaning services UK", "office cleaning company", "managed property cleaning", "business cleaning services"],
 });

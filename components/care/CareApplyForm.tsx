@@ -14,6 +14,7 @@ import {
 
 import { carePositions } from "@/lib/care";
 import CareButton from "./CareButton";
+import { pushDataLayerEvent } from "@/lib/gtm";
 
 const accept =
   ".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document";
@@ -96,6 +97,7 @@ export default function CareApplyForm() {
         );
         return;
       }
+      pushDataLayerEvent("care_application_success", { form_id: "care_apply" });
       setSuccess(true);
       form.reset();
       clearFile();

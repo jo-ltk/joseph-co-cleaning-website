@@ -30,9 +30,9 @@ export function organizationSchema(): JsonLd {
     // ✅ Added: logo helps Google Knowledge Panel and rich results
     logo: {
       "@type": "ImageObject",
-      url: absoluteUrl("/images/logo.png"),
-      width: 200,
-      height: 200,
+      url: absoluteUrl("/logo.png"),
+      width: 1024,
+      height: 1024,
     },
     sameAs,
     contactPoint: [
@@ -60,10 +60,9 @@ export function localBusinessSchema(): JsonLd {
     url: siteUrl,
     email: businessContact.email,
     telephone: businessContact.phone,
-    priceRange: "££",
     image: absoluteUrl("/images/hero-wall.png"),
     // ✅ Added: logo reference
-    logo: absoluteUrl("/images/logo.png"),
+    logo: absoluteUrl("/logo.png"),
     address: {
       "@type": "PostalAddress",
       streetAddress: "32 Willow Man Road",
@@ -72,29 +71,7 @@ export function localBusinessSchema(): JsonLd {
       postalCode: "TA6 4HW",
       addressCountry: "GB",
     },
-    // ✅ Added: geo coordinates (update with exact lat/lng from Google Maps)
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 51.1279,
-      longitude: -2.9928,
-    },
-    // ✅ Added: opening hours for Google Business Profile alignment
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        opens: "08:00",
-        closes: "18:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Saturday",
-        opens: "09:00",
-        closes: "16:00",
-      },
-    ],
     areaServed: [
-      { "@type": "Country", name: "United Kingdom" },
       { "@type": "AdministrativeArea", name: "Somerset" },
       { "@type": "AdministrativeArea", name: "Devon" },
       { "@type": "AdministrativeArea", name: "Gloucestershire" },
@@ -132,11 +109,6 @@ export function websiteSchema(): JsonLd {
     publisher: {
       "@id": `${siteUrl}/#organization`,
     },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${siteUrl}/portfolio?search={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
   };
 }
 
@@ -144,23 +116,36 @@ export function websiteSchema(): JsonLd {
 // Cleaning Service
 // ─────────────────────────────────────────────
 
+const serviceNames: Record<string, string> = {
+  "/services/end-of-tenancy-cleaning": "End of tenancy cleaning",
+  "/services/deep-cleaning": "Deep cleaning",
+  "/services/domestic-cleaning": "Domestic and residential cleaning",
+  "/services/commercial-cleaning": "Commercial and office cleaning",
+  "/services/after-builders-cleaning": "After builders cleaning",
+  "/services/industrial-cleaning": "Industrial cleaning",
+  "/services/property-services": "Property services",
+};
+
+const serviceAreas = [
+  { "@type": "AdministrativeArea", name: "Somerset" },
+  { "@type": "AdministrativeArea", name: "Devon" },
+  { "@type": "AdministrativeArea", name: "Gloucestershire" },
+  { "@type": "City", name: "Bristol" },
+];
+
 export function cleaningServiceSchema(path = "/services"): JsonLd {
+  const name = serviceNames[path] ?? "Professional cleaning services";
   return {
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": `${absoluteUrl(path)}#cleaning-service`,
-    name: "Professional cleaning services",
+    name,
+    url: absoluteUrl(path),
     provider: {
       "@id": `${siteUrl}/#localbusiness`,
     },
-    areaServed: "United Kingdom",
-    serviceType:
-      "Residential, commercial, office, deep, end of tenancy, and property services",
-    offers: {
-      "@type": "Offer",
-      availability: "https://schema.org/InStock",
-      url: absoluteUrl("/contact"),
-    },
+    areaServed: serviceAreas,
+    serviceType: name,
   };
 }
 

@@ -9,7 +9,7 @@ import { breadcrumbSchema, cleaningServiceSchema, jsonLdScript } from "@/lib/sch
 export const metadata: Metadata = buildMetadata({
   title: "Property Services UK",
   description:
-    "Property services for landlords, agents and property owners. Joseph & Co provides property management support, letting services, move-in and move-out assistance, and ongoing property care solutions.",
+    "Property services for landlords, agents and owners: property management support, letting services, move-in and move-out help and ongoing property care.",
   path: "/services/property-services",
   keywords: [
     "property services UK",

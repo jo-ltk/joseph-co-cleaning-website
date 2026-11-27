@@ -25,7 +25,7 @@ import { cleaningServiceSchema, jsonLdScript } from "@/lib/schema";
 export const metadata: Metadata = buildMetadata({
   title: "Professional Cleaning Services UK",
   description:
-    "Book insured professional cleaners for end of tenancy, deep, residential, office, commercial, carpet, appliance, garden and property services. Joseph & Co supports landlords, estate agents, tenants, offices and homeowners across the UK.",
+    "Insured cleaners based in Bridgwater, Somerset. End of tenancy, deep, domestic and commercial cleaning for landlords, agents, offices and homeowners.",
   path: "/",
   keywords: serviceKeywords.home,
 });

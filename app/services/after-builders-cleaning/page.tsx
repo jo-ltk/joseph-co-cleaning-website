@@ -9,7 +9,7 @@ import { breadcrumbSchema, cleaningServiceSchema, jsonLdScript } from "@/lib/sch
 export const metadata: Metadata = buildMetadata({
   title: "After Builders Cleaning UK",
   description:
-    "After builders cleaning for renovated homes, commercial spaces and property handovers. Joseph & Co removes dust, debris and residue for inspection-ready finishes.",
+    "After builders cleaning for renovated homes, commercial spaces and handovers. Joseph & Co removes dust, debris and residue for inspection-ready finishes.",
   path: "/services/after-builders-cleaning",
   keywords: ["after builders cleaning UK", "post construction cleaning", "builders clean", "renovation cleaning"],
 });

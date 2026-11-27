@@ -5,7 +5,7 @@ import { buildMetadata, serviceKeywords } from "@/lib/seo";
 export const metadata: Metadata = buildMetadata({
   title: "Request A Cleaning Quote",
   description:
-    "Request a fast quote from Joseph & Co Cleaning Services Ltd for end of tenancy, deep, office, commercial, residential, property services, carpet, appliance or garden cleaning across the UK.",
+    "Request a quote from Joseph & Co for end of tenancy, deep, domestic or commercial cleaning in Somerset, Devon, Gloucestershire and Bristol.",
   path: "/contact",
   keywords: serviceKeywords.contact,
   image: "/images/contact-hero.png",

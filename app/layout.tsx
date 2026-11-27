@@ -4,6 +4,8 @@ import { Inter, Manrope } from "next/font/google";
 import "../app/globals.css";
 import MotionProvider from "@/components/motion/MotionProvider";
 import PresentationRouteExtras from "@/components/PresentationRouteExtras";
+import GoogleTagManager, { GoogleTagManagerNoScript } from "@/components/analytics/GoogleTagManager";
+import ConversionLinkTracker from "@/components/analytics/ConversionLinkTracker";
 // import PremiumSupportAssistant from "@/components/PremiumSupportAssistant";
 import { Toaster } from "sonner";
 import { defaultDescription, defaultTitle, seoKeywords, siteIcons, siteName, siteUrl } from "@/lib/seo";
@@ -36,13 +38,12 @@ export const metadata: Metadata = {
   icons: siteIcons,
   applicationName: siteName,
   category: "Cleaning Services",
-  alternates: {
-    canonical: siteUrl,
-  },
+  // NOTE: no root-level canonical / openGraph.url. A root canonical is inherited by
+  // every page that does not set its own, which would point them all at the homepage.
+  // Each route sets its own canonical via buildMetadata().
   openGraph: {
     type: "website",
     locale: "en_GB",
-    url: siteUrl,
     siteName,
     title: defaultTitle,
     description: defaultDescription,
@@ -75,6 +76,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${manrope.variable} antialiased`}>
+        <GoogleTagManagerNoScript />
+        <GoogleTagManager />
+        <ConversionLinkTracker />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={jsonLdScript(globalSchemas)}
