@@ -2,7 +2,6 @@
 
 import { usePathname } from "next/navigation";
 
-import MobileExperienceNotice from "@/components/MobileExperienceNotice";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 
 export default function PresentationRouteExtras() {
@@ -13,7 +12,6 @@ export default function PresentationRouteExtras() {
   return (
     <>
       <WhatsAppFloat />
-      <MobileExperienceNotice />
     </>
   );
 }

@@ -78,7 +78,7 @@ export default function Hero() {
             <div data-hero-intro>
             <h1
               data-hero-title
-              className="text-[3rem] leading-[1.01] tracking-[-0.025em] font-bold text-white"
+              className="text-[2.5rem] leading-[1.04] tracking-[-0.025em] font-bold text-white"
               style={{
                 fontFamily: "var(--font-inter), sans-serif",
                 textShadow: "0 2px 24px rgba(0,0,0,0.22)",
