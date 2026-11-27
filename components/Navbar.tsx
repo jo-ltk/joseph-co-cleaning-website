@@ -93,7 +93,7 @@ export default function Navbar({
           ease: [0.22, 1, 0.36, 1], // Premium expo-out ease
           opacity: { duration: 0.3 }
         }}
-        className="pointer-events-none fixed inset-x-0 top-0 z-30"
+        className="pointer-events-none fixed inset-x-0 top-0 z-40"
       >
         <nav className="mx-auto flex w-full max-w-[1920px] items-start justify-between gap-2 px-3 pt-3 lg:gap-3 lg:px-5 lg:pt-5">
           {/* ... existing nav content ... */}
