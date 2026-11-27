@@ -63,19 +63,20 @@ export default function Footer() {
     <footer className="bg-aztec text-yellow-green selection:bg-yellow-green selection:text-aztec">
       <div className="h-px w-full bg-yellow-green/20" />
       <div className="mx-auto max-w-[1450px] px-5 md:px-10 lg:px-20 py-16 md:py-24">
-        <div className="grid gap-10 md:gap-16 lg:grid-cols-[1.2fr_0.8fr]">
+        {/* Brand + CTA on top; link columns get the full width below so nothing is squeezed on laptops */}
+        <div className="flex flex-col gap-12 md:gap-16">
 
-          <div className="flex flex-col justify-between">
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="max-w-[680px]">
+          <div className="grid gap-8 md:gap-10 lg:grid-cols-12 lg:items-end">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="max-w-[680px] lg:col-span-8">
               <img src="/logo.png" alt="Joseph.co Logo" className="h-28 md:h-36 w-auto object-contain mb-0 md:-mb-4 brightness-0 invert opacity-90 scale-[1.2] origin-left" />
-              <h2 className="mb-5 md:mb-8 text-2xl md:text-4xl leading-[1.1] text-yellow-green relative z-10">
+              <h2 className="relative z-10 mb-4 text-[1.75rem] leading-[1.1] tracking-tight text-yellow-green sm:text-3xl md:mb-6 md:text-4xl xl:text-5xl">
                 Elevating the standards of clean.
               </h2>
-              <p className="text-base md:text-lg leading-relaxed text-yellow-green/70">
+              <p className="max-w-[60ch] text-[0.95rem] leading-relaxed text-yellow-green/70 md:text-base xl:text-lg">
                 Joseph & Co provides bespoke cleaning and property services for the most discerning residential and commercial spaces across the South West. We combine traditional care with modern precision.
               </p>
             </motion.div>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }} className="mt-8 md:mt-16 flex items-center gap-4">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }} className="flex items-center gap-4 lg:col-span-4 lg:justify-self-end">
               <div className="btn-pair">
                 <ButtonLink href="/contact?source=Footer" variant="primary">Book Quote</ButtonLink>
                 <IconButton href="/contact?source=Footer" aria-label="Book Quote" size="md" />
@@ -83,7 +84,7 @@ export default function Footer() {
             </motion.div>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12 lg:gap-16">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 border-t border-yellow-green/10 pt-10 sm:gap-x-10 md:grid-cols-3 md:pt-14 lg:grid-cols-[0.85fr_1.1fr_0.75fr_1.9fr] lg:gap-x-12 xl:gap-x-16">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.3 }} className="space-y-3 md:space-y-4">
               <span className="block font-mono text-sm uppercase tracking-widest text-yellow-green/40">Sitemap</span>
               <ul className="space-y-3 md:space-y-4">
@@ -118,11 +119,15 @@ export default function Footer() {
                 ))}
               </ul>
             </motion.div>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.5 }} className="col-span-2 space-y-3 md:space-y-4 md:col-span-1">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.5 }} className="col-span-2 space-y-3 md:col-span-3 md:space-y-4 lg:col-span-1">
               <span className="block font-mono text-sm uppercase tracking-widest text-yellow-green/40">Contact</span>
-              <div className="space-y-3 md:space-y-4 text-sm md:text-base">
-                <a href={`mailto:${contactInfo.email}`} className="block transition-colors hover:text-white truncate">{contactInfo.email}</a>
-                <a href={`tel:${contactInfo.phone.replace(/\s/g, "")}`} className="block transition-colors hover:text-white">{contactInfo.phone}</a>
+              {/* Tablet: three items side by side; phone and desktop: stacked */}
+              <div className="grid gap-3 text-sm md:grid-cols-3 md:gap-6 md:text-base lg:grid-cols-1 lg:gap-4">
+                <a href={`mailto:${contactInfo.email}`} className="block transition-colors [overflow-wrap:anywhere] hover:text-white">
+                  {/* Prefer wrapping before the @ rather than mid-word */}
+                  {contactInfo.email.split("@")[0]}<wbr />@{contactInfo.email.split("@")[1]}
+                </a>
+                <a href={`tel:${contactInfo.phone.replace(/\s/g, "")}`} className="block whitespace-nowrap transition-colors hover:text-white">{contactInfo.phone}</a>
                 <p className="text-yellow-green/60">{contactInfo.address}</p>
               </div>
             </motion.div>
@@ -140,7 +145,7 @@ export default function Footer() {
         </div>
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1, delay: 0.5 }}
           className="mt-6 md:mt-8 flex flex-col items-start justify-between gap-3 md:gap-4 font-mono text-sm uppercase tracking-wider text-yellow-green/50 md:flex-row md:items-end">
-          <div className="flex gap-6 md:gap-8">
+          <div className="flex flex-wrap gap-x-6 gap-y-2 md:gap-x-8">
             <span>London: {londonTime}</span>
             <div className="flex items-center gap-6 md:gap-8">
               <span>&copy; {currentYear}</span>
@@ -152,7 +157,7 @@ export default function Footer() {
               </Link>
             </div>
           </div>
-          <div className="flex gap-6 md:gap-8">
+          <div className="flex flex-wrap gap-x-6 gap-y-2 md:gap-x-8">
             <Link href="/privacy-policy" className="hover:text-yellow-green">Privacy Policy</Link>
             <Link href="/terms-of-service" className="hover:text-yellow-green">Terms of Service</Link>
           </div>

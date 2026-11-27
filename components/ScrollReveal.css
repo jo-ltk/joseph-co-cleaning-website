@@ -8,17 +8,3 @@
   padding-block: 0.12em 0.22em;
   margin-block: -0.12em -0.22em;
 }
-
-.word {
-  display: inline-block;
-  white-space: pre;
-  will-change: transform, opacity, filter;
-  line-height: inherit;
-  padding-bottom: 0.08em;
-}
-
-/* Ensure the text is visible if JS fails or before GSAP kicks in */
-.scroll-reveal .word {
-  opacity: 1;
-}
-

@@ -1,16 +1,42 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { useRef } from "react";
+import { motion } from "framer-motion";
 import { Calculator } from "@phosphor-icons/react";
 import Button, { ButtonLink } from "./ui/Button";
 import IconButton from "./ui/IconButton";
-import ScrollReveal from "./ScrollReveal";
+import { useMotion } from "@/lib/motion/useMotion";
+import { heroIntro, heroParallax } from "@/lib/motion/animations";
 
 const heroImage = "/images/hero-wall.png";
 const desktopGridLines = ["0%", "25%", "50%", "75%", "100%"];
 
 export default function Hero() {
+  const desktopRef = useRef<HTMLElement>(null);
+  const mobileRef = useRef<HTMLElement>(null);
+
+  useMotion(
+    (env, contextSafe) => {
+      const roots = [desktopRef.current, mobileRef.current].filter(
+        (el): el is HTMLElement => el !== null,
+      );
+      if (!roots.length) return;
+      roots.forEach((root) => heroParallax(root, env));
+
+      // Split lines only once web fonts are in, so line breaks are measured correctly.
+      let cancelled = false;
+      const play = contextSafe(() => {
+        if (!cancelled) roots.forEach((root) => heroIntro(root, env));
+      });
+      (document.fonts?.ready ?? Promise.resolve()).then(play);
+      return () => {
+        cancelled = true;
+      };
+    },
+    { dependencies: [] },
+  );
+
   return (
     <>
       {/* ═══════════════════════════════════════════════
@@ -18,19 +44,17 @@ export default function Hero() {
           Top: image (~58vh) with heading bleeding over edge
           Bottom: white panel with description + CTAs
       ═══════════════════════════════════════════════ */}
-      <section className="md:hidden flex flex-col min-h-[100dvh] bg-white overflow-hidden">
+      <section ref={mobileRef} className="md:hidden flex flex-col min-h-[100dvh] bg-white overflow-hidden">
 
         {/* Image zone — tall enough to contain the full heading */}
-        <div className="relative w-full shrink-0" style={{ height: "72dvh" }}>
-          <motion.div
-            className="absolute inset-0"
-          >
+        <div className="relative w-full shrink-0 overflow-hidden" style={{ height: "72dvh" }}>
+          <div data-hero-layer="bg" className="absolute inset-0">
             <img
               src={heroImage}
               alt="Premium Interior"
-              className="w-full h-full object-cover object-[center_60%]"
+              className="h-full w-full scale-[1.3] object-cover object-[center_60%]"
             />
-          </motion.div>
+          </div>
           {/* Top vignette for navbar */}
           <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.28)_0%,transparent_50%)]" />
 
@@ -50,11 +74,10 @@ export default function Hero() {
           <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.62)_0%,rgba(0,0,0,0.1)_55%,transparent_100%)]" />
 
           {/* Heading — fully inside the image zone */}
-          <div className="absolute bottom-0 left-0 right-0 px-5 z-10 pb-6">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+          <div data-hero-layer="content" className="absolute bottom-0 left-0 right-0 px-5 z-10 pb-6">
+            <div data-hero-intro>
+            <h1
+              data-hero-title
               className="text-[3rem] leading-[1.01] tracking-[-0.025em] font-bold text-white"
               style={{
                 fontFamily: "var(--font-inter), sans-serif",
@@ -64,7 +87,8 @@ export default function Hero() {
               True Comfort<br />
               Always Begins<br />
               When We Clean
-            </motion.h1>
+            </h1>
+            </div>
           </div>
         </div>
 
@@ -72,26 +96,19 @@ export default function Hero() {
         <div className="flex flex-col flex-1 bg-white px-5 pt-5 pb-10">
 
           {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.26 }}
+          <p
+            data-hero-fade
             className="text-[0.93rem] leading-[1.65] font-normal max-w-[320px]"
             style={{ fontFamily: "var(--font-inter), sans-serif", color: "rgba(30,42,30,0.52)" }}
           >
             Outstanding cleaning and property services tailored for high-end residential and commercial environments.
-          </motion.p>
+          </p>
 
           {/* Push CTAs to bottom */}
           <div className="flex-1 min-h-[1.5rem]" />
 
           {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.38 }}
-            className="flex flex-col gap-3"
-          >
+          <div data-hero-fade className="flex flex-col gap-3">
             <motion.div whileTap={{ scale: 0.975 }}>
               <ButtonLink
                 href="/contact?source=Homepage Hero Mobile"
@@ -112,18 +129,19 @@ export default function Hero() {
               </button>
             </motion.div>
 
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════════
           DESKTOP HERO — original design, untouched
       ═══════════════════════════════════════════════ */}
-      <section 
+      <section
+        ref={desktopRef}
         className="relative hidden md:flex h-[100dvh] items-stretch overflow-hidden bg-xanadu text-white"
       >
         <div
-          data-parallax="0.15"
+          data-hero-layer="bg"
           className="absolute inset-0"
         >
           <div
@@ -135,7 +153,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.3)_0%,rgba(0,0,0,0.1)_30%,transparent_100%)]" />
         <div className="absolute inset-0 bg-black/5" />
 
-        <div className="absolute inset-0 pointer-events-none">
+        <div data-hero-layer="grid" className="absolute inset-0 pointer-events-none">
           {desktopGridLines.map((line) => (
             <div
               key={line}
@@ -146,18 +164,15 @@ export default function Hero() {
         </div>
 
         <div
+          data-hero-layer="content"
           className="relative z-10 mx-auto flex h-full w-full max-w-[1950px] flex-col items-start justify-center px-6 pb-10 pt-40 md:pl-8 lg:pl-12 text-left"
         >
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.14 }}
+          <div
+            data-hero-intro
             className="flex max-w-[680px] flex-col items-start gap-4 w-full"
           >
-            <motion.h1
-              initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.14 }}
+            <h1
+              data-hero-title
               className="max-w-full text-[3.2rem] lg:text-[5rem] leading-[1.05] tracking-tight font-medium text-white drop-shadow-[0_30px_100px_rgba(0,0,0,0.4)]"
               style={{
                 fontFamily: "var(--font-inter), sans-serif",
@@ -167,22 +182,18 @@ export default function Hero() {
               True Comfort <br />
               Always Begins <br />
               <span>When We Clean</span>
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.34 }}
+            <p
+              data-hero-fade
               className="max-w-[480px] text-balance text-lg font-medium leading-relaxed text-white/90 drop-shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
               style={{ fontFamily: "var(--font-inter), sans-serif" }}
             >
               Delivering outstanding cleaning and property services tailored for high-end residential and commercial environments.
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.46 }}
+            <div
+              data-hero-fade
               className="flex flex-row items-center gap-4 mt-6 drop-shadow-[0_20px_40px_rgba(0,0,0,0.25)]"
             >
               <motion.div whileHover={{ y: -3 }} whileTap={{ scale: 0.98 }}>
@@ -204,8 +215,8 @@ export default function Hero() {
                   Instant Estimate
                 </button>
               </motion.div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </section>
     </>

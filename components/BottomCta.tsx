@@ -1,13 +1,25 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
 import ScrollReveal from "./ScrollReveal";
+import SparkleBurst from "./motion/SparkleBurst";
+
+/** Spray nozzles in cta-overlap.png, as fractions of the image box. Angle: -90 = straight up. */
+const NOZZLES = [
+  { x: 0.25, y: 0.64, angle: -115 }, // red trigger, left
+  { x: 0.44, y: 0.57, angle: -65 }, // big white trigger
+  { x: 0.58, y: 0.69, angle: -85 }, // small white pump
+  { x: 0.63, y: 0.63, angle: -120 }, // red trigger, right
+];
 
 export default function BottomCta() {
+  const imageRef = useRef<HTMLDivElement>(null);
+
   return (
-    <section className="lime-plus-pattern relative overflow-hidden py-24 !pb-0 text-aztec">
+    <section data-own-burst className="lime-plus-pattern relative overflow-hidden py-24 !pb-0 text-aztec">
       <div className="relative mx-auto flex max-w-[1450px] flex-col items-center px-5 md:px-10 lg:px-20 text-center">
         <motion.div initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.1 }} className="z-30 mt-8">
           <ScrollReveal
@@ -21,11 +33,15 @@ export default function BottomCta() {
         </motion.div>
         <div className="relative z-10 mt-[-60px] sm:mt-[-160px] md:mt-[-260px] lg:mt-[-340px] w-full max-w-[1235px]">
           <motion.div initial={{ opacity: 0, y: 80, scale: 0.95 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}>
-            <Image src="/images/cta-overlap.png" alt="Cleaning Supplies" width={1400} height={800} className="h-auto w-full object-contain" priority />
+            <div ref={imageRef}>
+              <Image src="/images/cta-overlap.png" alt="Cleaning Supplies" width={1400} height={800} className="h-auto w-full object-contain" priority />
+            </div>
           </motion.div>
           <div className="absolute bottom-0 left-1/2 h-[30%] w-[80%] -translate-x-1/2 translate-y-1/2 rounded-full bg-aztec/10 blur-[120px] opacity-20" />
         </div>
       </div>
+      {/* Rendered last so the image ref is attached before its layout effect runs. */}
+      <SparkleBurst anchorRef={imageRef} emitters={NOZZLES} />
     </section>
   );
 }

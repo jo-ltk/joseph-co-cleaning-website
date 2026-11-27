@@ -12,6 +12,10 @@ interface BeforeAfterSliderProps {
   afterAlt?: string;
   beforeLabel?: string;
   afterLabel?: string;
+  /** Shape/frame classes. Defaults to a rounded 16:9 card. */
+  className?: string;
+  /** next/image `sizes` hint for both images. */
+  sizes?: string;
 }
 
 export default function BeforeAfterSlider({
@@ -21,6 +25,8 @@ export default function BeforeAfterSlider({
   afterAlt = "After professional cleaning",
   beforeLabel = "Before",
   afterLabel = "After",
+  className = "aspect-[16/9] rounded-2xl border border-aztec/10",
+  sizes = "(max-width: 1024px) 100vw, 50vw",
 }: BeforeAfterSliderProps) {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
@@ -69,7 +75,7 @@ export default function BeforeAfterSlider({
   return (
     <div 
       ref={containerRef}
-      className="relative w-full aspect-[16/9] overflow-hidden rounded-2xl cursor-col-resize select-none border border-aztec/10"
+      className={`group relative w-full cursor-col-resize select-none overflow-hidden ${className}`}
       onMouseDown={handleMouseDown}
       onTouchStart={handleMouseDown}
       onTouchMove={handleTouchMove}
@@ -81,6 +87,7 @@ export default function BeforeAfterSlider({
           src={afterImage}
           alt={afterAlt}
           fill
+          sizes={sizes}
           className="object-cover"
           draggable={false}
         />
@@ -100,6 +107,7 @@ export default function BeforeAfterSlider({
           src={beforeImage}
           alt={beforeAlt}
           fill
+          sizes={sizes}
           className="object-cover"
           draggable={false}
         />

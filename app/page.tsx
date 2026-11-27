@@ -15,6 +15,7 @@ import ResultsSection from "../components/ResultsSection";
 import ResultsComparison from "../components/ResultsComparison";
 import TestimonialsSection from "../components/TestimonialsSection";
 import PricingSection from "../components/PricingSection";
+import TapBubbles from "../components/motion/TapBubbles";
 import TrustStrip from "../components/TrustStrip";
 import WhyChooseUs from "../components/WhyChooseUs";
 import CtaPodSection from "../components/CtaPodSection";
@@ -37,12 +38,13 @@ export default function HomePage() {
         dangerouslySetInnerHTML={jsonLdScript(cleaningServiceSchema("/"))}
       />
       <Navbar />
+      <TapBubbles />
       <div data-stack><Hero /></div>
       <div data-stack data-reveal><TrustStrip /></div>
       {/* <div data-stack data-reveal><PartnershipsSection /></div> */}
-      <div data-stack data-reveal><IndustriesSection /></div>
+      <div data-stack><IndustriesSection /></div>
       <div data-stack data-reveal><WhyChooseUs /></div>
-      <div data-stack data-reveal><ProcessSection /></div>
+      <div data-stack><ProcessSection /></div>
       <div data-stack data-reveal><MethodologyRockSection /></div>
       <div data-stack data-reveal><ResultsComparison /></div>
       <div data-stack><TestimonialsSection /></div>
