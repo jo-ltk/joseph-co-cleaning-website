@@ -38,6 +38,40 @@ html.lenis, html.lenis body {
   pointer-events: none;
 }
 
+/* Hero intro: hidden until GSAP plays it (avoids a flash before hydration).
+   Failsafe: fades in on its own if JS never runs; shown immediately with scripting off. */
+[data-hero-intro] {
+  opacity: 0;
+  animation: motion-failsafe 0.6s ease 2.5s forwards;
+}
+
+@media (scripting: none) {
+  [data-hero-intro] {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* Rich-motion switch — keep in sync with MOTION.conditions (!reduced, any device). */
+.rich-desktop-only {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rich-desktop-only {
+    display: block;
+  }
+  .rich-desktop-hide {
+    display: none !important;
+  }
+}
+
+@keyframes motion-failsafe {
+  to {
+    opacity: 1;
+  }
+}
+
 body {
   margin: 0;
   min-height: 100vh;

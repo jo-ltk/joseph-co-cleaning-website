@@ -3,7 +3,10 @@
 import { motion } from "framer-motion";
 import { CalendarCheck, HouseLine, Sparkle, CheckCircle } from "@phosphor-icons/react/dist/ssr";
 
+import { useRef } from "react";
 import ScrollReveal from "./ScrollReveal";
+import { useMotion } from "@/lib/motion/useMotion";
+import { scrubProgression } from "@/lib/motion/animations";
 
 const steps = [
   { number: "01", title: "Book", description: "Select your service and preferred time through our seamless booking interface.", icon: <CalendarCheck size={28} weight="light" /> },
@@ -13,8 +16,25 @@ const steps = [
 ];
 
 export default function ProcessSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  // Each step lights up in turn as the row scrolls up the screen.
+  useMotion(
+    (env) => {
+      const grid = gridRef.current;
+      if (!grid) return;
+      scrubProgression(env, {
+        grid,
+        steps: Array.from(grid.querySelectorAll<HTMLElement>("[data-process-step]")),
+        connectors: Array.from(grid.querySelectorAll<HTMLElement>("[data-process-connector]")),
+      });
+    },
+    { scope: sectionRef },
+  );
+
   return (
-    <section className="bg-wild-sand pt-16 pb-6 md:pt-24 md:pb-8 px-5 md:px-10 lg:px-20 overflow-hidden">
+    <section ref={sectionRef} className="bg-wild-sand pt-16 pb-6 md:pt-24 md:pb-8 px-5 md:px-10 lg:px-20 overflow-hidden">
       <div className="mx-auto max-w-[1450px]">
         <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6 lg:gap-12 mb-10 md:mb-16">
           <div className="max-w-2xl">
@@ -41,14 +61,14 @@ export default function ProcessSection() {
 </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-16 lg:gap-x-8 relative">
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-16 lg:gap-x-8 relative">
           {steps.map((step, index) => (
-            <motion.div key={step.title} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: index * 0.2, ease: [0.22, 1, 0.36, 1] } } }} className="relative flex flex-col items-center group">
+            <div key={step.title} data-process-step className="relative flex flex-col items-center group">
               {index < steps.length - 1 && (
                 <div className="pointer-events-none absolute right-[-25%] top-[12px] hidden text-xanadu lg:block z-0 opacity-40">
-                  <svg viewBox="0 0 170 52" aria-hidden="true" className="h-[52px] w-[150px]" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-                    <motion.path d="M12 26c36-6 79-6 122 0" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: (index * 0.2) + 0.5 }} />
-                    <motion.path d="m112 11 28 15-28 15" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.3, delay: (index * 0.2) + 1.1 }} />
+                  <svg data-process-connector viewBox="0 0 170 52" aria-hidden="true" className="h-[52px] w-[150px]" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 26c36-6 79-6 122 0" />
+                    <path d="m112 11 28 15-28 15" />
                   </svg>
                 </div>
               )}
@@ -60,7 +80,7 @@ export default function ProcessSection() {
               </motion.div>
               <h3 className="text-xl md:text-2xl leading-[1.1] text-center font-medium mb-3 text-aztec">{step.title}</h3>
               <p className="max-w-[280px] text-center text-base text-xanadu leading-relaxed">{step.description}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
 

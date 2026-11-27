@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   AnimatePresence,
   LayoutGroup,
@@ -19,6 +19,8 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import type { Icon } from "@phosphor-icons/react/dist/lib/types";
 import ScrollReveal from "./ScrollReveal";
+import { useMotion } from "@/lib/motion/useMotion";
+import { pinnedShowcase } from "@/lib/motion/animations";
 
 type Industry = {
   title: string;
@@ -373,12 +375,180 @@ function MobileIndustryCard({
   );
 }
 
+/**
+ * Desktop (fine pointer, motion allowed): full-screen pinned scene. The card zooms to
+ * full screen as it arrives, then scrolling steps through each industry.
+ */
+function IndustriesShowcase() {
+  const stageRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<HTMLDivElement>(null);
+  const goToRef = useRef<((index: number) => void) | null>(null);
+  const [active, setActive] = useState(0);
+
+  useMotion(
+    (env) => {
+      const stage = stageRef.current;
+      const frame = frameRef.current;
+      if (!stage || !frame) return;
+      goToRef.current =
+        pinnedShowcase(stage, env, {
+          frame,
+          layers: Array.from(frame.querySelectorAll<HTMLElement>("[data-industry-layer]")),
+          onIndex: setActive,
+        }) ?? null;
+      return () => {
+        goToRef.current = null;
+      };
+    },
+    { scope: stageRef },
+  );
+
+  const select = (index: number) =>
+    goToRef.current ? goToRef.current(index) : setActive(index);
+  const { title, tag, summary, highlights, Icon } = industries[active];
+
+  return (
+    <div ref={stageRef} className="rich-desktop-only relative h-[100svh] w-full overflow-hidden bg-wild-sand">
+      <div ref={frameRef} className="relative h-full w-full overflow-hidden bg-aztec">
+        {industries.map((industry, index) => (
+          <div
+            key={industry.title}
+            data-industry-layer
+            className="absolute inset-0"
+            style={{ opacity: index === 0 ? 1 : 0, zIndex: index }}
+            aria-hidden={index !== active}
+          >
+            <Image
+              src={industry.image}
+              alt={industry.title}
+              fill
+              quality={90}
+              className="object-cover"
+              style={{ objectPosition: industry.imagePosition ?? "center" }}
+              sizes="100vw"
+            />
+          </div>
+        ))}
+
+        {/* Legibility scrims */}
+        <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-r from-aztec/85 via-aztec/35 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-aztec/90 via-aztec/25 to-aztec/30 lg:from-aztec/75 lg:via-transparent" />
+
+        <div className="relative z-30 mx-auto flex h-full max-w-[1450px] flex-col justify-end gap-6 px-5 pb-10 pt-28 sm:px-10 lg:flex-row lg:items-end lg:justify-between lg:gap-12 lg:px-20 lg:pb-16 lg:pt-32">
+          {/* Active industry */}
+          <div className="max-w-xl" aria-live="polite">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={title}
+                initial={{ opacity: 0, y: 28 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -16 }}
+                transition={{ duration: 0.55, ease: smoothEase }}
+              >
+                <div className="mb-4 inline-flex h-11 w-11 items-center lg:mb-5 lg:h-14 lg:w-14 justify-center border border-yellow-green/50 bg-aztec/90 text-yellow-green shadow-[0_4px_24px_rgba(17,32,37,0.35)]">
+                  <Icon size={32} weight="light" aria-hidden />
+                </div>
+                <span className="mb-4 block w-fit bg-yellow-green px-3 py-1.5 font-sans text-[10px] font-bold uppercase tracking-[.18em] text-aztec shadow-sm">
+                  {tag}
+                </span>
+                <h3 className="mb-3 text-[2.1rem] leading-[1.08] font-medium sm:text-5xl lg:mb-5 tracking-tight text-white [text-shadow:0_1px_12px_rgba(17,32,37,0.55)] xl:text-6xl">
+                  {title}
+                </h3>
+                <p className="mb-5 max-w-lg text-sm leading-relaxed text-white/80 sm:text-base lg:mb-7">{summary}</p>
+                <ul className="flex flex-wrap gap-2">
+                  {highlights.map((item) => (
+                    <li
+                      key={item}
+                      className="border border-aztec/10 bg-white px-3 py-1.5 font-sans text-[11px] font-medium uppercase tracking-[.12em] text-aztec shadow-sm"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Index */}
+          <div className="w-full shrink-0 lg:w-[340px]">
+            <div className="hidden border border-white/15 bg-aztec/40 backdrop-blur-md lg:block">
+              {industries.map((industry, index) => {
+                const isActive = index === active;
+                return (
+                  <button
+                    key={industry.title}
+                    type="button"
+                    onClick={() => select(index)}
+                    aria-pressed={isActive}
+                    aria-label={`View ${industry.title}`}
+                    className="group flex w-full items-center gap-4 border-b border-white/10 px-5 py-3.5 text-left last:border-b-0"
+                  >
+                    <span
+                      className={`font-sans text-[11px] font-bold tabular-nums transition-colors duration-500 ${
+                        isActive ? "text-yellow-green" : "text-white/40"
+                      }`}
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block font-sans text-[9px] font-bold uppercase tracking-[.2em] text-yellow-green/80">
+                        {industry.tag}
+                      </span>
+                      <span
+                        className={`block text-base tracking-tight transition-colors duration-500 ${
+                          isActive ? "text-white" : "text-white/55 group-hover:text-white/80"
+                        }`}
+                      >
+                        {industry.title}
+                      </span>
+                    </span>
+                    <span
+                      className={`text-yellow-green transition-all duration-500 ${
+                        isActive ? "translate-x-0 opacity-100" : "-translate-x-1 opacity-0"
+                      }`}
+                      aria-hidden
+                    >
+                      <ArrowRight size={16} weight="bold" />
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="flex items-center justify-between lg:mt-5">
+              <span className="font-sans text-xs font-bold tabular-nums tracking-[.2em] text-white/70">
+                {String(active + 1).padStart(2, "0")} / {String(industries.length).padStart(2, "0")}
+              </span>
+              <div className="flex gap-1.5">
+                {industries.map((industry, index) => (
+                  <button
+                    type="button"
+                    key={industry.title}
+                    onClick={() => select(index)}
+                    aria-label={`View ${industry.title}`}
+                    className="h-1.5 rounded-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                    style={{
+                      width: index === active ? "2rem" : "0.75rem",
+                      backgroundColor: index === active ? "#c7e993" : "rgba(255,255,255,0.35)",
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function IndustriesSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="bg-wild-sand pt-12 pb-16 md:pt-16 md:pb-24 px-5 md:px-10 lg:px-20 text-aztec">
+    <section className="bg-wild-sand pt-12 md:pt-16 text-aztec">
+      <div className="px-5 md:px-10 lg:px-20">
       <div className="mx-auto max-w-[1450px]">
         <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6 lg:gap-12 mb-10 md:mb-14">
           <div className="max-w-2xl">
@@ -411,6 +581,7 @@ export default function IndustriesSection() {
           </motion.p>
         </div>
 
+        <div className="rich-desktop-hide pb-16 md:pb-24">
         {/* Desktop: spotlight + interactive list */}
         <div className="hidden lg:grid lg:grid-cols-[1.15fr_1fr] lg:gap-5 xl:gap-6">
           <div className="relative min-h-[520px] overflow-hidden border border-aztec/10">
@@ -464,7 +635,11 @@ export default function IndustriesSection() {
             />
           ))}
         </div>
+        </div>
       </div>
+      </div>
+
+      <IndustriesShowcase />
     </section>
   );
 }

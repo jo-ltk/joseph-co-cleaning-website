@@ -1,148 +1,236 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { useState } from "react";
-import { CaretLeft, CaretRight } from "@phosphor-icons/react/dist/ssr";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ArrowUpRight, CaretLeft, CaretRight } from "@phosphor-icons/react/dist/ssr";
 import { ButtonLink } from "./ui/Button";
-import IconButton from "./ui/IconButton";
-
 import ScrollReveal from "./ScrollReveal";
 
-type ProjectCard = { title: string; image: string; alt: string; overlay: string; desktopClassName: string; backgroundPosition?: string; showViewProject?: boolean; };
+type Project = { title: string; image: string; alt: string };
 
-const colSpan = "md:col-span-3";
-
-const slides: ProjectCard[][] = [
-  [
-    { title: "The Heights Penthouse", image: "/images/projects/recent-project-1.png", alt: "Luxury penthouse living room with skyline view", overlay: "linear-gradient(180deg, rgba(150, 155, 148, 0.18) 0%, rgba(18, 21, 16, 0.38) 100%)", desktopClassName: colSpan, backgroundPosition: "center center", showViewProject: true },
-    { title: "Regency Corporate Hub", image: "/images/projects/recent-project-2.png", alt: "Modern glass office building interior", overlay: "linear-gradient(180deg, rgba(3, 12, 13, 0.08) 0%, rgba(3, 9, 12, 0.54) 100%)", desktopClassName: colSpan, backgroundPosition: "center center" },
-    { title: "Luxe Retail Plaza", image: "/images/projects/recent-project-3.png", alt: "High-end shopping mall atrium", overlay: "linear-gradient(180deg, rgba(9, 22, 19, 0.12) 0%, rgba(8, 14, 13, 0.42) 100%)", desktopClassName: colSpan, backgroundPosition: "center center" },
-    { title: "Azure Marina Villas", image: "/images/projects/recent-project-4.png", alt: "Waterfront luxury villa exterior", overlay: "linear-gradient(180deg, rgba(152, 140, 118, 0.14) 0%, rgba(19, 18, 14, 0.42) 100%)", desktopClassName: colSpan, backgroundPosition: "center center" },
-  ],
-  [
-    { title: "Global Tech Campus", image: "/images/unsplash/photo-1518770660439-4636190af475.jpg", alt: "Minimalist tech office lobby", overlay: "linear-gradient(180deg, rgba(2, 10, 13, 0.1) 0%, rgba(3, 10, 12, 0.55) 100%)", desktopClassName: colSpan, backgroundPosition: "center center", showViewProject: true },
-    { title: "Skyview Residences", image: "/images/unsplash/photo-1506744038136-46273834b3fb.jpg", alt: "Modern apartment balcony view", overlay: "linear-gradient(180deg, rgba(8, 22, 20, 0.1) 0%, rgba(8, 16, 15, 0.4) 100%)", desktopClassName: colSpan, backgroundPosition: "center center" },
-    { title: "Beacon Health Center", image: "/images/unsplash/photo-1473341304170-971dccb5ac1e.jpg", alt: "Sterile medical facility hallway", overlay: "linear-gradient(180deg, rgba(118, 139, 154, 0.12) 0%, rgba(12, 18, 17, 0.42) 100%)", desktopClassName: colSpan, backgroundPosition: "center center" },
-    { title: "Grand Horizon Hotel", image: "/images/unsplash/photo-1516321318423-f06f85e504b3.jpg", alt: "Luxury hotel lobby with marble floors", overlay: "linear-gradient(180deg, rgba(3, 9, 12, 0.08) 0%, rgba(2, 10, 12, 0.56) 100%)", desktopClassName: colSpan, backgroundPosition: "center center" },
-  ],
-  [
-    { title: "Nature Retreat Spa", image: "/images/unsplash/photo-1441974231531-c6227db76b6e.jpg", alt: "Serene spa interior", overlay: "linear-gradient(180deg, rgba(9, 18, 14, 0.08) 0%, rgba(8, 13, 11, 0.44) 100%)", desktopClassName: colSpan, backgroundPosition: "center center", showViewProject: true },
-    { title: "Summit Executive Suites", image: "/images/unsplash/photo-1466611653911-95081537e5b7.jpg", alt: "High-floor executive office", overlay: "linear-gradient(180deg, rgba(150, 149, 132, 0.14) 0%, rgba(15, 17, 13, 0.42) 100%)", desktopClassName: colSpan, backgroundPosition: "center center" },
-    { title: "Elite Fitness Club", image: "/images/unsplash/photo-1489515217757-5fd1be406fef.jpg", alt: "High-end gym interior", overlay: "linear-gradient(180deg, rgba(4, 10, 12, 0.08) 0%, rgba(4, 10, 12, 0.58) 100%)", desktopClassName: colSpan, backgroundPosition: "center center" },
-    { title: "Legacy Library Hall", image: "/images/unsplash/photo-1505764706515-aa95265c5abc.jpg", alt: "Polished historic library", overlay: "linear-gradient(180deg, rgba(8, 22, 20, 0.08) 0%, rgba(7, 13, 12, 0.44) 100%)", desktopClassName: colSpan, backgroundPosition: "center center" },
-  ],
+const projects: Project[] = [
+  { title: "The Heights Penthouse", image: "/images/projects/recent-project-1.png", alt: "Luxury penthouse living room with skyline view" },
+  { title: "Regency Corporate Hub", image: "/images/projects/recent-project-2.png", alt: "Modern glass office building interior" },
+  { title: "Luxe Retail Plaza", image: "/images/projects/recent-project-3.png", alt: "High-end shopping mall atrium" },
+  { title: "Azure Marina Villas", image: "/images/projects/recent-project-4.png", alt: "Waterfront luxury villa exterior" },
+  { title: "Global Tech Campus", image: "/images/unsplash/photo-1518770660439-4636190af475.jpg", alt: "Minimalist tech office lobby" },
+  { title: "Skyview Residences", image: "/images/unsplash/photo-1506744038136-46273834b3fb.jpg", alt: "Modern apartment balcony view" },
+  { title: "Beacon Health Center", image: "/images/unsplash/photo-1473341304170-971dccb5ac1e.jpg", alt: "Sterile medical facility hallway" },
+  { title: "Grand Horizon Hotel", image: "/images/unsplash/photo-1516321318423-f06f85e504b3.jpg", alt: "Luxury hotel lobby with marble floors" },
+  { title: "Nature Retreat Spa", image: "/images/unsplash/photo-1441974231531-c6227db76b6e.jpg", alt: "Serene spa interior" },
+  { title: "Summit Executive Suites", image: "/images/unsplash/photo-1466611653911-95081537e5b7.jpg", alt: "High-floor executive office" },
+  { title: "Elite Fitness Club", image: "/images/unsplash/photo-1489515217757-5fd1be406fef.jpg", alt: "High-end gym interior" },
+  { title: "Legacy Library Hall", image: "/images/unsplash/photo-1505764706515-aa95265c5abc.jpg", alt: "Polished historic library" },
 ];
 
-const slideVariants = {
-  enter: (direction: number) => ({ opacity: 0, x: direction > 0 ? 84 : -84 }),
-  center: { opacity: 1, x: 0 },
-  exit: (direction: number) => ({ opacity: 0, x: direction > 0 ? -84 : 84 }),
-};
+const pad = (n: number) => String(n).padStart(2, "0");
+const ease = "ease-[cubic-bezier(0.22,1,0.36,1)]";
+
+/** Horizontal track with arrow paging, mouse drag-to-scroll, and a progress readout. */
+function useGalleryTrack() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const barRef = useRef<HTMLSpanElement>(null);
+  const [active, setActive] = useState(0);
+
+  const step = useCallback(() => {
+    const track = trackRef.current;
+    const card = track?.querySelector<HTMLElement>("[data-card]");
+    if (!track || !card) return 0;
+    return card.offsetWidth + parseFloat(getComputedStyle(track).columnGap || "0");
+  }, []);
+
+  const onScroll = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const max = track.scrollWidth - track.clientWidth;
+    const progress = max > 0 ? track.scrollLeft / max : 0;
+    if (barRef.current) barRef.current.style.transform = `scaleX(${Math.max(0.06, progress)})`;
+    const s = step();
+    if (s) setActive(Math.min(projects.length - 1, Math.round(track.scrollLeft / s)));
+  }, [step]);
+
+  const page = (dir: 1 | -1) => trackRef.current?.scrollBy({ left: dir * step(), behavior: "smooth" });
+
+  // Mouse drag-to-scroll (touch already scrolls natively).
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    let startX = 0;
+    let startLeft = 0;
+    let dragging = false;
+    let moved = false;
+
+    const down = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse" || e.button !== 0) return;
+      dragging = true;
+      moved = false;
+      startX = e.clientX;
+      startLeft = track.scrollLeft;
+    };
+    const move = (e: PointerEvent) => {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      if (!moved && Math.abs(dx) > 5) {
+        moved = true;
+        track.style.scrollSnapType = "none";
+        track.style.cursor = "grabbing";
+      }
+      if (moved) track.scrollLeft = startLeft - dx;
+    };
+    const up = () => {
+      if (!dragging) return;
+      dragging = false;
+      track.style.cursor = "";
+      if (moved) {
+        const s = step();
+        track.scrollTo({ left: s ? Math.round(track.scrollLeft / s) * s : track.scrollLeft, behavior: "smooth" });
+        setTimeout(() => (track.style.scrollSnapType = ""), 500);
+      }
+    };
+    // Swallow the click that ends a drag so cards don't navigate.
+    const click = (e: MouseEvent) => {
+      if (moved) {
+        e.preventDefault();
+        e.stopPropagation();
+        moved = false;
+      }
+    };
+
+    track.addEventListener("pointerdown", down);
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+    track.addEventListener("click", click, true);
+    onScroll();
+    return () => {
+      track.removeEventListener("pointerdown", down);
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+      track.removeEventListener("click", click, true);
+    };
+  }, [onScroll, step]);
+
+  return { trackRef, barRef, active, onScroll, page };
+}
+
+function ArrowButton({ dir, onClick }: { dir: 1 | -1; onClick: () => void }) {
+  const Icon = dir === 1 ? CaretRight : CaretLeft;
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={dir === 1 ? "Next projects" : "Previous projects"}
+      className="flex h-12 w-12 items-center justify-center border border-aztec/15 text-aztec transition-colors duration-300 hover:border-aztec hover:bg-aztec hover:text-yellow-green md:h-14 md:w-14"
+    >
+      <Icon size={20} weight="bold" aria-hidden />
+    </button>
+  );
+}
 
 export default function RecentProjectsSection() {
-  const [activeSlide, setActiveSlide] = useState(0);
-  const [direction, setDirection] = useState(1);
-  const shouldReduceMotion = useReducedMotion();
-
-  const navigateToSlide = (nextIndex: number) => { setDirection(nextIndex > activeSlide ? 1 : -1); setActiveSlide(nextIndex); };
-  const previousSlide = () => { const n = activeSlide === 0 ? slides.length - 1 : activeSlide - 1; setDirection(-1); setActiveSlide(n); };
-  const nextSlide = () => { const n = activeSlide === slides.length - 1 ? 0 : activeSlide + 1; setDirection(1); setActiveSlide(n); };
+  const { trackRef, barRef, active, onScroll, page } = useGalleryTrack();
 
   return (
-    <section className="bg-white py-16 md:py-24 px-5 md:px-10 lg:px-20 text-aztec">
-      <motion.div className="mx-auto max-w-[1450px]" initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }} whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
-
-        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6 lg:gap-12 mb-10 md:mb-16">
-          <div className="max-w-2xl">
-            <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-pine-green font-semibold uppercase tracking-widest text-sm mb-4 block">
+    <section className="overflow-hidden bg-white pb-16 pt-16 text-aztec md:pb-28 md:pt-24">
+      {/* Header */}
+      <div className="px-5 md:px-10 lg:px-20">
+        <div className="mx-auto mb-12 grid max-w-[1450px] gap-8 md:mb-16 lg:grid-cols-12 lg:items-end lg:gap-12">
+          <div className="lg:col-span-8">
+            <span
+              data-reveal
+              className="mb-5 flex items-center gap-3 text-sm font-semibold uppercase tracking-widest text-pine-green"
+            >
+              <span className="h-px w-10 bg-pine-green" aria-hidden />
               Portfolio Highlights
-            </motion.span>
+            </span>
             <ScrollReveal
               as="h2"
-              enableBlur={true}
-              blurStrength={8}
-              containerClassName="text-2xl md:text-4xl leading-[1.1] text-aztec"
+              containerClassName="max-w-3xl text-3xl leading-[1.05] tracking-tight text-aztec md:text-5xl lg:text-6xl"
             >
               Signature Results, Global Standards
             </ScrollReveal>
           </div>
-          <div className="flex flex-col items-start lg:items-end gap-6 lg:gap-8 w-full lg:w-auto">
-           <motion.p
-  initial={{ opacity: 0, y: 24 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true, margin: "-50px" }}
-  transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-  className="text-xanadu text-base md:text-lg max-w-sm text-left lg:text-right leading-relaxed"
->
-  Explore our portfolio of high-end penthouses, corporate headquarters, and luxury estates maintained to the Joseph.co standard.
-</motion.p>
-            <div className="flex items-center gap-4 self-start lg:self-end">
-              <motion.button type="button" aria-label="Previous project" onClick={previousSlide} whileHover={{ y: -2 }} whileTap={{ scale: 0.96 }} className="flex h-11 w-11 md:h-12 md:w-12 items-center justify-center rounded-full bg-white text-aztec shadow-sm transition-colors duration-300 hover:bg-aztec hover:text-white border border-aztec/5">
-                <CaretLeft size={20} weight="bold" />
-              </motion.button>
-              <motion.button type="button" aria-label="Next project" onClick={nextSlide} whileHover={{ y: -2 }} whileTap={{ scale: 0.96 }} className="flex h-11 w-11 md:h-12 md:w-12 items-center justify-center rounded-full bg-white text-aztec shadow-sm transition-colors duration-300 hover:bg-aztec hover:text-white border border-aztec/5">
-                <CaretRight size={20} weight="bold" />
-              </motion.button>
+          <p
+            data-reveal
+            data-reveal-delay="0.15"
+            className="max-w-sm border-t border-pine-green/30 pt-5 text-base leading-relaxed text-xanadu md:text-lg lg:col-span-4 lg:justify-self-end"
+          >
+            Explore our portfolio of high-end penthouses, corporate headquarters, and luxury estates maintained to the Joseph.co standard.
+          </p>
+        </div>
+      </div>
+
+      {/* Track: starts at the content edge, bleeds off the right of the viewport */}
+      <div
+        ref={trackRef}
+        onScroll={onScroll}
+        data-reveal-group
+        className="flex cursor-grab snap-x snap-mandatory items-start gap-4 overflow-x-auto pb-6 pl-5 pr-5 scroll-pl-5 [scrollbar-width:none] md:gap-6 md:pl-10 md:scroll-pl-10 lg:pl-20 lg:scroll-pl-20 xl:pl-[max(5rem,calc((100vw-1450px)/2))] xl:scroll-pl-[max(5rem,calc((100vw-1450px)/2))] [&::-webkit-scrollbar]:hidden"
+      >
+        {projects.map((project, index) => (
+          <Link
+            key={project.title}
+            href="/gallery"
+            data-card
+            data-reveal-item
+            draggable={false}
+            aria-label={`View ${project.title}`}
+            className={`group relative block w-[78vw] shrink-0 snap-start sm:w-[46vw] lg:w-[30vw] xl:w-[400px] ${index % 2 === 1 ? "md:mt-14" : ""}`}
+          >
+            <div className="relative aspect-[4/5] overflow-hidden bg-[#d9d9d2]">
+              <Image
+                src={project.image}
+                alt={project.alt}
+                fill
+                draggable={false}
+                sizes="(max-width: 640px) 78vw, (max-width: 1024px) 46vw, 400px"
+                className={`object-cover transition-transform duration-[1.2s] ${ease} group-hover:scale-[1.07]`}
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-aztec/85 via-aztec/10 to-transparent" />
+
+              <span className="absolute left-5 top-5 font-sans text-[11px] font-bold tracking-[.2em] text-white/85">
+                {pad(index + 1)}
+              </span>
+
+              <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+                <h3 className="mb-4 text-xl font-medium leading-tight tracking-tight text-white md:text-2xl">
+                  {project.title}
+                </h3>
+                <span
+                  className={`inline-flex translate-y-2 items-center gap-2 bg-yellow-green px-3.5 py-2 font-sans text-[11px] font-bold uppercase tracking-[.16em] text-aztec opacity-0 transition-all duration-500 ${ease} group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100`}
+                >
+                  View project
+                  <ArrowUpRight size={14} weight="bold" aria-hidden />
+                </span>
+              </div>
             </div>
-          </div>
-        </div>
+          </Link>
+        ))}
+      </div>
 
-        <div className="overflow-hidden">
-          <div className="relative min-h-[380px] sm:min-h-[460px] md:min-h-[340px] lg:min-h-[380px]">
-            <AnimatePresence initial={false} custom={direction} mode="wait">
-              <motion.div key={activeSlide} custom={direction} variants={shouldReduceMotion ? undefined : slideVariants} initial={shouldReduceMotion ? undefined : "enter"} animate={shouldReduceMotion ? undefined : "center"} exit={shouldReduceMotion ? undefined : "exit"} transition={{ duration: 0.64, ease: [0.22, 1, 0.36, 1] }} className="grid grid-cols-2 gap-3 md:gap-4 md:grid-cols-12">
-                {slides[activeSlide].map((project, index) => (
-                  <motion.article key={project.title} whileHover={shouldReduceMotion ? undefined : "hover"} initial={shouldReduceMotion ? false : { opacity: 0, y: 26 }} animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: shouldReduceMotion ? 0 : 0.08 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                    className={`group relative overflow-hidden bg-[#d9d9d2] ${project.desktopClassName} min-h-[180px] sm:min-h-[220px] md:min-h-[340px] lg:min-h-[380px]`}>
-                    <motion.div variants={shouldReduceMotion ? undefined : { hover: { scale: 1.045 } }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="absolute inset-0"
-                      style={{ backgroundImage: `${project.overlay}, url("${project.image}")`, backgroundPosition: project.backgroundPosition ?? "center center", backgroundRepeat: "no-repeat", backgroundSize: "cover" }} aria-label={project.alt} role="img" />
-                    <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-2 bg-gradient-to-t from-black/50 via-black/25 to-transparent p-3 sm:gap-2.5 sm:p-4 lg:flex-row lg:items-end lg:justify-between lg:gap-3 lg:p-5">
-                      <motion.p
-                        variants={shouldReduceMotion ? undefined : { hover: { y: -2 } }}
-                        className="min-w-0 text-xs font-medium leading-snug tracking-tight text-white sm:text-sm lg:max-w-[55%] lg:text-base"
-                        style={{ fontFamily: "var(--font-inter), sans-serif" }}
-                      >
-                        {project.title}
-                      </motion.p>
-                      {project.showViewProject && (
-                        <motion.div variants={shouldReduceMotion ? undefined : { hover: { y: -2 } }} className="shrink-0 self-start lg:self-auto">
-                          <Link
-                            href="/gallery"
-                            aria-label={`View ${project.title}`}
-                            className="inline-flex max-w-full items-center gap-1.5 rounded-full bg-[#dbe783]/10 px-2.5 py-1.5 text-[11px] font-medium tracking-tight text-[#d5d18d] backdrop-blur-md transition duration-300 hover:bg-[#dbe783]/18 hover:text-[#eff7ae] sm:gap-2 sm:px-3 sm:py-2 sm:text-xs xl:gap-3 xl:px-4 xl:text-sm"
-                            style={{ fontFamily: "var(--font-inter), sans-serif" }}
-                          >
-                            <span className="whitespace-nowrap sm:inline 2xl:hidden">View</span>
-                            <span className="hidden whitespace-nowrap 2xl:inline">View Project</span>
-                            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#d5d18d]/25 bg-black/10 text-xs sm:h-7 sm:w-7 xl:h-8 xl:w-8" aria-hidden="true">
-                              ↗
-                            </span>
-                          </Link>
-                        </motion.div>
-                      )}
-                    </div>
-                  </motion.article>
-                ))}
-              </motion.div>
-            </AnimatePresence>
+      {/* Controls */}
+      <div className="px-5 md:px-10 lg:px-20">
+        <div className="mx-auto flex max-w-[1450px] flex-wrap items-center gap-6 md:gap-10">
+          <span className="font-sans text-sm font-bold tabular-nums tracking-[.2em] text-aztec">
+            {pad(active + 1)} <span className="text-aztec/30">/ {pad(projects.length)}</span>
+          </span>
+          <div className="relative h-px min-w-[120px] flex-1 bg-aztec/10">
+            <span
+              ref={barRef}
+              className="absolute inset-y-[-1px] left-0 w-full origin-left bg-pine-green transition-transform duration-300"
+              style={{ transform: "scaleX(0.06)" }}
+              aria-hidden
+            />
           </div>
+          <div className="flex gap-2">
+            <ArrowButton dir={-1} onClick={() => page(-1)} />
+            <ArrowButton dir={1} onClick={() => page(1)} />
+          </div>
+          <ButtonLink href="/gallery" variant="primary" className="!h-12 !px-7 md:!h-14">
+            View All
+          </ButtonLink>
         </div>
-
-        <div className="mt-6 md:mt-8 grid gap-4 md:grid-cols-[auto_1fr_auto] md:items-center">
-          <div className="btn-pair">
-            <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}><ButtonLink href="/gallery" variant="primary">View All</ButtonLink></motion.div>
-            <motion.div whileHover={{ y: -2, rotate: 3 }} whileTap={{ scale: 0.96 }}><IconButton href="/gallery" aria-label="View all projects" size="md" /></motion.div>
-          </div>
-          <div className="flex items-center justify-center gap-2">
-            {slides.map((_, index) => (
-              <motion.button key={index} type="button" aria-label={`Go to project slide ${index + 1}`} onClick={() => navigateToSlide(index)} whileTap={{ scale: 0.92 }}
-                className={`rounded-full transition-all duration-300 ${index === activeSlide ? "h-[10px] w-[10px] bg-aztec" : "h-[10px] w-[10px] bg-aztec/20 hover:bg-aztec/40"}`} />
-            ))}
-          </div>
-        </div>
-
-      </motion.div>
+      </div>
     </section>
   );
 }

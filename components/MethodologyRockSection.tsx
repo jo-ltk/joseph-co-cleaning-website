@@ -68,6 +68,7 @@ export default function MethodologyRockSection() {
             }
           >
             <Image
+              data-parallax="-0.12"
               src="/images/methodology-stone.png"
               alt="Stone cleaning art"
               width={340}

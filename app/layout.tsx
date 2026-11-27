@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
 
 import "../app/globals.css";
-import SmoothScroll from "@/components/SmoothScroll";
+import MotionProvider from "@/components/motion/MotionProvider";
 import PresentationRouteExtras from "@/components/PresentationRouteExtras";
 // import PremiumSupportAssistant from "@/components/PremiumSupportAssistant";
 import { Toaster } from "sonner";
@@ -79,14 +79,14 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={jsonLdScript(globalSchemas)}
         />
-        <SmoothScroll>
+        <MotionProvider>
           <main className="relative w-full overflow-x-hidden">
             {children}
           </main>
           <PresentationRouteExtras />
           {/* <PremiumSupportAssistant /> */}
           <Toaster position="bottom-right" richColors />
-        </SmoothScroll>
+        </MotionProvider>
       </body>
     </html>
   );

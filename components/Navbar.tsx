@@ -95,24 +95,24 @@ export default function Navbar({
         }}
         className="pointer-events-none fixed inset-x-0 top-0 z-30"
       >
-        <nav className="mx-auto flex w-full max-w-[1920px] items-start justify-between px-5 pt-5 md:px-5">
+        <nav className="mx-auto flex w-full max-w-[1920px] items-start justify-between gap-2 px-3 pt-3 lg:gap-3 lg:px-5 lg:pt-5">
           {/* ... existing nav content ... */}
           <motion.div
             initial={{ opacity: 0, y: -18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="pointer-events-auto w-full md:w-max"
+            className="pointer-events-auto w-full min-w-0 md:w-max md:shrink"
           >
-            <div className="hidden items-center rounded-[8px] bg-white px-5 py-6 text-[#111713] shadow-[0_24px_70px_rgba(0,0,0,0.18)] md:flex">
+            <div className="hidden items-center rounded-[8px] bg-white px-3 py-4 lg:px-5 lg:py-6 text-[#111713] shadow-[0_24px_70px_rgba(0,0,0,0.18)] md:flex">
               <Link
                 href="/"
                 className="shrink-0 flex items-center gap-2"
               >
-                <img src="/logo.png" alt="Joseph.co Logo" className="h-12 md:h-16 w-auto object-contain scale-[1.65] origin-left" />
+                <img src="/logo.png" alt="Joseph.co Logo" className="h-9 lg:h-16 w-auto object-contain scale-[1.65] origin-left" />
               </Link>
 
               <ul
-                className="ml-11 flex items-center gap-7 text-[0.95rem] font-medium tracking-[-0.05em]"
+                className="ml-4 flex items-center gap-2.5 text-[0.7rem] lg:ml-8 lg:gap-5 lg:text-[0.85rem] xl:ml-11 xl:gap-7 xl:text-[0.95rem] font-medium tracking-[-0.05em]"
                 style={{ fontFamily: "var(--font-inter), sans-serif" }}
               >
                 {navigationItems.map((item, index) => (
@@ -179,15 +179,15 @@ export default function Navbar({
               initial={{ opacity: 0, y: -18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="pointer-events-auto hidden items-center gap-3 md:flex"
+              className="pointer-events-auto hidden shrink-0 items-center gap-2 whitespace-nowrap md:flex lg:gap-3"
             >
               <motion.button 
                 whileHover={{ y: -2 }} 
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setEstimateOpen(true)}
-                className="flex items-center gap-2 rounded-full border border-aztec/10 bg-white px-6 py-3 text-sm font-bold text-aztec transition-all hover:bg-gray-50"
+                className="flex items-center gap-2 rounded-full border border-aztec/10 bg-white px-3 py-2 text-xs whitespace-nowrap lg:px-6 lg:py-3 lg:text-sm font-bold text-aztec transition-all hover:bg-gray-50"
               >
-                <Calculator size={18} weight="bold" />
+                <Calculator size={18} weight="bold" className="hidden lg:block" />
                 Instant Estimate
               </motion.button>
 
@@ -195,7 +195,7 @@ export default function Navbar({
                 <ButtonLink
                   href="/contact?source=Navbar"
                   variant="primary"
-                  className="px-8"
+                  className="!h-9 !px-4 !text-xs lg:!h-12 lg:!px-6 lg:!text-[0.98rem] xl:!px-8"
                 >
                   Book Quote
                 </ButtonLink>
@@ -205,6 +205,7 @@ export default function Navbar({
                 <IconButton
                   href="/contact?source=Navbar"
                   aria-label="Book Quote"
+                  className="!h-9 !w-9 lg:!h-12 lg:!w-12"
                   size="md"
                 />
               </motion.div>
@@ -214,7 +215,7 @@ export default function Navbar({
               initial={{ opacity: 0, y: -18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="pointer-events-auto hidden items-center gap-3 md:flex"
+              className="pointer-events-auto hidden shrink-0 items-center gap-2 whitespace-nowrap md:flex lg:gap-3"
             >
               <form action={onLogout as any}>
                 <motion.button
